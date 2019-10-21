@@ -1,0 +1,36 @@
+.listMenu {
+    margin-top: 2em;
+}
+
+.categoria {
+    height: 8em;
+    margin: 0 0 1em;
+    overflow: hidden;
+}
+
+.categoName {
+    font-size: 1.5em;
+    position: absolute;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 1em;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    line-height: 8;
+}
+
+@media screen and (min-width: 500px) {
+    .listMenu {
+        display: flex !important;
+        flex-flow: row wrap;
+        position: relative;
+        top: 5em;
+    }
+    .categoria {
+        width: 21% !important;
+        margin: 1em !important;
+    }
+    .categoria img {
+        height: 100%;
+        width: 100%;
+    }
+}

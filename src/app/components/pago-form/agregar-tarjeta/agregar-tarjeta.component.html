@@ -1,0 +1,75 @@
+<div class="row" id="barraTitulo">
+    <div class="col s1">
+        <a href="javascript:history.back()" class="back ltxt">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+    <div class="col s10">
+        <p class="titleLabel ltxt center">
+            AGREGAR
+        </p>
+    </div>
+</div>
+<div class="container contenido" id="pagarPlan">
+
+
+    <div class="row formulario">
+        <form action="#" method="POST" #pagoForm="ngForm" onsubmit="return false" id="pagoForm">
+            <div class="row">
+                <div class="col s12 input-field">
+                    <input type="text" name="name" id="name" #name data-conekta="card[name]" value="" required>
+                    <label for="name">Nombre del titular</label>
+                    <span class="alertForm" *ngIf="name.invalid && (name.dirty || name.touched) ">
+                          Debes agregar nombre
+                        </span>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="text" id="email" #email data-conekta="card[email]" maxlength="16" required>
+                    <label for="email">Correo Electrónico</label>
+                    <span class="alertForm" *ngIf="email.invalid && (email.dirty || email.touched) ">
+                            Debes agregar un email
+                          </span>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="text" id="phone" data-conekta="card[phone]" minlength="10" maxlength="10">
+                    <label for="phone">Teléfono (xxx) xxx xxxx</label>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="text" id="numTarjeta" #numTarjeta data-conekta="card[number]" maxlength="16" required>
+                    <label for="numTarjeta">Numero de tarjeta</label>
+                    <span class="alertForm" *ngIf="numTarjeta.invalid && (numTarjeta.dirty || numTarjeta.touched) ">
+                            Debes agregar un # de tarjeta
+                          </span>
+                </div>
+                <div class="col s3 input-field">
+                    <input type="text" id="CVC" #cvc data-conekta="card[cvc]" maxlength="3">
+                    <label for="CVC">CVC</label>
+                    <span class="alertForm" *ngIf="cvc.invalid && (cvc.dirty || cvc.touched) ">
+                            3 dígitos del reverso
+                          </span>
+                </div>
+                <div class="col s3"></div>
+                <div class="col s3 input-field">
+                    <input type="text" id="mes" #mes data-conekta="card[exp_month]" maxlength="2">
+                    <label for="mes">MES</label>
+                </div>
+                <span class="alertForm" *ngIf="mes.invalid && (mes.dirty || mes.touched) ">
+                        Falta mes de expiración
+                      </span>
+                <div class="col s3 input-field">
+                    <input type="text" id="ano" #ano data-conekta="card[exp_year]" maxlength="2">
+                    <label for="ano">AÑO</label>
+                </div>
+                <span class="alertForm" *ngIf="ano.invalid && (ano.dirty || ano.touched) ">
+                        Falta año de expiración
+                      </span>
+                <input type="hidden" name="token" id="token">
+                <div class="col s12">
+                    <button class="needbtn" (click)="tokenConekta()" [disabled]="!pagoForm.form.valid">AGREGAR</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>

@@ -1,0 +1,23 @@
+<div class="row" id="barraTitulo">
+    <div class="col s1">
+        <a href="javascript:history.back()" class="back ltxt">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+    <div class="col s10">
+        <p class="titleLabel ltxt center">
+            PAGAR
+        </p>
+    </div>
+</div>
+<div class="container contenido" id="pagarPlan">
+    <p class="ltxt center"> ¡Buena elección! <br>Ahora vamos a pagarlo</p>
+
+
+    <div class="row">
+        <div class="col s12">
+            <app-pago-form [nombre]="plan.name" [concepto]="'plan'" [total]="plan.total"></app-pago-form>
+        </div>
+    </div>
+
+</div>

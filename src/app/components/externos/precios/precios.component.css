@@ -1,0 +1,71 @@
+.listMenu {
+    margin-top: 2em;
+    position: relative;
+    top: 5em;
+}
+
+.concepto {
+    height: 8em;
+    margin: 0 0 1em;
+    overflow: hidden;
+}
+
+.conceptName {
+    font-size: 1.5em;
+    position: absolute;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 1em;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    line-height: 8;
+    text-transform: uppercase;
+    z-index: 1
+}
+
+.conceptPrecio {
+    font-size: 1.5em;
+    position: absolute;
+    font-weight: 600;
+    color: gold;
+    margin-left: 1em;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    line-height: 8;
+    z-index: 1;
+}
+
+.concepto img {
+    width: 100%;
+    top: -3em;
+    position: relative;
+}
+
+@media screen and (max-width: 500px) {
+    .conceptPrecio {
+        right: 1em;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .listMenu {
+        display: flex !important;
+        flex-flow: row wrap;
+        position: relative;
+        top: 5em;
+    }
+    .concepto {
+        width: 45% !important;
+        height: 20em !important;
+        margin: 1em !important;
+    }
+    .concepto img {
+        height: 100%;
+        max-width: 200%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .conceptPrecio {
+        margin-left: 15em;
+        z-index: 1;
+    }
+}

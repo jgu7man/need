@@ -1,0 +1,22 @@
+#menu {
+    width: 0vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    transition: all .4s
+}
+
+.opened {
+    width: 100vw !important;
+}
+
+.fa-times {
+    color: #ccc;
+    font-size: 1.5em;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    z-index: 10;
+}

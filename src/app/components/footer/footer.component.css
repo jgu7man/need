@@ -1,0 +1,13 @@
+.container {
+    width: 100vw;
+    height: 5em;
+    margin: 0;
+    background: #202020;
+    color: blueviolet;
+    position: fixed;
+    min-width: 100%;
+}
+
+.credits {
+    text-align: center;
+}

@@ -1,0 +1,32 @@
+#planes {
+    overflow: auto;
+    height: 65vh;
+    padding-bottom: 6em;
+}
+
+#planes::-webkit-scrollbar-thumb {
+    background: #6C009C;
+    border-radius: 1em;
+}
+
+.plan {
+    color: #ccc;
+    position: relative;
+    margin: .75em auto;
+    box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.9);
+    padding: 1.5em;
+    width: 90% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+}
+
+@media screen and (min-width: 500px) {
+    #planes {
+        display: flex;
+        flex-flow: row;
+    }
+    .plan {
+        width: 20% !important;
+        left: 10% !important;
+    }
+}

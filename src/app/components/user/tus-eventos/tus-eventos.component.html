@@ -1,0 +1,25 @@
+<div class="row" id="barraTitulo">
+    <div class="col s12">
+        <p class="titleLabel ltxt center">
+            TUS EVENTOS
+        </p>
+    </div>
+</div>
+
+<div class="container contenido">
+
+
+    <div class="row" id="acordion">
+        <div *ngFor="let evento of eventos" id={{evento.id}} class="eventoCont ltxt col s12" (click)="!more" [routerLink]="['../evento/', evento.id]">
+            <div class="col s6"> Tipo de evento: <br> {{evento.tipoEvento}} </div>
+            <div class="col s6 edo">
+                {{evento.estado}}
+                <span class="est resaltado" [ngClass]="{'gold-text': evento.estado=='pendiente'}" [ngClass]="{'green-text': evento.estado=='proximo'}" [ngClass]="{'red-text': evento.estado=='cancelado'}" [ngClass]="{'deep-purple-text text-accent-4': evento.estado=='completado'}">
+                    <i class="fas fa-circle"></i>
+                </span>
+                <br> {{evento.fecha.toLocaleDateString()}}
+            </div>
+
+        </div>
+    </div>
+</div>

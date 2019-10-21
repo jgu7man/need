@@ -1,0 +1,98 @@
+<div class="container contenido">
+    <div class="row center ltxt">
+        <div class="col s12">
+            <h4 class="exclam">¡Muy bien!</h4>
+            <p class="grey-text lighten-1">Ahora que ya sabemos lo que necesitas para tu evento de {{evento.tipoEvento}}, te presentamos una cotizción</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 white-text">
+            <div class="cotiTable">
+                <form name="cotizacion" #cotizacion="ngForm" (ngSubmit)="contratar()" action="#" method="post" onsubmit="return false">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cant.</th>
+                                <th>Concepto</th>
+                                <th>Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="number" name="meseros" value={{personal.meseros}} [(ngModel)]="personal.meseros" #meseros="ngModel">
+                                </td>
+                                <td> Meseros </td>
+                                <td> ${{precios.mesero * personal.meseros}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="jefeMeseros" value={{personal.jefeMeseros}} [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
+                                </td>
+                                <td> jefeMeseros </td>
+                                <td> ${{precios.jefe * personal.jefeMeseros}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="barman" value={{extras.barman}} [(ngModel)]="extras.barman" #barman="ngModel">
+                                </td>
+                                <td> Barman </td>
+                                <td> ${{precios.barman * extras.barman}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="barra" value={{extras.barra}} [(ngModel)]="extras.barra" #barra="ngModel">
+                                </td>
+                                <td> Personal de barra </td>
+                                <td> ${{precios.barra * extras.barra}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="valet" value={{extras.valet}} [(ngModel)]="extras.valet" #valet="ngModel">
+                                </td>
+                                <td> Personal de valet </td>
+                                <td> ${{precios.valet * extras.valet}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="hostess" value={{extras.hostess}} [(ngModel)]="extras.hostess" #hostess="ngModel">
+                                </td>
+                                <td> Personal de hostess </td>
+                                <td> ${{precios.hostess * extras.hostess}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="seguridad" value={{extras.seguridad}} [(ngModel)]="extras.seguridad" #seguridad="ngModel">
+                                </td>
+                                <td> Personal de seguridad </td>
+                                <td> ${{precios.seguridad * extras.seguridad}}</td>
+                            </tr>
+
+                            <tr class="totales">
+                                <td> </td>
+                                <td> TOTAL </td>
+                                <td> $<b class="resaltado" id="total">{{
+                                        (precios.mesero * personal.meseros) +
+                                        (precios.jefe * personal.jefeMeseros) +
+                                        (precios.barman * extras.barman) +
+                                        (precios.barra * extras.barra) +
+                                        (precios.valet * extras.valet) +
+                                        (precios.hostess * extras.hostess) +
+                                        (precios.seguridad * extras.seguridad) 
+                                }}</b> </td>
+                            </tr>
+                            <input type="hidden" name="total" value={{total}}>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <p class="center white-text">¿Listo para contratar?</p>
+            <button class="needbtn" (click)="contratar()">Contratar</button>
+        </div>
+    </div>
+</div>

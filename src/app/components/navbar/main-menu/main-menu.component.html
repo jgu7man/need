@@ -1,0 +1,40 @@
+<div class="overlay">
+
+    <div id="mainMenu">
+
+        <div class="row areaLogo">
+            <div class="col s12 center">
+                <div class="logo">
+                    <img src="../../../assets/img/logos/logo256.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="authService.user$ | async; then usuario; else invitado"></div>
+        <div id="areaLinks">
+            <div class="col s12 right">
+                <ng-template #invitado>
+                    <p class="Link">
+                        Únete al equipo NEED
+                    </p>
+                </ng-template>
+
+                <p class="Link" *ngIf="provLink" [routerLink]="['/directorio/bienvenida']" (click)="toggleMenu()">
+                    Publica tus servicios
+                </p>
+                <p class="Link" *ngIf="conocenosLink" [routerLink]="['/conocenos']" (click)="toggleMenu()">
+                    Conócenos
+                </p>
+                <p class="Link" *ngIf="preciosLink" [routerLink]="['/precios']" (click)="toggleMenu()">
+                    Precios
+                </p>
+                <ng-template #usuario>
+                    <p class="Link" (click)="authService.singOut()">
+                        Cerrar Sesión
+                    </p>
+                </ng-template>
+            </div>
+        </div>
+
+    </div>
+
+</div>

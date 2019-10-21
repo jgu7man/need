@@ -1,0 +1,206 @@
+.contenido {
+    background: purple;
+    width: 100%;
+    top: 0em;
+    position: relative;
+}
+
+.back {
+    font-size: 2em;
+    padding: 0 1em;
+    position: absolute;
+    top: .5em;
+    right: 0em;
+}
+
+.activated {
+    color: gold
+}
+
+.rowMenu {
+    top: 0 !important;
+}
+
+#perfil {
+    width: 100vw
+}
+
+#imgPerfil {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 0 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .8);
+    border-radius: 1em;
+}
+
+#imgPerfil img {
+    height: 100%;
+    max-width: 200%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+}
+
+#perfil h4 {
+    font-weight: 700;
+}
+
+.detalles {
+    color: #ccc
+}
+
+.coment .s11 {
+    margin-bottom: 1.5em;
+}
+
+#editar {
+    top: 20vh;
+    position: absolute;
+    float: right;
+    right: 2em;
+    font-size: 1.5em;
+}
+
+#addImage {
+    position: relative;
+    text-align: right;
+    font-size: 1.5em;
+    top: 10px;
+}
+
+#imgs {
+    display: inline-block;
+    position: relative;
+    margin: auto;
+}
+
+.slide-btn {
+    background: none;
+    border: none;
+}
+
+.btn-right {
+    float: right;
+}
+
+input[type="file" i] {
+    display: none;
+}
+
+#textAdd {
+    font-size: 1em;
+    margin-right: 1em;
+}
+
+.fas.fa-images {
+    font-size: 2em;
+}
+
+.img {
+    width: 29vw !important;
+    height: 29vw;
+    overflow: hidden;
+    margin: .25em;
+}
+
+.img img {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    max-width: 200%;
+}
+
+#zoomdiv {
+    background: rgba(0, 0, 0, 0.61);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    display: none;
+}
+
+#zoomdiv .close {
+    position: absolute;
+    top: 1em;
+    right: 2em;
+    font-size: 1.5em
+}
+
+#zoomdiv img {
+    width: 100vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* RATING */
+
+#rate {
+    float: right;
+    margin-right: 2em;
+    font-size: 1.3em;
+    line-height: .1;
+}
+
+#star {
+    transition: all .3s
+}
+
+#ratings {
+    margin-left: 1em;
+}
+
+#rate .fas {
+    color: gold;
+}
+
+@media screen and (min-width: 500px) {
+    #negocio {
+        padding-bottom: 0;
+    }
+    #perfil {
+        margin-top: 2em;
+        width: 90vw;
+    }
+    #perfil .s4 {
+        width: 15%;
+    }
+    .detalles {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .detalles .row {
+        width: 50% !important;
+    }
+    #rating {
+        display: inline-block;
+    }
+    #rate {
+        float: none;
+        margin-left: 2em;
+    }
+    #slider {
+        min-width: 100%;
+    }
+    #imgs {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100% !important;
+        min-width: 100%;
+    }
+    .img {
+        width: 15vw !important;
+        height: 15vw;
+    }
+}

@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row desc ltxt">
+
+        <form name="heroForm" #heroForm="ngForm" (ngSubmit)="calcular()" action="#" method="POST" id="heroForm" onsubmit="return false">
+            <div class="row">
+                <div class="col s12">
+                    <label class="center" for="">tipo de evento</label><br>
+                    <select type="number" name="tipo" id="tipoEvento" #tipoEvento="ngModel" [(ngModel)]="evento.tipoEvento">
+                <option value=0 disabled selected>Selecciona una opción</option>
+                <option value=1>Boda</option>
+                <option value=2>XV años</option>
+                <option value=3>Graduación</option>
+                <option value=4>Cumpleaños</option>
+                <option value=5>Convivio</option>
+                <option value=6>Posada</option>
+                <option value=7>Otro</option>
+              </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label class="center" for="">cantidad de invitados</label><br>
+                    <input type="number" name="cant" id="personas" #personas="ngModel" [(ngModel)]="evento.personas"><br>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col s12">
+                    <label for="calidad">¿Qué calidad de atención quieres ofrecer?</label>
+                    <select name="calidad" id="calidad" #calidad="ngModel" [(ngModel)]="evento.calidad">
+                  <option value=1>Óptima (un mesero atiende 2 mesas)</option>
+                  <option value=2>Regular (un mesero atiende 3 mesas)</option>
+                  <option value=3>Deficiente (un mesero atiende 4 mesas)</option>
+                </select>
+                </div>
+            </div>
+
+            <input type="submit" (click)="popup()" value="CALCULAR" id="calcular" class="needbtn">
+        </form>
+    </div>
+
+    <div class="popup ltxt">
+        <p class="close" (click)="popup()"><i class="fas fa-times"></i></p>
+
+
+        <form #heroForm2="ngForm" (ngSubmit)="onSubmit()" action="#" method="POST" id="heroForm2" onsubmit="return false">
+            <div class="inputs">
+                <div id="def" *ngIf="evento.tipoEvento != 7">
+                    <p class="center grey-text lighten-1">Para el evento que llevarás acabo necesitas <b class="resaltado">{{personal.meseros}} meseros </b>
+                        <span *ngIf="personal.jefeMeseros > 0">y {{personal.jefeMeseros}} jefe de meseros</span>
+                    </p>
+                </div>
+                <div class="row" id="nodef" *ngIf="evento.tipoEvento == 7">
+                    <div class="col s12">
+                        <p class="nomargin">¿Cuantas mesas te gustaría que atendiera cada mesero?</p>
+                        <input class="" type="number" value=2 min="2" max="5" name="calidad" #calidad="ngModel" [(ngModel)]="evento.calidad">
+                    </div>
+                    <div class="col s12" id="jefe">
+                        <p class="grey-text lighten-1">¿Te gustaría incluir un Jefe de meseros?</p>
+                        <p>
+                            <input type="radio" name="jefe" id="jefesi" value="1" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel" checked>
+                            <label for="jefesi">Sí</label>
+                        </p>
+                        <p>
+                            <input type="radio" name="jefe" id="jefeno" value="0" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
+                            <label for="jefeno">No</label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row extras">
+                    <p class="center col s12 grey-text lighten-1">Te gustaría contratar también:</p><br>
+                    <div class="col s12">
+                        <label class="s6" for="barman">Barman</label>
+                        <input class="s6" type="number" min="0" max="5" name="barman" #barman="ngModel" [(ngModel)]="extras.barman">
+                    </div>
+                    <div class="col s12">
+                        <label class="s6" for="barra">Personal de barra</label>
+                        <input class="s6" type="number" name="barra" #barra="ngModel" [(ngModel)]="extras.barra">
+                    </div>
+                    <div class="col s12">
+                        <label class="s6" for="valet">Valet parking</label>
+                        <input class="s6" type="number" name="valet" #valet="ngModel" [(ngModel)]="extras.valet">
+                    </div>
+                    <div class="col s12">
+                        <label class="s6" for="hostess">Hostess</label>
+                        <input class="s6" type="number" name="hostess" #hostess="ngModel" [(ngModel)]="extras.hostess">
+                    </div>
+                    <div class="col s12">
+                        <label class="s6" for="seguridad">Elementos de seguridad</label>
+                        <input class="s6" type="number" name="seguridad" #seguridad="ngModel" [(ngModel)]="extras.seguridad">
+                    </div>
+                </div>
+            </div>
+            <div class="row cotizar">
+                <p class="center grey-text lighten-1">¿Deseas hacer la cotización?</p>
+                <input type="submit" value="COTIZAR" id="contratar" class="needbtn" [disabled]="!heroForm.form.valid">
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="row" id="planes">
+    <div class="col s12 plan" *ngFor="let plan of planes">
+        <h4 class="center"> {{plan.ahorro}} </h4>
+        <h5 class="center white-text"> {{plan.name}} <br> <span> <b class="white-text">${{plan.precio}}°°</b> </span> </h5>
+        <p class="center justify white-text"> {{plan.desc}} </p><br>
+        <button class="needbtn" (click)="contratar(plan.name)">CONTRATAR</button>
+    </div>
+</div>

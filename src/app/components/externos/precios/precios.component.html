@@ -1,0 +1,22 @@
+<div class="row" id="barraTitulo">
+    <div class="col s1">
+        <a href="javascript:history.back()" class="back ltxt" style="padding: 0 0.5em">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+    <div class="col s10">
+        <p class="titleLabel ltxt center">
+            PRECIOS
+        </p>
+    </div>
+</div>
+<div class="container contenido" style="padding-top: 5em">
+
+    <div class="listMenu">
+        <div class="concepto" *ngFor="let precio of precios">
+            <p class="conceptName">{{ precio.concept }}</p>
+            <p class="conceptPrecio">{{precio.precio}}</p>
+            <img src="{{precio.imagen}}" alt="">
+        </div>
+    </div>
+</div>

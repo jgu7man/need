@@ -1,0 +1,10 @@
+.contenido {
+    background: purple;
+    width: 100%;
+    top: 0em;
+    position: relative;
+}
+
+.activated {
+    color: gold
+}

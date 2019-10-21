@@ -1,0 +1,25 @@
+.totales {
+    margin: 0 1px;
+}
+
+.cotiTable {
+    background: #000000;
+    border-radius: 1em;
+    box-shadow: inset 3px 0px 0px #9b0ac7;
+    padding: 1em;
+    /* border-left: solid #9b0ac7; */
+}
+
+tbody tr td:nth-child(3) {
+    text-align: right !important;
+}
+
+td input {
+    width: 50% !important;
+}
+
+@media screen and (min-width: 500px) {
+    td input {
+        width: 25%;
+    }
+}
