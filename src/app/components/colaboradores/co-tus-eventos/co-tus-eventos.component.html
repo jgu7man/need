@@ -1,0 +1,46 @@
+<div class="tus_eventos">
+    <div class="row title">
+        <div class="col s12">
+            <p class="titleLabel center ltxt">
+                TUS EVENTOS
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6 grey-text lighten-1">
+            Tienes: {{eventos.length}} eventos
+        </div>
+        <div class="col s6 right">
+            <button class="needbtn" (click)="calendarView = !calendarView">Cambiar vista</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div *ngIf="calendarView; else lista">
+                <div class="col s12" id="calContainer">
+                    <div class="calendar grey-text lighten-1">
+                        <full-calendar [plugins]="calendarPlugins" [handleWindowResize]=true [height]="400" [nowIndicator]=false locale="es" defaultView="timeGridFourDay" [views]="views" [allDaySlot]="false" [slotLabelFormat]="{ hour: 'numeric', minute: '2-digit' }" selectable="true"
+                            [slotDuration]="'01:00:00'" [eventColor]="'#6C009C'" editable="false" eventDurationEditable="false" (eventClick)="clickEvento($event)" [events]="eventos"></full-calendar>
+                    </div>
+                </div>
+            </div>
+            <ng-template #lista>
+                <ul class="lista grey-text lighten-1">
+                    <li class="black evento" *ngFor="let evento of eventosList" [routerLink]="['/colaborador/evento', evento.id]">
+                        <div class="col s6">
+                            <div class="col s6"> Tipo de evento: <br> {{evento.tipo}} </div>
+                        </div>
+                        <div class="col s6">
+                            {{evento.estado}}
+                            <span class="est resaltado" [ngClass]="{'gold-text': evento.estado=='pendiente'}" [ngClass]="{'green-text': evento.estado=='proximo'}" [ngClass]="{'red-text': evento.estado=='cancelado'}" [ngClass]="{'deep-purple-text text-accent-4': evento.estado=='completado'}">
+                                <i class="fas fa-circle"></i>
+                            </span> <br>
+                            <span>{{evento.fecha.toLocaleDateString()}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </ng-template>
+
+        </div>
+    </div>
+</div>

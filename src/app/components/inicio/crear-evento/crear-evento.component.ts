@@ -37,7 +37,7 @@ settings = {
     ) {
     this.datos = new DatosModel(new Date,new Date,'', '', '', '', '');
     this.personal = new PersonalModel( '', '', '', {});
-    this.evento = new EventoModel('', '', '', '', '', '', '',new Date);
+    this.evento = new EventoModel('', '', '', '', '', '', 'pendiente',new Date, '');
   }
 
   ngOnInit() {
@@ -87,6 +87,7 @@ settings = {
     this.getTerminaDate()
 
     this.evento.fecha = this.datos.inicia
+    this.evento.lugar = `${this.datos.lugar}, ${this.datos.ciudad}, ${this.datos.estado}`
     var log = JSON.parse(localStorage.getItem('needlog'))
     this.evento.usuario = log.uid
 
@@ -104,24 +105,24 @@ settings = {
 
 
   initPickers() {
-    $('.datepicker').pickadate({
-      selectMonths: false, // Creates a dropdown to control month
-      i18n: {
-        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
-        weekdays: ["Domingo","Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        weekdaysShort: ["Dom","Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-        weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"],
-            },
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: true, // Close upon selecting a date,
-      container: '.contenido', // ex. 'body' will append picker to body
-      onSelect: () => {
+    // $('.datepicker').pickadate({
+    //   selectMonths: false, // Creates a dropdown to control month
+    //   i18n: {
+    //     months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    //     monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
+    //     weekdays: ["Domingo","Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    //     weekdaysShort: ["Dom","Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+    //     weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"],
+    //         },
+    //   today: 'Hoy',
+    //   clear: 'Limpiar',
+    //   close: 'Ok',
+    //   closeOnSelect: true, // Close upon selecting a date,
+    //   container: '.pickerPosition', // ex. 'body' will append picker to body
+    //   onSelect: () => {
         
-      }
-    });
+    //   }
+    // });
 
     $('.datepicker').datepicker({
       selectMonths: false,
@@ -136,7 +137,8 @@ settings = {
       clear: 'Limpiar',
       close: 'Ok',
       closeOnSelect: true,
-      format: 'yyyy mm dd'
+      format: 'yyyy mm dd',
+      container: '.pickerPosition',
     })
 
     $('.datepicker').on('mousedown',function(event){

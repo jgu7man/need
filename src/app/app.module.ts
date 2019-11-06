@@ -13,6 +13,8 @@ import { environment } from "../environments/environment";
 
 import { CompareValidatorDirective } from './directives/validator.directive';
 import { PwdToggleDirective } from './directives/pwd-toggle.directive';
+import { LocalStorageModule } from 'angular-2-local-storage-encrypt';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { AppComponent } from './app.component';
 
@@ -48,12 +50,32 @@ import { ListaPlanesComponent } from './components/directorio/lista-planes/lista
 import { FormNegocioComponent } from './components/negocio/form-negocio/form-negocio.component';
 import { PagoFormComponent } from './components/pago-form/pago-form.component';
 
-  import { NegocioComponent } from './components/negocio/negocio.component';
+import { NegocioComponent } from './components/negocio/negocio.component';
 import { ConocenosComponent } from './components/externos/conocenos/conocenos.component';
 import { PreciosComponent } from './components/externos/precios/precios.component';
 import { TycComponent } from './components/externos/tyc/tyc.component';
 import { PdpComponent } from './components/externos/pdp/pdp.component';
+
 import { ColaboradoresComponent } from './components/colaboradores/colaboradores.component';
+import { CoLoginComponent } from './components/colaboradores/co-login/co-login.component';
+import { CoRegistroComponent } from './components/colaboradores/co-registro/co-registro.component';
+import { CoDatosComponent } from './components/colaboradores/co-registro/co-datos/co-datos.component';
+import { CoExpLaboralComponent } from './components/colaboradores/co-registro/co-exp-laboral/co-exp-laboral.component';
+import { CoExpLugaresComponent } from './components/colaboradores/co-registro/co-exp-lugares/co-exp-lugares.component';
+import { CoExpLugaresDisplayComponent } from './components/colaboradores/co-registro/co-exp-lugares-display/co-exp-lugares-display.component';
+import { ColaboradorGuardadoComponent } from './components/notificaciones/colaborador-guardado/colaborador-guardado.component';
+import { CoPerfilComponent } from './components/colaboradores/co-perfil/co-perfil.component';
+import { CoEventosComponent } from './components/colaboradores/co-eventos/co-eventos.component';
+import { CoTusEventosComponent } from './components/colaboradores/co-tus-eventos/co-tus-eventos.component';
+import { CoAddImagenComponent } from './components/colaboradores/co-add-imagen/co-add-imagen.component';
+import { CoEventoComponent } from './components/colaboradores/co-eventos/co-evento/co-evento.component';
+import { VerVacantesComponent } from './components/colaboradores/co-eventos/ver-vacantes/ver-vacantes.component';
+import { PostularComponent } from './components/colaboradores/co-eventos/co-evento/postular/postular.component';
+import { PostulacionExitosaComponent } from './components/notificaciones/postulacion-exitosa/postulacion-exitosa.component';
+import { VerEquipoComponent } from './components/user/tus-eventos/ver-equipo/ver-equipo.component';
+import { AlertasComponent } from './components/alertas/alertas.component';
+import { VerColaboradorComponent } from './components/colaborador/ver-colaborador/ver-colaborador.component';
+import { VerUsuarioComponent } from './components/user/ver-usuario/ver-usuario.component'
 
 @NgModule({
   declarations: [
@@ -94,11 +116,29 @@ import { ColaboradoresComponent } from './components/colaboradores/colaboradores
     TycComponent,
     PdpComponent,
     ColaboradoresComponent,
+    CoLoginComponent,
+    CoRegistroComponent,
+    CoDatosComponent,
+    CoExpLaboralComponent,
+    CoExpLugaresComponent,
+    CoExpLugaresDisplayComponent,
+    ColaboradorGuardadoComponent,
+    CoPerfilComponent,
+    CoEventosComponent,
+    CoTusEventosComponent,
+    CoAddImagenComponent,
+    CoEventoComponent,
+    VerVacantesComponent,
+    PostularComponent,
+    PostulacionExitosaComponent,
+    VerEquipoComponent,
+    AlertasComponent,
+    VerColaboradorComponent,
+    VerUsuarioComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
@@ -106,7 +146,18 @@ import { ColaboradoresComponent } from './components/colaboradores/colaboradores
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    
+    FullCalendarModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    LocalStorageModule.forRoot({
+            prefix: 'my-app',
+            storageType: 'localStorage',
+            encryptionActive: true,
+            encryptionOptions: {
+                encryptionKey: 'keyForEncriptHere',
+                encryptionIv: 'iVHere',
+                encryptionSalt: 'saltHere'
+            }
+        })
   ],
   providers: [],
   bootstrap: [AppComponent]

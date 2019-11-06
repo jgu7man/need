@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from "../../../services/auth.service";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { map, take } from 'rxjs/operators';
+import { ColaboradorService } from '../../../services/colaboradores/colaborador.service';
+import { Location } from '@angular/common';
 
 declare var $: any
 
@@ -19,24 +21,41 @@ export class MainMenuComponent implements OnInit {
   public cerrarLink: boolean = true;
   
   @Output() cerrarMenu = new EventEmitter();
+  public perfilMenu 
   constructor(
-    private _ruta: Router,
-    public authService: AuthService
-  ) { }
+    private _ruta: ActivatedRoute,
+    public authService: AuthService,
+    public _colab: ColaboradorService,
+    private location: Location
+  ) {
+    
+   }
 
   ngOnInit() {
-    // var isLogged = this.authService.user$.pipe( 
-    //   take(1),
-    //   map( user => !!user)
-    // );
-    // console.log(isLogged);
-    // var loged = this.authService.userData;
-    // console.log(loged);
-    // if (loged == null ) {
-    //   this.cerrarLink = false
-    // } else {
-    //   this.uneteLink = false
-    // }
+    var url = window.location.href
+    var user = JSON.parse(localStorage.getItem('needlog'))
+    if (user) {
+      // 'si hay log'
+      if (url.includes('colaborador')) {
+        // 'si está en colaborador'
+        if (user.colaborador) {
+          // 'si tiene permiso de ver colaborador'
+          this.switchMenu('colaborador')
+        } else {
+          // 'no tiene permiso de ver colaborador'
+          this.perfilMenu = this._colab.coMenu
+        }
+      } else {
+        // 'no está en colaborador'
+        this.perfilMenu = this._colab.coMenu
+      }
+    }
+  }
+
+  switchMenu(perfil) {
+    this._colab.switchMenu(perfil).then(menu => {
+      this.perfilMenu = menu
+    })
   }
 
   // cerrarSesion(){

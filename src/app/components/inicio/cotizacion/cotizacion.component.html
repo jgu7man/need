@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" name="jefeMeseros" value={{personal.jefeMeseros}} [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
+                                    <input type="number" name="jefeMeseros" value={{personal.jefeMeseros}} min="1" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
                                 </td>
                                 <td> jefeMeseros </td>
                                 <td> ${{precios.jefe * personal.jefeMeseros}}</td>

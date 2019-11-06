@@ -13,9 +13,9 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    var loged = JSON.parse(localStorage.getItem('login'));
+    var loged = JSON.parse(localStorage.getItem('needlog'));
     if (loged != null){
-      this._ruta.navigate(['/usuario/perfil'])
+      this._ruta.navigate(['/usuario/nuevo-evento'])
     }
   }
 

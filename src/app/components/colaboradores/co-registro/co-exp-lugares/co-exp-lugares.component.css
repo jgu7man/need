@@ -1,0 +1,5 @@
+.modal.datepicker-modal.open {
+    width: 100% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}

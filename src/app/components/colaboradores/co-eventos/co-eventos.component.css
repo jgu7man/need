@@ -1,0 +1,31 @@
+.eventoCont {
+    background: #000;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+    margin: 1em 0em;
+    vertical-align: middle;
+    padding: 1em;
+}
+
+.contenido {
+    padding-bottom: 9em !important;
+}
+
+.edo {
+    position: relative;
+    float: right;
+    text-transform: capitalize;
+    text-align: right;
+}
+
+#barraTitulo>div {
+    height: 2em;
+}
+
+#acordion {
+    top: 5em;
+    position: relative;
+}
+
+.vacantes {
+    display: none;
+}

@@ -1,0 +1,45 @@
+<app-loading class="overlay" style="display: none"></app-loading>
+<div class="login contenido">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h3 class="center white-text">Iniciar sesión</h3>
+            </div>
+        </div>
+        <div class="row loginCont valign-wrapper ">
+            <form action="#" id="coLogin" onsubmit="return false" #coLogin="ngForm" (ngSubmit)="onSubmit()">
+                <div class="col s12 input-field">
+                    <input type="email" name="email" id="email" [(ngModel)]="colab.email" #email="ngModel">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col s12 input-field">
+                    <input type="password" name="password" id="password" [(ngModel)]="colab.password" #password="ngModel">
+                    <label for="password">Contraseña</label>
+                </div>
+                <div class="col s12">
+                    <input type="submit" value="Entrar" class="needbtn">
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col s12 center">
+                <p class="grey-text lighten-1">O inicia sesión con las redes <br>
+                    <i (click)="auth.facebookSingIn()" class="fab fa-facebook-f"></i>
+                    <i (click)="auth.googleSingIn()" class="fab fa-google"></i>
+                </p>
+            </div>
+        </div>
+        <div class="row teamCont">
+            <div class="col s12">
+                <p class="center white-text">¿Aún no tienes cuenta como colaborador?</p>
+                <button class="nextbtn regist" [routerLink]="['/colaborador/registro']">REGÍSTRATE</button>
+            </div>
+            <div class="col s12">
+                <button class="loginbtn regist" (click)="location.back()">REGRESAR</button>
+            </div>
+        </div>
+    </div>
+
+</div>

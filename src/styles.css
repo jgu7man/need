@@ -1,5 +1,8 @@
 /* @import "~ng-pick-datetime/assets/style/picker.min.css"; */
 
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 /* ANIMATION */
@@ -15,7 +18,8 @@
 
 /* THEME */
 
-body {
+body,
+html {
     font-family: 'Montserrat', sans-serif !important;
     margin: 0;
     padding: 0;
@@ -107,14 +111,28 @@ input[type=date]:not(.browser-default) {
     border: 2px solid #6C009C !important;
 }
 
+textarea {
+    color: #ccc;
+    min-width: 100%;
+}
+
 * {
     outline: none !important;
+}
+
+.pickerPosition {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .modal.datepicker-modal.open {
     width: 100% !important;
     top: 50% !important;
-    transform: scaleX(1) scaleY(1) translateY(-100%) !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
 }
 
 .select-dropdown.dropdown-trigger {
@@ -169,7 +187,7 @@ igx-prefix {
 }
 
 .resaltado {
-    color: gold;
+    color: gold !important;
 }
 
 label {
@@ -230,6 +248,11 @@ label {
     background: #7701aa
 }
 
+.needbtn:disabled {
+    background: #ccc !important;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
+}
+
 select {
     display: block !important;
 }
@@ -255,7 +278,8 @@ select {
     background: rgba(0, 0, 0, 0.5);
     z-index: 1;
     position: fixed;
-    transition: all .3s
+    transition: all .3s;
+    top: 0;
 }
 
 .fileneedbtn {
@@ -499,11 +523,11 @@ form .row {
 
 .container.detalles {
     background: #202020;
-    min-width: 100vw;
+    min-width: 100%;
     position: relative;
     left: 50%;
     transform: translatex(-50%);
-    padding: 0 2em 5em;
+    padding: 0 2em 0em;
 }
 
 
@@ -522,5 +546,35 @@ option:disabled {
 }
 
 option {
-    background: #202020;
+    background: #202020 !important;
+    color: #ccc !important;
+}
+
+option:hover {
+    background: #ccc !important;
+    color: #202020 !important;
+}
+
+
+/* CALENDARIO */
+
+.fc-today-button,
+.fc-button-group {
+    position: relative;
+    float: right;
+}
+
+.fc-today-button,
+.fc-next-button,
+.fc-prev-button {
+    background-color: #6C009C !important;
+    border: none;
+}
+
+.fc-today-button:disabled {
+    background-color: #ccc !important;
+}
+
+td.fc-today {
+    background: #000 !important;
 }

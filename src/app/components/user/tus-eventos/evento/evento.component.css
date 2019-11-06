@@ -1,10 +1,31 @@
 .contenido {
-    background: purple;
     width: 100%;
     top: 0em;
     position: relative;
 }
 
+.title {
+    background: url('../../../../../assets/img/profileBg.png');
+    width: 100%;
+    margin: 0;
+}
+
 .activated {
     color: gold
+}
+
+.ico {
+    cursor: pointer;
+}
+
+.desktop.container {
+    width: 90% !important;
+    position: relative;
+    top: 2em;
+}
+
+.back {
+    z-index: 1;
+    position: absolute;
+    margin: .2em 1em;
 }

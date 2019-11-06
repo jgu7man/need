@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../services/auth.service";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UsuarioModel } from "../../../models/usuario.model";
-import { EventoModel } from '../../../models/evento/evento.model';
 
 @Component({
   selector: 'app-login-user',
@@ -12,7 +11,6 @@ import { EventoModel } from '../../../models/evento/evento.model';
 export class LoginUserComponent implements OnInit {
 
   public usuario: UsuarioModel;
-  public evento: EventoModel;
   public idEvento: any;
   public plan: any;
   public link: string
@@ -22,7 +20,6 @@ export class LoginUserComponent implements OnInit {
     private _Route: ActivatedRoute,
     private _Router: Router
   ) { 
-    this.evento = new EventoModel('', '', 0, 0, 0, 0, '',new Date)
    }
 
   ngOnInit() {

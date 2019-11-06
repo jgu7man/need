@@ -1,0 +1,28 @@
+<div class="row" id="barraTitulo">
+    <div class="col s12">
+        <p class="titleLabel ltxt center">
+            EVENTOS
+        </p>
+    </div>
+</div>
+
+<div class="container contenido">
+
+
+    <div class="row" id="acordion">
+        <div *ngFor="let evento of eventos; index as id; trackBy: trackByFn" id={{evento.id}} class="eventoCont ltxt col s12" (click)="!more">
+            <div class="col s6"> Tipo de evento: </div>
+            <div class="col s6"> {{evento.tipoEvento}}</div>
+            <div class="col s6">Fecha: </div>
+            <div class="col s6">{{evento.fecha.toLocaleDateString()}}</div>
+            <div class="col s6">Lugar: </div>
+            <div class="col s6">{{evento.lugar}}</div>
+            <div class="col s12 right resaltado">
+                <span (click)="toggleVacantes(evento.id)">Ver vacantes</span>
+            </div>
+            <div class="col s12 vacantes vacantes-{{evento.id}}" style="display: none;">
+                <app-ver-vacantes id="{{evento.id}}" *ngIf="idEvento == evento.id" [idEvento]="evento.id"></app-ver-vacantes>
+            </div>
+        </div>
+    </div>
+</div>

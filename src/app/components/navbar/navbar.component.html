@@ -1,22 +1,43 @@
 <div class="black row navbar valign-wrapper">
     <div class="col s12">
         <ul>
-            <div *ngIf="auth.user$ | async; then thenTemplate; else elseTemplate"></div>
-            <ng-template #thenTemplate>
-                <li class="navitem" id="newIcon" [routerLink]="['/usuario/nuevo-evento']" routerLinkActive="navActive">
+
+            <div *ngIf="auth.user$ | async; then usuario; else invitado"></div>
+
+            <ng-template #usuario>
+                <li class="navitem" *ngIf="!colabMenu" id="newIcon" [routerLink]="['/usuario/nuevo-evento']" routerLinkActive="navActive">
                     <p class="itemIcon"><i class="fas fa-calendar-plus"></i></p>
                     <p class="itemLink">NUEVO EVENTO</p>
                 </li>
-                <li class="navitem" id="calIcon" [routerLink]="['/usuario/tus-eventos']" routerLinkActive="navActive">
+                <li class="navitem" *ngIf="!colabMenu" id="calIcon" [routerLink]="['/usuario/tus-eventos']" routerLinkActive="navActive">
                     <p class="itemIcon"><i class="fas fa-calendar-day"></i></p>
                     <p class="itemLink">TUS EVENTOS</p>
                 </li>
-                <li class="navitem" id="userIcon" [routerLink]="['/usuario/perfil']" routerLinkActive="navActive">
+                <li class="navitem" *ngIf="!colabMenu" id="userIcon" [routerLink]="['/usuario/perfil']" routerLinkActive="navActive">
                     <p class="itemIcon"><i class="fas fa-user"></i></p>
                     <p class="itemLink">MI CUENTA</p>
                 </li>
+
+                <li class="navitem" *ngIf="colabMenu" id="newIcon" [routerLink]="['/colaborador/eventos']" routerLinkActive="navActive">
+                    <p class="itemIcon"><i class="fas fa-clipboard-list"></i></p>
+                    <p class="itemLink">EVENTOS</p>
+                </li>
+                <li class="navitem" *ngIf="colabMenu" id="calIcon" [routerLink]="['/colaborador/tus_eventos']" routerLinkActive="navActive">
+                    <p class="itemIcon"><i class="fas fa-calendar-day"></i></p>
+                    <p class="itemLink">TUS EVENTOS</p>
+                </li>
+                <li class="navitem" *ngIf="colabMenu" id="userIcon" [routerLink]="['/colaborador/perfil']" routerLinkActive="navActive">
+                    <p class="itemIcon"><i class="fas fa-user-tie"></i></p>
+                    <p class="itemLink">CUENTA COLABORADOR</p>
+                </li>
             </ng-template>
-            <ng-template #elseTemplate>
+
+
+            <ng-template #colaborador>
+
+            </ng-template>
+
+            <ng-template #invitado>
                 <li class="navitem" id="homeIcon" [routerLink]="['/']" routerLinkActive="navActive">
                     <p class="itemIcon"><i class="fas fa-home"></i></p>
                     <p class="itemLink">INICIO</p>
@@ -26,14 +47,16 @@
                     <p class="itemLink">INGRESAR</p>
                 </li>
             </ng-template>
-            <li class="navitem" *ngIf="dirIcon" id="dirIcon" [routerLink]="['/directorio/categorias']" routerLinkActive="navActive">
+
+            <li class="navitem" id="dirIcon" [routerLink]="['/directorio/categorias']" routerLinkActive="navActive">
                 <p class="itemIcon"><i class="fas fa-address-book"></i></p>
                 <p class="itemLink">DIRECTORIO</p>
             </li>
-            <li class="navitem" *ngIf="menuIcon" id="menuIcon" (click)="menu = !menu" (click)="toggleMenu()">
+            <li class="navitem" id="menuIcon" (click)="menu = !menu" (click)="toggleMenu()">
                 <p class="itemIcon"><i class="fas fa-bars"></i></p>
                 <p class="itemLink">MENÚ</p>
             </li>
+
         </ul>
     </div>
 </div>

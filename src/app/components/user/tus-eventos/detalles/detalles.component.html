@@ -1,10 +1,16 @@
 <div class="container">
     <ul class="listadetalles ltxt">
         <li class="detalle">Evento: {{evento.tipoEvento}} </li>
-        <li class="detalle">Estado: {{evento.estado}} </li>
+        <li class="detalle resaltado" *ngIf="!owner">Creado por: {{usuario.displayName}}
+            <span class="rigth">
+                <i class="fas fa-external-link-alt"
+                [routerLink]="['/colaborador/ver_usuario', usuario.uid]"></i>
+            </span>
+        </li>
+        <li class="detalle" *ngIf="owner">Estado: {{evento.estado}} </li>
         <li class="detalle">Programado para: {{evento.fecha.toLocaleDateString()}} </li>
         <li class="detalle">Para {{evento.personas}} personas </li>
         <li class="detalle">Calidad de atención: {{evento.calidad}} </li>
-        <li class="detalle">${{evento.costo}} </li>
+        <li class="detalle" *ngIf="owner">${{evento.costo}} </li>
     </ul>
 </div>

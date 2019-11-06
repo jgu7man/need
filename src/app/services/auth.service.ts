@@ -55,21 +55,10 @@ export class AuthService {
     userRef.set(data, { merge: true })
     $("app-loading").fadeToggle()
     const userDoc = await this.afs.collection('usuarios').ref.doc(uid).get()
-    if (userDoc.data().negocio) {
-      localStorage.setItem('needlog', JSON.stringify({
-        uid: uid,
-        email: email,
-        name: displayName,
-        negocio: true
-      }))
-    } else {
-      localStorage.setItem('needlog', JSON.stringify({
-        uid: uid,
-        email: email,
-        name: displayName,
-      }))
-    }
+      localStorage.setItem('needlog', JSON.stringify(userDoc.data()))
+      
     this.router.navigate([link]);
     
   }
+  
 }

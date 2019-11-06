@@ -1,0 +1,39 @@
+<div class="contenido" *ngIf="(auth.user$ | async) as usuario">
+
+    <div class="row" id="datosUsuario">
+        <div class="col s12 center">
+            <div id="fotoPerfil">
+                <img src="{{usuario.photoURL}}" alt="">
+            </div>
+        </div>
+        <div class="col s12" id="datos">
+            <ul>
+                <li id="nombre">{{usuario.displayName}}</li>
+                <li id="email">{{usuario.email}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" id="rating">
+        <div class="col s4 center">
+            <span class="number">{{eventos}}</span><br>
+            <span class="dato">Eventos</span>
+        </div>
+        <div class="col s4 center">
+            <span class="number">{{ratingUp}}</span><br>
+            <span class="dato"><i class="fas fa-thumbs-up    "></i></span>
+        </div>
+        <div class="col s4 center">
+            <span class="number">{{ratingDown}}</span><br>
+            <span class="dato"><i class="fas fa-thumbs-down    "></i></span>
+        </div>
+    </div>
+
+    <div class="container seccion" id="logros">
+        <div class="row">
+            <h5 class="col s12 sub center">
+                LOGROS
+            </h5>
+        </div>
+    </div>
+</div>

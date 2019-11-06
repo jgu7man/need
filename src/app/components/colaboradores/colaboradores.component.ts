@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-colaboradores',
   templateUrl: './colaboradores.component.html',
   styleUrls: ['./colaboradores.component.css']
-})
+}) 
 export class ColaboradoresComponent implements OnInit {
 
   constructor() { }
@@ -13,3 +13,4 @@ export class ColaboradoresComponent implements OnInit {
   }
 
 }
+  

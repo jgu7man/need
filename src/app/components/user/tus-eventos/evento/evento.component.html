@@ -1,8 +1,8 @@
-<div class="container contenido">
+<div class="contenido">
     <div class="col s12 black-text back" [routerLink]="['../../tus-eventos']">
         <i class="fas fa-arrow-circle-left"></i>
     </div>
-    <div class="row">
+    <div class="row title">
         <div class="col s12 center">
             <p class="titleLabel ltxt">
                 EVENTO
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="container detalles">
+    <div class="container detalles movil">
         <div class="row rowMenu">
             <div class="col s4 center ico" [routerLink]="['./detalles']" routerLinkActive="activated">
                 <i class="fas fa-cocktail "></i><br>
@@ -29,5 +29,19 @@
         </div>
 
         <router-outlet></router-outlet>
+    </div>
+
+    <div class="detalles desktop">
+        <div class="row">
+            <div class="col s4 box-content">
+                <app-detalles [id]="idEvento"></app-detalles>
+            </div>
+            <div class="col s4 box-content">
+                <app-datos [id]="idEvento"></app-datos>
+            </div>
+            <div class="col s4 box-content">
+                <app-personal [id]="idEvento"></app-personal>
+            </div>
+        </div>
     </div>
 </div>

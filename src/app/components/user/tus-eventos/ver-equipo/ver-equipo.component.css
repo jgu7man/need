@@ -1,0 +1,37 @@
+.coImgContainer {
+    width: 70px;
+    max-height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.coImgContainer img {
+    width: 100%;
+}
+
+.collapsible-body {
+    padding: 1em !important;
+}
+
+.detalle {
+    border-bottom: solid 1px;
+    padding: 5px 0;
+}
+
+.rate {
+    display: flex;
+    flex-flow: wrap row;
+}
+
+.rate i {
+    width: 50%;
+    cursor: pointer;
+}
+
+.click {
+    cursor: pointer;
+}
+
+.collapsible-header {
+    text-transform: uppercase;
+}

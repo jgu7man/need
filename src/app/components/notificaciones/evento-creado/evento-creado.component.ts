@@ -18,7 +18,7 @@ export class EventoCreadoComponent implements OnInit {
     private _Router: Router,
     private _Route: ActivatedRoute
     ) {
-    this.evento = new EventoModel('', '', '', '', '', 0, '',new Date);
+    this.evento = new EventoModel('', '', '', '', '', 0, 'pendiente',new Date, '');
    }
 
   ngOnInit() {

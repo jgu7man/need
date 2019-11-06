@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, docChanges } from '@angular/fire/firestore';
 import { DatosModel } from '../models/evento/datosevento.model';
 import { EventoModel } from '../models/evento/evento.model';
 
@@ -28,9 +28,42 @@ export class EventoService{
                 
         await eventRef.collection('info').doc('datos').set(datosEvento)
         await eventRef.collection('info').doc('personal').set(personal)
+        this.saveVacantes(event.id, personal)
         return event.id
-        
-        
+    }
+
+    async saveVacantes(idEvento, personal) {
+        var eventRef = this.fs.collection('eventos').ref.doc(idEvento).collection('info')
+
+        var personalObj = {}
+        Object.defineProperty(personalObj, 'mesero', {
+            value: personal.meseros, enumerable: true, writable: true, configurable: true
+        })
+        Object.defineProperty(personalObj, 'jefeMeseros', {
+            value: personal.jefeMeseros, enumerable: true, writable: true, configurable: true
+        })
+        Object.keys(personal.extras).forEach(extra => {
+            Object.defineProperty(personalObj, extra, {
+                value: personal.extras[extra],enumerable: true, writable: true, configurable: true
+            })
+        })
+
+        await eventRef.doc('vacantes').set(personalObj)
+    }
+
+    async getEventos() {
+        var eventos = []
+        var evento: EventoModel
+        var today = new Date()
+        var eventRef = await this.fs.collection('eventos').ref
+            .orderBy('fecha').startAfter(today).get()
+
+        eventRef.forEach( event => {
+            evento = event.data() as EventoModel
+            evento.fecha = event.data().fecha.toDate()
+            eventos.push(evento)
+        })
+        return eventos
     }
 
     async getOneEvento(id: string) {
@@ -38,6 +71,8 @@ export class EventoService{
         var evento = await eventRef.get()
         return evento.data()
     }
+
+    
 
     async getEventosByUser(id) {
         var eventosDelUsuario = []

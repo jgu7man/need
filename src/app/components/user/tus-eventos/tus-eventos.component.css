@@ -16,3 +16,8 @@
 #barraTitulo>div {
     height: 2em;
 }
+
+#acordion {
+    top: 5em;
+    position: relative;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DatosModel } from '../../../../models/evento/datosevento.model';
 import { ActivatedRoute } from '@angular/router';
 import { EventoService } from '../../../../services/evento.service';
@@ -11,7 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class DatosComponent implements OnInit {
 
-  public id: any;
+  @Input() id: any;
   public datos: DatosModel;
 
   constructor(
@@ -23,9 +23,11 @@ export class DatosComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.ruta.parent.url.subscribe( params => {
-      this.id = params[params.length -1].path
-    })
+    if (!this.id) {
+      this.ruta.parent.url.subscribe( params => {
+        this.id = params[params.length -1].path
+      })
+    }
 
     var eventoRef = this.fs.collection('eventos').ref.doc(this.id)
     var infoDatos = await eventoRef.collection('info').doc('datos').get()

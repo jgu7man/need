@@ -1,0 +1,28 @@
+.btn-large {
+    background-color: #6C009C !important;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.imgColaborador {
+    width: 200px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 200px;
+    border-radius: 50%;
+}
+
+img {
+    border-style: none;
+    width: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.titleLabel {
+    margin-bottom: 0;
+}

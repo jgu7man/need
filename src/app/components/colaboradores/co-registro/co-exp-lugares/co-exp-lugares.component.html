@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col s12 center">
+        <p class="grey-text lighten-1">
+            Llena los siguientes datos para ir agregando experiencia. Recuerda que todo cuenta
+        </p>
+    </div>
+</div>
+
+<div class="pickerPosition">
+
+</div>
+
+<div class="row" id="lugarForm">
+    <form action="#" #lugarForm="ngForm" onsubmit="return false">
+        <div class="col s6">
+            <label for="desde">Desde:</label>
+            <input type="text" class="datepicker" name="desde" id="desde">
+        </div>
+        <div class="col s6">
+            <label for="hasta">Hasta:</label>
+            <input type="text" class="datepicker" name="hasta" id="hasta">
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="lugar" id="lugar" [(ngModel)]="itemExp.lugar" #lugar="ngModel">
+            <label for="lugar">Lugar o empresa de trabajo</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="puesto" id="puesto" [(ngModel)]="itemExp.puesto" #puesto="ngModel">
+            <label for="puesto">Puesto de trabajo</label>
+        </div>
+        <div class="col s12 input-field">
+            <textarea type="text" name="descripcion" id="descripcion" [(ngModel)]="itemExp.descripcion" #descripcion="ngModel"></textarea>
+            <label for="descripcion">Descripción de actividades</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="nameReferencia" id="nameReferencia" [(ngModel)]="itemExp.nameReferencia" #nameReferencia="ngModel">
+            <label for="nameReferencia">Nombre de persona de referencia</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="numReferencia" id="numReferencia" [(ngModel)]="itemExp.numReferencia" #numReferencia="ngModel">
+            <label for="numReferencia">Número telefónico de referencia</label>
+        </div>
+        <div class="col s12">
+            <input type="submit" value="Agregar Experiencia" class="needbtn" (click)="addLugar()">
+        </div>
+    </form>
+</div>

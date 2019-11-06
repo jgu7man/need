@@ -23,7 +23,7 @@ export class HeroformComponent implements OnInit  {
     private Router: Router
   ) { 
     this.personal = new PersonalModel(0, 0, 0, {});
-    this.evento = new EventoModel('', '', 0, 0, 1, 0, 'pendiente', new Date)
+    this.evento = new EventoModel('', '', 0, 0, 1, 0, 'pendiente', new Date, '')
     this.extras = new ExtrasModel(0, 0, 0, 0, 0)
   }
   

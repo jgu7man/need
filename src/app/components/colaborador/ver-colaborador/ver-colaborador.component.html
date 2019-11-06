@@ -1,0 +1,66 @@
+<div class="contenido" *ngIf="colaborador">
+
+    <div class="row" id="datosUsuario">
+        <div class="col s12 center">
+            <div id="fotoPerfil">
+                <img src="{{colaborador.imgPerfil}}" alt="">
+            </div>
+        </div>
+        <div class="col s12" id="datos">
+            <ul>
+                <li id="nombre">{{colaborador.nombre}} {{colaborador.apellido_paterno}}</li>
+                <!-- <li id="email">{{colaborador.email}}</li> -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" id="rating">
+        <div class="col s6">
+            <button class="needbtn" (click)="rateColaborador('positivo')">Votar <i class="fas fa-thumbs-up"></i></button>
+        </div>
+        <div class="col s6">
+            <button class="needbtn" (click)="rateColaborador('negativo')">Votar <i class="fas fa-thumbs-down"></i></button>
+        </div>
+        <div class="col s4 center">
+            <span class="number">{{eventos}}</span><br>
+            <span class="dato">Eventos</span>
+        </div>
+        <div class="col s4 center">
+            <span class="number">{{ratingUp}}</span><br>
+            <span class="dato"><i class="fas fa-thumbs-up    "></i></span>
+        </div>
+        <div class="col s4 center">
+            <span class="number">{{ratingDown}}</span><br>
+            <span class="dato"><i class="fas fa-thumbs-down    "></i></span>
+        </div>
+    </div>
+
+    <div class="container seccion" id="comentarios">
+        <div class="row">
+            <h5 class="col s12 center sub grey-text lighten-1">COMENTARIOS</h5>
+            <form action="#" method="post" #comentar="ngForm" (ngSubmit)="onComentar()">
+                <div class="col s12 input-field">
+                    <textarea name="comentario" id="comentario" cols="30" rows="10" class="materialize-textarea" [(ngModel)]="comentario"></textarea>
+                    <label for="comentario">Dejar un comentario</label>
+                </div>
+                <div class="col s12">
+                    <button class="needbtn">COMENTAR</button>
+                </div>
+            </form>
+
+            <div class="col s12 comentList" *ngIf="comentarios.length > 0">
+                <ul>
+                    <li class="comentario" *ngFor="let comentario of comentarios">{{comentario}}</li>
+                </ul>
+                <i class="fas fa-chevron-circle-left navbtn leftbtn"></i>
+                <i class="fas fa-chevron-circle-right navbtn rigthbtn"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="container seccion" id="logros">
+        <div class="row">
+            <h5 class="col s12 sub center">LOGROS</h5>
+        </div>
+    </div>
+</div>

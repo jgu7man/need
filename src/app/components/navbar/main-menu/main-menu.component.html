@@ -9,22 +9,20 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="authService.user$ | async; then usuario; else invitado"></div>
+        <div *ngIf="authService.user$ | async; then usuario"></div>
         <div id="areaLinks">
             <div class="col s12 right">
-                <ng-template #invitado>
-                    <p class="Link">
-                        Únete al equipo NEED
-                    </p>
-                </ng-template>
 
-                <p class="Link" *ngIf="provLink" [routerLink]="['/directorio/bienvenida']" (click)="toggleMenu()">
-                    Publica tus servicios
+                <p class="Link" [routerLink]="['/', perfilMenu.perfil]" (click)="switchMenu(perfilMenu.perfil)" (click)="toggleMenu()">
+                    {{perfilMenu.legend}}
                 </p>
-                <p class="Link" *ngIf="conocenosLink" [routerLink]="['/conocenos']" (click)="toggleMenu()">
+                <p class="Link" [routerLink]="['/directorio/bienvenida']" (click)="toggleMenu()">
+                    NEED Business
+                </p>
+                <p class="Link" [routerLink]="['/conocenos']" (click)="toggleMenu()">
                     Conócenos
                 </p>
-                <p class="Link" *ngIf="preciosLink" [routerLink]="['/precios']" (click)="toggleMenu()">
+                <p class="Link" [routerLink]="['/precios']" (click)="toggleMenu()">
                     Precios
                 </p>
                 <ng-template #usuario>

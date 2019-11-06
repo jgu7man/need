@@ -1,0 +1,25 @@
+.title {
+    background: url('../../../../../assets/img/profileBg.png');
+    width: 100vw;
+    margin: 0;
+}
+
+.back {
+    z-index: 1;
+    position: absolute;
+    margin: .2em 1em;
+}
+
+.contenido {
+    min-width: 100vw;
+}
+
+.desktop.container {
+    width: 90% !important;
+    position: relative;
+    top: 2em;
+}
+
+.needbtn {
+    transform: translate(-80%, -150%) !important;
+}

@@ -12,3 +12,13 @@ input[type=date]:not(.browser-default) {
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
 }
+
+.title {
+    background: url('../../../../assets/img/profileBg.png');
+    width: 100vw;
+    margin: 0 0 2em;
+}
+
+.contenido {
+    width: 100vw !important;
+}

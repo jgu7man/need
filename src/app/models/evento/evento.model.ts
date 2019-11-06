@@ -7,8 +7,9 @@ export class EventoModel {
         public personas: any ,
         public calidad: any ,
         public costo: any,
-        public estado: string,
+        public estado: 'pendiente'|'proximo'|'cancelado'|'completado',
         public fecha: Date,
+        public lugar: string
         
     ){}
 }

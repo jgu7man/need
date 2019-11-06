@@ -1,0 +1,45 @@
+<table *ngIf="postulado == false; else alert">
+    <tbody>
+        <tr *ngIf="vacantes.mesero > 0">
+            <th> {{vacantes.mesero}} </th>
+            <td> Meseros</td>
+        </tr>
+        <tr *ngIf="vacantes.jefeMeseros > 0">
+            <th> {{vacantes.jefeMeseros}} </th>
+            <td> Jefe de Meseros</td>
+        </tr>
+        <tr *ngIf="vacantes.barman > 0">
+            <th> {{vacantes.barman}} </th>
+            <td> Barman</td>
+        </tr>
+        <tr *ngIf="vacantes.hostess > 0">
+            <th> {{vacantes.hostess}} </th>
+            <td> Hostess</td>
+        </tr>
+        <tr *ngIf="vacantes.barra > 0">
+            <th> {{vacantes.barra}} </th>
+            <td> Personal de Barra</td>
+        </tr>
+        <tr *ngIf="vacantes.valet > 0">
+            <th> {{vacantes.valet}} </th>
+            <td> Valet Parking</td>
+        </tr>
+        <tr *ngIf="vacantes.seguridad > 0">
+            <th> {{vacantes.seguridad}} </th>
+            <td> Seguridad</td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #alert>
+    <div class="col s12 center resaltado">
+        <h5>Ya estás postulado para este evento</h5>
+    </div>
+</ng-template>
+
+
+<div class="row">
+    <div class="col s12">
+        <button class="needbtn" [routerLink]="['/colaborador/evento', idEvento]" routerLinkActive="router-link-active">VER DETALLES</button>
+    </div>
+</div>

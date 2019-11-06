@@ -1,0 +1,34 @@
+.title {
+    background: url('../../../../assets/img/profileBg.png');
+    width: 100%;
+    margin: 0 0 2em;
+    height: 5em;
+    margin-top: 5em;
+}
+
+.calendar {
+    background: #202020;
+    min-height: 75vh;
+}
+
+.title .col {
+    height: 1em;
+}
+
+.tus_eventos {
+    background: #202020;
+}
+
+ul.lista {
+    min-height: 70vh;
+}
+
+.evento {
+    padding: .5em;
+    margin: 1em 0em;
+    min-height: 5em;
+}
+
+.est {
+    text-transform: capitalize;
+}

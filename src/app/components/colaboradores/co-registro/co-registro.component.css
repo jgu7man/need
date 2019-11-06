@@ -1,0 +1,9 @@
+.title {
+    background: url('../../../../assets/img/profileBg.png');
+    width: 100vw;
+    margin: 0 0 2em;
+}
+
+.contenido {
+    width: 100vw !important;
+}

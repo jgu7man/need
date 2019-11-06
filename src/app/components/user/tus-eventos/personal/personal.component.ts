@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PersonalModel } from '../../../../models/evento/personal.model';
 import { ActivatedRoute } from '@angular/router';
 import { EventoService } from '../../../../services/evento.service';
 import { ExtrasModel } from '../../../../models/evento/extras.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { CoEventoService } from '../../../../services/colaboradores/coeventos.service';
 
 @Component({
   selector: 'app-personal',
@@ -12,16 +13,19 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class PersonalComponent implements OnInit {
 
-  public id: any;
+  @Input() id: any;
   public personal: PersonalModel;
   public extras: ExtrasModel;
   public keys:any;
-  public values:any;
+  public values: any;
+  public postulado: boolean = false
+  public owner: boolean = false
 
   constructor(
     private ruta: ActivatedRoute,
     private _evento: EventoService,
-    private fs: AngularFirestore
+    private fs: AngularFirestore,
+    private _coEvento: CoEventoService
   ) { 
     this.personal = new PersonalModel('','','',{});
     this.extras = new ExtrasModel(0,0,0,0,0)
@@ -29,9 +33,11 @@ export class PersonalComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.ruta.parent.url.subscribe( params => {
-      this.id = params[params.length -1].path
-    })
+    if (!this.id) {
+      this.ruta.parent.url.subscribe( params => {
+        this.id = params[params.length -1].path
+      })
+    }
 
     var eventoRef = this.fs.collection('eventos').ref.doc(this.id)
     var infoPeronal = await eventoRef.collection('info').doc('personal').get()
@@ -39,6 +45,23 @@ export class PersonalComponent implements OnInit {
 
     this.personal = personal as PersonalModel
     this.extras = this.personal.extras as ExtrasModel
+
+    this.checkOwner()
+    this.checkPostulacion()
+  }
+
+  async checkPostulacion() {
+    var user = JSON.parse(localStorage.getItem('needlog'))
+    this.postulado = await this._coEvento.checkPostulado(this.id, user.uid)
+  }
+
+  async checkOwner() {
+    this.ruta.parent.parent.url.subscribe(res => {
+      var user = res[res.length -1].path
+      if (user == 'colaborador') {
+        this.owner = false
+      }
+    });
   }
 
   // getServicio(){

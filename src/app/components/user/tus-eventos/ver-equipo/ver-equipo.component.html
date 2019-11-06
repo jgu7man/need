@@ -1,0 +1,23 @@
+<div class="container">
+    <ul class="ltxt collapsible" data-collapsible="accordion">
+        <li class="" *ngFor="let puesto of equipo">
+            <div class="collapsible-header black">{{puesto.name}}</div>
+            <div class="collapsible-body">
+                <div class="detalle row valign-wrapper" *ngFor="let miembro of puesto.miembros; index as id; trackBy: trackId">
+                    <div class="col s3" [routerLink]="['/usuario/ver_colaborador/', miembro.perfil.id]">
+                        <div class="coImgContainer click">
+                            <img [src]="miembro.perfil.imgPerfil" alt="">
+                        </div>
+                    </div>
+                    <div class="col s6 center" [routerLink]="['/usuario/ver_colaborador/', miembro.perfil.id]">
+                        <span class="click">{{miembro.perfil.nombre}} {{miembro.perfil.apellido_paterno}}</span>
+                    </div>
+                    <div class="col s3 rate">
+                        <i class="fas fa-thumbs-up" [ngClass]="{'resaltado':miembro.rate == 'positivo'}" (click)="rateColaborador(miembro.perfil.id, 'positivo')"></i>
+                        <i class="fas fa-thumbs-down" [ngClass]="{'resaltado':miembro.rate == 'negativo'}" (click)="rateColaborador(miembro.perfil.id, 'negativo')"></i>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

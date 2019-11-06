@@ -1,0 +1,20 @@
+.pop-up {
+    width: 90%;
+    padding: 5% 10% 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1em;
+    min-height: 35vh;
+}
+
+select {
+    background-color: #202020 !important;
+    color: #ccc !important;
+    border-radius: 1em !important;
+}
+
+option {
+    text-transform: capitalize;
+}

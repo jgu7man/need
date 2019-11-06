@@ -2,6 +2,10 @@
     margin-top: 2em;
 }
 
+.contenido {
+    padding-top: 5em;
+}
+
 .categoria {
     height: 8em;
     margin: 0 0 1em;
@@ -16,6 +20,10 @@
     margin-left: 1em;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
     line-height: 8;
+}
+
+img {
+    width: 100%;
 }
 
 @media screen and (min-width: 500px) {
