@@ -1,18 +1,5 @@
 <div class="row formulario">
     <form action="#" #altaNegocio="ngForm" onsubmit="return false" method="POST" id="negocio" (ngSubmit)="onSubmit()">
-        <div class="col s6" style="top: 4em; position: relative;">
-            <div class="negImagen">
-                <img id="imagenNegocio" src="{{negocio.imgPerfil}}" alt="">
-            </div>
-        </div>
-        <div class="col s6 file-field input-field">
-            <div class="btn fileneedbtn">
-                <label for="imagen" class="upImage itemIcon"><i class="fas fa-file-upload"></i></label>
-                <label for="imagen" class="upImage itemLink">Subir imagen</label>
-                <input type="file" name="imagen" id="imagen" (change)=imagen($event)>
-            </div>
-        </div>
-
 
         <div class="col s12 input-field">
             <input type="text" name="nombre" id="nombre" [(ngModel)]="negocio.nombre" #nombre="ngModel" required>
@@ -27,43 +14,7 @@
             <option value="{{catego.name}}" *ngFor="let catego of categorias">{{catego.name}}</option>
         </select>
 
-        <div class="col s12 input-field">
-            <input type="text" name="telefono" id="telefono" [(ngModel)]="negocio.telefono" #telefono="ngModel" required>
-            <label for="telefono">Teléfono del negocio</label>
-            <span class="formAlert" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
-                Debes agregar un teléfono
-            </span>
-        </div>
-        <div class="col s12 input-field">
-            <input type="text" name="email" id="email" [(ngModel)]="negocio.email" #email="ngModel" required>
-            <label for="email">Email del negocio</label>
-            <span class="formAlert" *ngIf="email.invalid && (email.dirty || email.touched)">
-                Debes agregar un email
-            </span>
-        </div>
-        <div class="col s12 input-field">
-            <textarea name="descripcion" id="descripcion" class="materialize-textarea" [(ngModel)]="negocio.descripcion" #descripcion="ngModel" required></textarea>
-            <label for="descripcion">Descripción</label>
-            <span class="formAlert" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
-                Debes agregar un descripción
-            </span>
-        </div>
-        <div class="col s12 input-field">
-            <input type="text" name="sitioweb" id="sitioweb" [(ngModel)]="negocio.sitioweb" #sitioweb="ngModel" required>
-            <label for="sitioweb">Sitioweb</label>
-        </div>
-        <div class="col s12 input-field">
-            <input type="text" name="direccion" id="direccion" [(ngModel)]="negocio.direccion" #direccion="ngModel" required>
-            <label for="direccion">Dirección (Calle y número)</label>
-        </div>
-        <div class="col s12 input-field">
-            <input type="text" name="colonia" id="colonia" [(ngModel)]="negocio.colonia" #colonia="ngModel" required>
-            <label for="colonia">Colonia</label>
-        </div>
-        <div class="col s12 input-field">
-            <input type="text" name="ciudad" id="ciudad" [(ngModel)]="negocio.ciudad" #ciudad="ngModel" required>
-            <label for="ciudad">Ciudad</label>
-        </div>
+
         <div class="col s12">
             <input type="submit" value="ENVIAR" class="needbtn">
             <!-- [disabled]="!altaNegocio.form.valid" -->

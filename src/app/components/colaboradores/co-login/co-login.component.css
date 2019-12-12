@@ -30,6 +30,7 @@
 }
 
 .loginbtn {
+    background: #6C009C;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -81,8 +82,11 @@
 }
 
 @media screen and (min-width: 500px) {
+    .login {
+        background-position: 0 0;
+    }
     .loginCont {
-        height: 40vh;
+        height: 25vh;
     }
     .teamCont {
         height: 30vh;

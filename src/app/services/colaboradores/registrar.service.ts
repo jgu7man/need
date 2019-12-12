@@ -20,64 +20,26 @@ export class RegistrarService {
     ){}
     
     async onRegistrar(colab: ColaboradorModel) {
-        //  REVISAR SI EXISTE EL EMAIL REGISTRADO EN COLABORADORES
         const colRef = this.fs.collection('colaboradores').ref
-        const colDocs = await colRef.where('email', '==', colab.email).get()
-        const colDoc = colDocs.docs[0]
-        //  REVISAR SI EXISTE EL EMAIL REGISTRADO EN USUARIOS
         const userRef = this.fs.collection('usuarios').ref
-        const userDocs = await userRef.where('email', '==', colab.email).get()
-        const userDoc = userDocs.docs[0]
         
-        if (colDocs.size == 0 && userDocs.size == 0) {
-            // SI NO EXISTE CREAR CUENTA
-            this.auth.auth
-                .createUserWithEmailAndPassword(colab.email, colab.password)
-                .then(colaborador => {
-
-                    this.colaborador = colaborador.user.uid
-                    // SI NO EXISTE CORREO REGISTRADO COMO USUARIO => GUARDAR
-                    colRef.doc(this.colaborador)
-                        .set({
-                            id: this.colaborador,
-                            email: colab.email,
-                            nombre: colab.nombre,
-                            apellido_paterno: colab.apellido_paterno,
-                            apellido_materno: colab.apellido_materno,
-                            estado: colab.estado
-                        })
-                    // ASIGNAR EN COLECCIÓN USUARIOS EL VALOR DE COLABORADOR
-                    userRef.doc(userDoc.id).update({
-                        colaborador: true
-                    })
-                    // REDIRECCIÓN A DATOS
-                    this.router.navigate(['/colaboradores/reg-datos', userDoc.id])
-                    console.log('usuario registrado');
-                }).catch(error => {
-                    console.log(error);
-                    if (error.code.includes('invalid')) {
-                        alert('Escribe una direccion de correo válida')
-                    }
-                })
-
-        } else if (colDocs.size == 0 && userDocs.size > 0) {
-            // SI EXISTE EL CORREO COMO USUARIO SÓLO GUARDAR EN LA COLECCIÓN
-            colRef.doc(userDoc.id).set({
-                id: userDoc.id,
+        colRef.doc(colab.uid).set({
+                uid: colab.uid,
                 email: colab.email,
                 nombre: colab.nombre,
                 apellido_paterno: colab.apellido_paterno,
-                apellido_materno: colab.apellido_materno
+                apellido_materno: colab.apellido_materno,
+                estado: colab.estado
             })
-            // ASIGNAR EN COLECCIÓN USUARIOS EL VALOR DE COLABORADOR
-            userRef.doc(userDoc.id).update({
-                colaborador: true
-            })
-            // REDIRECCIÓN A DATOS
-            this.router.navigate(['/colaboradores/reg-datos', userDoc.id])
-        } else {
-            console.log('Este email ya está registrado, por favor usa otro');
-        }
+        
+        // ASIGNAR EN COLECCIÓN USUARIOS EL VALOR DE COLABORADOR
+        userRef.doc(colab.uid).update({
+            colaborador: true
+        })
+        // REDIRECCIÓN A DATOS
+        this.router.navigate(['/colaborador/reg-datos', colab.uid])
+        console.log('usuario registrado');
+
     }
 
     
@@ -93,7 +55,7 @@ export class RegistrarService {
                 CURP: datos.CURP,
                 RFC: datos.RFC
             }).then(ref => {
-                this.router.navigate(['/colaboradores/exp_laboral', idColab])
+                this.router.navigate(['/colaborador/exp_laboral', idColab])
             })
     }
 
@@ -108,7 +70,7 @@ export class RegistrarService {
                 hostess: datos.hostess,
                 seguridad: datos.seguridad,
             }).then(ref => {
-                this.router.navigate(['/colaboradores/add_imagen', idColab])
+                this.router.navigate(['/colaborador/add_imagen', idColab])
             })
     }
 

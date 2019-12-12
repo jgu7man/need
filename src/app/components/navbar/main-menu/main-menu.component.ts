@@ -19,16 +19,18 @@ export class MainMenuComponent implements OnInit {
   public conocenosLink: boolean = true;
   public preciosLink: boolean = true;
   public cerrarLink: boolean = true;
-  
-  @Output() cerrarMenu = new EventEmitter();
   public perfilMenu 
+  public isAdmin: boolean = false
+  @Output() cerrarMenu = new EventEmitter();
+  
   constructor(
     private _ruta: ActivatedRoute,
     public authService: AuthService,
     public _colab: ColaboradorService,
     private location: Location
   ) {
-    
+    var user = JSON.parse(localStorage.getItem('needlog'))
+    if (user) { user.admin ? this.isAdmin = true : this.isAdmin = false }
    }
 
   ngOnInit() {
@@ -50,6 +52,8 @@ export class MainMenuComponent implements OnInit {
         this.perfilMenu = this._colab.coMenu
       }
     }
+
+    console.log(this.perfilMenu);
   }
 
   switchMenu(perfil) {

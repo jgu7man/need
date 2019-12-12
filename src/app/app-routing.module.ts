@@ -42,6 +42,22 @@ import { PostulacionExitosaComponent } from './components/notificaciones/postula
 import { VerEquipoComponent } from './components/user/tus-eventos/ver-equipo/ver-equipo.component';
 import { VerColaboradorComponent } from './components/colaborador/ver-colaborador/ver-colaborador.component';
 import { VerUsuarioComponent } from './components/user/ver-usuario/ver-usuario.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminAdministradoresComponent } from './components/admin/admin-administradores/admin-administradores.component';
+import { AdminColaboradoresComponent } from './components/admin/admin-colaboradores/admin-colaboradores.component';
+import { AdminUsuariosComponent } from './components/admin/admin-usuarios/admin-usuarios.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { CoInfoComponent } from './components/admin/admin-colaboradores/co-info/co-info.component';
+import { AdminCapitanesComponent } from './components/admin/admin-capitanes/admin-capitanes.component';
+import { AdminEventoComponent } from './components/admin/admin-evento/admin-evento.component';
+import { AdminEventosComponent } from './components/admin/admin-eventos/admin-eventos.component';
+import { AdminNegociosComponent } from './components/admin/admin-negocios/admin-negocios.component';
+import { AdminCategoriasComponent } from './components/admin/admin-categorias/admin-categorias.component';
+import { AdminConfiguracionComponent } from './components/admin/admin-configuracion/admin-configuracion.component';
+import { FormNegocioComponent } from './components/negocio/form-negocio/form-negocio.component';
+import { FormDatosNegocioComponent } from './components/negocio/form-datos-negocio/form-datos-negocio.component';
+import { FormExtrasNegocioComponent } from './components/negocio/form-extras-negocio/form-extras-negocio.component';
+import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-info/negocio-info.component';
 
 
 const routes: Routes = [
@@ -57,6 +73,7 @@ const routes: Routes = [
   { path: 'evento-creado/:idEvento', component: EventoCreadoComponent },
   { path: 'colaborador-registrado/:id', component: ColaboradorGuardadoComponent},
   
+  // Usuario
   { path: 'usuario', component: UsuarioComponent, children: [
     { path: '', redirectTo: 'perfil', pathMatch: 'full' },
     { path: 'tus-eventos', component: TusEventosComponent, data: { nav: 2 } },
@@ -71,14 +88,23 @@ const routes: Routes = [
     { path: 'nuevo-evento', component: NuevoEventoComponent },
     { path: 'ver_colaborador/:id', component: VerColaboradorComponent}
   ] },
+  
+  // Directorio
   { path: 'directorio', component: DirectorioComponent, data: {nav: 4}, children: [
     { path: '', component: CategoriasComponent},
     { path: 'bienvenida', component: NegBienvenidaComponent},
     { path: 'categorias', component: CategoriasComponent},
     { path: 'categoria/:name', component: CategoriaComponent},
-    { path: 'suscripcion', component: SuscribirComponent},
+    { path: 'suscripcion', component: SuscribirComponent, children: [
+      { path: 'add/:id', component: FormNegocioComponent, data: { nav: 1 } },
+      { path: 'datos/:id', component: FormDatosNegocioComponent, data: { nav: 2 } },
+      { path: 'extras', component: FormExtrasNegocioComponent, data: { nav: 3 } },
+      
+    ]},
     { path: 'pagarPlan/:plan', component: PagarPlanComponent},
   ] },
+  
+  // Colaborador
   { path: 'colaborador', component: ColaboradoresComponent, children: [
     { path: 'login', component: CoLoginComponent },
     { path: '', component: CoLoginComponent },
@@ -99,6 +125,31 @@ const routes: Routes = [
     { path: 'tus_eventos', component: CoTusEventosComponent },
     { path: 'ver_usuario/:id', component: VerUsuarioComponent}
   ] },
+  
+  // Admin
+  { path: 'admin', component: AdminComponent, children: [
+    { path: '', component: AdminDashboardComponent },
+    { path: 'administradores', component: AdminAdministradoresComponent },
+    { path: 'colaboradores', component: AdminColaboradoresComponent },
+    { path: 'capitanes', component: AdminCapitanesComponent },
+    { path: 'co_info/:id', component: CoInfoComponent },
+    { path: 'usuarios', component: AdminUsuariosComponent },
+    { path: 'ver_usuario/:id', component: VerUsuarioComponent },
+    { path: 'eventos', component: AdminEventosComponent },
+    { path: 'negocios', component: AdminNegociosComponent },
+    { path: 'negocio_info/:id', component: NegocioInfoComponent },
+    { path: 'categorias', component: AdminCategoriasComponent },
+    { path: 'configuracion', component: AdminConfiguracionComponent },
+    { path: 'evento/:id', component: AdminEventoComponent, children:[
+      { path: '', redirectTo: 'detalles', pathMatch: 'full' },
+      { path: 'detalles', component: DetallesComponent },
+      { path: 'datos', component: DatosComponent },
+      { path: 'personal', component: PersonalComponent },
+      { path: 'ver-equipo', component: VerEquipoComponent },
+    ]},
+  ] },
+  
+
   { path: 'negocio/:neg', component: NegocioComponent },
   { path: 'conocenos', component: ConocenosComponent },
   { path: 'precios', component: PreciosComponent },

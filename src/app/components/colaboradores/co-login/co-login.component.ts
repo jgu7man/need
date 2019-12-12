@@ -4,6 +4,7 @@ import { ColaboradorService } from '../../../services/colaboradores/colaborador.
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { CoauthService } from '../../../services/colaboradores/coauth.service';
 
 @Component({
   selector: 'app-co-login',
@@ -14,12 +15,12 @@ export class CoLoginComponent implements OnInit {
 
   public colab: ColaboradorModel
   constructor(
-    private _colaboradores: ColaboradorService,
+    public _coauth: CoauthService,
     public location: Location,
     public auth: AuthService,
     private router: Router
   ) {
-    this.colab = new ColaboradorModel('','','','','','','','activo')
+    this.colab = new ColaboradorModel('','','','','','','activo')
    }
 
   ngOnInit() {
@@ -31,7 +32,6 @@ export class CoLoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this._colaboradores.onLogin(this.colab.email, this.colab.password)
   }
 
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NegocioService } from '../../services/directorio/negocio.service';
 import { NegocioModel } from '../../models/direcorio/negocio.model';
+import { NegocioDatosModel } from 'src/app/models/direcorio/negocio-datos.model';
+import { NegocioExtrasModel } from 'src/app/models/direcorio/negocio-extras.model';
 declare var $: any;
 
 @Component({
@@ -12,8 +14,11 @@ declare var $: any;
 export class NegocioComponent implements OnInit {
 
   public Usuario: any; //variable de la información del usuario
-  public negocioId: any //
-  public negocio: any;
+  public negocioId: string //
+  public negocio: NegocioModel;
+  public negocioDatos: NegocioDatosModel
+  public negocioExtras: NegocioExtrasModel
+  public negocioRating: number
   public images: any;
   public rater: boolean;
   public comentario: string;
@@ -22,55 +27,55 @@ export class NegocioComponent implements OnInit {
     private href: ActivatedRoute,
     private _ruta: Router,
   ) { 
-    this.negocio = new NegocioModel('','','','','','','','','','','','','',[],[])
+    this.negocio = new NegocioModel('','','','','',new Date, new Date, '','solicitud')
+    this.negocioDatos = new NegocioDatosModel('', '', '', '', '', '', '', '')
+    this.negocioExtras = new NegocioExtrasModel('',[],[])
   }
 
   async ngOnInit() {
     // activa loading
-    this.negocio = false;
+    // this.negocio = false;
     // tomar información del usuario
     this.Usuario = JSON.parse(localStorage.getItem('needlog'))
 
     // tomar id del negocio
     await this.href.params.subscribe( (params: Params) => {
-      this.negocioId = params.neg
+      return this.negocioId = params.neg
+    })
       
       // tomar la información del negocio
-      this._negocio.getNegocio(this.negocioId).then(
-        res => {
-          this.negocio = res.negocio
-        }, err=> {console.log(<any>err);}
-        )
-      })
+    this.negocio = await this._negocio.getNegocio(this.negocioId)
+    this.negocioDatos = await this._negocio.getNegocioDatos(this.negocioId)
+    this.negocioExtras = await this._negocio.getNegocioExtras(this.negocioId)
       
-      setTimeout(()=> {
-        this.content();
-    }, 1000)
+      setTimeout(()=> {this.content();}, 1000)
   }
 
   content(){
-    // Revisar si el usuario recomienda el negocio
-    this._negocio.rater(this.negocioId, this.Usuario.uid).then(
-      res => {
-        this.rater = res.isRater;
-        if(this.rater){
-          $("#star").addClass('fas')
-        } else {
-          $("#star").removeClass('fas')
+    if (this.Usuario) {
+      // Revisar si el usuario recomienda el negocio
+      this._negocio.rater(this.negocioId, this.Usuario.uid).then(
+        res => {
+          this.rater = res.isRater;
+          if(this.rater){
+            $("#star").addClass('fas')
+          } else {
+            $("#star").removeClass('fas')
+          }
         }
-      }
-    )
+      )
+    }
 
     // Cuantas recomendaciones tiene el negoioc
     this._negocio.getRating(this.negocioId).then(
       res => {
-        this.negocio.rating = res;
+        this.negocioRating = res;
         
       }
     )
     
     // si no hay imágenes, invita al dueño a ingresar
-    if ( this.negocio.images == undefined ){
+    if ( this.negocioExtras.images == undefined ){
       $("#slides").css('display', 'none');
       $("#textAdd").css('display', 'inline-block');
     }
@@ -99,10 +104,10 @@ export class NegocioComponent implements OnInit {
     
 
     // AJAX: regresa las imágenes
-    await this._negocio.getNegocio(this.negocioId).then(
+    await this._negocio.getNegocioExtras(this.negocioId).then(
       res => { 
         console.log('se actualizó documento');
-        this.negocio = this.negocio = res.negocio;
+        this.negocioExtras = res;
         $("app-loading").fadeToggle()
       }, err=> {console.log(<any>err);}
     )
@@ -116,13 +121,17 @@ export class NegocioComponent implements OnInit {
 
   // recomendar negocio: true || false
   async rate(){
-    var rater = this.Usuario.uid
-    var neg = this.negocioId
-    $("#star").toggleClass('fas')
-    var res = await this._negocio.rate(neg, rater)
-    console.log(res);
-    this._negocio.getRating(neg).then(
-        res  => { this.negocio.rating = res });
+    if (this.Usuario) {
+      var rater = this.Usuario.uid
+      var neg = this.negocioId
+      $("#star").toggleClass('fas')
+      var res = await this._negocio.rate(neg, rater)
+      console.log(res);
+      this._negocio.getRating(neg).then(
+          res  => { this.negocioRating = res });
+    } else {
+      alert('Necesitas inicar sesión para calificar este negocio')
+    }
   }
 
   async comentar(){
@@ -130,7 +139,7 @@ export class NegocioComponent implements OnInit {
       res => { console.log(res); });
     setTimeout(()=> {
       this._negocio.getComentarios(this.negocioId).then(
-        res => {this.negocio.comentarios = res.comentarios})
+        res => {this.negocioExtras.comentarios = res.comentarios})
     }, 1000);
     await $("#comentario").val('')
   }

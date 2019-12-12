@@ -2,6 +2,10 @@
     margin: 0 1px;
 }
 
+.total {
+    font-size: xx-large;
+}
+
 .cotiTable {
     background: #000000;
     border-radius: 1em;

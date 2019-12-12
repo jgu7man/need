@@ -4,6 +4,7 @@ import { DatosModel } from '../../../models/evento/datosevento.model';
 import { PersonalModel } from '../../../models/evento/personal.model';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { EventoService } from '../../../services/evento.service';
+import { HorarioModel } from 'src/app/models/evento/horario.model';
 
 declare var jQuery:any;
 declare var $:any;
@@ -28,7 +29,12 @@ settings = {
   public evento: EventoModel
   public Evento: string;
   public idEvento: any;
-
+  public eventoStarts: HorarioModel
+  public eventoEnds: HorarioModel
+  public dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  public timeOptions = { hour: 'numeric', minute: 'numeric' }
+  public queDia: string
+  public ends = false
 
   constructor(
     private _Route: ActivatedRoute,
@@ -37,7 +43,9 @@ settings = {
     ) {
     this.datos = new DatosModel(new Date,new Date,'', '', '', '', '');
     this.personal = new PersonalModel( '', '', '', {});
-    this.evento = new EventoModel('', '', '', '', '', '', 'pendiente',new Date, '');
+    this.evento = new EventoModel('', '', '', '', '', '', 'pendiente', new Date, '');
+    this.eventoStarts = new HorarioModel(new Date, '', '')
+    this.eventoEnds = new HorarioModel(new Date, '','')
   }
 
   ngOnInit() {
@@ -60,12 +68,44 @@ settings = {
     var year = splitDate[0]
     var month = splitDate[1] -1
     var day = splitDate[2]
-    
-    var time = $('#iniciaTime').val()
-    var hour = time.split(':')[0]
-    var min = time.split(':')[1]
-    this.datos.inicia = new Date(+year, +month, +day, +hour, +min)
+    console.log(+year, +month, +day);
+    this.eventoStarts.date = new Date(year, month, day)
+    $("#hora").fadeIn()
   }  
+
+  getIniciaTime() {
+    console.log($('#iniciaTime').val());
+    var time = $('#iniciaTime').val(),
+      hour = time.split(':')[0],
+      min = time.split(':')[1],
+
+      year = this.eventoStarts.date.getFullYear(),
+      month = this.eventoStarts.date.getMonth(),
+      day = this.eventoStarts.date.getDate()
+
+
+    this.datos.inicia = new Date(year, month, day, +hour, +min)
+    this.eventoStarts.date = new Date(year, month, day, +hour - 2, +min)
+    this.eventoEnds.date = new Date(year, month, day, +hour + 5, +min)
+    this.datos.termina = new Date(year, month, day, +hour + 5, +min)
+    this.stringDates()
+  }
+
+  stringDates() {
+    this.eventoStarts.fecha = this.eventoStarts.date.toLocaleDateString('es-Es', this.dateOptions)
+    this.eventoStarts.hora = this.eventoStarts.date.toLocaleTimeString('es-Es', this.timeOptions)
+
+    this.eventoEnds.fecha = this.eventoEnds.date.toLocaleDateString('es-Es', this.dateOptions)
+    this.eventoEnds.hora = this.eventoEnds.date.toLocaleTimeString('es-Es', this.timeOptions)
+
+    if (this.eventoStarts.date.getDate() == this.eventoEnds.date.getDate()) {
+      this.queDia = 'del mismo día'
+    } else {
+      this.queDia = 'del siguiente día'
+    }
+
+    this.ends = true
+  }
   
   getTerminaDate() {
     var date = $('#terminaDate').val()
@@ -83,7 +123,6 @@ settings = {
 
   async onSubmit() {
     
-    this.getIniciaDate()
     this.getTerminaDate()
 
     this.evento.fecha = this.datos.inicia
@@ -145,19 +184,19 @@ settings = {
       event.preventDefault();
     })
 
-    $('.timepicker').pickatime({
+    $('.timepicker').timepicker({
       sdefault: 'now', // Set default time: 'now', '1:30AM', '16:30'
-    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
-    donetext: 'OK', // text for done-button
-    cleartext: 'Clear', // text for clear-button
-    canceltext: 'Cancel', // Text for cancel-button,
-    container: '.contenido', // ex. 'body' will append picker to body
-    autoclose: true, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
+      fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+      twelveHour: false, // Use AM/PM or 24-hour format
+      donetext: 'OK', // text for done-button
+      cleartext: 'Limpiar', // text for clear-button
+      canceltext: 'Cancelar', // Text for cancel-button,
+      container: '.contenido', // ex. 'body' will append picker to body
+      autoclose: false, // automatic close timepicker
       aftershow: function () {
-        console.log('hola');
-       }, //Function for after opening timepicker
+          console.log('hola');
+        }, //Function for after opening timepicker
+      
     });
 
     

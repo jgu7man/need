@@ -1,7 +1,7 @@
 export class ItemExpLaboral {
     constructor(
-        public desde: Date,
-        public hasta: Date,
+        public desde: string,
+        public hasta: string,
         public lugar: string,
         public puesto: string,
         public descripcion: string,

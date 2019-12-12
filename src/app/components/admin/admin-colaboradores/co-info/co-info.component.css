@@ -1,0 +1,23 @@
+.imgPerfil img {
+    width: 100%;
+}
+
+select {
+    background: transparent;
+    border: solid 1px #ccc;
+    text-transform: capitalize;
+    width: 30%;
+}
+
+option {
+    text-transform: capitalize;
+}
+
+.empleo {
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+}
+
+.collection-item {
+    background: #202020;
+}

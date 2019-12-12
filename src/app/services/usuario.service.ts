@@ -93,4 +93,10 @@ export class UsuarioService {
             .where('usuario', '==', idUsuario).get()
         return resEventos.size
     }
+
+    async userSearch(email) {
+        const coRef = this.fs.collection('usuarios').ref
+        var result = await coRef.where('email', '==', email).get()
+        return result.size == 0 ? 0 : result.docs[0].id
+    }
 }

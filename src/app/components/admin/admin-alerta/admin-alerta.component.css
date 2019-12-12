@@ -1,0 +1,11 @@
+.pop-up {
+    width: 70%;
+    padding: 5% 10% 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1em;
+    min-height: 35vh;
+    margin-left: 10em;
+}

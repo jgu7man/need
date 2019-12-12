@@ -1,0 +1,19 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../out-tsc/app",
+        "module": "commonjs",
+        "types": [
+            "jquery",
+            "materialize-css",
+            "JQuery"
+            ]
+    },
+    "exclude": [
+        "test.ts",
+        "**/*.spec.ts"
+    ],
+    "angularCompilerOptions":{
+        "entryModule": "app/app.server.module#AppServerModule"
+    }
+}

@@ -25,51 +25,47 @@
         </div>
     </div>
 
-    <div class="container seccion" id="negocios">
+    <div class="container">
         <div class="row">
-            <h5 class="col s12 sub center">
-                NEGOCIOS
-            </h5>
-        </div>
-        <div class="row negocio " *ngFor="let neg of userNegocios" [routerLink]="['/usuario/negocio', neg.idNegocio ]">
-            <div class="col s3 imgNegocio">
-                <img src="{{neg.imgPerfil}}" alt="">
-            </div>
-            <div class="col s9 imgName">
-                {{neg.nombre}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12" id="noNeg" *ngIf="userNegocios == false">
-                *Si tienes un negocio que ofrece servicios para eventos sociales. Anúncialo en nuestro <span [routerLink]="['/directorio']">DIRECTORIO</span> y llega a miles de usuarios que usan NEED.
-            </div>
-        </div>
-        <button class="needbtn" [routerLink]="['/directorio/bienvenida']">Agregar negocio</button>
-    </div>
 
-    <div class="container seccion" id="finanzas">
-        <div class="row">
-            <h5 class="col s12 sub center">
-                FORMAS DE PAGO
-            </h5>
-            <div class="row" id="formaPago">
-                <div class="col s3 metodo">
-                    VISA
-                </div>
-                <div class="col s8">
-                    <span class="titular">
-                        {{usuario.nombre}}
-                    </span><br>
-                    <span>
-                        **** **** **** 1234 
-                    </span>
-                </div>
-                <div class="col s1">
-                    <i class="fas fa-trash    "></i>
+            <div class="col s12 l6 seccion">
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="center grey-text lighten-1">LOGROS</h5>
+                    </div>
                 </div>
             </div>
+
+            <!-- <div class="col s12 l6 seccion">
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="center grey-text lighten-1">COMENTARIOS</h5>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col s12 l6 seccion">
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="center grey-text lighten-1">NEGOCIOS</h5>
+                    </div>
+                </div>
+                <div class="row negocio " *ngFor="let neg of userNegocios" [routerLink]="['/usuario/negocio', neg.idNegocio ]">
+                    <div class="col s3 imgNegocio">
+                        <img src="{{neg.imgPerfil}}" alt="">
+                    </div>
+                    <div class="col s9 imgName">
+                        {{neg.nombre}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12" id="noNeg" *ngIf="userNegocios == false">
+                        *Si tienes un negocio que ofrece servicios para eventos sociales. Anúncialo en nuestro <span [routerLink]="['/directorio']">DIRECTORIO</span> y llega a miles de usuarios que usan NEED.
+                    </div>
+                </div>
+                <button class="needbtn" [routerLink]="['/directorio/bienvenida']">Agregar negocio</button>
+            </div>
         </div>
-        <p class="needbtn center" style="width: 50%" [routerLink]="['/usuario/agregar-tarjeta']">Agregar</p>
     </div>
 
 </div>

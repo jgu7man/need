@@ -112,8 +112,12 @@ export class CoEventoService {
             // Por cada puesto, invocar los perfiles de cada miembro y asignarlo a un array nuevo
             equipoObj[puesto].forEach(async id => {
                 var miembro = await this.getPerfilColaborador(id)
-                var rate = await this.getUserCoRate(id, idUser)
-                return puestoArray.push({perfil: miembro, rate:rate})
+                if (idUser) {
+                    var rate = await this.getUserCoRate(id, idUser)
+                    return puestoArray.push({perfil: miembro, rate:rate})
+                } else {
+                    return puestoArray.push({perfil: miembro})
+                }
             })
 
             equipo.push({name:puesto, miembros: puestoArray })

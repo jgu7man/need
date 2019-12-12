@@ -1,0 +1,31 @@
+.title {
+    background: url('../../../../assets/img/profileBg.png');
+    width: 100vw;
+    margin: 0;
+}
+
+.back {
+    z-index: 1;
+    position: absolute;
+    margin: -1em 1em;
+    color: purple;
+}
+
+.contenido {
+    min-width: 100%;
+    padding: 3em 0;
+}
+
+.box-content {
+    width: 45% !important;
+}
+
+.desktop.container {
+    width: 90% !important;
+    position: relative;
+    top: 2em;
+}
+
+.needbtn {
+    transform: translate(-80%, -150%) !important;
+}

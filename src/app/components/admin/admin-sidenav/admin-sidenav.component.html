@@ -1,0 +1,48 @@
+<ul id="slide-out" class="side-nav purple darken-1">
+    <li>
+        <div class="admin-view" *ngIf="auth.user$ | async as usuario">
+            <div class="background">
+                <img src="/assets/img/profileBg.png">
+            </div>
+            <p class="white-text"><img class="circle" [src]="usuario.photoURL"><br>
+                <span class="name">{{usuario.displayName}}</span><br>
+                <span class="email">{{usuario.email}}</span></p>
+        </div>
+    </li>
+    <li class="link">
+        <a [routerLink]="['/admin']" class="white-text waves-effect"> <i class="fas fa-columns"></i> Dashboard</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li class="link">
+        <a [routerLink]="['administradores']" class="white-text waves-effect"> <i class="fas fa-users-cog"></i> Administradores</a>
+    </li>
+    <li class="link">
+        <a [routerLink]="['colaboradores']" class="white-text waves-effect"> <i class="fas fa-user-tie"></i> Colaboradores</a>
+    </li>
+    <li class="link">
+        <a [routerLink]="['capitanes']" class="white-text waves-effect"> <i class="fas fa-user-friends"></i> Capitanes</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li class="link">
+        <a [routerLink]="['eventos']" class="white-text waves-effect"> <i class="far fa-calendar-alt"></i> Eventos</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li class="link">
+        <a [routerLink]="['negocios']" class="white-text waves-effect"> <i class="fas fa-store"></i> Negocios</a>
+    </li>
+    <li class="link">
+        <a [routerLink]="['categorias']" class="white-text waves-effect"> <i class="far fa-address-book"></i> Categorías</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li class="link">
+        <a [routerLink]="['configuracion']" class="white-text waves-effect"> <i class="fas fa-cog"></i> Configuración</a>
+    </li>
+</ul>

@@ -76,6 +76,27 @@ import { VerEquipoComponent } from './components/user/tus-eventos/ver-equipo/ver
 import { AlertasComponent } from './components/alertas/alertas.component';
 import { VerColaboradorComponent } from './components/colaborador/ver-colaborador/ver-colaborador.component';
 import { VerUsuarioComponent } from './components/user/ver-usuario/ver-usuario.component'
+import { EditNegocioComponent } from './components/negocio/edit-negocio/edit-negocio.component';
+import { AgregarTarjetaComponent } from './components/pago-form/agregar-tarjeta/agregar-tarjeta.component';
+
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminAlertaComponent } from "./components/admin/admin-alerta/admin-alerta.component";
+import { AdminSidenavComponent } from './components/admin/admin-sidenav/admin-sidenav.component';
+import { AdminAdministradoresComponent } from './components/admin/admin-administradores/admin-administradores.component';
+import { AdminColaboradoresComponent } from './components/admin/admin-colaboradores/admin-colaboradores.component';
+import { AdminUsuariosComponent } from './components/admin/admin-usuarios/admin-usuarios.component';
+import { AdminTabsComponent } from './components/admin/admin-tabs/admin-tabs.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { CoInfoComponent } from './components/admin/admin-colaboradores/co-info/co-info.component';
+import { AdminCapitanesComponent } from './components/admin/admin-capitanes/admin-capitanes.component';
+import { AdminEventoComponent } from './components/admin/admin-evento/admin-evento.component';
+import { AdminEventosComponent } from './components/admin/admin-eventos/admin-eventos.component';
+import { AdminNegociosComponent } from './components/admin/admin-negocios/admin-negocios.component';
+import { AdminCategoriasComponent } from './components/admin/admin-categorias/admin-categorias.component';
+import { AdminConfiguracionComponent } from './components/admin/admin-configuracion/admin-configuracion.component';
+import { FormDatosNegocioComponent } from './components/negocio/form-datos-negocio/form-datos-negocio.component';
+import { FormExtrasNegocioComponent } from './components/negocio/form-extras-negocio/form-extras-negocio.component';
+import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-info/negocio-info.component';
 
 @NgModule({
   declarations: [
@@ -135,9 +156,29 @@ import { VerUsuarioComponent } from './components/user/ver-usuario/ver-usuario.c
     AlertasComponent,
     VerColaboradorComponent,
     VerUsuarioComponent,
+    EditNegocioComponent,
+    AgregarTarjetaComponent,
+    AdminComponent,
+    AdminAlertaComponent,
+    AdminSidenavComponent,
+    AdminAdministradoresComponent,
+    AdminColaboradoresComponent,
+    AdminUsuariosComponent,
+    AdminTabsComponent,
+    AdminDashboardComponent,
+    CoInfoComponent,
+    AdminCapitanesComponent,
+    AdminEventoComponent,
+    AdminEventosComponent,
+    AdminNegociosComponent,
+    AdminCategoriasComponent,
+    AdminConfiguracionComponent,
+    FormDatosNegocioComponent,
+    FormExtrasNegocioComponent,
+    NegocioInfoComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'need' }),
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFirestoreModule,

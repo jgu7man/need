@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { NegocioDatosModel } from 'src/app/models/direcorio/negocio-datos.model';
+import { NegocioExtrasModel } from 'src/app/models/direcorio/negocio-extras.model';
 
 
 @Injectable({
@@ -22,15 +24,7 @@ export class NegocioService {
         var negocioSaved = await this.fs.collection('negocios').ref.add({
             idUsuario: negocio.idUsuario,
             nombre: negocio.nombre,
-            imgPerfil: negocio.imgPerfil,
             categoria: negocio.categoria,
-            telefono: negocio.telefono,
-            email: negocio.email,
-            sitioweb: negocio.sitioweb,
-            descripcion: negocio.descripcion,
-            direccion: negocio.direccion,
-            colonia: negocio.colonia,
-            ciudad: negocio.ciudad
         })
 
         await this.fs.collection('negocios').ref.doc(negocioSaved.id)
@@ -45,19 +39,47 @@ export class NegocioService {
         }
     }
 
+    async saveDatosNegocio(negId, datos: NegocioDatosModel) {
+        this.fs.collection('negocios').ref.doc(negId)
+            .collection('datos').doc('datos').set({
+                telefono: datos.telefono,
+                email: datos.email,
+                sitioweb: datos.sitioweb,
+                descripcion: datos.descripcion,
+                direccion: datos.direccion,
+                colonia: datos.colonia,
+                ciudad: datos.ciudad
+            })
+        return 'Datos guardados'
+    }
+
+    async setSolicitud(uid, email) {
+        var today = new Date(),
+            getMes = today.getMonth(),
+            getDia = today.getDate(),
+            getYear = today.getFullYear(),
+            setCorte = new Date(+getYear, +getMes + 1, +getDia)
+        var negRef = await this.fs.collection('negocios').ref.add({
+            idUsuario: uid,
+            ownerEmail: email,
+            estado: 'solicitud',
+            suscripcion: today,
+            corte: setCorte
+        })
+        this.fs.collection('negocios').ref.doc(negRef.id)
+            .update({ idNegocio: negRef.id })
+        
+        
+        this.fs.collection('usuarios').ref.doc(uid)
+            .update({ negocio: true })
+        
+        return 'solicitud enviada'
+    }
+
     async updateNegocio( negocio: NegocioModel) {
         await this.fs.collection('negocios').ref.doc(negocio.idNegocio).update({
-            idUsuario: negocio.idUsuario,
             nombre: negocio.nombre,
-            imgPerfil: negocio.imgPerfil,
-            categoria: negocio.categoria,
-            telefono: negocio.telefono,
-            email: negocio.email,
-            sitioweb: negocio.sitioweb,
-            descripcion: negocio.descripcion,
-            direccion: negocio.direccion,
-            colonia: negocio.colonia,
-            ciudad: negocio.ciudad
+            categoria: negocio.categoria
         })
 
         return {
@@ -66,10 +88,41 @@ export class NegocioService {
         }
     }
 
+    async updateNegocioDatos( negId, datos: NegocioDatosModel) {
+        await this.fs.collection('negocios').ref.doc(negId).
+            collection('datos').doc('datos').update({
+            imgPerfil: datos.imgPerfil,
+            telefono: datos.telefono,
+            email: datos.email,
+            sitioweb: datos.sitioweb,
+            descripcion: datos.descripcion,
+            direccion: datos.direccion,
+            colonia: datos.colonia,
+            ciudad: datos.ciudad
+        })
+
+        return {
+            mensaje: 'negocio actualizado',
+            idNegocio: negId
+        }
+    }
+
     async getNegocio( idNegocio: any) {
         var negocio = await this.fs.collection('negocios').ref
             .doc(idNegocio).get()
-        return {negocio: negocio.data()}
+        return  negocio.data() as NegocioModel
+    }
+
+    async getNegocioDatos(negId: string) {
+        var negocioDatos = await this.fs.collection('negocios').ref
+            .doc(negId).collection('datos').doc('datos').get()
+        return  negocioDatos.data() as NegocioDatosModel
+    }
+
+    async getNegocioExtras(negId: string) {
+        var negocioExtras = await this.fs.collection('negocios').ref
+            .doc(negId).collection('datos').doc('extras').get()
+        return  negocioExtras.data() as NegocioExtrasModel
     }
 
     async subirImagen(idNegocio, file) {
@@ -92,6 +145,8 @@ export class NegocioService {
                 })
             })
         ).subscribe()
+
+        return 'Imagen agregada'
     }
 
     async rate(id: string, rater: string) {

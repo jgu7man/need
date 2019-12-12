@@ -11,13 +11,46 @@
     </div>
 </div>
 <div class="container contenido" id="pagarPlan">
-    <p class="ltxt center"> ¡Buena elección! <br>Ahora vamos a pagarlo</p>
+    <ng-container *ngIf="plan.name != 'Mensual'; else mensual">
+        <p class="ltxt center"> ¡Buena elección! <br>Ahora vamos a pagarlo</p>
 
+        <div class="row">
+            <div class="col s12">
+                <h6 class="center grey-text lighten-1">Lo sentimos</h6>
+                <p class="center ltxt">Por ahora sólo podemos hacer el cobro por transferencia electrónica. <br> Tendrás que hacer un depósito por <span class="resaltado">${{plan.precio}}°°</span> para el plan {{plan.name}} a alguna de las siguientes opciones</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Número de tarjeta</th>
+                            <td>0000 0000 0000 0000</td>
+                        </tr>
+                        <tr>
+                            <th>CLABE</th>
+                            <td>1234567890123456</td>
+                        </tr>
+                        <tr>
+                            <th>SPEI (no. Célular)</th>
+                            <td>123 123 1234</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="center ltxt">
+                    Al hacer la transferencia, envía una foto o imagen del recibo a <span class="resaltado">app.need.mx@gmail.com</span> y el correo con el que has registrado la compra y nosotros nos pondremos en contacto contigo
+                </p>
+                <!-- <app-pago-form [nombre]="plan.name" [concepto]="'plan'" [total]="plan.total"></app-pago-form> -->
 
-    <div class="row">
-        <div class="col s12">
-            <app-pago-form [nombre]="plan.name" [concepto]="'plan'" [total]="plan.total"></app-pago-form>
+                <button class="needbtn" (click)="sendSolicitud()">Enviar solicitud</button>
+            </div>
         </div>
-    </div>
 
+    </ng-container>
+
+    <ng-template #mensual>
+
+        <p class="ltxt center">¡Muy bien! disfruta de un mes gratis de los servicios </p>
+        <p class="center ltxt">Por ahora sólo podemos hacer el cobro por transferencia electrónica. Pero podrás disfrutar de tu servicios una vez que demos autorización a tu negocio. Espero nuestro correo.</p>
+
+        <button class="needbtn" (click)="sendSolicitud()">Enviar solicitud</button>
+
+    </ng-template>
 </div>

@@ -1,0 +1,15 @@
+.upImage {
+    width: 100% !important;
+    line-height: 1;
+    text-align: center !important;
+    color: #fff !important;
+    left: 0% !important;
+    position: relative !important;
+}
+
+@media screen and (min-width: 500px) {
+    select {
+        left: 10px !important;
+        width: 95% !important;
+    }
+}

@@ -30,17 +30,15 @@ export class DetallesComponent implements OnInit {
     // Obtener id evento
     if (!this.id) {
       this.ruta.parent.url.subscribe(params => {
-        console.log(params);
         this.id = params[params.length - 1].path
       })
     }
     
     // Obtener detalles del evento
-    console.log(this.id);
     var eventoRef = this.fs.collection('eventos').ref.doc(this.id)
     var evento = await eventoRef.get()
     const detalles = evento.data()
-    console.log(detalles);
+
     detalles.fecha = evento.data().fecha.toDate()
     this.evento = detalles as EventoModel
     this.uid = evento.data().usuario

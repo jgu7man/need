@@ -26,7 +26,7 @@ export class VerColaboradorComponent implements OnInit {
     private _coEvento: CoEventoService,
     private ruta: ActivatedRoute
   ) {
-    this.colaborador = new ColaboradorModel('', '', '', '', '', '', '', 'activo')
+    this.colaborador = new ColaboradorModel('', '', '', '', '', '', 'activo')
     this.user = JSON.parse(localStorage.getItem('needlog'))
     this.ruta.params.subscribe(params => {
       this.idCo = params['id']

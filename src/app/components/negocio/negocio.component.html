@@ -11,21 +11,21 @@
     <div class="row" id="perfil">
         <div class="col s4">
             <div id="imgPerfil">
-                <img src="{{negocio.imgPerfil}}" alt="">
+                <img src="{{negocioDatos.imgPerfil}}" alt="">
             </div>
         </div>
         <div class="col s8">
             <h4>{{negocio.nombre}}</h4>
         </div>
         <div id="rating">
-            <span *ngIf="!negocio.rating" style="margin-left: 1em">Aun no hay calificacion</span>
-            <span id="ratings" *ngIf="negocio.rating">{{negocio.rating}} Recomendaciones</span>
-            <span id="rate" *ngIf="negocio.idUsuario != Usuario.uid" (click)="rate()">
-                <i id="star" class="far fa-star"></i>
+            <span *ngIf="!negociorating" style="margin-left: 1em">Aun no hay calificacion</span>
+            <span id="ratings" *ngIf="negocioRating">{{negocioRating}} Recomendaciones</span>
+            <span id="rate" *ngIf="Usuario" (click)="rate()">
+                <i *ngIf="negocio.idUsuario != Usuario.uid" id="star" class="far fa-star"></i>
             </span>
         </div>
-        <div id="editar" (click)="editNegocio()" *ngIf="negocio.idUsuario == Usuario.uid">
-            <i class="fas fa-edit "></i>
+        <div id="editar" (click)="editNegocio()" *ngIf="Usuario">
+            <i *ngIf="negocio.idUsuario == Usuario.uid" class="fas fa-edit "></i>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
 
         <div class="row" id="descrip">
             <div class="col s12">
-                {{negocio.descripcion}}
+                {{negocioDatos.descripcion}}
             </div>
         </div>
 
@@ -45,7 +45,7 @@
                     <span class="yellow-text">Imágenes</span>
                 </h5>
             </div>
-            <div class="col s6">
+            <div class="col s6" *ngIf="Usuario">
                 <div id="addImage" title="Agregar Imágenes" *ngIf="negocio.idUsuario == Usuario.uid">
                     <label for="images">
                         <i class="fas fa-images"></i>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="row" id="imgs">
-                <div class="col s4 img" *ngFor="let img of negocio.images" (click)="zoom(img)">
+                <div class="col s4 img" *ngFor="let img of negocioExtras.images" (click)="zoom(img)">
                     <img src="{{img}}" alt="">
                 </div>
             </div>
@@ -69,9 +69,9 @@
                     <span class="yellow-text"> Contacto</span>
                 </h5>
                 <ul>
-                    <li> {{negocio.telefono}} </li>
-                    <li> {{negocio.email}} </li>
-                    <li> {{negocio.sitioweb}} </li>
+                    <li> {{negocioDatos.telefono}} </li>
+                    <li> {{negocioDatos.email}} </li>
+                    <li> {{negocioDatos.sitioweb}} </li>
                 </ul>
             </div>
 
@@ -81,9 +81,9 @@
                     <span class="yellow-text"> Ubicación</span>
                 </h5>
                 <ul>
-                    <li> {{negocio.direccion}} </li>
-                    <li> {{negocio.colonia}} </li>
-                    <li> {{negocio.ciudad}} </li>
+                    <li> {{negocioDatos.direccion}} </li>
+                    <li> {{negocioDatos.colonia}} </li>
+                    <li> {{negocioDatos.ciudad}} </li>
                 </ul>
             </div>
         </div>
@@ -93,18 +93,18 @@
                     <i class="fas fa-comments    "></i>
                     <span class="yellow-text"> Comentarios</span>
                 </h5>
-                <div class="coment" *ngFor="let coment of negocio.comentarios">
+                <div class="coment" *ngFor="let coment of negocioExtras.comentarios">
                     <div class="col s1"><i class="fas fa-comment-alt"></i></div>
                     <div class="col s11">
                         {{coment}}
                     </div>
                 </div>
-                <div class="col s12" id="noComent" *ngIf="!negocio.comentarios">
+                <div class="col s12" id="noComent" *ngIf="!negocioExtras.comentarios">
                     Aun no hay comentarios
                 </div>
-                <div class="col s12" id="inputComent" *ngIf="negocio.idUsuario != Usuario.uid">
-                    <textarea name="comentario" id="comentario" [(ngModel)]="comentario"></textarea>
-                    <button class="needbtn" (click)="comentar()">COMENTAR</button>
+                <div class="col s12" id="inputComent" *ngIf="Usuario">
+                    <textarea *ngIf="negocio.idUsuario != Usuario.uid" name="comentario" id="comentario" [(ngModel)]="comentario"></textarea>
+                    <button *ngIf="negocio.idUsuario != Usuario.uid" class="needbtn" (click)="comentar()">COMENTAR</button>
                 </div>
             </div>
         </div>

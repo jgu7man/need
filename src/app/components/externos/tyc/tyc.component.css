@@ -1,0 +1,14 @@
+#texto p {
+    color: #ccc;
+    text-align: justify;
+}
+
+#texto {
+    padding: 12em 0 6em;
+}
+
+.link {
+    color: gold;
+    cursor: pointer;
+    text-decoration: none;
+}

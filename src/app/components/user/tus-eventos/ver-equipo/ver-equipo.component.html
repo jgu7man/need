@@ -1,5 +1,5 @@
 <div class="container">
-    <ul class="ltxt collapsible" data-collapsible="accordion">
+    <ul class="ltxt collapsible collapsible-accordion" data-collapsible="accordion" *ngIf="equipo">
         <li class="" *ngFor="let puesto of equipo">
             <div class="collapsible-header black">{{puesto.name}}</div>
             <div class="collapsible-body">

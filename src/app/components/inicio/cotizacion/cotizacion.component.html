@@ -2,13 +2,31 @@
     <div class="row center ltxt">
         <div class="col s12">
             <h4 class="exclam">¡Muy bien!</h4>
-            <p class="grey-text lighten-1">Ahora que ya sabemos lo que necesitas para tu evento de {{evento.tipoEvento}}, te presentamos una cotizción</p>
+            <h5 class="grey-text lighten-1">Ahora que ya sabemos lo que necesitas para tu evento de {{evento.tipoEvento}}, te presentamos una cotizción</h5>
         </div>
     </div>
     <div class="row">
         <div class="col s12 white-text">
             <div class="cotiTable">
                 <form name="cotizacion" #cotizacion="ngForm" (ngSubmit)="contratar()" action="#" method="post" onsubmit="return false">
+                    <div class="col s12">
+                        <p class="grey-text right">
+                            Total a pagar del servicio
+                            <br> $
+                            <span class="resaltado total right">
+                                {{
+                                    (precios.mesero * personal.meseros) +
+                                    (precios.jefe * personal.jefeMeseros) +
+                                    (precios.barman * extras.barman) +
+                                    (precios.barra * extras.barra) +
+                                    (precios.valet * extras.valet) +
+                                    (precios.hostess * extras.hostess) +
+                                    (precios.seguridad * extras.seguridad) 
+                                }}
+                            </span>
+                        </p>
+
+                    </div>
                     <table>
                         <thead>
                             <tr>
@@ -29,7 +47,7 @@
                                 <td>
                                     <input type="number" name="jefeMeseros" value={{personal.jefeMeseros}} min="1" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
                                 </td>
-                                <td> jefeMeseros </td>
+                                <td> Capitán de meseros </td>
                                 <td> ${{precios.jefe * personal.jefeMeseros}}</td>
                             </tr>
                             <tr>
@@ -68,19 +86,6 @@
                                 <td> ${{precios.seguridad * extras.seguridad}}</td>
                             </tr>
 
-                            <tr class="totales">
-                                <td> </td>
-                                <td> TOTAL </td>
-                                <td> $<b class="resaltado" id="total">{{
-                                        (precios.mesero * personal.meseros) +
-                                        (precios.jefe * personal.jefeMeseros) +
-                                        (precios.barman * extras.barman) +
-                                        (precios.barra * extras.barra) +
-                                        (precios.valet * extras.valet) +
-                                        (precios.hostess * extras.hostess) +
-                                        (precios.seguridad * extras.seguridad) 
-                                }}</b> </td>
-                            </tr>
                             <input type="hidden" name="total" value={{total}}>
                         </tbody>
                     </table>

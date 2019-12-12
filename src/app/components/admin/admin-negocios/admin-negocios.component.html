@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col s10">
+        <h2 class="grey-text lighten-1">NEGOCIOS</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 right">
+        <button class="btn waves-effect purple lighten-1">Agregar</button>
+    </div>
+</div>
+
+<div class="row">
+    <form action="#" method="post" onsubmit="return false" (ngSubmit)="onSearch()" #search="ngForm">
+        <div class="col s12 input-field">
+            <input type="email" name="email" id="email" [(ngModel)]="emailToSearch" #email="ngModel" placeholder="Buscar por email" />
+            <button class="btn waves-effect purple lighten-1">buscar</button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <table class="bordered responsive-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email del propietario</th>
+                    <th>Estado</th>
+                    <th>Link para suscribir</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let neg of negocios">
+                    <td>{{ neg.nombre }}</td>
+                    <td>{{ neg.ownerEmail }}</td>
+                    <td>
+                        <select name="estado" id="estado" [(ngModel)]="neg.estado" (change)="changeEstado()">
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="needbtn" (click)="sendMail(neg.nombre, neg.ownerEmail, neg.idNegocio)">Notificar por mail</button>
+                    </td>
+                    <td class="options valign-wrapper">
+                        <i class="fas fa-trash red-text"></i>
+                        <i class="fas fa-external-link-alt green-text" [routerLink]="['/negocio_info', neg.idNegocio]"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

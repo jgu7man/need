@@ -1,10 +1,10 @@
 <div class="row" id="barraTitulo">
-    <div class="col s1">
-        <a href="javascript:history.back()" class="back ltxt" style="padding: 0 0.5em">
+    <div class="col s2">
+        <a (click)="location.back()" class="back ltxt" style="padding: 0 0.5em">
             <i class="fas fa-arrow-left"></i>
         </a>
     </div>
-    <div class="col s10">
+    <div class="col s8">
         <p class="titleLabel ltxt center">
             {{catego}}
         </p>
@@ -14,12 +14,15 @@
 <div class="container contenido" id="negocios" style="padding-top: 5em">
 
     <div class="row">
-        <div class="col s6 ltxt negocio" *ngFor="let neg of negocios" [routerLink]="['/negocio/', neg.idNegocio]">
+        <div class="col s12 l4 ltxt negocio" *ngFor="let neg of negocios" [routerLink]="['/negocio/', neg.data.idNegocio]">
             <div class="negImg">
-                <img src="{{neg.imgPerfil}}" alt="">
+                <img src="{{neg.data.imgPerfil}}" alt="">
             </div>
-            <p class="negName grey-text lighten-1">
-                {{neg.nombre}}
+            <p class="negName grey-text lighten-1 left">
+                {{neg.data.nombre}} <br>
+                <span class="rating">
+                    Recomendaciones: <span [ngClass]="{'resaltado': neg.rating > 0}">{{neg.rating}}</span>
+                </span>
             </p>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoEventoService } from '../../../../services/colaboradores/coeventos.service';
 
@@ -9,29 +9,36 @@ import { CoEventoService } from '../../../../services/colaboradores/coeventos.se
 })
 export class VerEquipoComponent implements OnInit {
 
-  public idEvento: string
+  @Input() id: string
   public equipo: any[]
   public user
   constructor(
     private ruta: ActivatedRoute,
     private _coEvento: CoEventoService,
   ) {
-    this.ruta.parent.url.subscribe( params => {
-      this.idEvento = params[params.length -1].path
-    })
+    
    }
 
   ngOnInit() {
+    if (!this.id) {
+      this.ruta.parent.url.subscribe( params => {
+        this.id = params[params.length - 1].path
+      })
+    }
     this.user = JSON.parse(localStorage.getItem('needlog'))
-    this.getEquipo()
-    $(document).ready(function(){
-      $('.collapsible').collapsible();
+    this.getEquipo();
+
+    (function(){
+      $('.collapsible').collapsible({
+        accordion: false
+      });
     });
   }
 
   getEquipo() {
-    this._coEvento.getEquipo(this.idEvento, this.user.uid).then(res => {
+    this._coEvento.getEquipo(this.id, this.user.uid).then(res => {
       this.equipo = res
+      console.log(this.equipo);
     })
   }
 

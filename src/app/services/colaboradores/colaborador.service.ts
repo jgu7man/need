@@ -66,83 +66,48 @@ export class ColaboradorService {
     userMenu = { perfil: 'usuario', legend: 'Cuenta de usuario' }
     coMenu = { perfil: 'colaborador', legend: 'Equipo NEED' }
     
-    async onLogin(email, pwd) {
+    // async onLogin(email, pwd) {
 
-        var colRef = this.fs.collection('colaboradores').ref
-        var colDoc = await colRef.doc(email).get()
+    //     var colRef = this.fs.collection('colaboradores').ref
+    //     var colDoc = await colRef.doc(email).get()
 
-        if (colDoc.exists) {
+    //     if (colDoc.exists) {
         
-            this.auth.auth.signInWithEmailAndPassword(email, pwd)
-                .then(async res => {
+    //         this.auth.auth.signInWithEmailAndPassword(email, pwd)
+    //             .then(async res => {
             
-                    var colab: ColaboradorModel
-                    colab.id = res.user.uid
-                    var doc = await this.fs.collection('colaboradores').ref.doc(colab.id).get()
-                    colab = doc.data() as ColaboradorModel
+    //                 var colab: ColaboradorModel
+    //                 colab.uid = res.user.uid
+    //                 var doc = await this.fs.collection('colaboradores').ref.doc(colab.uid).get()
+    //                 colab = doc.data() as ColaboradorModel
                 
-                    this._localStorage.set('colab', JSON.stringify({
-                        id: colab.id,
-                        email: colab.email,
-                        nombre: colab.nombre,
-                        apellido_paterno: colab.apellido_paterno,
-                        apellido_materno: colab.apellido_materno
-                    }));
-                    // ruta redirección
-                    console.log('usuario logeado');
+    //                 this._localStorage.set('colab', JSON.stringify({
+    //                     id: colab.uid,
+    //                     email: colab.email,
+    //                     nombre: colab.nombre,
+    //                     apellido_paterno: colab.apellido_paterno,
+    //                     apellido_materno: colab.apellido_materno
+    //                 }));
+    //                 // ruta redirección
+    //                 console.log('usuario logeado');
             
-                }).catch(error => {
-                    console.log(error)
-                    if (error.code.includes('not-found')) {
-                        alert('No se encontró el email')
-                    }
-                    if (error.code.includes('invalid')) {
-                        alert('Escribe una direccion de correo válida')
-                    }
-                    if (error.code.includes('wrong-password')) {
-                        alert('Contraseña incorrecta')
-                    }
-                })
-        } else {
-            console.log('Este correo no está registrado como colaborador, favor de registrarse')
-        }
+    //             }).catch(error => {
+    //                 console.log(error)
+    //                 if (error.code.includes('not-found')) {
+    //                     alert('No se encontró el email')
+    //                 }
+    //                 if (error.code.includes('invalid')) {
+    //                     alert('Escribe una direccion de correo válida')
+    //                 }
+    //                 if (error.code.includes('wrong-password')) {
+    //                     alert('Contraseña incorrecta')
+    //                 }
+    //             })
+    //     } else {
+    //         console.log('Este correo no está registrado como colaborador, favor de registrarse')
+    //     }
 
-    }
-
-
-    logout() {
-        this.auth.auth.signOut().then(res => {
-            this.router.navigate(['/colaboradores/'])
-        })
-    }
-
-    async googleSingIn() {
-        $("app-loading").fadeToggle()
-        const provider = new auth.GoogleAuthProvider();
-        const credential = await this.auth.auth.signInWithPopup(provider);
-        console.log(credential);
-        return this.updateUserData(credential.user)
-    }
-
-    async facebookSingIn() {
-        $("app-loading").fadeToggle()
-        const provider = new auth.FacebookAuthProvider();
-        const credential = await this.auth.auth.signInWithPopup(provider);
-        console.log(credential);
-        return this.updateUserData(credential.user)
-    }
-
-    private async updateUserData({ uid, email, displayName, photoURL }: UsuarioInterface) {
-        const userRef: AngularFirestoreDocument<UsuarioInterface> = this.fs.doc(`usuarios/${uid}`);
-        const data = { uid, email, displayName, photoURL }
-        userRef.set(data, { merge: true })
-        $("app-loading").fadeToggle()
-        const userDoc = await this.fs.collection('usuarios').ref.doc(uid).get()
-        localStorage.setItem('needlog', JSON.stringify(userDoc.data()))
-          
-        this.router.navigate(['/colaborador/perfil']);
-    
-    }
+    // }
 
     async getCoRating(idCo) {
         const coRef = this.fs.collection('colaboradores').ref.doc(idCo)
@@ -180,6 +145,18 @@ export class ColaboradorService {
             }
         })
         return comentarios
+    }
+
+    async coSearch(email) {
+        const coRef = this.fs.collection('colaboradores').ref
+        var result = await coRef.where('email', '==', email).get()
+        return result.size == 0 ? 0 : result.docs[0].id
+    }
+
+    async setCapitan(id) {
+        return this.fs.collection('colaboradores').ref.doc(id).update({
+          capitan: true
+        })
     }
     
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { PlanesService } from '../../../services/directorio/planes.service';
+import { NegocioService } from '../../../services/directorio/negocio.service';
 declare var $: any;
 
 @Component({
@@ -14,8 +15,9 @@ export class PagarPlanComponent implements OnInit {
   public planName: string;
   constructor(
     private _url: ActivatedRoute,
-    private _ruta: Router,
-    private _planes: PlanesService
+    private router: Router,
+    private _planes: PlanesService,
+    private _negocios: NegocioService
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,13 @@ export class PagarPlanComponent implements OnInit {
       this.planName = params.plan;
     })
     this.plan = this._planes.getPlan(this.planName);
+  }
+
+  sendSolicitud() {
+    var user = JSON.parse(localStorage.getItem('needlog'))
+    this._negocios.setSolicitud(user.uid, user.email).then(res => {
+      this.router.navigate(['/usuario'])
+    })
   }
 
 }

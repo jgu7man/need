@@ -13,7 +13,7 @@ export class CoExpLugaresComponent implements OnInit {
   public objExp: {}
   @Output() sendLugarAgregar = new EventEmitter()
   constructor() {
-    this.itemExp = new ItemExpLaboral(new Date, new Date, '','','','','')
+    this.itemExp = new ItemExpLaboral('', '', '','','','','')
    }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class CoExpLugaresComponent implements OnInit {
       nameReferencia: this.itemExp.nameReferencia
     }
     this.sendLugarAgregar.emit(this.objExp)
-    this.itemExp = new ItemExpLaboral(new Date, new Date, '','','','','')
+    this.itemExp = new ItemExpLaboral('', '', '','','','','')
   }
 
   getDesdeDate() {
@@ -43,7 +43,7 @@ export class CoExpLugaresComponent implements OnInit {
     var month = splitDate[1] -1
     var day = splitDate[2]
     
-    this.itemExp.desde = new Date(+year, +month, +day)
+    this.itemExp.desde = `${day}/${month}/${year}`
   } 
 
   getHastaDate() {
@@ -54,7 +54,7 @@ export class CoExpLugaresComponent implements OnInit {
     var month = splitDate[1] -1
     var day = splitDate[2]
     
-    this.itemExp.hasta = new Date(+year, +month, +day)
+    this.itemExp.hasta = `${day}/${month}/${year}`
   } 
 
   initPickers() {

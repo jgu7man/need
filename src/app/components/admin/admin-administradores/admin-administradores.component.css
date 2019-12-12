@@ -1,0 +1,17 @@
+.fas {
+    cursor: pointer;
+}
+
+.input-field {
+    display: flex;
+}
+
+.input-field input {
+    margin-right: 2em;
+    width: 75% !important;
+}
+
+.overlay {
+    width: 78vw !important;
+    right: 0 !important;
+}

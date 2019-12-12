@@ -7,16 +7,18 @@
         </div>
     </div>
 
-    <div class="row formulario">
+    <div class="row">
+        <div class="col s12">
+            <p class="center grey-text lighten-1">Para ser parte del equipo NEED, debes tener una cuenta de correo en Gmail</p>
+            <button class="needbtn" (click)="getEmail()">Registrar correo</button>
+        </div>
+    </div>
+
+    <div class="row formulario" *ngIf="loged">
         <form id="coRegistro" #coRegistro="ngForm" (ngSubmit)="onSubmit()" onsubmit="return false" action="">
-            <div class="col s12 input-field">
-                <input type="email" name="email" id="email" [(ngModel)]="colab.email" #email="ngModel">
-                <label for="email">Email</label>
-            </div>
-            <div class="col s12 input-field">
-                <input type="password" name="password" id="password" [(ngModel)]="colab.password" #password="ngModel" PwdToggle>
-                <label for="password">Contraseña</label>
-            </div>
+
+            <p class="center grey-text lighten-1">Te registrarás con el correo: <span class="resaltado">{{colab.email}}</span>. Si estás de acuerdo, completa el resto de los datos. Si no, vuelve a registrar un correo.</p>
+
             <div class="col s12 input-field">
                 <input type="text" name="nombre" id="nombre" [(ngModel)]="colab.nombre" #nombre="ngModel">
                 <label for="nombre">Nombre</label>

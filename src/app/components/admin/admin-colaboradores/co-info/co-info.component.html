@@ -1,0 +1,107 @@
+<div id="perfil_info">
+    <div class="row" *ngIf="co">
+        <div class="col s2">
+            <div class="imgPerfil">
+                <img src="{{co.imgPerfil}}" alt="">
+            </div>
+        </div>
+        <div class="col s10 grey-text lighten-1">
+            <h5>{{co.nombre}} {{co.apellido_paterno}} {{co.apellido_materno}} </h5>
+            <p class="grey-text lighten-1">{{co.email}}</p>
+            <div class="col s6">
+                <p class="grey-text lighten-1">Estado: <i class="fas fa-circle" [ngClass]="{'yellow-text': co.estado == 'pendiente', 'red-text': co.estado == 'independiente', 'green-text': co.estado == 'activo'}"></i> <span>
+                    <select name="estado" id="estado" [(ngModel)]="co.estado" (change)="onChangeEstado(co.id, co.estado)">
+                    <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option> 
+                    </select>
+                </span> </p>
+            </div>
+            <div class="col s6">
+                <button class="btn purple lighten-1" (click)="onChangeCapitan()" *ngIf="!co.capitan">Hacer capitán</button>
+                <button class="btn purple lighten-1" (click)="onChangeCapitan()" *ngIf="co.capitan">Quitar como capitán</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row grey-text lighten-1" *ngIf="datos">
+        <div class="col s12">
+            <h5>DATOS PERSONALES</h5>
+            <ul class="bordered grey-text lighten-1">
+                <li><b>Teléfono: </b>{{datos.telefono}}</li>
+                <li><b>C.U.R.P.: </b>{{datos.CURP}}</li>
+                <li><b>R.F.C.: </b>{{datos.RFC}}</li>
+                <li><b>Dirección: </b>{{datos.direccion}}</li>
+                <li><b>Colonia: </b>{{datos.colonia}}</li>
+                <li><b>Ciudad: </b>{{datos.ciudad}}</li>
+                <li><b>Estado: </b>{{datos.estado}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row grey-text lighten-1" *ngIf="exp_laboral">
+        <div class="col s12">
+            <h5>EXPERIENCIA LABORAL</h5>
+            <div class="row">
+                <div class="col s12 l6">
+                    <ul class="grey-text lighten-1">
+                        <li><b>Extracto: </b> {{exp_laboral.extracto}}</li>
+                        <li *ngFor="let item of experiencia">
+                            <b>{{item.name}}:</b> {{item.exp.years}} años - {{item.exp.meses}} meses
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s12 l6">
+                    <div class="empleo" *ngFor="let empleo of exp_laboral.lugares">
+                        <ul>
+                            <li><b>Lugar de empleo: </b>{{empleo.lugar}} </li>
+                            <li><b>Desde: </b>{{empleo.desde}} <b>Hasta:</b> {{empleo.hasta}} </li>
+                            <li><b>Puesto: </b>{{empleo.puesto}} </li>
+                            <li><b>Descripción: </b>{{empleo.descripcion}} </li>
+                            <li><b>Referencia: </b> <br> {{empleo.nameReferencia}} - {{empleo.numReferencia}} </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row grey-text lighten-1">
+        <h5>RATING</h5>
+        <div class="col s12">
+            <div class="row">
+                <div class="col s4">
+                    <p class="blue-text"><i class="fas fa-calendar-day "></i>: {{eventosCant}}</p>
+                </div>
+                <div class="col s4">
+                    <p class="green-text"><i class="fas fa-thumbs-up"></i>: {{ratingPositivo}}</p>
+                </div>
+                <div class="col s4">
+                    <p class="red-text"><i class="fas fa-thumbs-down"></i>: {{ratingNegativo}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 l6" *ngIf="comentarios">
+                    <h6>COMENTARIOS</h6>
+                    <ul class="grey-text lighten-1 collection">
+                        <li class="collection-item" *ngFor="let comentario of comentarios">
+                            <div>
+                                {{comentario.coment}}
+                                <a class="secondary-content" [routerLink]="['/admin/ver_usuario', comentario.uid]"><i class="fas fa-external-link-alt purple-text"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s12 l6" *ngIf="eventos">
+                    <h6>EVENTOS</h6>
+                    <ul class="collection grey-text lighten-1">
+                        <li class="collection-item" *ngFor="let evento of eventos">
+                            <div>
+                                {{evento.fecha.toLocaleDateString()}}
+                                <a class="secondary-content" [routerLink]="['/admin/evento', evento.eid]"><i class="fas fa-external-link-alt purple-text"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

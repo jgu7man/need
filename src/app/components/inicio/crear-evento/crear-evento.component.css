@@ -17,6 +17,7 @@ input[type=date]:not(.browser-default) {
     background: url('../../../../assets/img/profileBg.png');
     width: 100vw;
     margin: 0 0 2em;
+    padding-top: 5em;
 }
 
 .contenido {

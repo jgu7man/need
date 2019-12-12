@@ -15,6 +15,7 @@
     <div class="listMenu">
         <div class="categoria" *ngFor="let categoria of categorias" [routerLink]="['/directorio/categoria/', categoria.name]">
             <p class="categoName">{{ categoria.name }}</p>
+            <div class="gradient"></div>
             <img src="{{categoria.imagen}}" alt="">
         </div>
     </div>

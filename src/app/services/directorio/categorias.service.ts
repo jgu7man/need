@@ -36,8 +36,12 @@ export class CategoriasDirectorioService {
         var negociosRef = this.fs.collection('negocios').ref
         var negociosRes = await negociosRef.where('categoria', '==', catego).get()
         var negocios = []
-        negociosRes.forEach(negocio => {
-            negocios.push(negocio.data())
+        negociosRes.forEach(async negocio => {
+            var rating = await negociosRef.doc(negocio.id).collection('ratings').get()
+            negocios.push({
+                data: negocio.data(),
+                rating: rating.size
+            })
         })
         return negocios
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriasDirectorioService } from '../../../services/directorio/categorias.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-categoria',
@@ -13,7 +14,8 @@ export class CategoriaComponent implements OnInit {
   public negocios: any;
   constructor(
     private _ruta: ActivatedRoute,
-    private _direcorio: CategoriasDirectorioService
+    private _direcorio: CategoriasDirectorioService,
+    public location: Location
   ) { }
 
   ngOnInit() {
@@ -25,7 +27,10 @@ export class CategoriaComponent implements OnInit {
 
   getNegocios(catego: string){
     this._direcorio.getNegociosByCategoria(catego).then(
-      res => { this.negocios = res })
+      res => {
+        this.negocios = res
+        console.log(this.negocios);
+      })
   }
 
 }

@@ -10,7 +10,7 @@
 
 
     <div class="row" id="acordion">
-        <div *ngFor="let evento of eventos; index as id; trackBy: trackByFn" id={{evento.id}} class="eventoCont ltxt col s12" (click)="!more">
+        <div *ngFor="let evento of eventos; index as id; trackBy: trackByFn" id={{evento.id}} class="eventoCont ltxt col s12">
             <div class="col s6"> Tipo de evento: </div>
             <div class="col s6"> {{evento.tipoEvento}}</div>
             <div class="col s6">Fecha: </div>

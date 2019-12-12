@@ -1,11 +1,11 @@
-<div class="container contenido grey darken-4">
-    <div class="row title">
-        <div class="col s12">
-            <p class="titleLabel center ltxt">
-                CREAR EVENTO
-            </p>
-        </div>
+<div class="row title">
+    <div class="col s12">
+        <p class="titleLabel center ltxt">
+            CREAR EVENTO
+        </p>
     </div>
+</div>
+<div class="container contenido grey darken-4">
 
     <div class="pickerPosition"></div>
 
@@ -17,22 +17,33 @@
             <div class="row">
                 <div class="col s6">
                     <label for="dateInicio">Inicia el día:</label>
-                    <input type="text" class="datepicker" name="iniciaDate" id="iniciaDate">
+                    <input type="text" (change)="getIniciaDate()" class="datepicker" name="iniciaDate" id="iniciaDate">
                 </div>
-                <div class="col s6">
+                <div id="hora" class="col s6" style="display: none;">
                     <label for="timeInicio">...a las:</label>
-                    <input type="text" class="timepicker" name="iniciaTime" id="iniciaTime">
+                    <input type="text" class="timepicker" (change)="getIniciaTime()" name="iniciaTime" id="iniciaTime">
                 </div>
-                <div class="col s6">
-                    <label for="dateFinal">Termina el día:</label>
-                    <input type="text" class="datepicker" name="terminaDate" id="terminaDate">
-                </div>
-                <div class="col s6">
-                    <label for="timeFinal">...a las:</label>
-                    <input type="text" class="timepicker" name="terminaTime" id="terminaTime">
+
+                <div *ngIf="ends">
+                    <p class="ltxt col s12">
+                        Tus meseros serían contratados de {{eventoStarts.hora}} a {{eventoEnds.hora}} {{queDia}}.
+                    </p>
+
+                    <div class="col s6">
+                        <label for="dateFinal">Termina el día:</label>
+                        <input type="text" [(ngModel)]="datos.termina" class="datepicker grey" name="terminaDate" id="terminaDate" disabled>
+                    </div>
+                    <div class="col s6">
+                        <label for="timeFinal">...a las:</label>
+                        <input type="text" [(ngModel)]="datos.termina" class="timepicker grey" name="terminaTime" id="terminaTime" disabled>
+                    </div>
+                    <div class="col s12">
+                        <p class="resaltado"><i class="fas fa-info blue-text"></i> Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento</p>
+                    </div>
                 </div>
 
             </div>
+
 
             <!-- LUGAR  -->
 

@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col s10">
+        <h2 class="grey-text lighten-1">ADMINISTRADORES</h2>
+    </div>
+</div>
+
+<div class="row">
+    <form action="#" method="post" onsubmit="return false" (ngSubmit)="onSearch()" #search="ngForm">
+        <div class="col s12 input-field">
+            <input type="email" name="email" id="email" [(ngModel)]="emailToSearch" #email="ngModel" placeholder="Buscar por email">
+            <button class="btn waves-effect purple lighten-1">Agregar</button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <table class="highlight bordered responsive-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let admin of admins">
+                    <td>{{admin.data.displayName}}</td>
+                    <td>{{admin.data.email}}</td>
+                    <td class="options">
+                        <i class="fas fa-trash red-text" (click)="onDeleteAsAdmin(admin.uid)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

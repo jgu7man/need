@@ -1,0 +1,45 @@
+#slide-out {
+    transform: translateX(0) !important;
+}
+
+.admin-view {
+    padding: 2em;
+    box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.75);
+    max-height: 200px;
+}
+
+.admin-view p {
+    line-height: 20px;
+}
+
+.name {
+    font-weight: 800;
+}
+
+.background {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    height: 200px;
+}
+
+.background img {
+    width: 100%;
+}
+
+.circle {
+    width: 75px;
+}
+
+.link {
+    cursor: pointer;
+}
+
+a i {
+    color: #ffffff;
+    font-size: 1.5em;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CategoriasDirectorioService } from '../../../services/directorio/categorias.service';
 import { NegocioService } from '../../../services/directorio/negocio.service';
 import { NegocioModel } from '../../../models/direcorio/negocio.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $:any;
 
 @Component({
@@ -20,9 +20,11 @@ export class FormNegocioComponent implements OnInit {
   constructor(
     private _categorias: CategoriasDirectorioService,
     private _negocio: NegocioService,
-    private router: Router
+    private router: Router,
+    private _ruta: ActivatedRoute,
   ) { 
-    this.negocio = new NegocioModel('','','','','','','','','','','','','',[],[]);
+    this.negocio = new NegocioModel('','','','','',new Date, new Date, '','solicitud');
+    _ruta.params.subscribe( params => {this.negocioId = params['id']})
   }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class FormNegocioComponent implements OnInit {
     if (this.negocioId){
       this._negocio.getNegocio(this.negocioId).then(
         res => {
-          this.negocio = res.negocio as NegocioModel; 
+          this.negocio = res
           console.log(this.negocio);
         }, 
         err => {console.log(<any>err)}
@@ -43,37 +45,20 @@ export class FormNegocioComponent implements OnInit {
     }
   }
 
-  //FRONTEND: pintar la imagen cargada en el contenedor y seleccionar el archivo a subir
-  imagen(fileInput: any){
-    this.image = <Array<File>>fileInput.target.files;
-
-    var reader = new FileReader();
-    reader.onload = function() {
-      var image:any = document.querySelector('#imagenNegocio');
-      image.src = reader.result
-    }
-    reader.readAsDataURL(fileInput.target.files[0]);
-  }
+  
 
   onSubmit(){
     this.negocio.idUsuario = this.Usuario.userId //Agrega id de usario al que pertenece el negocio
     
-    if (this.image == undefined && this.negocio.imgPerfil == '') {
-      alert('falta agregar una foto de perfil de tu empresa')
-
-    } else if (this.negocioId){
+    if (this.negocioId){
 
       this._negocio.updateNegocio(this.negocio).then(
         res => { 
           console.log(res)
           this.negocio.idNegocio = res.idNegocio
           const negId = res.idNegocio
-            //subir imagen de perfil
-          this._negocio.subirImagen(negId, this.image)
-          .then((result:any) => { console.log(result)
-          })
           // redirigir al preview del negocio
-          this.router.navigate(['/usuario/negocio/'+negId])
+          this.router.navigate(['/directorio/suscripcion/datos', negId])
         },
         error => {console.log(<any>error)} )
 
@@ -83,12 +68,9 @@ export class FormNegocioComponent implements OnInit {
       this._negocio.saveNegocio(this.negocio).then(
         res => { this.negocio.idNegocio = res.id 
             const negId = res.id
-            // subir imagen de perfil
-            this._negocio.subirImagen(negId, this.image)
-          .then((result:any) => { console.log(result)
-          })
+            
           // redirigir al preview del negocio
-          this.router.navigate(['/usuario/negocio/'+negId])
+          this.router.navigate(['/directorio/suscripcion/datos', negId])
         },
         error => {console.log(<any>error)} )
     }

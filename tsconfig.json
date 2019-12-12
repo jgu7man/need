@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "export/dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -17,6 +17,15 @@
     "lib": [
       "es2018",
       "dom"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-lit-html-plugin",
+        "tags": [
+          "html",
+          "template"
+        ]
+      }
     ]
   },
   "angularCompilerOptions": {

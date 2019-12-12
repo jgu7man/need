@@ -51,11 +51,19 @@ export class AuthService {
   
   private async updateUserData(link, { uid, email, displayName, photoURL }: UsuarioInterface) {
     const userRef: AngularFirestoreDocument<UsuarioInterface> = this.afs.doc(`usuarios/${uid}`);
-    const data = { uid, email, displayName, photoURL }
-    userRef.set(data, { merge: true })
-    $("app-loading").fadeToggle()
     const userDoc = await this.afs.collection('usuarios').ref.doc(uid).get()
-      localStorage.setItem('needlog', JSON.stringify(userDoc.data()))
+    const dateRegist = new Date()
+    
+    if (userDoc.exists) {
+      var data = { uid, email, displayName, photoURL }
+      userRef.set(data, { merge: true })
+    } else {
+      var newData = { uid, email, displayName, photoURL, dateRegist }
+      userRef.set(newData, { merge: true })
+    }
+
+    $("app-loading").fadeToggle()
+    localStorage.setItem('needlog', JSON.stringify(userDoc.data()))
       
     this.router.navigate([link]);
     

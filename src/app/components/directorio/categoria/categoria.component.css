@@ -1,8 +1,14 @@
 .negImg {
     position: relative;
-    margin: auto;
+    margin: 0 1em;
     overflow: hidden;
-    height: 42vw;
+    height: 20vw;
+    width: 20vw;
+    border-radius: 1em;
+}
+
+.titleLabel {
+    font-size: 180% !important;
 }
 
 .negImg img {
@@ -17,9 +23,23 @@
 
 .negName {
     font-weight: 900;
-    text-align: center;
     margin-bottom: .5em;
     height: 3em;
+}
+
+.rating {
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.negocio {
+    background: #000;
+    border-radius: 1em;
+    padding: 1em;
+    cursor: pointer;
+    margin: .3em !important;
+    display: flex;
+    max-width: 90vw;
 }
 
 @media screen and (min-width: 500px) {
@@ -28,10 +48,12 @@
         top: 5em;
     }
     .negocio {
-        width: 21% !important;
+        /* width: 21% !important; */
+        width: 30% !important;
         margin: 1em !important;
     }
     .negImg {
-        height: 13vw;
+        height: 5vw;
+        width: 5vw;
     }
 }

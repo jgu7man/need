@@ -11,3 +11,10 @@
         top: 20vh;
     }
 }
+
+@media screen and (min-height: 320px) {
+    .hero {
+        overflow: auto !important;
+        padding: 2% 2% 25% !important;
+    }
+}
