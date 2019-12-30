@@ -71,10 +71,11 @@
         top: 0 !important;
     }
     .box-content {
-        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
-        border-radius: 1em;
+        box-shadow: 6px 6px 32px rgba(0, 0, 0, 0.5) !important;
         width: 29.33333vw !important;
+        border-radius: 0 !important;
         margin: 1vw;
+        background: #190319 !important;
     }
     /* titles */
     .title {

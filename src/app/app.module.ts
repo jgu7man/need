@@ -9,6 +9,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from "../environments/environment";
 
 import { CompareValidatorDirective } from './directives/validator.directive';
@@ -97,6 +98,9 @@ import { AdminConfiguracionComponent } from './components/admin/admin-configurac
 import { FormDatosNegocioComponent } from './components/negocio/form-datos-negocio/form-datos-negocio.component';
 import { FormExtrasNegocioComponent } from './components/negocio/form-extras-negocio/form-extras-negocio.component';
 import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-info/negocio-info.component';
+import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
+import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
+import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
 
 @NgModule({
   declarations: [
@@ -175,7 +179,10 @@ import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-
     AdminConfiguracionComponent,
     FormDatosNegocioComponent,
     FormExtrasNegocioComponent,
-    NegocioInfoComponent
+    NegocioInfoComponent,
+    AddCategoriaComponent,
+    TablaCategoriasComponent,
+    EditCategoriaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -183,6 +190,7 @@ import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    AngularFireMessagingModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

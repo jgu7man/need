@@ -27,7 +27,7 @@ export class NegocioComponent implements OnInit {
     private href: ActivatedRoute,
     private _ruta: Router,
   ) { 
-    this.negocio = new NegocioModel('','','','','',new Date, new Date, '','solicitud')
+    this.negocio = new NegocioModel('','','','','',new Date, new Date,  new Date,'','solicitud')
     this.negocioDatos = new NegocioDatosModel('', '', '', '', '', '', '', '')
     this.negocioExtras = new NegocioExtrasModel('',[],[])
   }
@@ -126,7 +126,6 @@ export class NegocioComponent implements OnInit {
       var neg = this.negocioId
       $("#star").toggleClass('fas')
       var res = await this._negocio.rate(neg, rater)
-      console.log(res);
       this._negocio.getRating(neg).then(
           res  => { this.negocioRating = res });
     } else {

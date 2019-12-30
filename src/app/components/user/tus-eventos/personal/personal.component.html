@@ -4,17 +4,17 @@
             <div class="col s3">{{ personal.meseros }}</div>
             <div class="col s9">MESEROS</div>
         </li>
-        <li class="detalle row" *ngIf="personal.jefeMeseros > 0">
-            <div class="col s3">{{ personal.jefeMeseros }}</div>
-            <div class="col s9">JEFE DE MESEROS</div>
+        <li class="detalle row" *ngIf="personal.capitanMeseros > 0">
+            <div class="col s3">{{ personal.capitanMeseros }}</div>
+            <div class="col s9">CAPITÁN DE MESEROS</div>
         </li>
         <li class="detalle row" *ngIf="extras.barman > 0">
             <div class="col s3">{{ extras.barman }}</div>
             <div class="col s9">BARMAN's</div>
         </li>
-        <li class="detalle row" *ngIf="extras.barra > 0">
-            <div class="col s3">{{ extras.barra }}</div>
-            <div class="col s9">PERSONAL DE BARRA</div>
+        <li class="detalle row" *ngIf="extras.escamoche > 0">
+            <div class="col s3">{{ extras.escamoche }}</div>
+            <div class="col s9">ESCAMOCHE</div>
         </li>
         <li class="detalle row" *ngIf="extras.valet > 0">
             <div class="col s3">{{ extras.valet }}</div>
@@ -24,9 +24,9 @@
             <div class="col s3">{{ extras.hostess }}</div>
             <div class="col s9">HOSTESS</div>
         </li>
-        <li class="detalle row" *ngIf="extras.seguridad > 0">
-            <div class="col s3">{{ extras.seguridad }}</div>
-            <div class="col s9">ELEMENTO DE SEGURIDAD</div>
+        <li class="detalle row" *ngIf="extras.vigilante > 0">
+            <div class="col s3">{{ extras.vigilante }}</div>
+            <div class="col s9">VIGILANTE</div>
         </li>
     </ul>
     <div class="row">

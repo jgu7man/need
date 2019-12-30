@@ -13,6 +13,7 @@ export class PagarPlanComponent implements OnInit {
 
   public plan: any;
   public planName: string;
+  public costo: number
   constructor(
     private _url: ActivatedRoute,
     private router: Router,
@@ -20,12 +21,13 @@ export class PagarPlanComponent implements OnInit {
     private _negocios: NegocioService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     $('#pagarPlan').scrollTop(0)
     this._url.params.subscribe( (params: Params) => {
       this.planName = params.plan;
     })
-    this.plan = this._planes.getPlan(this.planName);
+    this.plan = await this._planes.getPlan(this.planName);
+    
   }
 
   sendSolicitud() {

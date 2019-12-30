@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../services/auth.service";
 import { UsuarioService } from '../../../services/usuario.service';
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 declare var $: any;
 
 @Component({
@@ -10,15 +12,20 @@ declare var $: any;
 })
 export class PerfilComponent implements OnInit {
   
-  public usuario: any;
-  public userNegocios: any;
-  public eventos: any;
-  public votos: any;
+  public usuario;
+  public userNegocios;
+  public eventos;
+  public votos;
+  public nuevaNotificacion
+  public notificaciones
 
   constructor(
     public authService: AuthService,
-    private _usuario: UsuarioService
+    private _usuario: UsuarioService,
+    private _notificaciones: NotificacionesService,
+    private fs: AngularFirestore
   ) { }
+
 
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem('needlog'));
@@ -33,8 +40,26 @@ export class PerfilComponent implements OnInit {
     
       if (this.usuario) {
         this.userNegocios = false;
-      }
+    }
+    
+    this.getNotificaciones()
 
+  }
+
+  async getNotificaciones() {
+    this._notificaciones.getPermission()
+    this._notificaciones.receiveMessage()
+    this.nuevaNotificacion = this._notificaciones.currentMessage
+    this.notificaciones = await this._notificaciones.getUserNotidfications()
+    console.log(this.notificaciones)
+  }
+
+  async delNotificacion(id) {
+    await this.fs.collection('usuarios').ref.doc(this.usuario.uid)
+      .collection('notificaciones').doc(id).delete()
+    
+    this.notificaciones = []
+    this.notificaciones = await this._notificaciones.getUserNotidfications()
   }
 
 }

@@ -1,4 +1,7 @@
 .actividad {
-    background: #ccc;
-    border-radius: 1em;
+    width: 70% !important;
+    margin: auto;
+    position: relative;
+    left: 50% !important;
+    transform: translateX(-50%);
 }

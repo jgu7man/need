@@ -1,28 +1,40 @@
-<div class="row" id="barraTitulo">
-    <div class="col s12">
-        <p class="titleLabel ltxt center">
-            EVENTOS
-        </p>
+<div class="contenido">
+
+    <div class="row title">
+        <div class="col s12">
+            <p class="titleLabel ltxt center">
+                EVENTOS
+            </p>
+        </div>
     </div>
-</div>
-
-<div class="container contenido">
 
 
-    <div class="row" id="acordion">
-        <div *ngFor="let evento of eventos; index as id; trackBy: trackByFn" id={{evento.id}} class="eventoCont ltxt col s12">
-            <div class="col s6"> Tipo de evento: </div>
-            <div class="col s6"> {{evento.tipoEvento}}</div>
-            <div class="col s6">Fecha: </div>
-            <div class="col s6">{{evento.fecha.toLocaleDateString()}}</div>
-            <div class="col s6">Lugar: </div>
-            <div class="col s6">{{evento.lugar}}</div>
-            <div class="col s12 right resaltado">
-                <span (click)="toggleVacantes(evento.id)">Ver vacantes</span>
-            </div>
-            <div class="col s12 vacantes vacantes-{{evento.id}}" style="display: none;">
-                <app-ver-vacantes id="{{evento.id}}" *ngIf="idEvento == evento.id" [idEvento]="evento.id"></app-ver-vacantes>
+    <div class="container">
+
+        <div class="row" id="acordion" *ngIf="eventos.length > 0; else noEventos">
+            <div *ngFor="let evento of eventos; index as id; trackBy: trackByFn" id={{evento.id}} class="eventoCont ltxt col s12">
+                <div class="col s6">Tipo de evento: </div>
+                <div class="col s6">{{evento.tipoEvento}}</div>
+                <div class="col s6">Fecha: </div>
+                <div class="col s6">{{evento.fecha.toLocaleDateString()}}</div>
+                <div class="col s6">Lugar: </div>
+                <div class="col s6">{{evento.lugar}}</div>
+                <div class="col s12 right resaltado">
+                    <span (click)="toggleVacantes(evento.id)">Ver vacantes</span>
+                </div>
+                <div class="col s12 vacantes vacantes-{{evento.id}}" style="display: none;">
+                    <app-ver-vacantes id="{{evento.id}}" *ngIf="idEvento == evento.id" [idEvento]="evento.id"></app-ver-vacantes>
+                </div>
             </div>
         </div>
+
+        <ng-template #noEventos>
+            <div class="noData row valign-wrapper grey-text lighten-1">
+                <div class="col s12 center">
+                    <i class="fas fa-sad-tear"></i>
+                    <h5>Por ahora no hay eventos en tu ciudad. Vuelve más tarde</h5>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>

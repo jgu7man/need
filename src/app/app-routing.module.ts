@@ -58,6 +58,9 @@ import { FormNegocioComponent } from './components/negocio/form-negocio/form-neg
 import { FormDatosNegocioComponent } from './components/negocio/form-datos-negocio/form-datos-negocio.component';
 import { FormExtrasNegocioComponent } from './components/negocio/form-extras-negocio/form-extras-negocio.component';
 import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-info/negocio-info.component';
+import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
+import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
+import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
 
 
 const routes: Routes = [
@@ -75,7 +78,7 @@ const routes: Routes = [
   
   // Usuario
   { path: 'usuario', component: UsuarioComponent, children: [
-    { path: '', redirectTo: 'perfil', pathMatch: 'full' },
+    { path: '', component: NuevoEventoComponent },
     { path: 'tus-eventos', component: TusEventosComponent, data: { nav: 2 } },
     { path: 'evento/:id', component: EventoComponent, children:[
       { path: '', redirectTo: 'detalles', pathMatch: 'full' },
@@ -106,8 +109,8 @@ const routes: Routes = [
   
   // Colaborador
   { path: 'colaborador', component: ColaboradoresComponent, children: [
+    { path: '', component: CoPerfilComponent },
     { path: 'login', component: CoLoginComponent },
-    { path: '', component: CoLoginComponent },
     { path: 'registro', component: CoRegistroComponent },
     { path: 'reg-datos/:id', component: CoDatosComponent },
     { path: 'exp_laboral/:id', component: CoExpLaboralComponent },
@@ -138,7 +141,11 @@ const routes: Routes = [
     { path: 'eventos', component: AdminEventosComponent },
     { path: 'negocios', component: AdminNegociosComponent },
     { path: 'negocio_info/:id', component: NegocioInfoComponent },
-    { path: 'categorias', component: AdminCategoriasComponent },
+    { path: 'categorias', component: AdminCategoriasComponent, children: [
+      { path: '', component: TablaCategoriasComponent},
+      { path: 'agregar', component: AddCategoriaComponent },
+      { path: 'editar/:id', component: EditCategoriaComponent},
+    ] },
     { path: 'configuracion', component: AdminConfiguracionComponent },
     { path: 'evento/:id', component: AdminEventoComponent, children:[
       { path: '', redirectTo: 'detalles', pathMatch: 'full' },

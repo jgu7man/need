@@ -15,7 +15,7 @@ export class VerVacantesComponent implements OnInit {
   constructor(
     private _coEventos: CoEventoService
   ) {
-    this.vacantes = new VacantesModel(0,0,0,0,0,0,0)
+    this.vacantes = new VacantesModel(0,0,0,0,0,0,0,0)
    }
 
   async ngOnInit() {

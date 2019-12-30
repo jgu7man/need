@@ -4,29 +4,33 @@
             <th> {{vacantes.mesero}} </th>
             <td> Meseros</td>
         </tr>
-        <tr *ngIf="vacantes.jefeMeseros > 0">
-            <th> {{vacantes.jefeMeseros}} </th>
-            <td> Jefe de Meseros</td>
+        <tr *ngIf="vacantes.capitanMeseros > 0">
+            <th> {{vacantes.capitanMeseros}} </th>
+            <td> capitán de meseros</td>
         </tr>
         <tr *ngIf="vacantes.barman > 0">
             <th> {{vacantes.barman}} </th>
             <td> Barman</td>
         </tr>
+        <tr *ngIf="vacantes.bartender > 0">
+            <th> {{vacantes.bartender}} </th>
+            <td> Bartender</td>
+        </tr>
         <tr *ngIf="vacantes.hostess > 0">
             <th> {{vacantes.hostess}} </th>
             <td> Hostess</td>
         </tr>
-        <tr *ngIf="vacantes.barra > 0">
-            <th> {{vacantes.barra}} </th>
-            <td> Personal de Barra</td>
+        <tr *ngIf="vacantes.escamoche > 0">
+            <th> {{vacantes.escamoche}} </th>
+            <td> Escamoche</td>
         </tr>
         <tr *ngIf="vacantes.valet > 0">
             <th> {{vacantes.valet}} </th>
             <td> Valet Parking</td>
         </tr>
-        <tr *ngIf="vacantes.seguridad > 0">
-            <th> {{vacantes.seguridad}} </th>
-            <td> Seguridad</td>
+        <tr *ngIf="vacantes.vigilante > 0">
+            <th> {{vacantes.vigilante}} </th>
+            <td> Vigilante</td>
         </tr>
     </tbody>
 </table>

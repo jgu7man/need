@@ -20,7 +20,7 @@ export class SuscribirComponent implements OnInit {
       private _negocio: NegocioService,
       
   ) { 
-    this.negocio = new NegocioModel('','','','','',new Date, new Date, '','solicitud');
+    this.negocio = new NegocioModel('','','','','',new Date, new Date, new Date,'','solicitud');
     
    }
 

@@ -1,7 +1,7 @@
 <div class="container">
     <ul class="listadetalles ltxt">
         <li class="detalle">Evento: {{evento.tipoEvento}} </li>
-        <li class="detalle resaltado" *ngIf="!owner">Creado por: {{usuario.displayName}}
+        <li class="detalle resaltado owner" *ngIf="!owner">Creado por: {{usuario.displayName}}
             <span class="rigth">
                 <i class="fas fa-external-link-alt"
                 [routerLink]="['/colaborador/ver_usuario', usuario.uid]"></i>

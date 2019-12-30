@@ -3,12 +3,26 @@
     width: 100%;
     margin: 0 0 2em;
     height: 5em;
-    margin-top: 5em;
 }
 
 .calendar {
-    background: #202020;
     min-height: 75vh;
+    padding: 2em;
+    box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.5);
+}
+
+.fc-toolbar h2 {
+    font-size: 1em !important;
+}
+
+.needbtn {
+    left: 0 !important;
+    transform: translate(0) !important;
+}
+
+.eventCant {
+    font-weight: 600;
+    font-size: 1.5em;
 }
 
 .title .col {
@@ -24,9 +38,28 @@ ul.lista {
 }
 
 .evento {
-    padding: .5em;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
     margin: 1em 0em;
-    min-height: 5em;
+    vertical-align: middle;
+    padding: 1em;
+    font-weight: bolder;
+    font-size: 18px;
+    color: #635563;
+    cursor: pointer;
+}
+
+.fecha,
+.tipoEvento {
+    font-size: 1.5em;
+}
+
+.fecha {
+    color: #ccc;
+}
+
+.label {
+    font-size: 14px !important;
+    font-weight: normal !important;
 }
 
 .est {

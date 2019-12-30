@@ -7,7 +7,8 @@ export class ExpLaboralModel {
         public extracto: string,
         public mesero: TiempoExp,
         public barman: TiempoExp,
+        public bartender: TiempoExp,
         public hostess: TiempoExp,
-        public seguridad: TiempoExp
+        public vigilante: TiempoExp
     ){}
 }

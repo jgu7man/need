@@ -1,7 +1,7 @@
 <div class="container">
     <ul class="ltxt collapsible collapsible-accordion" data-collapsible="accordion" *ngIf="equipo">
         <li class="" *ngFor="let puesto of equipo">
-            <div class="collapsible-header black">{{puesto.name}}</div>
+            <div class="collapsible-header bg-3">{{puesto.name}}</div>
             <div class="collapsible-body">
                 <div class="detalle row valign-wrapper" *ngFor="let miembro of puesto.miembros; index as id; trackBy: trackId">
                     <div class="col s3" [routerLink]="['/usuario/ver_colaborador/', miembro.perfil.id]">

@@ -1,7 +1,7 @@
 #planes {
     overflow: auto;
-    height: 65vh;
-    padding-bottom: 6em;
+    height: 85vh;
+    padding-bottom: 15em;
 }
 
 #planes::-webkit-scrollbar-thumb {
@@ -24,9 +24,15 @@
     #planes {
         display: flex;
         flex-flow: row;
+        height: 70vh;
+        padding-bottom: 0em;
     }
     .plan {
         width: 20% !important;
         left: 10% !important;
+    }
+    .needbtn {
+        bottom: 2em !important;
+        position: absolute !important;
     }
 }

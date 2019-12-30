@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col s10">
+        <h2 class="grey-text lighten-1">CATEGORIAS NEGOCIO</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <table class="highlight bordered responsive-table">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Subcategorias</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let cat of categorias">
+                    <td>
+                        <img [src]="cat.imagen" alt="" class="catImagen">
+                    </td>
+                    <td>{{cat.name}}</td>
+                    <td>
+                        <span *ngFor="let sub of subcategorias"></span>
+                    </td>
+                    <td class="options valign-wrapper">
+                        <i class="fas fa-edit blue-text" [routerLink]="['./editar', cat.id]"></i>
+                        <i class="fas fa-trash red-text" (click)="delCategoria(cat.id)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -7,6 +7,9 @@
 # Only exists if Bazel was run
 /bazel-out
 
+#permisos firebase
+/src/environments
+
 # dependencies
 /node_modules
 

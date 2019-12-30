@@ -7,6 +7,7 @@ export class NegocioModel {
         public nombre: string,
         public categoria: string,
         public suscripcion: Date,
+        public fechaPago: Date,
         public corte: Date,
         public plan: string,
         public estado: 'solicitud' | 'activo' | 'inactivo'

@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { AngularFirestore } from '@angular/fire/firestore';
 
 export interface plan {
     name: string,
@@ -12,6 +13,10 @@ export interface plan {
     providedIn: 'root'
 })
 export class PlanesService {
+
+    constructor(
+        private fs: AngularFirestore
+    ){}
 
     public plan: any;
     public planes: Array<plan> = [
@@ -46,12 +51,20 @@ export class PlanesService {
 
     ]
 
-    getPlanes(){
-        return this.planes
+    async getPlanes(){
+        var res = await this.fs.collection('planes').ref.orderBy('pago_inicial', 'asc').get()
+        var planes = []
+        res.forEach(plan => {
+            var elPlan = plan.data()
+            elPlan.id = plan.id
+            planes.push(elPlan)
+        })
+        return planes
     }
 
-    getPlan(name){
-        this.plan = this.planes.find( plan => plan.name === name )
-        return this.plan;
+    async getPlan(name){
+        var res = await this.fs.collection('planes').ref.doc(name).get()
+        var plan = res.data()
+        return plan
     }
 }

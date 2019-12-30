@@ -4,12 +4,6 @@
     position: relative;
 }
 
-.title {
-    background: url('../../../../../assets/img/profileBg.png');
-    width: 100%;
-    margin: 0;
-}
-
 .activated {
     color: gold
 }
@@ -25,7 +19,5 @@
 }
 
 .back {
-    z-index: 1;
-    position: absolute;
     margin: .2em 1em;
 }

@@ -1,9 +1,12 @@
 .eventoCont {
-    background: #000;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
     margin: 1em 0em;
     vertical-align: middle;
     padding: 1em;
+    font-weight: bolder;
+    font-size: 18px;
+    color: #635563;
+    cursor: pointer;
 }
 
 .edo {
@@ -13,11 +16,30 @@
     text-align: right;
 }
 
+.fecha,
+.tipoEvento {
+    font-size: 1.5em;
+}
+
+.fecha {
+    color: #ccc;
+}
+
+.label {
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
 #barraTitulo>div {
     height: 2em;
 }
 
 #acordion {
-    top: 5em;
     position: relative;
+}
+
+@media screen and (max-width: 500px) {
+    .contenido {
+        padding-bottom: 12em !important;
+    }
 }

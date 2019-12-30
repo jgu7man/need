@@ -28,7 +28,7 @@ export class PersonalComponent implements OnInit {
     private _coEvento: CoEventoService
   ) { 
     this.personal = new PersonalModel('','','',{});
-    this.extras = new ExtrasModel(0,0,0,0,0)
+    this.extras = new ExtrasModel(0,0,0,0,0,0)
     
   }
 

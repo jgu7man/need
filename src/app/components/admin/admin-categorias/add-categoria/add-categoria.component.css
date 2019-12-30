@@ -1,0 +1,19 @@
+select {
+    background: transparent;
+}
+
+#catImagen {
+    width: 100%;
+}
+
+.sub {
+    background: purple;
+    width: fit-content;
+    padding: 5px 10px;
+    margin: 5px;
+    color: #ccc;
+}
+
+.sub span {
+    cursor: pointer;
+}

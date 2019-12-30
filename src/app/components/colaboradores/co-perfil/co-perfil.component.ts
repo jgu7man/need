@@ -28,8 +28,11 @@ export class CoPerfilComponent implements OnInit {
       }
     })
 
-    this.getRating()
-    this.getEventosCompletados()
+    if (this.user) {
+      this.getRating()
+      this.getEventosCompletados()
+    }
+
   }
 
   getRating() {

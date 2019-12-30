@@ -1,4 +1,4 @@
-<div class="container contenido">
+<div class="">
     <div class="col s12 black-text back">
         <i class="fas fa-arrow-circle-left" (click)="location.back()"></i>
     </div>
@@ -10,6 +10,7 @@
         <div class="col s12">
         </div>
     </div>
+
 
     <div class="container detalles movil">
         <div class="row rowMenu">
@@ -32,13 +33,13 @@
 
     <div class="container desktop">
         <div class="row">
-            <div class="col s4 box-content">
+            <div class="col s4 box-content bg-2">
                 <app-detalles [id]="idEvento"></app-detalles>
             </div>
-            <div class="col s4 box-content">
+            <div class="col s4 box-content bg-2">
                 <app-datos [id]="idEvento"></app-datos>
             </div>
-            <div class="col s4 box-content">
+            <div class="col s4 box-content bg-2">
                 <app-personal [id]="idEvento"></app-personal>
             </div>
         </div>

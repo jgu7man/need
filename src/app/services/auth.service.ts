@@ -32,14 +32,12 @@ export class AuthService {
   async googleSingIn(link){
       const provider = new auth.GoogleAuthProvider();
        const credential = await this.afAuth.auth.signInWithPopup(provider);
-       console.log(credential);
      return this.updateUserData(link, credential.user)
   }
 
   async facebookSingIn(link){
         const provider = new auth.FacebookAuthProvider();
        const credential = await this.afAuth.auth.signInWithPopup(provider);
-       console.log(credential);
         return this.updateUserData(link, credential.user)
   }
   

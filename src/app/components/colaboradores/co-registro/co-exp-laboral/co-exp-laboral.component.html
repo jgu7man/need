@@ -1,4 +1,4 @@
-<div class="container contenido grey darken-4">
+<div class="">
     <div class="row title">
         <div class="col s12">
             <p class="titleLabel center ltxt">
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row formulario bg-2">
             <form id="coRegistro" #coRegistro="ngForm" (ngSubmit)="onSubmit()" onsubmit="return false" action="">
 
                 <div class="col s12 input-field">
@@ -48,50 +48,50 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <p class="grey-text lighten-1">Meseros</p>
+                        <p class="grey-text lighten-1">Mesero</p>
                         <div class="col s6">
-                            <label for="meserosYears">Años</label>
-                            <input type="number" name="meserosYears" id="meserosYears" [(ngModel)]=exp.mesero.years #meserosYears="ngModel">
+                            <label for="">Años</label>
+                            <input type="number" name="meserosYears" id="meserosYears" [(ngModel)]=exp.mesero.years placeholder="Años" #meserosYears="ngModel">
                         </div>
                         <div class="col s6">
-                            <label for="meserosMeses">Meses</label>
-                            <input type="number" name="meserosMeses" id="meserosMeses" [(ngModel)]=exp.mesero.meses #meserosMeses="ngModel">
+                            <label for="">Meses</label>
+                            <input type="number" name="meserosMeses" id="meserosMeses" [(ngModel)]=exp.mesero.meses placeholder="Meses" #meserosMeses="ngModel">
                         </div>
                     </div>
 
                     <div class="col s12">
                         <p class="grey-text lighten-1">Barman</p>
                         <div class="col s6">
-                            <label for="barmanYears">Años</label>
-                            <input type="number" name="barmanYears" id="barmanYears" [(ngModel)]=exp.barman.years #barmanYears="ngModel">
+                            <label for="">Años</label>
+                            <input type="number" name="barmanYears" id="barmanYears" [(ngModel)]=exp.barman.years placeholder="Años" #barmanYears="ngModel">
                         </div>
                         <div class="col s6">
-                            <label for="barmanMeses">Meses</label>
-                            <input type="number" name="barmanMeses" id="barmanMeses" [(ngModel)]=exp.barman.meses #barmanMeses="ngModel">
+                            <label for="">Meses</label>
+                            <input type="number" name="barmanMeses" id="barmanMeses" [(ngModel)]=exp.barman.meses placeholder="Meses" #barmanMeses="ngModel">
                         </div>
                     </div>
 
                     <div class="col s12">
                         <p class="grey-text lighten-1">Hostess</p>
                         <div class="col s6">
-                            <label for="hostessYears">Años</label>
-                            <input type="number" name="hostessYears" id="hostessYears" [(ngModel)]=exp.hostess.years #hostessYears="ngModel">
+                            <label for="">Años</label>
+                            <input type="number" name="hostessYears" id="hostessYears" [(ngModel)]=exp.hostess.years placeholder="Años" #hostessYears="ngModel">
                         </div>
                         <div class="col s6">
-                            <label for="hostessMeses">Meses</label>
-                            <input type="number" name="hostessMeses" id="hostessMeses" [(ngModel)]=exp.hostess.meses #hostessMeses="ngModel">
+                            <label for="">Meses</label>
+                            <input type="number" name="hostessMeses" id="hostessMeses" [(ngModel)]=exp.hostess.meses placeholder="Meses" #hostessMeses="ngModel">
                         </div>
                     </div>
 
                     <div class="col s12">
-                        <p class="grey-text lighten-1">Seguridad</p>
+                        <p class="grey-text lighten-1">Vigilante</p>
                         <div class="col s6">
-                            <label for="seguridadYears">Años</label>
-                            <input type="number" name="seguridadYears" id="seguridadYears" [(ngModel)]=exp.seguridad.years #seguridadYears="ngModel">
+                            <label for="">Años</label>
+                            <input type="number" name="vigilanteYears" id="vigilanteYears" [(ngModel)]=exp.vigilante.years placeholder="Años" #vigilanteYears="ngModel">
                         </div>
                         <div class="col s6">
-                            <label for="seguridadMeses">Meses</label>
-                            <input type="number" name="seguridadMeses" id="seguridadMeses" [(ngModel)]=exp.seguridad.meses #seguridadMeses="ngModel">
+                            <label for="">Meses</label>
+                            <input type="number" name="vigilanteMeses" id="vigilanteMeses" [(ngModel)]=exp.vigilante.meses placeholder="Meses" #vigilanteMeses="ngModel">
                         </div>
                     </div>
 

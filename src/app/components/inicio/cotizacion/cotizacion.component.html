@@ -3,11 +3,13 @@
         <div class="col s12">
             <h4 class="exclam">¡Muy bien!</h4>
             <h5 class="grey-text lighten-1">Ahora que ya sabemos lo que necesitas para tu evento de {{evento.tipoEvento}}, te presentamos una cotizción</h5>
+            <p class="ltxt">Puedes modificar las cantidades como más te convenga</p>
+            <br>
         </div>
     </div>
     <div class="row">
         <div class="col s12 white-text">
-            <div class="cotiTable">
+            <div class="cotiTable bg-2">
                 <form name="cotizacion" #cotizacion="ngForm" (ngSubmit)="contratar()" action="#" method="post" onsubmit="return false">
                     <div class="col s12">
                         <p class="grey-text right">
@@ -16,12 +18,12 @@
                             <span class="resaltado total right">
                                 {{
                                     (precios.mesero * personal.meseros) +
-                                    (precios.jefe * personal.jefeMeseros) +
+                                    (precios.capitanMesero * personal.capitanMeseros) +
                                     (precios.barman * extras.barman) +
-                                    (precios.barra * extras.barra) +
+                                    (precios.escamoche * extras.escamoche) +
                                     (precios.valet * extras.valet) +
                                     (precios.hostess * extras.hostess) +
-                                    (precios.seguridad * extras.seguridad) 
+                                    (precios.vigilante * extras.vigilante) 
                                 }}
                             </span>
                         </p>
@@ -45,45 +47,52 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" name="jefeMeseros" value={{personal.jefeMeseros}} min="1" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
+                                    <input type="number" name="capitanMeseros" value={{personal.capitanMeseros}} min="1" [(ngModel)]="personal.capitanMeseros" #capitanMeseros="ngModel">
                                 </td>
                                 <td> Capitán de meseros </td>
-                                <td> ${{precios.jefe * personal.jefeMeseros}}</td>
+                                <td> ${{precios.capitanMesero * personal.capitanMeseros}}</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="extrasArray.includes('barman')">
                                 <td>
                                     <input type="number" name="barman" value={{extras.barman}} [(ngModel)]="extras.barman" #barman="ngModel">
                                 </td>
                                 <td> Barman </td>
                                 <td> ${{precios.barman * extras.barman}}</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="extrasArray.includes('bartender')">
                                 <td>
-                                    <input type="number" name="barra" value={{extras.barra}} [(ngModel)]="extras.barra" #barra="ngModel">
+                                    <input type="number" name="bartender" value={{extras.bartender}} [(ngModel)]="extras.bartender" #bartender="ngModel">
                                 </td>
-                                <td> Personal de barra </td>
-                                <td> ${{precios.barra * extras.barra}}</td>
+                                <td> Bartender </td>
+                                <td> ${{precios.bartender * extras.bartender}}</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="extrasArray.includes('escamoche')">
+                                <td>
+                                    <input type="number" name="escamoche" value={{extras.escamoche}} [(ngModel)]="extras.escamoche" #escamoche="ngModel">
+                                </td>
+                                <td> Escamoche </td>
+                                <td> ${{precios.escamoche * extras.escamoche}}</td>
+                            </tr>
+                            <tr *ngIf="extrasArray.includes('valet')">
                                 <td>
                                     <input type="number" name="valet" value={{extras.valet}} [(ngModel)]="extras.valet" #valet="ngModel">
                                 </td>
                                 <td> Personal de valet </td>
                                 <td> ${{precios.valet * extras.valet}}</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="extrasArray.includes('hostess')">
                                 <td>
                                     <input type="number" name="hostess" value={{extras.hostess}} [(ngModel)]="extras.hostess" #hostess="ngModel">
                                 </td>
                                 <td> Personal de hostess </td>
                                 <td> ${{precios.hostess * extras.hostess}}</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="extrasArray.includes('vigilante')">
                                 <td>
-                                    <input type="number" name="seguridad" value={{extras.seguridad}} [(ngModel)]="extras.seguridad" #seguridad="ngModel">
+                                    <input type="number" name="vigilante" value={{extras.vigilante}} [(ngModel)]="extras.vigilante" #vigilante="ngModel">
                                 </td>
-                                <td> Personal de seguridad </td>
-                                <td> ${{precios.seguridad * extras.seguridad}}</td>
+                                <td> Vigilante </td>
+                                <td> ${{precios.vigilante * extras.vigilante}}</td>
                             </tr>
 
                             <input type="hidden" name="total" value={{total}}>

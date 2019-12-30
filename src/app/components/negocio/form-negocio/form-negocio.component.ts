@@ -23,13 +23,13 @@ export class FormNegocioComponent implements OnInit {
     private router: Router,
     private _ruta: ActivatedRoute,
   ) { 
-    this.negocio = new NegocioModel('','','','','',new Date, new Date, '','solicitud');
+    this.negocio = new NegocioModel('','','','','',new Date, new Date,  new Date, '','solicitud');
     _ruta.params.subscribe( params => {this.negocioId = params['id']})
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     $(".formulario").scrollTop(0)
-    this.categorias = this._categorias.getCategorias() //obtiene array de categorias de negocios
+    this.categorias = await this._categorias.getCategorias() //obtiene array de categorias de negocios
     this.Usuario = JSON.parse(localStorage.getItem('needlog')) //obtiene la información del usuario
     this.negocio.idUsuario = this.Usuario.uid //define id de usuario al negocio
 
@@ -38,7 +38,6 @@ export class FormNegocioComponent implements OnInit {
       this._negocio.getNegocio(this.negocioId).then(
         res => {
           this.negocio = res
-          console.log(this.negocio);
         }, 
         err => {console.log(<any>err)}
         );

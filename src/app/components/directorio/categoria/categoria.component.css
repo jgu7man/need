@@ -33,13 +33,12 @@
 }
 
 .negocio {
-    background: #000;
-    border-radius: 1em;
     padding: 1em;
     cursor: pointer;
     margin: .3em !important;
     display: flex;
     max-width: 90vw;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (min-width: 500px) {

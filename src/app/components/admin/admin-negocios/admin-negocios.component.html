@@ -4,20 +4,32 @@
     </div>
 </div>
 
-<div class="row">
+<div class="pickerPosition"></div>
+
+<!-- <div class="row">
     <div class="col s12 right">
         <button class="btn waves-effect purple lighten-1">Agregar</button>
     </div>
-</div>
+</div> -->
 
-<div class="row">
-    <form action="#" method="post" onsubmit="return false" (ngSubmit)="onSearch()" #search="ngForm">
-        <div class="col s12 input-field">
-            <input type="email" name="email" id="email" [(ngModel)]="emailToSearch" #email="ngModel" placeholder="Buscar por email" />
-            <button class="btn waves-effect purple lighten-1">buscar</button>
+<form action="#" method="post" onsubmit="return false" (ngSubmit)="onSearch()" #search="ngForm">
+    <div class="row">
+        <div class="col s6 input-field">
+            <input type="email" name="email" id="email" [(ngModel)]="negocio.ownerEmail" #email="ngModel" />
+            <label for="email">Email del cliente</label>
         </div>
-    </form>
-</div>
+        <div class="col s6 input-field">
+            <input type="text" class="datepicker" name="fechaPago" id="fechaPago" (change)="getIniciaDate()" />
+            <label for="fechaPago">Fecha de pago</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <button class="needbtn">Agregar</button>
+        </div>
+    </div>
+</form>
+<br><br>
 
 <div class="row">
     <div class="col s12">
@@ -46,8 +58,8 @@
                         <button class="needbtn" (click)="sendMail(neg.nombre, neg.ownerEmail, neg.idNegocio)">Notificar por mail</button>
                     </td>
                     <td class="options valign-wrapper">
-                        <i class="fas fa-trash red-text"></i>
                         <i class="fas fa-external-link-alt green-text" [routerLink]="['/negocio_info', neg.idNegocio]"></i>
+                        <i class="fas fa-trash red-text"></i>
                     </td>
                 </tr>
             </tbody>

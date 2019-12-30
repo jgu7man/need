@@ -9,7 +9,6 @@
 .back {
     font-size: 2em;
     padding: 0 1em;
-    position: absolute;
     top: .5em;
     right: 0em;
 }
@@ -206,14 +205,11 @@ input[type="file" i] {
     .container.detalles {
         padding: 4em 8em 0em;
         box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
-        background: #202020;
     }
     #slider,
     #contacto,
     #comentarios {
-        background: #000;
-        border-radius: 1em;
-        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        box-shadow: 6px 6px 32px rgba(0, 0, 0, 0.5);
     }
     #descrip {
         width: 100% !important;

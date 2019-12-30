@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { ColaboradorModel } from '../../models/colaboradores/colaborador.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -12,6 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class RegistrarService {
     
     public colaborador: any
+    @Output() imgLoaded: EventEmitter<any> = new EventEmitter()
     constructor(
         private fs: AngularFirestore,
         private auth: AngularFireAuth,
@@ -60,7 +61,6 @@ export class RegistrarService {
     }
 
     saveExpLaboral(idColab, datos: ExpLaboralModel) {
-        console.log(datos);
         this.fs.collection('colaboradores').ref.doc(idColab)
             .collection('info').doc('exp_laboral').set({
                 lugares: datos.lugares,
@@ -68,7 +68,7 @@ export class RegistrarService {
                 mesero: datos.mesero,
                 barman: datos.barman,
                 hostess: datos.hostess,
-                seguridad: datos.seguridad,
+                vigilante: datos.vigilante,
             }).then(ref => {
                 this.router.navigate(['/colaborador/add_imagen', idColab])
             })

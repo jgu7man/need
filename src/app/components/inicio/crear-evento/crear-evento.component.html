@@ -5,11 +5,11 @@
         </p>
     </div>
 </div>
-<div class="container contenido grey darken-4">
+<div class="container contenido">
 
     <div class="pickerPosition"></div>
 
-    <div class="row formulario">
+    <div class="row formulario bg-2">
         <form #evenForm="ngForm" action="#" method="POST" id="evenForm" (ngSubmit)="onSubmit()" onsubmit="return false">
 
             <!-- FECHA Y HORA -->
@@ -38,7 +38,7 @@
                         <input type="text" [(ngModel)]="datos.termina" class="timepicker grey" name="terminaTime" id="terminaTime" disabled>
                     </div>
                     <div class="col s12">
-                        <p class="resaltado"><i class="fas fa-info blue-text"></i> Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento</p>
+                        <p class="resaltado" style="font-size: 12px !important;"><i class="fas fa-info blue-text"></i> Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento</p>
                     </div>
                 </div>
 

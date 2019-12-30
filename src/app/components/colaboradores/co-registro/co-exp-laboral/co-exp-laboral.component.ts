@@ -15,8 +15,9 @@ export class CoExpLaboralComponent implements OnInit {
   public exp: ExpLaboralModel
   public mesero: TiempoExp
   public barman: TiempoExp
+  public bartender: TiempoExp
   public hostess: TiempoExp
-  public seguridad: TiempoExp
+  public vigilante: TiempoExp
   public colabId: string
   
   constructor(
@@ -25,9 +26,10 @@ export class CoExpLaboralComponent implements OnInit {
   ) {
     this.mesero = new TiempoExp(0, 0)
     this.barman = new TiempoExp(0, 0)
+    this.bartender = new TiempoExp(0,0)
     this.hostess = new TiempoExp(0, 0)
-    this.seguridad = new TiempoExp(0, 0)
-    this.exp = new ExpLaboralModel([], '', this.mesero, this.barman, this.hostess, this.seguridad)
+    this.vigilante = new TiempoExp(0, 0)
+    this.exp = new ExpLaboralModel([], '', this.mesero, this.barman, this.bartender, this.hostess, this.vigilante)
    }
 
   ngOnInit() {
@@ -43,8 +45,10 @@ export class CoExpLaboralComponent implements OnInit {
   onSubmit() {
     this.exp.mesero = { meses: this.mesero.meses, years: this.mesero.years }
     this.exp.barman = { meses: this.barman.meses, years: this.barman.years }
+    this.exp.bartender = { meses: this.bartender.meses, years: this.bartender.years }
+    
     this.exp.hostess = { meses: this.hostess.meses, years: this.hostess.years }
-    this.exp.seguridad = { meses: this.seguridad.meses, years: this.seguridad.years }
+    this.exp.vigilante = { meses: this.vigilante.meses, years: this.vigilante.years }
     
     this._reg.saveExpLaboral(this.colabId, this.exp)
   }

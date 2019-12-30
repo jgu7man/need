@@ -44,27 +44,25 @@ export class CoInfoComponent implements OnInit {
     this.sortExp()
 
     ratingCol.forEach(rate => {
-      console.log(rate.data());
       this.comentarios.push({ uid: rate.id, coment: rate.data().comentario })
-      console.log(rate.data().rate);
       if (rate.data().rate == 'positivo') { this.ratingPositivo++ }
       else { this.ratingNegativo++ }
     })
 
     this.eventosCant = eventosCol.size
     eventosCol.forEach(evento => {
-      console.log(evento.data());
       this.eventos.push({eid: evento.id, fecha: evento.data().inicia.toDate()})
     })
   }
 
   sortExp() {
-    if (this.exp_laboral.jefeMeseros) { this.experiencia.push({name:'Jefe de meseros', exp:this.exp_laboral.jefeMeseros}) }
+    if (this.exp_laboral.capitanMeseros) { this.experiencia.push({name:'capitán de meseros', exp:this.exp_laboral.capitanMeseros}) }
     if (this.exp_laboral.mesero) { this.experiencia.push({name:'Mesero', exp: this.exp_laboral.mesero}) }
-    if (this.exp_laboral.barman) { this.experiencia.push({name:'Barman', exp:this.exp_laboral.barman}) }
+    if (this.exp_laboral.barman) { this.experiencia.push({ name: 'Barman', exp: this.exp_laboral.barman }) }
+    if (this.exp_laboral.bartender) { this.experiencia.push({name:'Bartender', exp:this.exp_laboral.bartender}) }
     if (this.exp_laboral.hostess) { this.experiencia.push({name:'Hostess', exp:this.exp_laboral.hostess}) }
     if (this.exp_laboral.valet) { this.experiencia.push({name:'Valet parking', exp:this.exp_laboral.valet}) }
-    if (this.exp_laboral.seguridad) { this.experiencia.push({name:'Personal de seguridad', exp:this.exp_laboral.seguridad}) }
+    if (this.exp_laboral.vigilante) { this.experiencia.push({name:'Vigilante', exp:this.exp_laboral.vigilante}) }
   }
 
   setLugares() {

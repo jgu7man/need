@@ -12,7 +12,6 @@ export class EventoService{
     
     async postEvento(evento, datos, personal) {
 
-        console.log(datos.inicia);
         var datosEvento = {
             ciudad: datos.ciudad,
             colonia: datos.colonia,
@@ -39,8 +38,8 @@ export class EventoService{
         Object.defineProperty(personalObj, 'mesero', {
             value: personal.meseros, enumerable: true, writable: true, configurable: true
         })
-        Object.defineProperty(personalObj, 'jefeMeseros', {
-            value: personal.jefeMeseros, enumerable: true, writable: true, configurable: true
+        Object.defineProperty(personalObj, 'capitanMeseros', {
+            value: personal.capitanMeseros, enumerable: true, writable: true, configurable: true
         })
         Object.keys(personal.extras).forEach(extra => {
             Object.defineProperty(personalObj, extra, {

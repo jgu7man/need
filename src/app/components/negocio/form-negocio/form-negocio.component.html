@@ -1,9 +1,9 @@
-<div class="row formulario">
+<div class="row formulario bg-2">
     <form action="#" #altaNegocio="ngForm" onsubmit="return false" method="POST" id="negocio" (ngSubmit)="onSubmit()">
 
         <div class="col s12 input-field">
             <input type="text" name="nombre" id="nombre" [(ngModel)]="negocio.nombre" #nombre="ngModel" required>
-            <label for="nombre">Nombre del negocio</label>
+            <label for="nombre" class="active">Nombre del negocio</label>
             <span class="formAlert" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                 Debes agregar un nombre
             </span>
@@ -11,7 +11,7 @@
 
         <select name="categoria" id="categoria" [(ngModel)]="negocio.categoria" #categoria="ngModel">
             <option value="" disabled selected>Elige una categoria</option>
-            <option value="{{catego.name}}" *ngFor="let catego of categorias">{{catego.name}}</option>
+            <option [value]="catego.id" *ngFor="let catego of categorias">{{catego.name}}</option>
         </select>
 
 

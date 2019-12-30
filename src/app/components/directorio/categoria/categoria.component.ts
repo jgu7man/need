@@ -29,7 +29,6 @@ export class CategoriaComponent implements OnInit {
     this._direcorio.getNegociosByCategoria(catego).then(
       res => {
         this.negocios = res
-        console.log(this.negocios);
       })
   }
 

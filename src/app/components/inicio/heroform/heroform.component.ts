@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonalModel } from '../../../models/evento/personal.model';
+import { ListaDePrecios } from '../../../models/precios.personal';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { ExtrasModel } from '../../../models/evento/extras.model';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 declare var jQuery:any;
 declare var $:any;
@@ -17,17 +19,50 @@ export class HeroformComponent implements OnInit  {
   
   public personal: PersonalModel;
   public evento: EventoModel
-  public extras: ExtrasModel;
+  public extrasArray: any;
+  public extras: any
+  public extra: string
+  public puestos: any[]
 
   constructor( 
-    private Router: Router
+    private Router: Router,
+    private fs: AngularFirestore,
   ) { 
     this.personal = new PersonalModel(0, 0, 0, {});
     this.evento = new EventoModel('', '', 0, 0, 1, 0, 'pendiente', new Date, '')
-    this.extras = new ExtrasModel(0, 0, 0, 0, 0)
+    this.extrasArray = []
+    this.extras = {}
   }
   
   ngOnInit() {
+    this.getPuestos()
+  }
+
+  async getPuestos() {
+    const colRef = this.fs.collection('personal').ref
+    const colRes = await colRef.get()
+    var puestos = []
+    colRes.forEach(puesto => {
+      if (puesto.id != 'mesero' && puesto.id != 'capitanMesero') {
+        puestos.push({
+          id: puesto.id,
+          nombre: puesto.data().nombre,
+          precio: puesto.data().precio
+        })
+      }
+    })
+    this.puestos = puestos
+  }
+
+  addExtras() {
+    if (!this.extrasArray.includes(this.extra)) {
+      this.extrasArray.push(this.extra)
+    }
+    this.extra = ''
+  }
+
+  delExtra(i) {
+    this.extrasArray.splice(i)
   }
   
   public popup() {
@@ -75,12 +110,11 @@ export class HeroformComponent implements OnInit  {
     this.personal.meseros = m;
     
     var j = Math.ceil(jefe);
-    this.personal.jefeMeseros = j;
+    this.personal.capitanMeseros = j;
 
     this.evento.tipoEvento = tipo;
     this.evento.calidad = calidad;
     
-    console.log(this.personal, this.evento);
   }
 
   calcular2() {
@@ -109,7 +143,7 @@ export class HeroformComponent implements OnInit  {
 
     var m = Math.ceil(cantidad);
     this.personal.meseros = m;
-    this.personal.jefeMeseros = +this.personal.jefeMeseros;
+    this.personal.capitanMeseros = +this.personal.capitanMeseros;
 
     this.evento.tipoEvento = tipo;
     this.evento.calidad = calidad;
@@ -146,8 +180,9 @@ export class HeroformComponent implements OnInit  {
       // do nothing
     }
 
-    console.log(this.evento);
   }
+
+  
 
   
 
@@ -158,15 +193,20 @@ export class HeroformComponent implements OnInit  {
       this.calcular2();
     }
 
+    // this.extrasArray.forEach(ext => {
+    //   Object.defineProperty(this.extras, ext, {
+    //     value: 0, enumerable: true, configurable: true, writable: true
+    //   })
+    // })
+
     var id:any = new Date();
     var idEvento:any = +id.getTime();
     this.evento.id = idEvento;
     this.personal.id = idEvento;
-    console.log(this.personal, this.evento);
 
     sessionStorage.setItem(idEvento+'personal', JSON.stringify(this.personal));
     sessionStorage.setItem(idEvento+'evento', JSON.stringify(this.evento));
-    sessionStorage.setItem(idEvento+'extras', JSON.stringify(this.extras));
+    sessionStorage.setItem(idEvento+'extras', JSON.stringify(this.extrasArray));
     this.Router.navigate(['/cotizacion/'+idEvento]);
     // window.location.href = "/cotizacion/"+idEvento; 
 

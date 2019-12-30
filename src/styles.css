@@ -23,7 +23,25 @@ html {
     font-family: 'Montserrat', sans-serif !important;
     margin: 0;
     padding: 0;
-    background: #202020;
+    background: #110011;
+}
+
+*::-webkit-scrollbar {
+    width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #2a062a !important;
+    border-radius: 5px !important;
+}
+
+p {
+    font-weight: bolder !important;
+    font-size: 18px !important;
 }
 
 input:not([type]),
@@ -34,14 +52,17 @@ input[type=url]:not(.browser-default),
 input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
-textarea.materialize-textarea {
+textarea.materialize-textarea,
+textarea {
     margin-bottom: 0% !important;
     color: #e3e3e3;
-    border: solid 1px #f2f2f2 !important;
+    border: 0 !important;
     padding: 0 10px !important;
     max-width: 92% !important;
     margin-bottom: 1em !important;
     width: 90%;
+    background: #2a062a !important;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.7) !important;
 }
 
 table {
@@ -124,6 +145,10 @@ textarea {
     outline: none !important;
 }
 
+.input-field.col label {
+    left: 1.75rem !important;
+}
+
 .pickerPosition {
     position: fixed;
     left: 50%;
@@ -164,11 +189,37 @@ textarea {
 }
 
 .datepicker-digital-display {
-    background-color: #6C009C;
+    background-color: #6C009C !important;
+}
+
+.timepicker-digital-display {
+    background-color: #6C009C !important;
+}
+
+.timepicker-canvas line {
+    stroke: #6C009C !important;
+}
+
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+    fill: #6C009C !important;
+}
+
+.modal.timepicker-modal.open {
+    top: 0 !important;
+}
+
+.confirmation-btns button {
+    color: #6c009c !important;
+    font-weight: 700;
 }
 
 igx-prefix {
     display: none !important;
+}
+
+table.highlight>tbody>tr:hover {
+    background-color: #6c009c29 !important;
 }
 
 
@@ -289,7 +340,7 @@ select {
 .fileneedbtn {
     background: #6C009C !important;
     float: right !important;
-    width: 100%
+    width: 110%
 }
 
 .upImage {
@@ -326,14 +377,14 @@ app-loading {
 }
 
 #barraTitulo {
-    position: fixed;
+    position: relative;
     z-index: 5;
     text-align: center;
     width: 100vw;
     top: 0em;
-    background: #202020;
     height: 5em;
     padding-top: 1em;
+    background: #2a062a;
 }
 
 #barraTitulo .s1 {
@@ -415,7 +466,7 @@ form .row {
 .itemIcon {
     display: block;
     margin: 0;
-    font-size: 0.75em !important;
+    font-size: 0.65em !important;
     color: #CCC !important;
 }
 
@@ -430,11 +481,13 @@ form .row {
 
 .back {
     font-size: 2em;
-    /* padding: 0 1em; */
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
 }
 
-.navActive {
-    color: #6C009C !important
+.navActive p {
+    color: #b244cc !important
 }
 
 
@@ -489,10 +542,13 @@ form .row {
 }
 
 .formulario {
-    max-width: 80%;
+    max-width: 100%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.7);
+    padding: 2em 1em;
+    margin: auto !important;
 }
 
 .masInfo {
@@ -582,4 +638,93 @@ option:hover {
 
 td.fc-today {
     background: #000 !important;
+}
+
+.title {
+    background: url('/assets/img/profileBg.png');
+    width: 100%;
+    margin: 0;
+}
+
+.btn-floating {
+    position: absolute !important;
+    bottom: 6em;
+    right: 1em;
+}
+
+.datepicker-day-button {
+    color: #202020 !important;
+}
+
+.is-selected .datepicker-day-button {
+    color: #fff !important;
+}
+
+.is-today .datepicker-day-button {
+    color: #6C009C !important;
+}
+
+.is-today.is-selected .datepicker-day-button {
+    color: #fff !important;
+}
+
+.actividad table {
+    color: #635563;
+}
+
+.seccion {
+    box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.7) !important;
+    border-radius: 0em !important;
+    margin-top: 3em;
+    background: #101;
+}
+
+.detalle {
+    list-style-type: none;
+    padding: 1em;
+    background: #2e0c2e;
+    color: #635563;
+    margin: 2px;
+    font-weight: 600;
+}
+
+.listadetalles {
+    position: relative;
+    top: -2.5em
+}
+
+.bg-1 {
+    background: #110011 !important;
+}
+
+.bg-2 {
+    background: #190319 !important;
+}
+
+.bg-3 {
+    background: #2e0c2e !important;
+}
+
+.options {
+    display: flex;
+    flex-flow: wrap row;
+}
+
+.options i {
+    width: 50%;
+    cursor: pointer;
+}
+
+.noData {
+    min-height: 70vh;
+    min-width: 70vw;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
+
+.noData i {
+    font-size: 10em;
+}
+
+.noti-body {
+    font-size: 12px !important;
 }

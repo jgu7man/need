@@ -12,6 +12,9 @@
 
 @media screen and (min-width: 500px) {
     .bienvenida {
-        min-width: 100vw;
+        min-width: 100%;
+        height: -webkit-fill-available;
+        padding-top: 6em;
+        overflow: auto;
     }
 }

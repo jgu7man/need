@@ -13,8 +13,8 @@ export class CategoriasComponent implements OnInit {
     private _categorias: CategoriasDirectorioService,
   ) { }
 
-  ngOnInit() {
-    this.categorias = this._categorias.getCategorias()
+  async ngOnInit() {
+    this.categorias = await this._categorias.getCategorias()
   }
 
 }

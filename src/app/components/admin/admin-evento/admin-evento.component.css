@@ -1,12 +1,4 @@
-.title {
-    background: url('../../../../assets/img/profileBg.png');
-    width: 100vw;
-    margin: 0;
-}
-
 .back {
-    z-index: 1;
-    position: absolute;
     margin: -1em 1em;
     color: purple;
 }

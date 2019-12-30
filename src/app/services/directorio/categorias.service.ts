@@ -28,8 +28,22 @@ export class CategoriasDirectorioService {
         {id:'otros', name: 'Otros', imagen: '../../../../assets/img/1-17.jpg'},
     ]
 
-    getCategorias(){
-        return this.Categorias;
+    async getCategorias(){
+        var res = await this.fs.collection('categorias').ref.get()
+        var categorias = []
+        res.forEach(categoria => {
+            categorias.push({
+                name: categoria.data().name,
+                imagen: categoria.data().imagen,
+                id: categoria.id
+            })
+        })
+        return categorias
+
+    }
+
+    async addCategoria() {
+        var colRef = this.fs.collection('categorias').ref
     }
 
     async getNegociosByCategoria(catego: string){

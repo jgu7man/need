@@ -21,6 +21,8 @@
                         "aot": false,
                         "assets": [
                             "src/need.ico",
+                            "src/firebase-messaging-sw.js",
+                            "src/manifest.json",
                             "src/assets"
                         ],
                         "styles": [
@@ -145,6 +147,8 @@
                         "aot": false,
                         "assets": [
                             "src/need.ico",
+                            "src/firebase-messaging-sw.js",
+                            "src/manifest.json",
                             "src/assets"
                         ],
                         "styles": [

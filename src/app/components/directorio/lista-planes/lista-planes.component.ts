@@ -15,8 +15,8 @@ export class ListaPlanesComponent implements OnInit {
     private _ruta: Router
   ) { }
 
-  ngOnInit() {
-    this.planes = this._planes.getPlanes();
+  async ngOnInit() {
+    this.planes = await this._planes.getPlanes();
   }
 
   async contratar(plan: string){

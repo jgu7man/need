@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <input type="submit" (click)="popup()" value="CALCULAR" id="calcular" class="needbtn">
+            <button (click)="popup()" id="calcular" class="needbtn">CALCULAR</button>
         </form>
     </div>
 
@@ -47,8 +47,8 @@
         <form #heroForm2="ngForm" (ngSubmit)="onSubmit()" action="#" method="POST" id="heroForm2" onsubmit="return false">
             <div class="inputs">
                 <div id="def" *ngIf="evento.tipoEvento != 7">
-                    <p class="center grey-text lighten-1">Para el evento que llevarás acabo necesitas <b class="resaltado">{{personal.meseros}} meseros </b>
-                        <span *ngIf="personal.jefeMeseros > 0">y {{personal.jefeMeseros}} jefe de meseros</span>
+                    <p class="center grey-text lighten-1">Para el evento que llevarás acabo hemos calculado que necesitas <b class="resaltado">{{personal.meseros}} meseros </b>
+                        <span *ngIf="personal.capitanMeseros > 0">y {{personal.capitanMeseros}} capitán de meseros</span>
                     </p>
                 </div>
                 <div class="row" id="nodef" *ngIf="evento.tipoEvento == 7">
@@ -57,13 +57,13 @@
                         <input class="" type="number" value=2 min="2" max="5" name="calidad" #calidad="ngModel" [(ngModel)]="evento.calidad">
                     </div>
                     <div class="col s12" id="jefe">
-                        <p class="grey-text lighten-1">¿Te gustaría incluir un Jefe de meseros?</p>
+                        <p class="grey-text lighten-1">¿Te gustaría incluir un capitán de meseros?</p>
                         <p>
-                            <input type="radio" name="jefe" id="jefesi" value="1" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel" checked>
+                            <input type="radio" name="jefe" id="jefesi" value="1" [(ngModel)]="personal.capitanMeseros" #capitanMeseros="ngModel" checked>
                             <label for="jefesi">Sí</label>
                         </p>
                         <p>
-                            <input type="radio" name="jefe" id="jefeno" value="0" [(ngModel)]="personal.jefeMeseros" #jefeMeseros="ngModel">
+                            <input type="radio" name="jefe" id="jefeno" value="0" [(ngModel)]="personal.capitanMeseros" #capitanMeseros="ngModel">
                             <label for="jefeno">No</label>
                         </p>
                     </div>
@@ -71,25 +71,15 @@
 
                 <div class="row extras">
                     <p class="center col s12 grey-text lighten-1">Te gustaría contratar también:</p><br>
-                    <div class="col s12">
-                        <label class="s6" for="barman">Barman</label>
-                        <input class="s6" type="number" min="0" max="5" name="barman" #barman="ngModel" [(ngModel)]="extras.barman">
+                    <div class="col s12 m6">
+                        <select name="extra" [(ngModel)]="extra" (change)="addExtras()">
+                            <option *ngFor="let puesto of puestos" [value]="puesto.id">{{puesto.nombre}}</option>
+                        </select>
                     </div>
-                    <div class="col s12">
-                        <label class="s6" for="barra">Personal de barra</label>
-                        <input class="s6" type="number" name="barra" #barra="ngModel" [(ngModel)]="extras.barra">
-                    </div>
-                    <div class="col s12">
-                        <label class="s6" for="valet">Valet parking</label>
-                        <input class="s6" type="number" name="valet" #valet="ngModel" [(ngModel)]="extras.valet">
-                    </div>
-                    <div class="col s12">
-                        <label class="s6" for="hostess">Hostess</label>
-                        <input class="s6" type="number" name="hostess" #hostess="ngModel" [(ngModel)]="extras.hostess">
-                    </div>
-                    <div class="col s12">
-                        <label class="s6" for="seguridad">Elementos de seguridad</label>
-                        <input class="s6" type="number" name="seguridad" #seguridad="ngModel" [(ngModel)]="extras.seguridad">
+                    <div class="col s12 m6">
+                        <div class="ext" *ngFor="let extra of extrasArray; index as i">
+                            {{extra}} <span (click)="delExtra(i)"><i class="fas fa-times right"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>

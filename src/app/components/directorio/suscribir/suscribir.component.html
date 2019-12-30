@@ -1,20 +1,22 @@
-<div class="row" id="barraTitulo">
-    <div class="col s1">
-        <a href="javascript:history.back()" class="back ltxt">
-            <i class="fas fa-arrow-left"></i>
-        </a>
+<div class="contenido">
+    <div class="row" id="barraTitulo">
+        <div class="col s1">
+            <a href="javascript:history.back()" class="back ltxt">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="col s10">
+            <p class="titleLabel ltxt center">
+                SUSCRIBIR
+            </p>
+        </div>
     </div>
-    <div class="col s10">
-        <p class="titleLabel ltxt center">
-            SUSCRIBIR
+
+
+    <div class="container">
+        <p class="ltxt center">
+            Rellena los datos para darte de alta en nuestro direcctorio
         </p>
+        <router-outlet></router-outlet>
     </div>
-</div>
-
-<div class="container contenido">
-
-    <p class="ltxt center">
-        Rellena los datos para darte de alta en nuestro direcctorio
-    </p>
-    <router-outlet></router-outlet>
 </div>

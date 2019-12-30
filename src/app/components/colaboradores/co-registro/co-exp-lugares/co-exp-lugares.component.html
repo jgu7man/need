@@ -10,7 +10,7 @@
 
 </div>
 
-<div class="row" id="lugarForm">
+<div class="row formulario bg-2" id="lugarForm">
     <form action="#" #lugarForm="ngForm" onsubmit="return false">
         <div class="col s6">
             <label for="desde">Desde:</label>
@@ -28,7 +28,7 @@
             <input type="text" name="puesto" id="puesto" [(ngModel)]="itemExp.puesto" #puesto="ngModel">
             <label for="puesto">Puesto de trabajo</label>
         </div>
-        <div class="col s12 input-field">
+        <div class="col s12 input-field grey-text">
             <textarea type="text" name="descripcion" id="descripcion" [(ngModel)]="itemExp.descripcion" #descripcion="ngModel"></textarea>
             <label for="descripcion">Descripción de actividades</label>
         </div>

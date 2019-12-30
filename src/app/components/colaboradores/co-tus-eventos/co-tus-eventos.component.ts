@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from "@angular/common";
 import { registerLocaleData } from '@angular/common';
 import localeES from "@angular/common/locales/es-CO";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
+import {Calendar, View} from "@fullcalendar/core";
 import interactionPlugin from '@fullcalendar/interaction';
 import { CoEventoService } from '../../../services/colaboradores/coeventos.service';
 import { Router } from '@angular/router';
@@ -19,32 +21,37 @@ export interface eventoInterface {
   styleUrls: ['./co-tus-eventos.component.css']
 })
 export class CoTusEventosComponent implements OnInit {
-  calendarPlugins = [timeGridPlugin, interactionPlugin]
+  calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
    views = {
     timeGridFourDay: {
       type: 'timeGrid',
       dayCount: 4,
       duration: { days: 4 },
-    }
+     },
+    dayGridMonth: {
+      type: 'dayGrid'
+     }
    }
   
    
   public calendarView: boolean = true
   public eventos: eventoInterface[] = []
   public eventosList = []
+  public view = 'dayGridMonth'
+  public vista: string
   
   constructor(
     private _coEventos: CoEventoService,
     private router: Router
-  ) { }
+  ) {
+    this.vista = 'Lista'
+   }
 
   async ngOnInit() {
     var co = JSON.parse(localStorage.getItem('needlog'))
     this.eventos = await this._coEventos.getCoCalendar(co.uid)
-    console.log(this.eventos);
     this.eventosList = await this._coEventos.getCoEventos(co.uid)
-    console.log(this.eventosList);
   }
 
   clickEvento(e) {
@@ -52,6 +59,10 @@ export class CoTusEventosComponent implements OnInit {
     this.router.navigate(['/colaborador/evento', id])
   }
 
+  changeVista() {
+    this.calendarView = !this.calendarView
+    this.vista == 'Lista' ? this.vista = 'Calendario' : this.vista = 'Lista'
+  }
   
 
 }

@@ -30,7 +30,7 @@ export class VerEquipoComponent implements OnInit {
 
     (function(){
       $('.collapsible').collapsible({
-        accordion: false
+        accordion: true
       });
     });
   }

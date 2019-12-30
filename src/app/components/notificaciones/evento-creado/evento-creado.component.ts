@@ -32,7 +32,6 @@ export class EventoCreadoComponent implements OnInit {
   getEvento(id){
     this._evento.getOneEvento(id).then(
       res => {  this.evento = res
-        console.log(this.evento);
       }
     );
   }

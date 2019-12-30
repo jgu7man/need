@@ -68,13 +68,11 @@ settings = {
     var year = splitDate[0]
     var month = splitDate[1] -1
     var day = splitDate[2]
-    console.log(+year, +month, +day);
     this.eventoStarts.date = new Date(year, month, day)
     $("#hora").fadeIn()
   }  
 
   getIniciaTime() {
-    console.log($('#iniciaTime').val());
     var time = $('#iniciaTime').val(),
       hour = time.split(':')[0],
       min = time.split(':')[1],
@@ -144,24 +142,6 @@ settings = {
 
 
   initPickers() {
-    // $('.datepicker').pickadate({
-    //   selectMonths: false, // Creates a dropdown to control month
-    //   i18n: {
-    //     months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-    //     monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
-    //     weekdays: ["Domingo","Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    //     weekdaysShort: ["Dom","Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-    //     weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"],
-    //         },
-    //   today: 'Hoy',
-    //   clear: 'Limpiar',
-    //   close: 'Ok',
-    //   closeOnSelect: true, // Close upon selecting a date,
-    //   container: '.pickerPosition', // ex. 'body' will append picker to body
-    //   onSelect: () => {
-        
-    //   }
-    // });
 
     $('.datepicker').datepicker({
       selectMonths: false,
@@ -194,7 +174,6 @@ settings = {
       container: '.contenido', // ex. 'body' will append picker to body
       autoclose: false, // automatic close timepicker
       aftershow: function () {
-          console.log('hola');
         }, //Function for after opening timepicker
       
     });

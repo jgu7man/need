@@ -13,13 +13,24 @@ input[type=date]:not(.browser-default) {
     transform-origin: 0 0;
 }
 
+input[type=text]:not(.browser-default):disabled {
+    color: thistle !important;
+}
+
 .title {
-    background: url('../../../../assets/img/profileBg.png');
-    width: 100vw;
     margin: 0 0 2em;
-    padding-top: 5em;
+    padding-top: 1em;
+}
+
+.title p {
+    margin-bottom: 0;
 }
 
 .contenido {
     width: 100vw !important;
+}
+
+.formulario {
+    margin-left: 0 !important;
+    width: 90%;
 }

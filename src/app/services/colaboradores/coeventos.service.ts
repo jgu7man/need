@@ -8,7 +8,7 @@ export class CoEventoService {
     constructor(
         private fs: AngularFirestore
     ) {
-        this.equipo = new EquipoModel([],[],[],[],[],[],[])
+        this.equipo = new EquipoModel([],[],[],[],[],[],[],[])
      }
 
     async getVacantes(id: string) {
@@ -46,14 +46,20 @@ export class CoEventoService {
     
             // Preparar para ocupar la vacante
             var vacantes = await eventoRef.doc('vacantes').get()
-            var numVacantes = vacantes.get(puesto)
-            var newNumVacantes = {}
-            Object.defineProperty(newNumVacantes, puesto, {
-                value: numVacantes -1, enumerable: true, writable: true, configurable: true
+            var vacantesPuesto = vacantes.get(puesto)
+            var vacantesEvento = vacantes.get('vacantes_total')
+            var newVacantes = {}
+            // Actualiza las vacantes del puesto
+            Object.defineProperty(newVacantes, puesto, {
+                value: vacantesPuesto -1, enumerable: true, writable: true, configurable: true
+            })
+            // Actualiza las vacantes totales del evento
+            Object.defineProperty(newVacantes, 'vacantes_total', {
+                value: vacantesEvento -1, enumerable: true, writable: true, configurable: true
             })
             
             // Ocupar la vacante
-            await eventoRef.doc('vacantes').update(newNumVacantes)
+            await eventoRef.doc('vacantes').update(newVacantes)
     
             // Registrar el evento en la información del colaborador
             const coRef = this.fs.collection('colaboradores').ref.doc(idColaborador)
@@ -68,21 +74,18 @@ export class CoEventoService {
     }
 
     async checkDisponibilidadColaborador(idCo, inicia, termina) {
-        console.log(idCo);
         const coRef = this.fs.collection('colaboradores').ref.doc(idCo)
 
         var eventosQueInician = await coRef.collection('eventos')
             .where('inicia', '>=', inicia)
             .where('inicia', '<=', termina)
             .get()
-        console.log(eventosQueInician.size);
 
         var eventosQueTerminan = await coRef.collection('eventos')
             .where('termina', '>=', inicia)
             .where('termina', '<=', termina)
             .get()
         
-        console.log(eventosQueTerminan.size);
 
         return eventosQueInician.size > 0 || eventosQueTerminan.size > 0 ? false : true
         
@@ -136,7 +139,6 @@ export class CoEventoService {
     async rateColaborador(idCo: string, idUsuario: string, rate: string) {
         if (idCo == idUsuario) { return false }
         else {
-            console.log(idCo, idUsuario, rate);
             const coRef = this.fs.collection('colaboradores').ref.doc(idCo)
             await coRef.collection('ratings').doc(idUsuario).set({
                 rate: rate

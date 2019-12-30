@@ -7,10 +7,16 @@
     top: 1em;
 }
 
+#heroForm input {
+    border: solid 1px #f2f2f2 !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
 .popup {
     display: none;
     padding: 0 5%;
-    background: #202020f2;
+    background: #110011f2;
     width: 95%;
     height: calc(98vh - 5em);
     position: fixed;
@@ -20,16 +26,29 @@
     border-radius: 2em;
 }
 
+.ext {
+    background: #6c009c;
+    padding: 5px 10px;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.ext span {
+    cursor: pointer;
+}
+
 .inputs {
-    overflow: auto;
     width: 100%;
     position: relative;
-    height: calc(75vh - 5em);
-    top: -5vh
+    height: calc(75vh - 7em);
+    top: 0vh;
+    align-items: center;
+    justify-content: center;
 }
 
 .popup form .col {
     display: flex;
+    flex-direction: column;
 }
 
 .popup form label,
@@ -90,7 +109,7 @@
     .close {
         position: absolute;
         right: 3vw;
-        top: -2vh;
+        top: 5vh;
         font-size: 1.5rem;
     }
     .popup {
@@ -102,6 +121,9 @@
     .inputs {
         overflow-x: hidden;
         overflow-y: auto;
+    }
+    .ext {
+        margin-top: 0;
     }
     .inputs::-webkit-scrollbar {
         width: 5px;

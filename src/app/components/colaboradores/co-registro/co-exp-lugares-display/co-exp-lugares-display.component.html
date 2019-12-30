@@ -1,37 +1,32 @@
 <div class="row" id="activaidades">
-    <div class="col s12 actividad" *ngFor="let lugar of lugares">
+    <div class="col s12 actividad bg-3 grey-text lighten-1" *ngFor="let lugar of lugares">
         <table>
             <thead>
                 <tr>
                     <th colspan=1>Desde:</th>
-                    <td colspan=1>{{lugar.desde.toLocaleDateString()}}</td>
+                    <td colspan=1>{{lugar.desde}}</td>
                     <th colspan=1>Hasta:</th>
-                    <td colspan=1>{{lugar.hasta.toLocaleDateString()}}</td>
+                    <td colspan=1>{{lugar.hasta}}</td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th colspan=2>Empresa o lugar:</th>
-                    <td colspan=2>{{lugar.lugar}}</td>
+                    <th colspan=1>Empresa o lugar:</th>
+                    <td colspan=1>{{lugar.lugar}}</td>
+                    <th colspan=1>Puesto:</th>
+                    <td colspan=1>{{lugar.puesto}}</td>
                 </tr>
                 <tr>
-                    <th colspan=2>Puesto:</th>
-                    <td colspan=2>{{lugar.puesto}}</td>
+                    <th colspan=1>Descripción:</th>
+                    <td colspan=3>{{lugar.descripcion}}</td>
                 </tr>
                 <tr>
-                    <th colspan=4>Descripción:</th>
+                    <th colspan=1>Referencia:</th>
+                    <td colspan=1>{{lugar.nameReferencia}}</td>
+                    <th colspan=1>Teléfono:</th>
+                    <td colspan=1>{{lugar.numReferencia}}</td>
                 </tr>
-                <tr>
-                    <td colspan=4>{{lugar.descripcion}}</td>
-                </tr>
-                <tr>
-                    <th colspan=2>Referencia:</th>
-                    <td colspan=2>{{lugar.nameReferencia}}</td>
-                </tr>
-                <tr>
-                    <th colspan=2>Teléfono:</th>
-                    <td colspan=2>{{lugar.numReferencia}}</td>
-                </tr>
+
             </tbody>
         </table>
     </div>

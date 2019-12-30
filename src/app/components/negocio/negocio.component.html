@@ -18,7 +18,7 @@
             <h4>{{negocio.nombre}}</h4>
         </div>
         <div id="rating">
-            <span *ngIf="!negociorating" style="margin-left: 1em">Aun no hay calificacion</span>
+            <span *ngIf="!negocioRating" style="margin-left: 1em">Aun no hay calificacion</span>
             <span id="ratings" *ngIf="negocioRating">{{negocioRating}} Recomendaciones</span>
             <span id="rate" *ngIf="Usuario" (click)="rate()">
                 <i *ngIf="negocio.idUsuario != Usuario.uid" id="star" class="far fa-star"></i>
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="container detalles">
+    <div class="container detalles bg-2">
 
         <div class="row" id="descrip">
             <div class="col s12">
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="row" id="slider">
+        <div class="row bg-3" id="slider">
 
             <div class="col s6">
                 <h5>
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="row" id="contacto">
+        <div class="row bg-3" id="contacto">
             <div class="col s6">
                 <h5>
                     <i class="fas fa-list-alt ltxt"></i>
@@ -87,7 +87,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row" id="comentarios">
+        <div class="row bg-3" id="comentarios">
             <div class="col s12">
                 <h5>
                     <i class="fas fa-comments    "></i>

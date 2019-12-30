@@ -28,23 +28,39 @@
     <div class="container">
         <div class="row">
 
-            <div class="col s12 l6 seccion">
-                <div class="row">
+            <div class="col s12 m6">
+                <div class="row seccion bg-2">
+
+                    <div class="col s12">
+                        <h5 class="center grey-text lighten-1">NOTIFICACIONES</h5>
+
+                        <div *ngIf="notificaciones">
+                            <ul>
+                                <li *ngFor="let notificacion of notificaciones">
+                                    <div class="col s10" [routerLink]="['../evento', notificacion.eventoId, 'pagar']">
+                                        <h6 class="resaltado"> {{notificacion.title}} </h6>
+                                    </div>
+                                    <div class="col s2">
+                                        <i class="fas fa-trash-alt grey-text" (click)="delNotificacion(notificacion.id)"></i>
+                                    </div>
+                                    <div class="col s12" [routerLink]="['../evento', notificacion.eventoId, 'pagar']">
+                                        <p class="grey-text noti-body">{{notificacion.body}}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row seccion bg-2">
                     <div class="col s12">
                         <h5 class="center grey-text lighten-1">LOGROS</h5>
                     </div>
                 </div>
             </div>
 
-            <!-- <div class="col s12 l6 seccion">
-                <div class="row">
-                    <div class="col s12">
-                        <h5 class="center grey-text lighten-1">COMENTARIOS</h5>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="col s12 l6 seccion">
+            <div class="col s12 m6 seccion bg-2">
                 <div class="row">
                     <div class="col s12">
                         <h5 class="center grey-text lighten-1">NEGOCIOS</h5>

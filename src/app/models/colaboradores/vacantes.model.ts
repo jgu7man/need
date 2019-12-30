@@ -1,11 +1,12 @@
 export class VacantesModel {
     constructor(
         public mesero: number,
-        public jefeMeseros: number,
+        public capitanMeseros: number,
         public barman: number,
-        public barra: number,
+        public bartender: number,
+        public escamoche: number,
         public valet: number,
         public hostess: number,
-        public seguridad: number
+        public vigilante: number
     ){}
 }

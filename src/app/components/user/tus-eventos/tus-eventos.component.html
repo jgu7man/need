@@ -1,25 +1,38 @@
-<div class="row" id="barraTitulo">
-    <div class="col s12">
-        <p class="titleLabel ltxt center">
-            TUS EVENTOS
-        </p>
+<div class="contenido">
+
+    <div class="row title">
+        <div class="col s12">
+            <p class="titleLabel ltxt center">
+                MIS EVENTOS
+            </p>
+        </div>
     </div>
-</div>
-
-<div class="container contenido">
 
 
-    <div class="row" id="acordion">
-        <div *ngFor="let evento of eventos" id={{evento.id}} class="eventoCont ltxt col s12" (click)="!more" [routerLink]="['../evento/', evento.id]">
-            <div class="col s6"> Tipo de evento: <br> {{evento.tipoEvento}} </div>
-            <div class="col s6 edo">
-                {{evento.estado}}
-                <span class="est resaltado" [ngClass]="{'gold-text': evento.estado=='pendiente'}" [ngClass]="{'green-text': evento.estado=='proximo'}" [ngClass]="{'red-text': evento.estado=='cancelado'}" [ngClass]="{'deep-purple-text text-accent-4': evento.estado=='completado'}">
-                    <i class="fas fa-circle"></i>
-                </span>
-                <br> {{evento.fecha.toLocaleDateString()}}
+    <div class="container">
+        <div class="row" id="acordion">
+            <div *ngFor="let evento of eventos" id={{evento.id}} class="eventoCont bg-2 ltxt col s12" (click)="!more" [routerLink]="['../evento/', evento.id]">
+                <div class="col s6 m4">
+                    <span class="label">Tipo de evento</span>
+                    <br> <span class="tipoEvento">{{evento.tipoEvento}} </span>
+                </div>
+                <div class="col m4">
+                    <span class="label">Fecha</span><br>
+                    <span class="fecha">{{evento.fecha.toLocaleDateString()}}</span>
+                </div>
+                <div class="col s6 m4 edo">
+                    <span class="label">Estado</span>
+                    <br> {{evento.estado}}
+                    <span class="est resaltado" [ngClass]="{'gold-text': evento.estado=='pendiente'}" [ngClass]="{'green-text': evento.estado=='proximo'}" [ngClass]="{'red-text': evento.estado=='cancelado'}" [ngClass]="{'deep-purple-text text-accent-4': evento.estado=='completado'}">
+                        <i class="fas fa-circle"></i>
+                    </span>
+                </div>
+
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- <a class="btn-floating btn-large waves-effect waves-light purple" [routerLink]="['/usuario/nuevo-evento']">
+    <i class="fas fa-calendar-plus    "></i>
+</a> -->

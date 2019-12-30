@@ -3,13 +3,7 @@ import { Observable, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
-import { ColaboradorModel } from 'src/app/models/colaboradores/colaborador.model';
 import { LocalStorageServiceEncrypt } from 'angular-2-local-storage-encrypt';
-import { switchMap } from 'rxjs/operators';
-import { DatosCoModel } from '../../models/colaboradores/datosCo.model';
-import { ExpLaboralModel } from '../../models/colaboradores/expLaboral.model';
-import { UsuarioInterface } from '../../models/usuario.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ColaboradorService {

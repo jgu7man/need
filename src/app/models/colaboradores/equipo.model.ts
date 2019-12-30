@@ -1,11 +1,12 @@
 export class EquipoModel {
     constructor(
         public meseros: object[],
-        public jefeMeseros: object[],
+        public capitanMeseros: object[],
         public barman: object[],
+        public bartender: object[],
         public hostess: object[],
         public valet: object[],
-        public barra: object[],
-        public seguridad: object[]
+        public escamoche: object[],
+        public vigilante: object[]
     ){}
 }
