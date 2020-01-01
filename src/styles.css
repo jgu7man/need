@@ -297,6 +297,7 @@ label {
     transition: 1s;
     border: none;
     padding: 10px;
+    cursor: pointer;
 }
 
 .needbtn:hover {

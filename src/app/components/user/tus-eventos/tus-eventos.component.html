@@ -23,7 +23,7 @@
                 <div class="col s6 m4 edo">
                     <span class="label">Estado</span>
                     <br> {{evento.estado}}
-                    <span class="est resaltado" [ngClass]="{'gold-text': evento.estado=='pendiente'}" [ngClass]="{'green-text': evento.estado=='proximo'}" [ngClass]="{'red-text': evento.estado=='cancelado'}" [ngClass]="{'deep-purple-text text-accent-4': evento.estado=='completado'}">
+                    <span class="est resaltado" [ngClass]="{'gold-text': evento.estado=='pendiente'}" [ngClass]="{'green-text': evento.estado=='confirmado'}" [ngClass]="{'red-text': evento.estado=='cancelado'}" [ngClass]="{'deep-purple-text text-accent-4': evento.estado=='realizado'}">
                         <i class="fas fa-circle"></i>
                     </span>
                 </div>

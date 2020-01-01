@@ -11,6 +11,7 @@
         <li class="detalle">Programado para: {{evento.fecha.toLocaleDateString()}} </li>
         <li class="detalle">Para {{evento.personas}} personas </li>
         <li class="detalle">Calidad de atención: {{evento.calidad}} </li>
-        <li class="detalle" *ngIf="owner">${{evento.costo}} </li>
+        <li class="detalle" *ngIf="owner">${{evento.costo}} <span class="needbtn">Pagar</span> </li>
+
     </ul>
 </div>
