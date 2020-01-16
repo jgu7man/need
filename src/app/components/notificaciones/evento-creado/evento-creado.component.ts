@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { EventoService } from '../../../services/evento.service';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { NotificacionesService } from '../../../services/notificaciones.service';
 declare var $;
 @Component({
   selector: 'app-evento-creado',
@@ -11,14 +12,15 @@ declare var $;
 export class EventoCreadoComponent implements OnInit {
 
   public evento: any;
-  public idEvento: any;
+  @Input() idEvento: any;
 
   constructor(
     private _evento: EventoService,
     private _Router: Router,
-    private _Route: ActivatedRoute
+    private _Route: ActivatedRoute,
+    private _notificaciones: NotificacionesService
     ) {
-    this.evento = new EventoModel('', '', '', '', '', 0, 'pendiente',new Date, '');
+    this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
    }
 
   ngOnInit() {
@@ -34,6 +36,10 @@ export class EventoCreadoComponent implements OnInit {
       res => {  this.evento = res
       }
     );
+  }
+
+  solicitarPermiso() {
+    this._notificaciones.getPermission()
   }
 
 }

@@ -6,6 +6,10 @@ input[type=date]:not(.browser-default) {
     color: #f3f3f3;
 }
 
+agm-map {
+    height: 300px;
+}
+
 .input-field label:not(.label-icon).active {
     -webkit-transform: translateY(-14px) scale(0.8);
     transform: translateY(-22px) scale(0.8);
@@ -17,9 +21,26 @@ input[type=text]:not(.browser-default):disabled {
     color: thistle !important;
 }
 
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: gold;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: rgba(255, 217, 0, 0.562);
+}
+
+.datepicker,
+.timepicker {
+    cursor: pointer;
+}
+
+#duracion {
+    max-width: 20%;
+}
+
 .title {
     margin: 0 0 2em;
-    padding-top: 1em;
+    padding-top: 5em;
 }
 
 .title p {
@@ -33,4 +54,17 @@ input[type=text]:not(.browser-default):disabled {
 .formulario {
     margin-left: 0 !important;
     width: 90%;
+}
+
+#estado {
+    border: none;
+    background: #2a062a;
+    box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .5) !important;
+}
+
+@media screen and (min-width: 500px) {
+    #edoContainer {
+        position: relative;
+        top: -6px;
+    }
 }

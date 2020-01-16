@@ -19,7 +19,7 @@ export class DatosComponent implements OnInit {
     private ruta: ActivatedRoute,
     private fs: AngularFirestore
   ) { 
-    this.datos = new DatosModel(new Date,new Date,'','','','','');
+    this.datos = new DatosModel(new Date,new Date,'','','','','',0,0);
   }
 
   async ngOnInit() {

@@ -5,6 +5,9 @@ import { PersonalModel } from '../../../models/evento/personal.model';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { EventoService } from '../../../services/evento.service';
 import { HorarioModel } from 'src/app/models/evento/horario.model';
+import { DateModel } from 'src/app/models/evento/date.model';
+import { AlertaService } from '../../../services/alerta.service';
+import { EstadoFinancieroModel } from '../../../models/evento/estado_financiero.model';
 
 declare var jQuery:any;
 declare var $:any;
@@ -16,17 +19,18 @@ declare var $:any;
 })
 export class CrearEventoComponent implements OnInit {
 
-date: Date = new Date();
-settings = {
-  bigBanner: true,
-  timePicker: true,
-  defaultOpen: false,
-  closeOnSelect: true
-}
+  date: Date = new Date();
+  settings = {
+    bigBanner: true,
+    timePicker: true,
+    defaultOpen: false,
+    closeOnSelect: true
+  }
 
   public personal: PersonalModel;
   public datos: DatosModel;
   public evento: EventoModel
+  public finanzas: EstadoFinancieroModel
   public Evento: string;
   public idEvento: any;
   public eventoStarts: HorarioModel
@@ -35,66 +39,135 @@ settings = {
   public timeOptions = { hour: 'numeric', minute: 'numeric' }
   public queDia: string
   public ends = false
+  public editEnds = false
+  public duracion
+  public inDate: DateModel
+  public lat: any;
+  public lng: any;
 
   constructor(
     private _Route: ActivatedRoute,
     private _Router: Router,
     private _Evento: EventoService,
+    private _alerta: AlertaService
     ) {
-    this.datos = new DatosModel(new Date,new Date,'', '', '', '', '');
+    this.datos = new DatosModel(new Date,new Date,'', '', '', '', '', 0, 0);
     this.personal = new PersonalModel( '', '', '', {});
-    this.evento = new EventoModel('', '', '', '', '', '', 'pendiente', new Date, '');
+    this.evento = new EventoModel('', '', '', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
+    this.finanzas = new EstadoFinancieroModel(0,0,0,false, '',[],'espera')
+    this.inDate = new DateModel(0,0,0,0,0)
     this.eventoStarts = new HorarioModel(new Date, '', '')
-    this.eventoEnds = new HorarioModel(new Date, '','')
+    this.eventoEnds = new HorarioModel(new Date, '', '')
+    this.duracion = 5
   }
 
   ngOnInit() {
-    $(".contenido").scrollTop(0);
     this._Route.params.subscribe((params: Params) => {
       this.idEvento = params.idEvento;
-      var evento = params.idEvento+'evento';
-      var personal = params.idEvento+'personal';
-      this.evento = JSON.parse(sessionStorage.getItem(evento));
-      this.personal = JSON.parse(sessionStorage.getItem(personal));
+      console.log(params.idEvento)
+      this.evento = JSON.parse(sessionStorage.getItem(params.idEvento + 'evento'));
+      console.log(this.evento)
+      this.personal = JSON.parse(sessionStorage.getItem(params.idEvento+'personal'));
+      this.finanzas = JSON.parse(sessionStorage.getItem(params.idEvento+'finanzas'));
     });
     this.initPickers()
-    
+    this.currentLocation()
+    this._alerta.response.subscribe(res => {
+      this.evento.promocionado = res
+      console.log(this.evento.promocionado)
+    })
+  }
+
+  currentLocation() {
+    navigator.geolocation.getCurrentPosition(geo => {
+      this.lat = geo.coords.latitude;
+      this.lng = geo.coords.longitude;
+    });
+  }
+
+  getDireccion(e) {
+      this.lat = e.coords.lat;
+      this.lng = e.coords.lng;
   }
 
   getIniciaDate() {
-    var date = $('#iniciaDate').val()
-
-    var splitDate = date.split(' ')
-    var year = splitDate[0]
-    var month = splitDate[1] -1
-    var day = splitDate[2]
-    this.eventoStarts.date = new Date(year, month, day)
+    // Definir fecha rango para eventos urgentes
+    let today = new Date(),
+      thisyear = today.getFullYear(),
+      thismonth = today.getMonth(),
+      thisday = today.getDate(),
+      oneweek = new Date(thisyear, thismonth, thisday + 7)
+    
+      // Toma la fecha elegida
+      var date = $('#iniciaDate').val(),
+      splitDate = date.split(' '),
+      year = splitDate[0],
+      month = splitDate[1] -1,
+      day = splitDate[2]
+      this.eventoStarts.date = new Date(year, month, day)
+    
+    if (this.eventoStarts.date <= oneweek) {
+      this._alerta.sendUserOptions('El evento que eliges es muy pronto y no garantizamos que el equipo se junte pronto. Te recomendamos promocionarlo para que tener tu equipo a tiempo. ¿Deseas promocionarlo?', 'Promocionar', 'No promocionar')
+    }
+        
     $("#hora").fadeIn()
   }  
 
   getIniciaTime() {
     var time = $('#iniciaTime').val(),
       hour = time.split(':')[0],
-      min = time.split(':')[1],
+      min = time.split(':')[1];
 
-      year = this.eventoStarts.date.getFullYear(),
-      month = this.eventoStarts.date.getMonth(),
-      day = this.eventoStarts.date.getDate()
+    this.inDate.hour = +hour
+    this.inDate.min = +min
+    this.inDate.year = this.eventoStarts.date.getFullYear(),
+    this.inDate.month = this.eventoStarts.date.getMonth(),
+    this.inDate.day = this.eventoStarts.date.getDate()
 
+    this.setDates()
+    
+  }
 
-    this.datos.inicia = new Date(year, month, day, +hour, +min)
-    this.eventoStarts.date = new Date(year, month, day, +hour - 2, +min)
-    this.eventoEnds.date = new Date(year, month, day, +hour + 5, +min)
-    this.datos.termina = new Date(year, month, day, +hour + 5, +min)
+  setDates() {
+    this.datos.inicia = new Date(
+      this.inDate.year,
+      this.inDate.month,
+      this.inDate.day,
+      this.inDate.hour,
+      this.inDate.min
+    )
+
+    this.eventoStarts.date = new Date(
+      this.inDate.year,
+      this.inDate.month,
+      this.inDate.day,
+      this.inDate.hour - 2,
+      this.inDate.min
+    )
+
+    this.datos.termina = new Date(
+      this.inDate.year,
+      this.inDate.month,
+      this.inDate.day,
+      this.inDate.hour + this.duracion,
+      this.inDate.min
+    )
+
+    this.eventoEnds.date = this.datos.termina
     this.stringDates()
+
   }
 
   stringDates() {
-    this.eventoStarts.fecha = this.eventoStarts.date.toLocaleDateString('es-Es', this.dateOptions)
-    this.eventoStarts.hora = this.eventoStarts.date.toLocaleTimeString('es-Es', this.timeOptions)
+    this.eventoStarts.fecha = this.eventoStarts.date
+      .toLocaleDateString('es-Es', this.dateOptions)
+    this.eventoStarts.hora = this.eventoStarts.date
+      .toLocaleTimeString('es-Es', this.timeOptions)
 
-    this.eventoEnds.fecha = this.eventoEnds.date.toLocaleDateString('es-Es', this.dateOptions)
-    this.eventoEnds.hora = this.eventoEnds.date.toLocaleTimeString('es-Es', this.timeOptions)
+    this.eventoEnds.fecha = this.eventoEnds.date
+      .toLocaleDateString('es-Es', this.dateOptions)
+    this.eventoEnds.hora = this.eventoEnds.date
+      .toLocaleTimeString('es-Es', this.timeOptions)
 
     if (this.eventoStarts.date.getDate() == this.eventoEnds.date.getDate()) {
       this.queDia = 'del mismo día'
@@ -103,6 +176,15 @@ settings = {
     }
 
     this.ends = true
+    this._alerta.sendUserAlert('Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento')
+  }
+
+  changeEnds(e) {
+    this.editEnds = e.target.checked
+  }
+
+  calcEndDate() {
+    
   }
   
   getTerminaDate() {
@@ -119,22 +201,30 @@ settings = {
     this.datos.termina = new Date(+year, +month, +day, +hour, +min)
   } 
 
-  async onSubmit() {
-    
-    this.getTerminaDate()
+  get listo() {
+    if (this.lat != 0 || this.lng != 0) {
+      return true
+    } else {
+      return false
+    }
+  }
 
-    this.evento.fecha = this.datos.inicia
-    this.evento.lugar = `${this.datos.lugar}, ${this.datos.ciudad}, ${this.datos.estado}`
+  async onSubmit() {
+
+    // this.getTerminaDate()
     var log = JSON.parse(localStorage.getItem('needlog'))
     this.evento.usuario = log.uid
-
-    var evento = this.idEvento+'evento';
-    var personal = this.idEvento+'personal';
-    sessionStorage.removeItem(evento)
-    sessionStorage.removeItem(personal)
-
-    this.idEvento = await this._Evento.postEvento(this.evento, this.datos, this.personal)
-    this._Router.navigate(['evento-creado/'+this.idEvento])
+    this.evento.fecha = this.datos.inicia
+    this.evento.lugar = `${this.datos.lugar}, ${this.datos.ciudad}, ${this.datos.estado}`
+    this.evento.ciudad = this.datos.estado
+    this.evento.estado = 'creado'
+    this.evento.costo = this.finanzas.total
+    this.datos.lat = this.lat
+    this.datos.lng = this.lng
+    
+    await sessionStorage.setItem(this.idEvento+'datos', JSON.stringify(this.datos))
+    this.idEvento = await this._Evento.postEvento(this.idEvento, this.evento, this.datos, this.personal, this.finanzas).then( res => {this.idEvento = res})
+    // this._Router.navigate(['evento-creado/'+this.idEvento])
     
 
   }
@@ -153,8 +243,8 @@ settings = {
         weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"],
             },
       today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
+      // clear: 'Limpiar',
+      // close: 'Ok',
       closeOnSelect: true,
       format: 'yyyy mm dd',
       container: '.pickerPosition',
@@ -165,7 +255,7 @@ settings = {
     })
 
     $('.timepicker').timepicker({
-      sdefault: 'now', // Set default time: 'now', '1:30AM', '16:30'
+      sdefault: '9:00PM', // Set default time: 'now', '1:30AM', '16:30'
       fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
       twelveHour: false, // Use AM/PM or 24-hour format
       donetext: 'OK', // text for done-button
@@ -183,6 +273,41 @@ settings = {
       event.preventDefault();
     })
   }
+
+  public estados = [
+			'Aguascalientes',
+			'Baja California',
+			'Baja California Sur',
+			'Campeche',
+			'Chiapas',
+			'Chihuahua',
+			'Coahuila',
+			'Colima',
+			'Ciudad de México',
+			'Durango',
+			'Guanajuato',
+			'Guerrero',
+			'Hidalgo',
+			'Jalisco',
+			'Mexico',
+			'Michoacan',
+			'Morelos',
+			'Nayarit',
+			'Nuevo Leon',
+			'Oaxaca',
+			'Puebla',
+			'Queretaro',
+			'Quintana Roo',
+			'San Luis Potosi',
+			'Sinaloa',
+			'Sonora',
+			'Tabasco',
+			'Tamaulipas',
+			'Tlaxcala',
+			'Veracruz',
+			'Yucatan',
+			'Zacatecas',
+  ]
 
 }
 

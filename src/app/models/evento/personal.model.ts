@@ -4,8 +4,7 @@ export class PersonalModel {
     public id: any,
     public meseros: any ,
     public capitanMeseros: any ,
-    public extras: {} ,
-
+    public extras: {},
   ) {}
 
  }

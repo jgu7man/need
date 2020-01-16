@@ -17,9 +17,9 @@ export class NotificacionesService {
   public uid
 
     constructor(
-        private fs: AngularFirestore,
+      private fs: AngularFirestore,
       private afAuth: AngularFireAuth,
-        private messaging: AngularFireMessaging
+      private messaging: AngularFireMessaging
     ) {
       var user = JSON.parse(localStorage.getItem('needlog'))
       this.uid = user.uid

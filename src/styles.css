@@ -729,3 +729,12 @@ td.fc-today {
 .noti-body {
     font-size: 12px !important;
 }
+
+.pop_up {
+    background: #202020;
+    width: 66.6666%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 60%;
+    left: 50%;
+}

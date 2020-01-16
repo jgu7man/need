@@ -11,46 +11,69 @@
         <div class="col s12 white-text">
             <div class="cotiTable bg-2">
                 <form name="cotizacion" #cotizacion="ngForm" (ngSubmit)="contratar()" action="#" method="post" onsubmit="return false">
-                    <div class="col s12">
-                        <p class="grey-text right">
+                    <div class="col s8">
+                        <p class="ltxt">
+                            ¿REQUIERES FACTURA?<br>
+                            <span class="switch">
+                                    <label>No
+                                        <input type="checkbox" (change)="needFactura($event)">
+                                        <span class="lever"></span> Sí
+                            </label>
+                            </span><br>
+                            <span *ngIf="finanzas.factura" class="grey-text adv">Al activar esta opción ACEPTAS que los costos de IVA correran por tu cuenta, aumentando el valor del servicio</span>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <p class="grey-text right" *ngIf="!finanzas.factura">
                             Total a pagar del servicio
                             <br> $
-                            <span class="resaltado total right">
-                                {{
-                                    (precios.mesero * personal.meseros) +
-                                    (precios.capitanMesero * personal.capitanMeseros) +
-                                    (precios.barman * extras.barman) +
-                                    (precios.escamoche * extras.escamoche) +
-                                    (precios.valet * extras.valet) +
-                                    (precios.hostess * extras.hostess) +
-                                    (precios.vigilante * extras.vigilante) 
-                                }}
+                            <span *ngIf="subtotal" class="resaltado total right">
+                                {{ subtotal }}
                             </span>
                         </p>
-
+                        <table class="grey-text" *ngIf="finanzas.factura">
+                            <tbody>
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td>${{subtotal}}</td>
+                                </tr>
+                                <tr>
+                                    <th>I.V.A. (16%):</th>
+                                    <td>${{iva}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total:</th>
+                                    <td>$<span class="resaltado total">{{total}}</span> </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    <br>
                     <table>
                         <thead>
                             <tr>
                                 <th>Cant.</th>
                                 <th>Concepto</th>
                                 <th>Costo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <input type="number" name="meseros" value={{personal.meseros}} [(ngModel)]="personal.meseros" #meseros="ngModel">
+                                    <input type="number" min="1" name="meseros" value={{personal.meseros}} [(ngModel)]="personal.meseros" #meseros="ngModel" required>
                                 </td>
                                 <td> Meseros </td>
-                                <td> ${{precios.mesero * personal.meseros}}</td>
+                                <td #mesero> ${{precios.mesero * personal.meseros}}</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" name="capitanMeseros" value={{personal.capitanMeseros}} min="1" [(ngModel)]="personal.capitanMeseros" #capitanMeseros="ngModel">
+                                    <input type="number" name="capitanMeseros" value={{personal.capitanMeseros}} min="1" [(ngModel)]="personal.capitanMeseros" #capitanMeseros="ngModel" required><br>
+                                    <span class="adv" *ngIf="personal.capitanMeseros == 0">*Para un evento de {{evento.tipoEvento}} es necesario un Capitán de meseros mínimo</span>
                                 </td>
                                 <td> Capitán de meseros </td>
                                 <td> ${{precios.capitanMesero * personal.capitanMeseros}}</td>
+
                             </tr>
                             <tr *ngIf="extrasArray.includes('barman')">
                                 <td>
@@ -58,6 +81,7 @@
                                 </td>
                                 <td> Barman </td>
                                 <td> ${{precios.barman * extras.barman}}</td>
+                                <td><i class="fas fa-times center" (click)="delPuesto('barman')"></i></td>
                             </tr>
                             <tr *ngIf="extrasArray.includes('bartender')">
                                 <td>
@@ -65,6 +89,7 @@
                                 </td>
                                 <td> Bartender </td>
                                 <td> ${{precios.bartender * extras.bartender}}</td>
+                                <td><i class="fas fa-times center" (click)="delPuesto('bartender')"></i></td>
                             </tr>
                             <tr *ngIf="extrasArray.includes('escamoche')">
                                 <td>
@@ -72,6 +97,7 @@
                                 </td>
                                 <td> Escamoche </td>
                                 <td> ${{precios.escamoche * extras.escamoche}}</td>
+                                <td><i class="fas fa-times center" (click)="delPuesto('escamoche')"></i></td>
                             </tr>
                             <tr *ngIf="extrasArray.includes('valet')">
                                 <td>
@@ -79,6 +105,7 @@
                                 </td>
                                 <td> Personal de valet </td>
                                 <td> ${{precios.valet * extras.valet}}</td>
+                                <td><i class="fas fa-times center" (click)="delPuesto('valet')"></i></td>
                             </tr>
                             <tr *ngIf="extrasArray.includes('hostess')">
                                 <td>
@@ -86,6 +113,7 @@
                                 </td>
                                 <td> Personal de hostess </td>
                                 <td> ${{precios.hostess * extras.hostess}}</td>
+                                <td><i class="fas fa-times center" (click)="delPuesto('hostess')"></i></td>
                             </tr>
                             <tr *ngIf="extrasArray.includes('vigilante')">
                                 <td>
@@ -93,11 +121,20 @@
                                 </td>
                                 <td> Vigilante </td>
                                 <td> ${{precios.vigilante * extras.vigilante}}</td>
+                                <td><i class="fas fa-times center" (click)="delPuesto('vigilante')"></i></td>
                             </tr>
 
                             <input type="hidden" name="total" value={{total}}>
                         </tbody>
                     </table>
+                    <div class="col s12">
+                        <p class="center col s12 grey-text lighten-1">¿Quieres agregar más personal?</p><br>
+                        <div class="col s12 m6">
+                            <select name="puestoExtra" [(ngModel)]="puestoExtra" (change)="addPuesto()">
+                                <option *ngFor="let puesto of puestos" [value]="puesto.id">{{puesto.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -108,5 +145,9 @@
             <p class="center white-text">¿Listo para contratar?</p>
             <button class="needbtn" (click)="contratar()">Contratar</button>
         </div>
+        <div class="col s12 center">
+            <p class="resaltado" *ngIf="error">No puedes dejar cantidades en 0</p>
+        </div>
+
     </div>
 </div>

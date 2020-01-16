@@ -13,66 +13,104 @@
         <form #evenForm="ngForm" action="#" method="POST" id="evenForm" (ngSubmit)="onSubmit()" onsubmit="return false">
 
             <!-- FECHA Y HORA -->
-
             <div class="row">
-                <div class="col s6">
-                    <label for="dateInicio">Inicia el día:</label>
-                    <input type="text" (change)="getIniciaDate()" class="datepicker" name="iniciaDate" id="iniciaDate">
+                <div class="col s12">
+                    <h4 class="grey-text center"><b>FECHA Y HORA</b></h4>
+                    <div class="divider"></div>
                 </div>
-                <div id="hora" class="col s6" style="display: none;">
-                    <label for="timeInicio">...a las:</label>
-                    <input type="text" class="timepicker" (change)="getIniciaTime()" name="iniciaTime" id="iniciaTime">
-                </div>
+            </div>
 
-                <div *ngIf="ends">
-                    <p class="ltxt col s12">
-                        Tus meseros serían contratados de {{eventoStarts.hora}} a {{eventoEnds.hora}} {{queDia}}.
-                    </p>
-
-                    <div class="col s6">
-                        <label for="dateFinal">Termina el día:</label>
-                        <input type="text" [(ngModel)]="datos.termina" class="datepicker grey" name="terminaDate" id="terminaDate" disabled>
+            <div class="row" style="margin-bottom: 80px !important;">
+                <div class="col s12 m6">
+                    <div class="col s12">
+                        <label for="dateInicio">Inicia el día:</label>
+                        <input type="text" (change)="getIniciaDate()" class="datepicker" name="iniciaDate" id="iniciaDate">
                     </div>
-                    <div class="col s6">
-                        <label for="timeFinal">...a las:</label>
-                        <input type="text" [(ngModel)]="datos.termina" class="timepicker grey" name="terminaTime" id="terminaTime" disabled>
+                    <div id="hora" class="col s12" style="display: none;">
+                        <label for="timeInicio">...a las:</label>
+                        <input type="text" class="timepicker" (change)="getIniciaTime()" name="iniciaTime" id="iniciaTime">
+                    </div>
+                </div>
+
+                <div class="col s6" *ngIf="ends">
+
+                    <div class="col s12">
+                        <p class="resaltado">Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento</p>
                     </div>
                     <div class="col s12">
-                        <p class="resaltado" style="font-size: 12px !important;"><i class="fas fa-info blue-text"></i> Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento</p>
+
+                        <p class="ltxt">
+                            ¿DESEAS CAMBIAR LA CANTIDAD DE HORAS?<br>
+                            <span class="switch">
+                                <label>No
+                                    <input type="checkbox" (change)="changeEnds($event)">
+                                    <span class="lever"></span> Sí
+                            </label>
+                            </span>
+                        </p>
+
+                        <div class="ltxt" *ngIf="editEnds">
+                            <label for="timeFinal">Duración del evento</label><br>
+                            <input type="number" [(ngModel)]="duracion" class="grey" name="duracion" id="duracion" (change)="setDates()"> <span> Horas</span>
+                        </div><br>
+
+                        <span *ngIf="duracion<5" class="resaltado" style="font-size: 12px !important;"><i class="fas fa-info blue-text"></i> Todo evento de duración menor a 5 horas tendrá el mismo costo de 5 horas</span>
+                        <span *ngIf="duracion>5" class="resaltado" style="font-size: 12px !important;"><i class="fas fa-info blue-text"></i> Todo evento de duración mayor a 5 horas tendrá un aumento de 20% del costo por cada hora agregada</span>
+
+                    </div>
+                    <div class="col s12">
+                        <p class="ltxt center">
+                            Tus meseros serían contratados el {{eventoStarts.fecha}}, de <span class="resaltado">{{eventoStarts.hora}}</span> a <span class="resaltado">{{eventoEnds.hora}}</span> {{queDia}}.
+                        </p>
                     </div>
                 </div>
 
             </div>
 
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="grey-text center"><b>LUGAR Y DIRECCIÓN</b></h4>
+                    <div class="divider"></div>
+                </div>
+            </div>
 
             <!-- LUGAR  -->
 
             <div class="row">
-                <div class="col s12 input-field">
-                    <input type="text" name="lugar" id="lugar" [(ngModel)]="datos.lugar" #lugar="ngModel">
-                    <label for="lugar">Nombre del lugar</label>
+                <div class="col s12 m6 input-field">
+                    <input type="text" name="lugar" id="lugar" [(ngModel)]="datos.lugar" #lugar="ngModel" placeholder="ej: Casino Regional, Local El Jardín">
+                    <label for="lugar" class="active">Nombre del lugar</label>
+                    <p class="grey-text">Marca el lugar en el mapa</p>
                 </div>
-                <div class="col s12 input-field">
+                <div class="col s12 m6">
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" (mapClick)="getDireccion($event)">
+                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                    </agm-map>
+                </div>
+                <div class="col s12 m6 input-field">
                     <input type="text" name="direccion" id="direccion" [(ngModel)]="datos.direccion" #direccion="ngModel">
                     <label for="direccion">Calle y número</label>
                 </div>
-                <div class="col s12 input-field">
+                <div class="col s12 m6 input-field">
                     <input type="text" name="colonia" id="colonia" [(ngModel)]="datos.colonia" #colonia="ngModel">
                     <label for="colonia">Colonia</label>
                 </div>
-                <div class="col s12 input-field">
+                <div class="col s12 m6 input-field">
                     <input type="text" name="ciudad" id="ciudad" [(ngModel)]="datos.ciudad" #ciudad="ngModel">
                     <label for="ciudad">Ciudad</label>
                 </div>
-                <div class="col s12 input-field">
-                    <input type="text" name="estado" id="estado" [(ngModel)]="datos.estado" #estado="ngModel">
+                <div class="col s12 m6" id="edoContainer">
                     <label for="estado">Estado</label>
+                    <select name="estado" id="estado" [(ngModel)]="datos.estado" #estado="ngModel">
+                        <option disabled selected>Elige un estado</option>
+                        <option *ngFor="let edo of estados" [value]="edo">{{edo}}</option>
+                    </select>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col s12">
-                    <input type="submit" value="Registrar" class="needbtn">
+                    <input [disabled]="!listo" type="submit" value="Registrar" class="needbtn">
                 </div>
             </div>
         </form>

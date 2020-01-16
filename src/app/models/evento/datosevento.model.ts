@@ -7,7 +7,9 @@ export class DatosModel {
     public direccion:string,
     public colonia:string,
     public ciudad:string,
-    public estado:string,
+    public estado: string,
+    public lat: number,
+    public lng: number
   ) {}
 
  }

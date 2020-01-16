@@ -22,7 +22,7 @@ export class DetallesComponent implements OnInit {
     private ruta: ActivatedRoute,
     private _usuario: UsuarioService
     ) {
-    this.evento = new EventoModel('', '', '', '', '', '', 'pendiente', new Date, '');
+    this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '');
     this.usuario = new UsuarioModel('','','','')
    }
 

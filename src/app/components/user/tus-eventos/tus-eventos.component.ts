@@ -26,8 +26,8 @@ export class TusEventosComponent implements OnInit {
     // private _usuario: UsuarioService,
     private _eventos: EventoService
   ) {
-    this.evento = new EventoModel('','','','','','','pendiente', new Date, ''),
-    this.datos = new DatosModel(new Date,new Date,'','','','',''),
+    this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
+    this.datos = new DatosModel(new Date,new Date,'','','','','',0,0),
     this.servicio = new PersonalModel('','','',{})
   }
 

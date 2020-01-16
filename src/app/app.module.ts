@@ -11,6 +11,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from "../environments/environment";
+import { AgmCoreModule } from "@agm/core";
 
 import { CompareValidatorDirective } from './directives/validator.directive';
 import { PwdToggleDirective } from './directives/pwd-toggle.directive';
@@ -101,6 +102,7 @@ import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-
 import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
 import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
+import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen-pago.component';
 
 @NgModule({
   declarations: [
@@ -182,7 +184,8 @@ import { EditCategoriaComponent } from './components/admin/admin-categorias/edit
     NegocioInfoComponent,
     AddCategoriaComponent,
     TablaCategoriasComponent,
-    EditCategoriaComponent
+    EditCategoriaComponent,
+    ResumenPagoComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -196,6 +199,9 @@ import { EditCategoriaComponent } from './components/admin/admin-categorias/edit
     BrowserAnimationsModule,
     HttpClientModule,
     FullCalendarModule,
+    AgmCoreModule.forRoot({
+        apiKey: "AIzaSyD5qs1RP5Hm53w19CXYG_5VGm7zi0O4Vns"
+    }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     LocalStorageModule.forRoot({
             prefix: 'my-app',

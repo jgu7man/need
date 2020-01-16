@@ -18,12 +18,18 @@ export class LoginUserComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private _Route: ActivatedRoute,
-    private _Router: Router
+    private _Router: Router,
   ) { 
    }
 
   ngOnInit() {
-     this._Route.params.subscribe(params => {
+     this.authService.user$.pipe().subscribe( user => {
+      if (user) { this._Router.navigate(['/usuario']) } 
+    })
+  }
+
+  defineRoute() {
+    this._Route.params.subscribe(params => {
       
        if (params['idEvento']) {
          this.idEvento = params['idEvento'];
