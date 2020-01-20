@@ -4,7 +4,8 @@ import { EventoModel } from '../models/evento/evento.model';
 import { ActividadModel } from '../models/evento/actividad.model';
 import { HistorialService } from './historial.service';
 import { PersonalModel } from '../models/evento/personal.model';
-import { EstadoFinancieroModel } from '../models/evento/estado_financiero.model';
+import { CostosModel } from '../models/evento/costos.model';
+import { DatosModel } from '../models/evento/datosevento.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +27,7 @@ export class EventoService{
         evento.usuario = log.uid
         evento.fecha = new Date(evento.fecha)
         var personal = await JSON.parse(sessionStorage.getItem(idEvento + 'personal'))
-        var finanzas = await JSON.parse(sessionStorage.getItem(idEvento + 'finanzas'))
+        var finanzas = await JSON.parse(sessionStorage.getItem(idEvento + 'costos'))
         var extras = await JSON.parse(sessionStorage.getItem(idEvento + 'extras'))
         
         // REGISTRAR EVENTO
@@ -84,6 +85,7 @@ export class EventoService{
             estado: 'creado',
             ciudad: datos.ciudad
         })
+
         var eventRef = this.fs.collection('eventos').ref.doc(idEvento)
         await eventRef.collection('info').doc('datos').set(datos)
         await eventRef.collection('personal').doc('personal').set(personal)
@@ -100,9 +102,26 @@ export class EventoService{
         // eliminar los datos del navegador
         await sessionStorage.removeItem(idEvento + 'evento')
         await sessionStorage.removeItem(idEvento + 'personal')
-        await sessionStorage.removeItem(idEvento + 'finanzas')
+        await sessionStorage.removeItem(idEvento + 'costos')
         
         return idEvento
+    }
+
+    async checkUserDisp(fechaSolicitada: Date) {
+        var user = JSON.parse(localStorage.getItem('needlog'))
+        const coll = this.fs.collection('eventos').ref
+        var userEvents = await coll.where('usuario', '==', user.uid).get();
+
+        var disponible: boolean
+        await userEvents.forEach(async event => {
+            var eventDate = event.get('fecha').toDate() as Date
+            eventDate.setHours(0, 0, 0, 0)
+            console.log(eventDate)
+            return fechaSolicitada == eventDate ? disponible = true : disponible = false
+        })
+        console.log(disponible)
+        return disponible
+
     }
 
 
@@ -142,8 +161,10 @@ export class EventoService{
 
     async getOneEvento(id: string) {
         var eventRef = this.fs.collection('eventos').ref.doc(id)
-        var evento = await eventRef.get()
-        return evento.data() as EventoModel
+        var eventoRes = await eventRef.get()
+        var evento = eventoRes.data() as EventoModel
+        evento.fecha = eventoRes.data().fecha.toDate()
+        return evento
     }
 
     
@@ -171,19 +192,22 @@ export class EventoService{
     async getFullEvento(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         
-        var evento = await eventoRef.get()
-        const detalles = evento.data()
-        detalles.fecha = evento.data().fecha.toDate()
+        var eventoRes = await eventoRef.get()
+        const evento: EventoModel = eventoRes.data() as EventoModel
+        evento.fecha = eventoRes.data().fecha.toDate()
 
-        var infoPersonal = await eventoRef.collection('info').doc('personal').get()
-        const personal = infoPersonal.data()
+        var infoPersonal = await eventoRef.collection('personal').doc('personal').get()
+        const personal: PersonalModel = infoPersonal.data() as PersonalModel
+
+        var infoCostos = await eventoRef.collection('finanzas').doc('costos').get()
+        const finanzas: CostosModel = infoCostos.data() as CostosModel
         
         var infoDatos = await eventoRef.collection('info').doc('datos').get()
-        const datos = infoDatos.data()
+        const datos: DatosModel = infoDatos.data() as DatosModel
         datos.inicia = infoDatos.data().inicia.toDate()
         datos.termina = infoDatos.data().termina.toDate()
 
-        return { detalles: detalles, personal: personal, datos: datos }
+        return { evento: evento, personal: personal, datos: datos, finanzas: finanzas }
     }
 
     async getPersonal(idEvento) {
@@ -199,12 +223,16 @@ export class EventoService{
     async getDatos(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         var infoDatos = await eventoRef.collection('info').doc('datos').get()
-        return infoDatos.data()
+        
+        const datos = infoDatos.data()
+        datos.inicia = new Date(infoDatos.data().inicia)
+        datos.termina = new Date(infoDatos.data().termina)
+        return datos
     }
-    async getFinanzas(idEvento) {
+    async getCostos(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
-        var infoFinanzas = await eventoRef.collection('finanzas').doc('costos').get()
-        return infoFinanzas.data() as EstadoFinancieroModel    
+        var infoCostos = await eventoRef.collection('finanzas').doc('costos').get()
+        return infoCostos.data() as CostosModel    
     }
 
     async deleteEvento(idEvento) {

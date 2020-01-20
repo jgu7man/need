@@ -1,5 +1,5 @@
-<div class="container">
-    <ul class="listadetalles ltxt">
+<div class="container event-container" *ngIf="evento && costos">
+    <ul class="listadetalles ">
         <li class="detalle">Evento: {{evento.tipoEvento}} </li>
         <li class="detalle resaltado owner" *ngIf="!owner">Creado por: {{usuario.displayName}}
             <span class="rigth">
@@ -10,8 +10,25 @@
         <li class="detalle" *ngIf="owner">Estado: {{evento.estado}} </li>
         <li class="detalle">Programado para: {{evento.fecha.toLocaleDateString()}} </li>
         <li class="detalle">Para {{evento.personas}} personas </li>
-        <li class="detalle">Calidad de atención: {{evento.calidad}} </li>
-        <li class="detalle" *ngIf="owner">${{evento.costo}} <span class="needbtn">Pagar</span> </li>
+        <li class="detalle">Calidad de atención: <span [ngSwitch]="evento.calidad">
+        <span *ngSwitchCase="'Deficiente'">
+            Cada mesero atiende 4 mesas
+        </span>
+            <span *ngSwitchCase="'Regular'">
+            Cada mesero atiende 3 mesas
+        </span>
+            <span *ngSwitchCase="'Optima'">
+            Cada mesero atiende 2 mesas
+        </span>
+            </span>
+        </li>
 
+    </ul>
+
+    <ul class="listadetalles">
+        <li class="detalle" *ngIf="evento.promocionado" class="resaltado">Promocionado</li>
+        <li class="detalle" *ngIf="owner">Costo: ${{evento.costo}} <span class="needbtn" style="left: 7em;" [routerLink]="['../../resumen-pago', id]">Pagar</span> </li>
+        <li class="detalle resaltado" *ngIf="!checkConfirmado()"> Este evento aun no está confirmado. Has un anticipo o págalo para que tu evento se lleve acabo</li>
+        <li class="detalle">Resto: ${{costos.resto}} </li>
     </ul>
 </div>

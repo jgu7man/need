@@ -136,6 +136,33 @@ input[type=date]:not(.browser-default) {
     border: 2px solid #6C009C !important;
 }
 
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: gold !important;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: rgba(255, 217, 0, 0.562) !important;
+}
+
+button:focus {
+    outline: none;
+    background-color: #190319 !important;
+}
+
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+    background: none !important;
+}
+
+.carousel {
+    height: auto !important;
+}
+
+.indicator {
+    background-color: gold !important;
+    width: 32% !important;
+}
+
 textarea {
     color: #ccc;
     min-width: 100%;
@@ -562,12 +589,13 @@ form .row {
 
 .rowMenu {
     color: #e3e3e3;
-    background: #000;
+    background: #000 !important;
     padding: 1em;
     border-radius: 1em;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, .5);
     position: relative;
-    top: -3em;
+    /* top: -6em; */
+    height: 70px !important;
 }
 
 .ico:focus {
@@ -590,6 +618,16 @@ form .row {
     left: 50%;
     transform: translatex(-50%);
     padding: 0 2em 0em;
+    top: -6em;
+    min-height: 80vh;
+}
+
+li.detalle {
+    color: #e3e3e3 !important;
+}
+
+.event-container {
+    width: 90% !important;
 }
 
 
@@ -691,7 +729,7 @@ td.fc-today {
 
 .listadetalles {
     position: relative;
-    top: -2.5em
+    top: 0em
 }
 
 .bg-1 {

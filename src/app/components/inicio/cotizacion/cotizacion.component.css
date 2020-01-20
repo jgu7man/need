@@ -14,14 +14,6 @@
     display: inline-block;
 }
 
-.switch label input[type=checkbox]:checked+.lever:after {
-    background-color: gold;
-}
-
-.switch label input[type=checkbox]:checked+.lever {
-    background-color: rgba(255, 217, 0, 0.562);
-}
-
 .cotiTable {
     box-shadow: 6px 6px 32px rgba(0, 0, 0, 0.5);
     padding: 1em;

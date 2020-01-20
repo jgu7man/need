@@ -1,39 +1,33 @@
 <div class="container">
     <ul class="listadetalles ltxt">
-        <li class="detalle row">
+        <li class="detalle">
             <div class="col s3">{{ personal.meseros }}</div>
             <div class="col s9">MESEROS</div>
         </li>
-        <li class="detalle row" *ngIf="personal.capitanMeseros > 0">
+        <li class="detalle" *ngIf="personal.capitanMeseros > 0">
             <div class="col s3">{{ personal.capitanMeseros }}</div>
             <div class="col s9">CAPITÁN DE MESEROS</div>
         </li>
-        <li class="detalle row" *ngIf="extras.barman > 0">
+        <li class="detalle" *ngIf="extras.barman > 0">
             <div class="col s3">{{ extras.barman }}</div>
             <div class="col s9">BARMAN's</div>
         </li>
-        <li class="detalle row" *ngIf="extras.escamoche > 0">
+        <li class="detalle" *ngIf="extras.escamoche > 0">
             <div class="col s3">{{ extras.escamoche }}</div>
             <div class="col s9">ESCAMOCHE</div>
         </li>
-        <li class="detalle row" *ngIf="extras.valet > 0">
+        <li class="detalle" *ngIf="extras.valet > 0">
             <div class="col s3">{{ extras.valet }}</div>
             <div class="col s9">VALET PARKING</div>
         </li>
-        <li class="detalle row" *ngIf="extras.hostess > 0">
+        <li class="detalle" *ngIf="extras.hostess > 0">
             <div class="col s3">{{ extras.hostess }}</div>
             <div class="col s9">HOSTESS</div>
         </li>
-        <li class="detalle row" *ngIf="extras.vigilante > 0">
+        <li class="detalle" *ngIf="extras.vigilante > 0">
             <div class="col s3">{{ extras.vigilante }}</div>
             <div class="col s9">VIGILANTE</div>
         </li>
     </ul>
-    <div class="row">
-        <div class="col s12">
-            <button class="needbtn hide-on-large-only" *ngIf="postulado || !owner" [routerLink]="['../ver-equipo']">
-                Ver equipo
-            </button>
-        </div>
-    </div>
+
 </div>

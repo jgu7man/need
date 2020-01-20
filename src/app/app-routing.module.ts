@@ -61,6 +61,7 @@ import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-
 import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
 import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
+import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen-pago.component';
 
 
 const routes: Routes = [
@@ -89,7 +90,8 @@ const routes: Routes = [
     ]},
     { path: 'perfil', component: PerfilComponent, data: { nav: 3 } },
     { path: 'nuevo-evento', component: NuevoEventoComponent },
-    { path: 'ver_colaborador/:id', component: VerColaboradorComponent}
+    { path: 'ver_colaborador/:id', component: VerColaboradorComponent },
+    { path: 'resumen-pago/:id', component: ResumenPagoComponent}
   ] },
   
   // Directorio

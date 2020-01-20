@@ -7,7 +7,8 @@ import { EventoService } from '../../../services/evento.service';
 import { HorarioModel } from 'src/app/models/evento/horario.model';
 import { DateModel } from 'src/app/models/evento/date.model';
 import { AlertaService } from '../../../services/alerta.service';
-import { EstadoFinancieroModel } from '../../../models/evento/estado_financiero.model';
+import { CostosModel } from '../../../models/evento/costos.model';
+import { AdminDataService } from '../../../services/admin/admin.data.service';
 
 declare var jQuery:any;
 declare var $:any;
@@ -30,7 +31,8 @@ export class CrearEventoComponent implements OnInit {
   public personal: PersonalModel;
   public datos: DatosModel;
   public evento: EventoModel
-  public finanzas: EstadoFinancieroModel
+  public costos: CostosModel
+
   public Evento: string;
   public idEvento: any;
   public eventoStarts: HorarioModel
@@ -49,12 +51,13 @@ export class CrearEventoComponent implements OnInit {
     private _Route: ActivatedRoute,
     private _Router: Router,
     private _Evento: EventoService,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private _adminData: AdminDataService
     ) {
     this.datos = new DatosModel(new Date,new Date,'', '', '', '', '', 0, 0);
     this.personal = new PersonalModel( '', '', '', {});
     this.evento = new EventoModel('', '', '', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
-    this.finanzas = new EstadoFinancieroModel(0,0,0,false, '',[],'espera')
+    this.costos = new CostosModel(0,0,0,0,0,false,[])
     this.inDate = new DateModel(0,0,0,0,0)
     this.eventoStarts = new HorarioModel(new Date, '', '')
     this.eventoEnds = new HorarioModel(new Date, '', '')
@@ -68,13 +71,14 @@ export class CrearEventoComponent implements OnInit {
       this.evento = JSON.parse(sessionStorage.getItem(params.idEvento + 'evento'));
       console.log(this.evento)
       this.personal = JSON.parse(sessionStorage.getItem(params.idEvento+'personal'));
-      this.finanzas = JSON.parse(sessionStorage.getItem(params.idEvento+'finanzas'));
+      this.costos = JSON.parse(sessionStorage.getItem(params.idEvento+'costos'));
     });
     this.initPickers()
     this.currentLocation()
     this._alerta.response.subscribe(res => {
-      this.evento.promocionado = res
-      console.log(this.evento.promocionado)
+      res ? 
+      this.costos.promocion = this._adminData.promocionado :
+      this.costos.promocion = 0
     })
   }
 
@@ -90,7 +94,7 @@ export class CrearEventoComponent implements OnInit {
       this.lng = e.coords.lng;
   }
 
-  getIniciaDate() {
+  async getIniciaDate() {
     // Definir fecha rango para eventos urgentes
     let today = new Date(),
       thisyear = today.getFullYear(),
@@ -104,13 +108,18 @@ export class CrearEventoComponent implements OnInit {
       year = splitDate[0],
       month = splitDate[1] -1,
       day = splitDate[2]
-      this.eventoStarts.date = new Date(year, month, day)
+    this.eventoStarts.date = new Date(year, month, day)
     
-    if (this.eventoStarts.date <= oneweek) {
-      this._alerta.sendUserOptions('El evento que eliges es muy pronto y no garantizamos que el equipo se junte pronto. Te recomendamos promocionarlo para que tener tu equipo a tiempo. ¿Deseas promocionarlo?', 'Promocionar', 'No promocionar')
+    var fechaDuplicada = await this._Evento.checkUserDisp(new Date(this.eventoStarts.date))
+    if (fechaDuplicada) {
+      this._alerta.sendAlertaCont('Ya cuentas con un evento creado para esa fecha, elige otra fecha o edita el que ya tienes creado')
+    } else {
+      $("#hora").fadeIn()
+      if (this.eventoStarts.date <= oneweek) {
+        this._alerta.sendUserOptions('El evento que eliges es muy pronto y no garantizamos que el equipo se junte pronto. Te recomendamos promocionarlo para que tener tu equipo a tiempo. ¿Deseas promocionarlo?', 'Promocionar', 'No promocionar')
+      }
     }
-        
-    $("#hora").fadeIn()
+
   }  
 
   getIniciaTime() {
@@ -155,7 +164,13 @@ export class CrearEventoComponent implements OnInit {
 
     this.eventoEnds.date = this.datos.termina
     this.stringDates()
+    this.setHorasExtras()
+  }
 
+  setHorasExtras() {
+    return this.duracion > 5 ?
+      this.duracion - 5 :
+      0
   }
 
   stringDates() {
@@ -176,17 +191,13 @@ export class CrearEventoComponent implements OnInit {
     }
 
     this.ends = true
-    this._alerta.sendUserAlert('Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento')
+    // this._alerta.sendUserAlert('Los eventos que contratas en NEED constan de 5 horas, más 2 horas previas para el acomodo del evento')
   }
 
   changeEnds(e) {
     this.editEnds = e.target.checked
   }
 
-  calcEndDate() {
-    
-  }
-  
   getTerminaDate() {
     var date = $('#terminaDate').val()
 
@@ -218,13 +229,16 @@ export class CrearEventoComponent implements OnInit {
     this.evento.lugar = `${this.datos.lugar}, ${this.datos.ciudad}, ${this.datos.estado}`
     this.evento.ciudad = this.datos.estado
     this.evento.estado = 'creado'
-    this.evento.costo = this.finanzas.total
+    this.evento.costo = this.costos.costo_servicio
     this.datos.lat = this.lat
     this.datos.lng = this.lng
+    this.costos.horas_extras = this.setHorasExtras()
+    this.costos.resto = this.costos.costo_servicio
     
-    await sessionStorage.setItem(this.idEvento+'datos', JSON.stringify(this.datos))
-    this.idEvento = await this._Evento.postEvento(this.idEvento, this.evento, this.datos, this.personal, this.finanzas).then( res => {this.idEvento = res})
-    // this._Router.navigate(['evento-creado/'+this.idEvento])
+    await sessionStorage.setItem(this.idEvento + 'datos', JSON.stringify(this.datos))
+    console.log(this.evento, this.datos, this.personal, this.costos)
+    this.idEvento = await this._Evento.postEvento(this.idEvento, this.evento, this.datos, this.personal, this.costos).then( res => {this.idEvento = res})
+    this._Router.navigate(['evento-creado/'+this.idEvento])
     
 
   }

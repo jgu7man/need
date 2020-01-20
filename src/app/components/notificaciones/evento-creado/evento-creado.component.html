@@ -15,7 +15,7 @@
             <ul class="ltxt">
                 <li>De tipo: {{evento.tipoEvento}}</li>
                 <li>Para {{evento.personas}} personas </li>
-                <li> Por un costo de {{evento.costo}}, que deberás liquidar o dar anticipo para confirmarlo. </li>
+                <li> Por un costo de $<span class="resaltado">{{evento.costo}}</span>, que deberás liquidar o dar anticipo para confirmarlo. </li>
             </ul><br>
 
         </div>
@@ -34,7 +34,7 @@
             <button [routerLink]="['/usuario/tus-eventos']" routerLinkActive="router-link-active" class="needbtn">TUS EVENTOS</button>
         </div>
         <div class="col s6">
-            <button [routerLink]="['/usuario/resumen-pago']" routerLinkActive="router-link-active" class="needbtn">PAGAR</button>
+            <button [routerLink]="['/usuario/resumen-pago', idEvento]" routerLinkActive="router-link-active" class="needbtn">PAGAR</button>
         </div>
     </div>
 

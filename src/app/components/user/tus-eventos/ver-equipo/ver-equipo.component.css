@@ -9,10 +9,11 @@
     width: 100%;
 }
 
-.collapsible-body {
+
+/* .collapsible-body {
     padding: 1em !important;
     display: block !important;
-}
+} */
 
 .detalle {
     border-bottom: solid 1px;
@@ -34,5 +35,31 @@
 }
 
 .collapsible-header {
-    text-transform: uppercase;
+    text-transform: capitalize;
+    font-size: 1em;
+    font-weight: 700;
+    border: none;
+    margin: 2px 0 !important;
+}
+
+.collapsible-body {
+    padding: 5px 0 !important;
+}
+
+.collection-item p {
+    font-size: smaller !important;
+}
+
+.collapsible-accordion {
+    border: none;
+}
+
+.secondary-content {
+    display: flex !important;
+    flex-flow: column;
+}
+
+a.secondary-content i {
+    width: 50%;
+    margin: 5px 0;
 }

@@ -20,18 +20,18 @@
                                         <span class="lever"></span> Sí
                             </label>
                             </span><br>
-                            <span *ngIf="finanzas.factura" class="grey-text adv">Al activar esta opción ACEPTAS que los costos de IVA correran por tu cuenta, aumentando el valor del servicio</span>
+                            <span *ngIf="costos.factura" class="grey-text adv">Al activar esta opción ACEPTAS que los costos de IVA correran por tu cuenta, aumentando el valor del servicio</span>
                         </p>
                     </div>
                     <div class="col s4">
-                        <p class="grey-text right" *ngIf="!finanzas.factura">
+                        <p class="grey-text right" *ngIf="!costos.factura">
                             Total a pagar del servicio
                             <br> $
                             <span *ngIf="subtotal" class="resaltado total right">
                                 {{ subtotal }}
                             </span>
                         </p>
-                        <table class="grey-text" *ngIf="finanzas.factura">
+                        <table class="grey-text" *ngIf="costos.factura">
                             <tbody>
                                 <tr>
                                     <th>Subtotal:</th>
@@ -40,6 +40,10 @@
                                 <tr>
                                     <th>I.V.A. (16%):</th>
                                     <td>${{iva}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Retenciones (-6%):</th>
+                                    <td>${{retenciones}}</td>
                                 </tr>
                                 <tr>
                                     <th>Total:</th>

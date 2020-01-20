@@ -9,7 +9,7 @@ export class EventoModel {
         public promocionado: boolean,
         public solicitud: 'normal' | 'urgente',
         public estado: 'pendiente' | 'creado' | 'confirmado' | 'cancelado' | 'realizado',
-        public estado_financiero:'espera' | 'anticipado' | 'pagado' | 'adeudo',
+        public estado_financiero:'espera' | 'anticipo' | 'pagado' | 'adeudo',
         public estado_equipo: 'espera' | 'completo',
         public fecha: Date,
         public lugar: string,

@@ -1,3 +1,208 @@
-<div class="container contenido">
+<div class="contenido">
+    <div class="row title">
+        <div class="col s12">
+            <p class="titleLabel ltxt center">
+                RESUMEN DE PAGO
+            </p>
+        </div>
+    </div>
 
+    <form action="#" onsubmit="return false" #cantPago="ngForm">
+        <div class="container" *ngIf="evento && costos && usuario">
+            <div class="row">
+                <div class="col s12 m6 seccion bg-3">
+                    <p class="ltxt">Pago de {{factura.tipo_pago}} </p>
+                    <table>
+                        <tbody>
+                            <ng-container *ngIf="factura.tipo_pago == 'evento'">
+                                <tr>
+                                    <th>Tipo de evento:</th>
+                                    <td>{{evento.tipoEvento}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Fecha del evento:</th>
+                                    <td>{{eventoStarts.fecha}} a las {{eventoStarts.hora}}</td>
+                                </tr>
+                            </ng-container>
+                            <tr>
+                                <td class="resaltado"> ¿Requiere factura? </td>
+                                <td>
+                                    <span class="switch">
+                                        <label>No
+                                            <input type="checkbox" (change)="needFactura($event)">
+                                            <span class="lever"></span> Sí
+                                    </label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nombre:</th>
+                                <td>
+                                    <input type="text" name="razon" id="razon" [(ngModel)]="factura.razon" #razon="ngModel">
+                                </td>
+                            </tr>
+                            <tr *ngIf="factura.requerida">
+                                <th>R.F.C.:<span class="mintxt requerido">(requerido)</span></th>
+                                <td>
+                                    <input type="text" name="RFC" id="RFC" [(ngModel)]="factura.RFC" #RFC="ngModel" [required]="factura.requerida">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Correo:</th>
+                                <td>
+                                    <input type="email" name="email" id="email" [(ngModel)]="factura.email" #email="ngModel">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono: <span class="mintxt">(opcional)</span></th>
+                                <td>
+                                    <input type="text" name="telefono" id="telefono" [(ngModel)]="factura.telefono" #telefono="ngModel">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s12 m6 offset-s6 seccion bg-3">
+                    <h5 class="ltxt">SERVICIO</h5>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="concepto">Concepto</th>
+                                <th class="opcion"> </th>
+                                <th class="cantidad">Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Servicio de personal:</td>
+                                <td class="opcion">
+                                    <button class="needbtn">Editar</button>
+                                </td>
+                                <td class="cantidad">${{costos.costo_servicio}}</td>
+                            </tr>
+                            <tr *ngIf="costos.horas_extras > 0">
+                                <td>{{costos.horas_extras}} Horas extras:</td>
+                                <td> </td>
+                                <td class="cantidad">${{costoHorasExtras}}</td>
+                            </tr>
+                            <tr *ngFor="let pago of pagos">
+                                <td>Pago realizado {{pago.fecha.toLocaleDateString()}} </td>
+                                <td> </td>
+                                <td class="cantidad">-${{pago.cantidad}}</td>
+                            </tr>
+                            <tr>
+                                <td>COSTO DEL SERVICIO</td>
+                                <td> </td>
+                                <td class="cantidad resaltado"> ${{CostoTotal}} </td>
+                            </tr>
+                            <tr>
+                                <td>Cantidad a pagar:</td>
+                                <td>
+                                    <button class="needbtn" (click)="onTodo()">Pagar todo</button>
+                                </td>
+                                <td class="cantidad">
+                                    <input type="number" name="amount" [min]="minAmount" id="amount" [(ngModel)]="amount" #Amount="ngModel" class="amount">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <span class="resaltado" *ngIf="amount<minAmount">Debes pagar al menos la mitad del SUBTOTAL para poder hacer válido el anticipo</span>
+                                </td>
+                            </tr>
+                            <tr *ngIf="!evento.promocionado">
+                                <td>Promocionar evento:</td>
+                                <td class="center">
+                                    <span class="switch">
+                                    <label>No
+                                        <input name="promocionar" type="checkbox" (change)="onPromocionar($event)" [(ngModel)]="promocionar">
+                                        <span class="lever"></span> Sí
+                                    </label>
+                                    </span>
+                                </td>
+                                <td class="cantidad" *ngIf="evento">${{costos.promocion}}</td>
+                            </tr>
+                            <tr>
+                                <td>SUBTOTAL:</td>
+                                <td> </td>
+                                <td class="cantidad">${{SUBTOTAL}}</td>
+                            </tr>
+                            <tr *ngIf="factura.requerida">
+                                <td>I.V.A. <span class="mintxt">(16%)</span>:</td>
+                                <td> </td>
+                                <td class="cantidad">${{IVA.toFixed(2)}}</td>
+                            </tr>
+                            <tr *ngIf="factura.requerida">
+                                <td>Retención IVA: <br>
+                                    <span class="mintxt">(Art 1 A F IV) 6%</span></td>
+                                <td> </td>
+                                <td class="cantidad">${{retencion.toFixed(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td> </td>
+                                <td class="cantidad "> $<span class="resaltado total">{{TOTAL.toFixed(2)}}</span> </td>
+                            </tr>
+                            <tr>
+                                <td>Resto:</td>
+                                <td> </td>
+                                <td class="cantidad">${{resto}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 seccion bg-3">
+                    <h4 class="ltxt">Formas de pago</h4>
+                    <p class="ltxt">Puedes elegir una de las siguientes formas de pago</p>
+
+                    <div class="col s12">
+                        <button class="needbtn" (click)="onTipoPago('transferencia')">
+                            Transferencia bancaria
+                        </button>
+                        <br>
+                        <br>
+                        <button class="needbtn" (click)="onTipoPago('linea')">
+                            Pago en linea
+                        </button>
+                    </div>
+                </div>
+                <div class="col s12 m6 seccion bg-3" *ngIf="pagoTarjeta">
+                    <ng-container *ngIf="pagoTarjeta == 'linea'; then linea; else transferencia"></ng-container>
+                    <ng-template #linea>
+                        <p class="resaltado txt_normal">
+                            Pagar con tarjeta de terminación: Master Card ...1234
+                        </p>
+
+                        <button class="needbtn" (click)="onPagar()">
+                            PAGAR
+                        </button>
+
+                    </ng-template>
+                    <ng-template #transferencia>
+                        <p class="ltxt center txt_normal">
+                            Deberás hacer una transferencia por la cantidad de $<span class="resaltado">{{amount}}</span> al número de tarjeta <br><br>
+                            <span class="resaltado">0000 0000 0000 0000</span><br><br> Una vez hecho el depósito vuelve a esta pantalla para subir una foto del ticket de depósito aquí:
+                        </p>
+                        <div class="col s12 input-field file-field">
+                            <div class="btn purple">
+                                <span>Imagen</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+
+                        <p class="resaltado txt_normal">
+                            Ya que el pago será por transferencia, tardaremos al menos 24 horas en verificar que el pago se haya realizado y podremos poner tu evento como confirmado.
+                        </p>
+
+
+                    </ng-template>
+
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

@@ -12,7 +12,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class DatosComponent implements OnInit {
 
   @Input() id: any;
-  public datos: DatosModel;
+  @Input() datos: DatosModel;
 
   constructor(
     private _evento: EventoService,
@@ -23,19 +23,7 @@ export class DatosComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if (!this.id) {
-      this.ruta.parent.url.subscribe( params => {
-        this.id = params[params.length -1].path
-      })
-    }
-
-    var eventoRef = this.fs.collection('eventos').ref.doc(this.id)
-    var infoDatos = await eventoRef.collection('info').doc('datos').get()
-    const datos = infoDatos.data()
-    datos.inicia = infoDatos.data().inicia.toDate()
-    datos.termina = infoDatos.data().termina.toDate()
-
-    this.datos = datos as DatosModel
+    
   }
 
   

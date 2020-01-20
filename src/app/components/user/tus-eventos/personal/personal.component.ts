@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PersonalModel } from '../../../../models/evento/personal.model';
 import { ActivatedRoute } from '@angular/router';
 import { EventoService } from '../../../../services/evento.service';
@@ -18,8 +18,8 @@ export class PersonalComponent implements OnInit {
   public extras: ExtrasModel;
   public keys:any;
   public values: any;
-  public postulado: boolean = false
-  public owner: boolean = false
+  @Output() isPostulado: EventEmitter<any> = new EventEmitter()
+  @Output() isOwner: EventEmitter<any> = new EventEmitter()
 
   constructor(
     private ruta: ActivatedRoute,
@@ -33,14 +33,9 @@ export class PersonalComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if (!this.id) {
-      this.ruta.parent.url.subscribe( params => {
-        this.id = params[params.length -1].path
-      })
-    }
 
     var eventoRef = this.fs.collection('eventos').ref.doc(this.id)
-    var infoPeronal = await eventoRef.collection('info').doc('personal').get()
+    var infoPeronal = await eventoRef.collection('personal').doc('personal').get()
     const personal = infoPeronal.data()
 
     this.personal = personal as PersonalModel
@@ -52,14 +47,15 @@ export class PersonalComponent implements OnInit {
 
   async checkPostulacion() {
     var user = JSON.parse(localStorage.getItem('needlog'))
-    this.postulado = await this._coEvento.checkPostulado(this.id, user.uid)
+    var postulado = await this._coEvento.checkPostulado(this.id, user.uid)
+    if (postulado){ this.isPostulado.emit(true)}
   }
 
   async checkOwner() {
     this.ruta.parent.parent.url.subscribe(res => {
       var user = res[res.length -1].path
-      if (user == 'colaborador') {
-        this.owner = false
+      if (user != 'colaborador') {
+        this.isOwner.emit( false)
       }
     });
   }

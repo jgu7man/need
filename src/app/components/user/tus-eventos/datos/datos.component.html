@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container event-container" *ngIf="datos">
     <ul class="listadetalles ltxt">
         <li class="detalle bg-3">Inicia: {{datos.inicia.toLocaleDateString()}}</li>
         <li class="detalle bg-3">A las: {{datos.inicia.toLocaleTimeString()}}</li>
@@ -10,5 +10,8 @@
         <li class="detalle bg-3">
             {{datos.direccion}} <br> {{datos.colonia}} <br> {{datos.ciudad}} <br> {{datos.estado}}
         </li>
+        <agm-map [latitude]="datos.lat" [longitude]="datos.lng" [zoom]="15">
+            <agm-marker [latitude]="datos.lat" [longitude]="datos.lng"></agm-marker>
+        </agm-map>
     </ul>
 </div>

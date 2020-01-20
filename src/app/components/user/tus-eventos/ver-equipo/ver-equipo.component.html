@@ -1,23 +1,33 @@
-<div class="container">
-    <ul class="ltxt collapsible collapsible-accordion" data-collapsible="accordion" *ngIf="equipo">
-        <li class="" *ngFor="let puesto of equipo">
-            <div class="collapsible-header bg-3">{{puesto.name}}</div>
-            <div class="collapsible-body">
-                <div class="detalle row valign-wrapper" *ngFor="let miembro of puesto.miembros; index as id; trackBy: trackId">
-                    <div class="col s3" [routerLink]="['/usuario/ver_colaborador/', miembro.perfil.id]">
-                        <div class="coImgContainer click">
-                            <img [src]="miembro.perfil.imgPerfil" alt="">
-                        </div>
-                    </div>
-                    <div class="col s6 center" [routerLink]="['/usuario/ver_colaborador/', miembro.perfil.id]">
-                        <span class="click">{{miembro.perfil.nombre}} {{miembro.perfil.apellido_paterno}}</span>
-                    </div>
-                    <div class="col s3 rate">
-                        <i class="fas fa-thumbs-up" [ngClass]="{'resaltado':miembro.rate == 'positivo'}" (click)="rateColaborador(miembro.perfil.id, 'positivo')"></i>
-                        <i class="fas fa-thumbs-down" [ngClass]="{'resaltado':miembro.rate == 'negativo'}" (click)="rateColaborador(miembro.perfil.id, 'negativo')"></i>
-                    </div>
+<div class="container event-container">
+
+    <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+        <li *ngFor="let puesto of equipo">
+            <div class="collapsible-header bg-3 ltxt">
+                <div class="col s10">
+                    {{puesto.name}}
+                </div>
+                <div class="col s2">
+                    {{puesto.cantidad}}
                 </div>
             </div>
+            <div class="collapsible-body bg-1" *ngIf="puesto.miembros.length > 0; else noHay">
+                <ul class="collection">
+                    <li class="collection-item avatar bg-2" *ngFor="let miembro of puesto.miembros">
+                        <img src="../../../../../assets/img/lobos.jpg" alt="" class="circle">
+                        <p class="ltxt">Jorge Humberto<br> Guzmán Fuentes</p>
+                        <a href="#!" class="secondary-content">
+                            <i class="fas fa-thumbs-up grey-text" [ngClass]="{'resaltado':miembro.rate == 'positivo'}" (click)="rateColaborador(miembro.perfil.id, 'positivo')"></i>
+                            <i class="fas fa-thumbs-down grey-text" [ngClass]="{'resaltado':miembro.rate == 'negativo'}" (click)="rateColaborador(miembro.perfil.id, 'negativo')"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ng-template #noHay>
+                <div class="collapsible-body bg-1">
+                    <p class="ltxt center" style="font-size: small !important;">Aun nadie se suscribe a este puesto</p>
+                </div>
+            </ng-template>
         </li>
     </ul>
+
 </div>

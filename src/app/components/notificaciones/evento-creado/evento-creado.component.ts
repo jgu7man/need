@@ -20,7 +20,7 @@ export class EventoCreadoComponent implements OnInit {
     private _Route: ActivatedRoute,
     private _notificaciones: NotificacionesService
     ) {
-    this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
+    this.evento = new EventoModel('', '', '', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '', 0);
    }
 
   ngOnInit() {

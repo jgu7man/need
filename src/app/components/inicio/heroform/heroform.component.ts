@@ -29,7 +29,7 @@ export class HeroformComponent implements OnInit  {
     private fs: AngularFirestore,
   ) { 
     this.personal = new PersonalModel(0, 0, 0, {});
-    this.evento = new EventoModel('', '',0, 0, 1, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '');
+    this.evento = new EventoModel('', '',0, 0, 1, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '', 0);
     this.extrasArray = []
     this.extras = {}
   }

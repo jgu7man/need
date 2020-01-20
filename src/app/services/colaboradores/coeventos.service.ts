@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore, docChanges } from '@angular/fire/firestore';
 import { EquipoModel } from 'src/app/models/colaboradores/equipo.model';
+import { PersonalModel } from '../../models/evento/personal.model';
 
 @Injectable({ providedIn: 'root' })
 export class CoEventoService {
@@ -100,32 +101,40 @@ export class CoEventoService {
 
     async getEquipo(idEvento, idUser) {
         // Referencia a la información del evento
-        const eventoRef = this.fs.collection('eventos').ref.doc(idEvento).collection('info')
+        const eventoRef = this.fs.collection('eventos').ref.doc(idEvento).collection('personal')
+
         // Tomar la data del equipo
+        var personalData = await eventoRef.doc('personal').get()
+        var personalObj = personalData.data()
         var equipoData = await eventoRef.doc('equipo').get()
         var equipoObj = equipoData.data()
 
-        // Definir objeto de equipo
-        var equipo = []
 
-        // Por cada puesto del equipo obtener un arreglo
-        Object.keys(equipoObj).forEach( puesto => {
-            var puestoArray = []
+        
+            // Definir objeto de equipo
+            var equipo = []
 
-            // Por cada puesto, invocar los perfiles de cada miembro y asignarlo a un array nuevo
-            equipoObj[puesto].forEach(async id => {
-                var miembro = await this.getPerfilColaborador(id)
-                if (idUser) {
-                    var rate = await this.getUserCoRate(id, idUser)
-                    return puestoArray.push({perfil: miembro, rate:rate})
-                } else {
-                    return puestoArray.push({perfil: miembro})
+            // Por cada puesto del equipo obtener un arreglo
+            Object.keys(personalObj).forEach(puesto => {
+                var puestoArray = []
+
+                // Por cada puesto, invocar los perfiles de cada miembro y asignarlo a un array nuevo
+                if (equipoObj) {
+                    equipoObj[puesto].forEach(async id => {
+                    var miembro = await this.getPerfilColaborador(id)
+                    if (idUser) {
+                        var rate = await this.getUserCoRate(id, idUser)
+                        return puestoArray.push({ perfil: miembro, rate: rate })
+                    } else {
+                        return puestoArray.push({ perfil: miembro })
+                    }
+                })
                 }
+
+                equipo.push({ name: puesto, miembros: puestoArray, cantidad: personalObj[puesto] })
             })
 
-            equipo.push({name:puesto, miembros: puestoArray })
-        })
-
+        console.log(equipo)
         return equipo
     }
 

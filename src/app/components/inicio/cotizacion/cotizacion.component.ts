@@ -9,7 +9,7 @@ import { ExtrasModel } from '../../../models/evento/extras.model';
 import { UsuarioModel } from '../../../models/usuario.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from '../../../services/alerta.service';
-import { EstadoFinancieroModel } from '../../../models/evento/estado_financiero.model';
+import { CostosModel } from '../../../models/evento/costos.model';
 import { EventoService } from '../../../services/evento.service';
 declare var $
 
@@ -23,7 +23,7 @@ export class CotizacionComponent implements OnInit {
   public personal: PersonalModel;
   public evento: EventoModel;
   public extras: ExtrasModel;
-  public finanzas: EstadoFinancieroModel
+  public costos: CostosModel
   public extrasArray: any;
   public usuario: UsuarioModel;
   public precios;
@@ -45,7 +45,7 @@ export class CotizacionComponent implements OnInit {
     this.personal = new PersonalModel( '', 0, 0, {});
     this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '', 0);
     this.extras = new ExtrasModel(0, 0, 0, 0, 0, 0);
-    this.finanzas = new EstadoFinancieroModel(0, 0, 0, false, '', [], 'espera')
+    this.costos = new CostosModel(0, 0, 0,0,0, false, [])  
     this.usuario = new UsuarioModel('', '', '', '');
     this.precios = {}
    }
@@ -55,7 +55,7 @@ export class CotizacionComponent implements OnInit {
     this._Route.params.subscribe((params: Params) => {
       this.idEvento = params.idEvento
       this.idTemp = params.idEvento
-      sessionStorage.setItem(this.idTemp+'finanzas', JSON.stringify(this.finanzas));
+      sessionStorage.setItem(this.idTemp+'costos', JSON.stringify(this.costos));
       this.preSave(this.idTemp)
     });
     this.restoreEvent()
@@ -92,7 +92,7 @@ export class CotizacionComponent implements OnInit {
         let personal = await this._eventos.getPersonal(this.idEvento)
         this.personal = personal.personal
         this.extrasArray = personal.extras
-        this.finanzas = await this._eventos.getFinanzas(this.idEvento)
+        this.costos = await this._eventos.getCostos(this.idEvento)
         this.getpuestos()
       } else {
         await this._eventos.deleteEvento(this.idEvento)
@@ -103,11 +103,13 @@ export class CotizacionComponent implements OnInit {
   }
 
   needFactura(e) {
-    if (!this.finanzas.factura) {
+    if (!this.costos.factura) {
       this._alerta.sendUserAlert('Al activar esta opción ACEPTAS que los costos de IVA correran por tu cuenta, aumentando el valor del servicio')
     }
-    this.finanzas.factura = e.target.checked
+    this.costos.factura = e.target.checked
   }
+
+  
 
   get subtotal(): number {
     return (this.precios.mesero * this.personal.meseros) +
@@ -123,21 +125,18 @@ export class CotizacionComponent implements OnInit {
     return this.subtotal * .16
   }
 
+  get retenciones(): number {
+    return this.subtotal * .06
+  }
+
   get total(): number {
-    return this.subtotal + this.iva
+    return this.subtotal + (this.iva - this.retenciones)
   }
 
   async defineTotal() {
-    if (!this.total) {
-        this.finanzas.total = this.subtotal
-        this.finanzas.subtotal = 0
-        this.finanzas.iva = 0
-      } else {
-        this.finanzas.total = this.total
-        this.finanzas.subtotal = this.subtotal
-        this.finanzas.iva = this.iva
-    }
-    return
+    return !this.total ?
+      this.costos.costo_servicio = this.subtotal :
+      this.costos.costo_servicio = this.total
   }
 
   async getpuestos() {
@@ -173,9 +172,9 @@ export class CotizacionComponent implements OnInit {
       Object.defineProperty(this.personal.extras, 'barman', 
       {value:1,enumerable: true,configurable: true,writable: true});
     }
-    if (this.extrasArray.includes('barman')) {
+    if (this.extrasArray.includes('bartender')) {
       this.extras.barman = 1
-      Object.defineProperty(this.personal.extras, 'barman', 
+      Object.defineProperty(this.personal.extras, 'bartender', 
       {value:1,enumerable: true,configurable: true,writable: true});
     }
     if (this.extrasArray.includes('escamoche')) {
@@ -245,12 +244,12 @@ export class CotizacionComponent implements OnInit {
       
       await this.getExtras();
       await this.defineTotal()
-      console.log(this.finanzas)
+      console.log(this.costos)
     
       sessionStorage.setItem(this.idTemp+'evento', JSON.stringify(this.evento));
       sessionStorage.setItem(this.idTemp+'personal', JSON.stringify(this.personal));
       sessionStorage.setItem(this.idTemp+'extras', JSON.stringify(this.extras));
-      sessionStorage.setItem(this.idTemp+'finanzas', JSON.stringify(this.finanzas));
+      sessionStorage.setItem(this.idTemp+'costos', JSON.stringify(this.costos));
       
       var log = JSON.parse(localStorage.getItem('needlog'));
       

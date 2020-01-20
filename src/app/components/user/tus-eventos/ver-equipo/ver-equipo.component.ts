@@ -10,7 +10,8 @@ import { CoEventoService } from '../../../../services/colaboradores/coeventos.se
 export class VerEquipoComponent implements OnInit {
 
   @Input() id: string
-  public equipo: any[]
+  @Input() equipo: any
+  public personal
   public user
   constructor(
     private ruta: ActivatedRoute,
@@ -20,13 +21,10 @@ export class VerEquipoComponent implements OnInit {
    }
 
   ngOnInit() {
-    if (!this.id) {
-      this.ruta.parent.url.subscribe( params => {
-        this.id = params[params.length - 1].path
-      })
-    }
-    this.user = JSON.parse(localStorage.getItem('needlog'))
-    this.getEquipo();
+
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
 
     (function(){
       $('.collapsible').collapsible({
@@ -35,20 +33,12 @@ export class VerEquipoComponent implements OnInit {
     });
   }
 
-  getEquipo() {
-    this._coEvento.getEquipo(this.id, this.user.uid).then(res => {
-      this.equipo = res
-      console.log(this.equipo);
-    })
-  }
+  
 
-  trackId(id: number) {
-    return id
-  }
+
 
   async rateColaborador(idColaborador, rate) {
     this._coEvento.rateColaborador(idColaborador, this.user.uid, rate)
-    this.getEquipo()
   }
 
 }
