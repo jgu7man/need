@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col s12">
+        <button class="btn purple" (click)="location.back()">Regresar</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="row">
+            <div class="col s12 seccion bg-3">
+                <div class="imgContainer">
+                    <img [src]="transferencia.imgTicket">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="row">
+            <div class="col s12 seccion bg-3 ltxt">
+                <h5>Datos</h5>
+                <ul class="bordered">
+                    <li>Concepto: {{transferencia.concepto}}</li>
+                    <li>
+                        Fecha: {{transferencia.fecha.toLocaleDateString()}} - {{transferencia.fecha.toLocaleTimeString()}}
+                    </li>
+                    <li>Razón social: {{transferencia.razon}}</li>
+                    <li>R.F.C.: {{transferencia.RFC}}</li>
+                    <li>Email: {{transferencia.email}}</li>
+                    <li>Teléfono: {{transferencia.telefono}}</li>
+                </ul>
+                <ul class="bordered">
+                    <li>Subtotal: {{transferencia.subtotal}}</li>
+                    <li>IVA: {{transferencia.iva}}</li>
+                    <li>Total: {{transferencia.total}}</li>
+                </ul>
+                <button class="btn purple center" (click)="onAdjudicar()" [disabled]="transferencia.adjudicada">Adjudicar</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 seccion bg-3 ltxt" *ngIf="transferencia.concepto == 'evento'; else otros">
+                <h5>Información del evento</h5>
+                <button class="btn purple center">Evento</button>
+            </div>
+            <ng-template #otros>
+                <div class="col s12 m6 seccion bg-3 ltxt">
+
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+</div>

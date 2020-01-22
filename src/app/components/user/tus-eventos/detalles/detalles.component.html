@@ -27,7 +27,7 @@
 
     <ul class="listadetalles">
         <li class="detalle" *ngIf="evento.promocionado" class="resaltado">Promocionado</li>
-        <li class="detalle" *ngIf="owner">Costo: ${{evento.costo}} <span class="needbtn" style="left: 7em;" [routerLink]="['../../resumen-pago', id]">Pagar</span> </li>
+        <li class="detalle" *ngIf="owner">Costo: ${{evento.costo}} <span class="needbtn" style="left: 7em;" [routerLink]="['../../resumen-pago', evento.id]">Pagar</span> </li>
         <li class="detalle resaltado" *ngIf="!checkConfirmado()"> Este evento aun no está confirmado. Has un anticipo o págalo para que tu evento se lleve acabo</li>
         <li class="detalle">Resto: ${{costos.resto}} </li>
     </ul>

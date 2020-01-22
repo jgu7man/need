@@ -37,16 +37,22 @@ export class EventoComponent implements OnInit {
     
   }
   
-  ngOnInit() {
+  async ngOnInit() {
     $(document).ready(function(){
       $('.carousel').carousel();
     });
 
-    this.getData();
+    await this.getData();
+    $('app-loading').fadeToggle()
+
   }
 
-  toggleLoading() {
-    
+  async toggleLoading() {
+
+    await !this.evento
+    await !this.costos
+    await !this.equipo
+    await !this.datos 
   }
 
   async getData() {
@@ -68,8 +74,15 @@ export class EventoComponent implements OnInit {
     this.datos = datos as DatosModel
     var resEquipo = await this._coEvento.getEquipo(this.idEvento, this.usuario.uid)
     this.equipo = resEquipo
+    return 
   }
 
-  
+  onCancel() {
+    this._evento.cancelEvento(this.idEvento)
+  }
+
+  onDelete() {
+    this._evento.deleteEvento(this.idEvento)
+  }
 
 }

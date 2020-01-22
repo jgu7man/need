@@ -28,7 +28,7 @@ export class HeroformComponent implements OnInit  {
     private Router: Router,
     private fs: AngularFirestore,
   ) { 
-    this.personal = new PersonalModel(0, 0, 0, {});
+    this.personal = new PersonalModel( 0, 0);
     this.evento = new EventoModel('', '',0, 0, 1, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '', 0);
     this.extrasArray = []
     this.extras = {}
@@ -202,7 +202,6 @@ export class HeroformComponent implements OnInit  {
     var id:any = new Date();
     var idEvento:any = +id.getTime();
     this.evento.id = idEvento;
-    this.personal.id = idEvento;
 
     sessionStorage.setItem(idEvento+'personal', JSON.stringify(this.personal));
     sessionStorage.setItem(idEvento+'evento', JSON.stringify(this.evento));

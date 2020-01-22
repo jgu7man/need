@@ -62,6 +62,9 @@ import { AddCategoriaComponent } from './components/admin/admin-categorias/add-c
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
 import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
 import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen-pago.component';
+import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
+import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
+import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
 
 
 const routes: Routes = [
@@ -156,6 +159,9 @@ const routes: Routes = [
       { path: 'personal', component: PersonalComponent },
       { path: 'ver-equipo', component: VerEquipoComponent },
     ]},
+    { path: 'facturas', component: AdminFacturasComponent },
+    { path: 'transferencias', component: AdminTrasnferenciasComponent },
+    { path: 'transferencia/:id', component: TransferenciaComponent },
   ] },
   
 

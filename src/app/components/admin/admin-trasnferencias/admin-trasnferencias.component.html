@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col s10">
+        <h2 class="grey-text lighten-1">TRANSFERENCIAS</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 right">
+        <!-- <button class="btn waves-effect purple lighten-1">Agregar</button> -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <table class="bordered responsive-table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Razón social</th>
+                    <th>Concepto</th>
+                    <th>Total</th>
+                    <th>Adjudicada</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let trans of transferencias">
+                    <td> {{trans.fecha.toLocaleDateString()}} </td>
+                    <td> {{trans.razon}} </td>
+                    <td> {{trans.concepto}} </td>
+                    <td> {{trans.total}} </td>
+                    <td> <i class="fas fa-check gold-text" *ngIf="trans.adjudicada"></i> </td>
+                    <td class="options valign-wrapper">
+                        <i class="fas fa-trash red-text"></i>
+                        <i class="fas fa-external-link-alt green-text" [routerLink]="['../transferencia', trans.id]"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

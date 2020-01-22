@@ -1,23 +1,26 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore, docChanges } from '@angular/fire/firestore';
 import { EventoModel } from '../models/evento/evento.model';
-import { ActividadModel } from '../models/evento/actividad.model';
+import { Actividad } from '../models/evento/actividad.model';
 import { HistorialService } from './historial.service';
 import { PersonalModel } from '../models/evento/personal.model';
 import { CostosModel } from '../models/evento/costos.model';
 import { DatosModel } from '../models/evento/datosevento.model';
+import { AlertaService } from './alerta.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Injectable({ providedIn: 'root' })
 export class EventoService{
  
-    public actividad: ActividadModel
     constructor(
         private fs: AngularFirestore,
-        private _historial: HistorialService
-    ) {
-        this.actividad = new ActividadModel('eventos','','', new Date, '','datos')
-     }
+        private _historial: HistorialService,
+        private _alerta: AlertaService,
+        private _location: Location,
+        private router: Router
+    ) {}
 
     async savePreEvento(uid, idEvento) {
         // recuperar datos del session storage
@@ -94,10 +97,7 @@ export class EventoService{
         this.saveVacantes(idEvento, personal)
 
         // registrar historial
-        this.actividad.document = idEvento
-        this.actividad.actividad = 'Evento creado'
-        this.actividad.tipo = 'datos'
-        this._historial.setActividad(this.actividad)
+        this._historial.setActividad('eventos', evento, 'usuario', 'Evento creado', 'evento')
 
         // eliminar los datos del navegador
         await sessionStorage.removeItem(idEvento + 'evento')
@@ -163,7 +163,7 @@ export class EventoService{
         var eventRef = this.fs.collection('eventos').ref.doc(id)
         var eventoRes = await eventRef.get()
         var evento = eventoRes.data() as EventoModel
-        evento.fecha = eventoRes.data().fecha.toDate()
+        evento.fecha = new Date(eventoRes.data().fecha)
         return evento
     }
 
@@ -172,7 +172,7 @@ export class EventoService{
     async getEventosByUser(id) {
         var eventosDelUsuario = []
         var eventos = await this.fs.collection('eventos').ref
-                    .where('usuario', '==', id).get()
+            .where('usuario', '==', id).orderBy('fecha', 'asc').get()
         
         eventos.forEach(event => {
             var evento = event.data() as EventoModel
@@ -235,9 +235,46 @@ export class EventoService{
         return infoCostos.data() as CostosModel    
     }
 
+    async cancelEvento(idEvento) {
+        var doc = this.fs.collection('eventos').ref.doc(idEvento)
+        
+        // revisar si está pagado
+        var eventoRes = await doc.get()
+        var eventoEdo = eventoRes.get('estado_financiero')
+        if (eventoEdo == 'anticipo' || eventoEdo == 'pagado') {
+            this._alerta.alertAsk('Si cancelas ahora tu evento, perderás el 50% del total del evento')
+                .subscribe(respuesta => {
+                    respuesta == 'aceptar' ? (
+                        doc.update({ estado: 'cancelado' }),
+                        this._historial.setActividad('eventos', this.idEvento, 'usuarios', 'Evento cancelado', 'evento'),
+                        this.router.navigateByUrl('/usuario', { skipLocationChange: true })
+                        .then(() => this.router.navigate(['usuario/tus-eventos'])) 
+                        ) : $('app-alertas').fadeToggle()
+                })
+        } else {
+            await doc.update({ estado: 'cancelado' })
+            this._historial.setActividad('eventos', this.idEvento, 'usuarios', 'Evento cancelado', 'evento'),
+            this._alerta.sendAlertaCont('Evento cancelado').subscribe(res => {
+                this.router.navigateByUrl('/usuario', { skipLocationChange: true })
+                .then(() => this.router.navigate(['usuario/tus-eventos'])) 
+            })
+        }
+    }
+
     async deleteEvento(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
-        var deleted = await eventoRef.delete()
-        return true
+        this._alerta.alertAsk('¿Deseas eliminar el evento?').subscribe(res => {
+            console.log('Respuesta: ', res)
+            if (res == 'aceptar') {
+                eventoRef.collection('finanzas').get().then(docs => { docs.forEach(doc => { eventoRef.collection('finanzas').doc(doc.id).delete() }) })
+                eventoRef.collection('info').get().then(docs => { docs.forEach(doc => { eventoRef.collection('info').doc(doc.id).delete() }) })
+                eventoRef.collection('personal').get().then(docs => { docs.forEach(doc => { eventoRef.collection('personal').doc(doc.id).delete() }) })
+                eventoRef.collection('historial').get().then(docs => { docs.forEach(doc => { eventoRef.collection('historial').doc(doc.id).delete() }) })
+                eventoRef.delete(),
+                this._historial.setActividad('eventos', this.idEvento, 'usuarios', 'Evento eliminado', 'personal'),
+                this.router.navigateByUrl('/usuario', { skipLocationChange: true })
+                    .then(() => this.router.navigate(['usuario/tus-eventos']))
+            } else if (res == 'cancelar') { $('app-alertas').fadeToggle() }
+        })
     }
 }

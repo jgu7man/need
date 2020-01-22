@@ -19,22 +19,23 @@ export class AlertasComponent implements OnInit {
 
   ngOnInit() {
     
-    this._alerta.alert.subscribe(data => {
-        this.alerta = data
+    this._alerta.alertMsg$.subscribe(msg => {
+      console.log('Recibe mensaje')
+        this.alerta = msg
         $('app-alertas').fadeToggle()
     })
 
-    this._alerta.options.subscribe(data => {
-      this.alerta = data.pregunta
-      this.resSi = data.sip
-      this.resNo = data.nop
+    this._alerta.alertAsk$.subscribe(ask => {
+      console.log('Recibe pregunta')
+      this.alerta = ask
       this.opcion = true
       $('app-alertas').fadeToggle()
     })
+
   }
 
   getResponse(res:boolean) {
-    this._alerta.getResponse(res)
+    this._alerta.responseAlert$.next(res)
     this.opcion = false
     $('app-alertas').fadeToggle()
   }

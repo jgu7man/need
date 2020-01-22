@@ -11,6 +11,7 @@ export class VerEquipoComponent implements OnInit {
 
   @Input() id: string
   @Input() equipo: any
+  @Input() estado
   public personal
   public user
   constructor(

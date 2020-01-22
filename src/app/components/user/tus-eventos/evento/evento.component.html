@@ -10,6 +10,20 @@
             <br>
             <span></span>
         </div>
+        <div class="btn_menu fixed-action-btn horizontal click-to-toggle">
+            <a class="btn purple darken-1">
+                <i class="fas fa-bars"></i>
+            </a>
+            <ul *ngIf="evento">
+                <li><a class="btn purple darken-3">Editar</a></li>
+                <li *ngIf="evento.estado == 'cancelado'">
+                    <a class="btn purple darken-2" (click)="onDelete()">Eliminar</a>
+                </li>
+                <li *ngIf="evento.estado != 'cancelado'">
+                    <a class="btn purple darken-2" (click)="onCancel()">Cancelar</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="container detalles movil bg-2">
@@ -41,32 +55,12 @@
                     <app-datos [datos]="datos"></app-datos>
                 </div>
                 <div id="personal" class="col s12">
-                    <!-- <app-personal [id]="idEvento" (isOwner)="toggleEquipoBtn($event)"></app-personal> -->
                     <app-ver-equipo [equipo]="equipo"></app-ver-equipo>
-                    <!-- <div class="row">
-                        <div class="col s12">
-                            <button class="needbtn hide-on-large-only" *ngIf="toggleEquipoBtn()" [routerLink]="['../ver-equipo']">
-                                Ver equipo
-                            </button>
-                        </div> -->
-                    <!-- </div> -->
                 </div>
             </div>
-            <!-- <div class="col s4 center ico" [routerLink]="['./detalles']" routerLinkActive="activated">
-                <i class="fas fa-cocktail "></i><br>
-                <p class="grey-text lighten-1">EVENTO</p>
-            </div>
-            <div class="col s4 center ico" [routerLink]="['./datos']" routerLinkActive="activated">
-                <i class="fas fa-book-reader"></i><br>
-                <p class="grey-text lighten-1">LUGAR Y FECHA</p>
-            </div>
-            <div class="col s4 center ico" [routerLink]="['./personal']" routerLinkActive="activated">
-                <i class="fas fa-user-tie"></i><br>
-                <p class="grey-text lighten-1">PERSONAL</p>
-            </div> -->
+
         </div>
 
-        <!-- <router-outlet></router-outlet> -->
     </div>
 
     <div class="container desktop">
@@ -77,14 +71,11 @@
             <div class="col s4 box-content">
                 <app-datos [datos]="datos"></app-datos>
             </div>
-            <div class="col s4 box-content">
-                <!-- <app-personal [id]="idEvento"></app-personal> -->
-            </div>
             <div class="col s12 box-content">
-                <app-ver-equipo [equipo]="equipo"></app-ver-equipo>
+                <app-ver-equipo *ngIf="evento" [equipo]="equipo" [estado]="evento.estado_equipo"></app-ver-equipo>
             </div>
         </div>
     </div>
 </div>
 
-<!-- <app-loading class="overlay"></app-loading> -->
+<app-loading class="overlay"></app-loading>

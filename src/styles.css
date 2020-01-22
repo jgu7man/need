@@ -358,7 +358,7 @@ select {
 .overlay {
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: #2d023f;
     z-index: 1;
     position: fixed;
     transition: all .3s;

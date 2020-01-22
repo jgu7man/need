@@ -36,7 +36,7 @@ export class TusEventosComponent implements OnInit {
     this.getEventos(this.usuario.uid);
   }
 
-  async getEventos(userId: string){
+  getEventos(userId: string){
     this._eventos.getEventosByUser(userId).then(
       response => { this.eventos = response;},
       error => { console.log(<any>error)}

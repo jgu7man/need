@@ -1,6 +1,7 @@
 export class FacturaModel {
     constructor(
-        public tipo_pago: 'evento' | 'suscripcion',
+        public fecha: Date,
+        public concepto: 'evento' | 'suscripcion',
         public folio: any,
         public RFC: string,
         public razon: string,
@@ -9,7 +10,7 @@ export class FacturaModel {
         public subtotal: number,
         public iva: number,
         public total: number,
-        public requerida: boolean
+        public requerida: boolean,
     ) {
         
     }

@@ -103,6 +103,9 @@ import { AddCategoriaComponent } from './components/admin/admin-categorias/add-c
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
 import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
 import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen-pago.component';
+import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
+import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
+import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
 
 @NgModule({
   declarations: [
@@ -186,6 +189,9 @@ import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen
     TablaCategoriasComponent,
     EditCategoriaComponent,
     ResumenPagoComponent,
+    AdminTrasnferenciasComponent,
+    AdminFacturasComponent,
+    TransferenciaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),

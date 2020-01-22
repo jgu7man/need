@@ -34,6 +34,22 @@ a i {
     margin: .2em 1em;
 }
 
+.btn_menu {}
+
+.btn_menu a {
+    line-height: 1.8 !important;
+    color: honeydew !important;
+}
+
+.btn_menu li {
+    margin: 0 15px 0 0;
+}
+
+.btn_menu li a {
+    line-height: 2.7 !important;
+    color: honeydew !important;
+}
+
 @media screen and (min-width: 500px) {
     .title {
         padding: 5em;

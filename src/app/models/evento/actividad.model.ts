@@ -1,12 +1,10 @@
-export class ActividadModel {
-    constructor(
-        public collection: string,
-        public document: string,
-        public activador: string,
-        public date: Date,
-        public actividad: string,
-        public tipo    : 'finanzas' | 'personal' | 'datos'
-    ) {
+export interface Actividad {
+    
+    coll: string,
+    doc: string,
+    user: string,
+    userColl: string,
+    act: string,
+    tipo: 'finanzas' | 'personal' | 'datos'
         
-    }
 }

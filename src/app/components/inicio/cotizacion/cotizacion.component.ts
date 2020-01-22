@@ -42,7 +42,7 @@ export class CotizacionComponent implements OnInit {
     private _eventos: EventoService,
     private _alerta: AlertaService
   ) {
-    this.personal = new PersonalModel( '', 0, 0, {});
+    this.personal = new PersonalModel( 0, 0);
     this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '', 0);
     this.extras = new ExtrasModel(0, 0, 0, 0, 0, 0);
     this.costos = new CostosModel(0, 0, 0,0,0, false, [])  
@@ -133,6 +133,16 @@ export class CotizacionComponent implements OnInit {
     return this.subtotal + (this.iva - this.retenciones)
   }
 
+  validarCapitanes() {
+    if ((
+      this.evento.tipoEvento == 'Boda' ||
+      this.evento.tipoEvento == 'Graduacion' ||
+      this.evento.tipoEvento == 'XV años') && 
+      this.personal.capitanMeseros == 0
+    ) { return true }
+    else { return false }
+  }
+
   async defineTotal() {
     return !this.total ?
       this.costos.costo_servicio = this.subtotal :
@@ -167,57 +177,19 @@ export class CotizacionComponent implements OnInit {
   }
     
   getExtras() {
-    if (this.extrasArray.includes('barman')) {
-      this.extras.barman = 1
-      Object.defineProperty(this.personal.extras, 'barman', 
+    this.extrasArray.forEach(extra => {
+      Object.defineProperty(this.extras, extra, 
       {value:1,enumerable: true,configurable: true,writable: true});
-    }
-    if (this.extrasArray.includes('bartender')) {
-      this.extras.barman = 1
-      Object.defineProperty(this.personal.extras, 'bartender', 
-      {value:1,enumerable: true,configurable: true,writable: true});
-    }
-    if (this.extrasArray.includes('escamoche')) {
-      this.extras.escamoche = 1
-      Object.defineProperty(this.personal.extras, 'escamoche', 
-      {value:1,enumerable: true,configurable: true,writable: true});
-    }
-    if (this.extrasArray.includes('valet')) {
-      this.extras.valet = 1
-      Object.defineProperty(this.personal.extras, 'valet', 
-      {value:1,enumerable: true,configurable: true,writable: true});
-    }
-    if (this.extrasArray.includes('hostess')) {
-      this.extras.hostess = 1
-      Object.defineProperty(this.personal.extras, 'hostess', 
-      {value:1,enumerable: true,configurable: true,writable: true});
-    }
-    if (this.extrasArray.includes('vigilante')) {
-      this.extras.vigilante = 1
-      Object.defineProperty(this.personal.extras, 'vigilante', 
-      {value:1,enumerable: true,configurable: true,writable: true});
-    }
+    })
   }
 
   async fillExtras() {
-    if (this.personal.extras['barman']) {
-        this.personal.extras['barman'] = this.extras.barman
-      }
-      if (this.personal.extras['bartender']) {
-        this.personal.extras['bartender'] = this.extras.bartender
-      }
-      if (this.personal.extras['escamoche']) {
-        this.personal.extras['escamoche'] = this.extras.escamoche
-      }
-      if (this.personal.extras['valet']) {
-        this.personal.extras['valet'] = this.extras.valet
-      }
-      if (this.personal.extras['hostess']) {
-        this.personal.extras['hostess'] = this.extras.hostess
-      }
-      if (this.personal.extras['vigilante']) {
-        this.personal.extras['vigilante'] = this.extras.vigilante
-    }
+    this.extrasArray.forEach(extra => {
+      this.personal[extra]
+      Object.defineProperty(this.personal, extra, 
+        {value:this.extras[extra],
+        enumerable: true,configurable: true,writable: true});
+    })
     return
   }
   
@@ -225,9 +197,15 @@ export class CotizacionComponent implements OnInit {
     await this.fillExtras()
     var error
 
-    if (this.personal.meseros > 0 && this.personal.capitanMeseros > 0) {
+     if ((
+      this.evento.tipoEvento == 'Boda' ||
+      this.evento.tipoEvento == 'Graduacion' ||
+      this.evento.tipoEvento == 'XV años') && 
+      this.personal.capitanMeseros == 0
+    ) { delete this.personal.capitanMeseros }
+    else if (this.personal.meseros > 0 && this.personal.capitanMeseros > 0) {
 
-      var values = Object.values(this.personal.extras)
+      var values = Object.values(this.personal)
       values.indexOf(0) == -1 ?
         error = false :
         error = true

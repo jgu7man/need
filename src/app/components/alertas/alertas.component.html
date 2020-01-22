@@ -10,15 +10,20 @@
                 <p>{{alerta}}</p>
             </div>
         </div>
-        <div class="row" *ngIf="opcion">
+        <div class="row" *ngIf="opcion; else ok">
             <div class="col s12 opciones">
                 <div class="opcion">
-                    <button class="needbtn" (click)="getResponse(true)">{{resSi}}</button>
+                    <button class="needbtn" (click)="getResponse('aceptar')">Aceptar</button>
                 </div>
                 <div class="opcion">
-                    <button class="needbtn" (click)="getResponse(false)">{{resNo}}</button>
+                    <button class="needbtn" (click)="getResponse('cancelar')">Cancelar</button>
                 </div>
             </div>
         </div>
+        <ng-template #ok>
+            <div class="col s12">
+                <button class="needbtn" (click)="getResponse('aceptar')">Aceptar</button>
+            </div>
+        </ng-template>
     </div>
 </div>

@@ -11,10 +11,10 @@
         <div class="container" *ngIf="evento && costos && usuario">
             <div class="row">
                 <div class="col s12 m6 seccion bg-3">
-                    <p class="ltxt">Pago de {{factura.tipo_pago}} </p>
+                    <p class="ltxt">Pago de {{factura.concepto}} </p>
                     <table>
                         <tbody>
-                            <ng-container *ngIf="factura.tipo_pago == 'evento'">
+                            <ng-container *ngIf="factura.concepto == 'evento'">
                                 <tr>
                                     <th>Tipo de evento:</th>
                                     <td>{{evento.tipoEvento}}</td>
@@ -174,7 +174,7 @@
                             Pagar con tarjeta de terminación: Master Card ...1234
                         </p>
 
-                        <button class="needbtn" (click)="onPagar()">
+                        <button class="needbtn" (click)="onPagar('tarjeta')">
                             PAGAR
                         </button>
 
@@ -187,7 +187,7 @@
                         <div class="col s12 input-field file-field">
                             <div class="btn purple">
                                 <span>Imagen</span>
-                                <input type="file">
+                                <input type="file" (change)="uploadTicket($event)">
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
@@ -197,6 +197,8 @@
                         <p class="resaltado txt_normal">
                             Ya que el pago será por transferencia, tardaremos al menos 24 horas en verificar que el pago se haya realizado y podremos poner tu evento como confirmado.
                         </p>
+
+                        <button class="needbtn" (click)="onPagar('transferencia')">Subir</button>
 
 
                     </ng-template>

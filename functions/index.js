@@ -59,7 +59,7 @@ exports.notificaciones = fuctions.firestore
 
 
 exports.evento_cubierto = fuctions.firestore
-    .document('eventos/{eid}/info/vacantes')
+    .document('eventos/{eid}/personal/vacantes')
     .onUpdate(async(change, context) => {
 
         const newValue = change.after.data();

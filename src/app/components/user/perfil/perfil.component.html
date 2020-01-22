@@ -26,8 +26,8 @@
     </div>
 
     <div class="container">
-        <div class="row">
 
+        <div class="row">
             <div class="col s12 m6">
                 <div class="row seccion bg-2">
 
@@ -53,35 +53,36 @@
 
                 </div>
 
+
+            </div>
+
+            <div class="col s12 m6">
                 <div class="row seccion bg-2">
                     <div class="col s12">
                         <h5 class="center grey-text lighten-1">LOGROS</h5>
                     </div>
                 </div>
-            </div>
-
-            <div class="col s12 m6 seccion bg-2">
-                <div class="row">
+                <div class="row seccion bg-2">
                     <div class="col s12">
                         <h5 class="center grey-text lighten-1">NEGOCIOS</h5>
                     </div>
-                </div>
-                <div class="row negocio " *ngFor="let neg of userNegocios" [routerLink]="['/usuario/negocio', neg.idNegocio ]">
-                    <div class="col s3 imgNegocio">
-                        <img src="{{neg.imgPerfil}}" alt="">
+                    <div class="row negocio " *ngFor="let neg of userNegocios" [routerLink]="['/usuario/negocio', neg.idNegocio ]">
+                        <div class="col s3 imgNegocio">
+                            <img src="{{neg.imgPerfil}}" alt="">
+                        </div>
+                        <div class="col s9 imgName">
+                            {{neg.nombre}}
+                        </div>
                     </div>
-                    <div class="col s9 imgName">
-                        {{neg.nombre}}
+                    <div class="row">
+                        <div class="col s12" id="noNeg" *ngIf="userNegocios == false">
+                            *Si tienes un negocio que ofrece servicios para eventos sociales. Anúncialo en nuestro <span [routerLink]="['/directorio']">DIRECTORIO</span> y llega a miles de usuarios que usan NEED.
+                        </div>
                     </div>
+                    <button class="needbtn" [routerLink]="['/directorio/bienvenida']">Agregar negocio</button>
                 </div>
-                <div class="row">
-                    <div class="col s12" id="noNeg" *ngIf="userNegocios == false">
-                        *Si tienes un negocio que ofrece servicios para eventos sociales. Anúncialo en nuestro <span [routerLink]="['/directorio']">DIRECTORIO</span> y llega a miles de usuarios que usan NEED.
-                    </div>
-                </div>
-                <button class="needbtn" [routerLink]="['/directorio/bienvenida']">Agregar negocio</button>
             </div>
         </div>
     </div>
 
-</div>
+</div>}

@@ -73,7 +73,7 @@
                             <tr>
                                 <td>
                                     <input type="number" name="capitanMeseros" value={{personal.capitanMeseros}} min="1" [(ngModel)]="personal.capitanMeseros" #capitanMeseros="ngModel" required><br>
-                                    <span class="adv" *ngIf="personal.capitanMeseros == 0">*Para un evento de {{evento.tipoEvento}} es necesario un Capitán de meseros mínimo</span>
+                                    <span class="adv" *ngIf="validarCapitanes()">*Para un evento de {{evento.tipoEvento}} es necesario un Capitán de meseros mínimo</span>
                                 </td>
                                 <td> Capitán de meseros </td>
                                 <td> ${{precios.capitanMesero * personal.capitanMeseros}}</td>

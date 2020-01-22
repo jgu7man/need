@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActividadModel } from '../models/evento/actividad.model';
+import { Actividad } from '../models/evento/actividad.model';
 
 @Injectable({ providedIn: 'root' })
 export class HistorialService {
@@ -11,18 +11,20 @@ export class HistorialService {
         
     }
 
-    async setActividad(actividad: ActividadModel) {
-        var doc = {
-            collection:actividad.collection,
-            document:actividad.document,
-        }
+    async setActividad(coll, doc, userColl, act, tipo ) {
         
-        this.fs.collection(doc.collection).ref.doc(doc.document)
-            .collection('historial').add({
-            activador:actividad.activador,
-            date:actividad.date,
-            actividad:actividad.actividad,
-            tipo:actividad.tipo
+        var actividad = {
+            date:new Date(),
+            actividad:act,
+            tipo:tipo
+        }
+
+        var user = JSON.parse(localStorage.getItem('needlog'))
+        
+        this.fs.collection(coll).ref.doc(doc)
+            .collection('historial').add(actividad).then(sucsses => {
+                this.fs.collection(userColl).ref.doc(user.uid)
+                    .collection('historial').add(actividad)
         })
         
     }

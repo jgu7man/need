@@ -1,12 +1,17 @@
 <ul id="slide-out" class="side-nav purple darken-1">
     <li>
         <div class="admin-view" *ngIf="auth.user$ | async as usuario">
+            <button class="needbtn goPage" (click)="router.navigate(['/usuario'])">
+                Ir a perfil
+            </button>
             <div class="background">
                 <img src="/assets/img/profileBg.png">
             </div>
-            <p class="white-text"><img class="circle" [src]="usuario.photoURL"><br>
+            <p class="white-text">
+                <img class="circle" [src]="usuario.photoURL"><br>
                 <span class="name">{{usuario.displayName}}</span><br>
-                <span class="email">{{usuario.email}}</span></p>
+                <span class="email">{{usuario.email}}</span>
+            </p>
         </div>
     </li>
     <li class="link">
@@ -38,6 +43,15 @@
     </li>
     <li class="link">
         <a [routerLink]="['categorias']" class="white-text waves-effect"> <i class="far fa-address-book"></i> Categorías</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li class="link">
+        <a [routerLink]="['transferencias']" class="white-text waves-effect"> <i class="fas fa-receipt"></i>Transferencias</a>
+    </li>
+    <li class="link">
+        <a [routerLink]="['facturas']" class="white-text waves-effect"> <i class="far fa-file-alt"></i> Facturas</a>
     </li>
     <li>
         <div class="divider"></div>

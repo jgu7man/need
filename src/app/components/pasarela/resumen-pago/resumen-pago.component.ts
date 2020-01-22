@@ -11,7 +11,7 @@ import { AdminDataService } from 'src/app/services/admin/admin.data.service';
 import { HorarioModel } from '../../../models/evento/horario.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { PagoModel } from '../../../models/evento/pago.model';
-import { FacturaModel } from '../../../models/evento/factura.model';
+import { FacturaModel } from '../../../models/factura.model';
 import { AlertaService } from '../../../services/alerta.service';
 import { PagoService } from "../../../services/pagos.service";
 
@@ -37,6 +37,7 @@ export class ResumenPagoComponent implements OnInit {
   public dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
   public timeOptions = { hour: 'numeric', minute: 'numeric' }
   public pagoTarjeta: string
+  public pago: PagoModel
 
   constructor(
     private _eventos: EventoService,
@@ -49,7 +50,8 @@ export class ResumenPagoComponent implements OnInit {
   ) {
     
     this.eventoStarts = new HorarioModel(new Date, '', '')
-    this.factura = new FacturaModel('evento','', '', '', '', 0, 0, 0, 0, false)
+    this.factura = new FacturaModel(new Date, 'evento', '', '', '', '', 0, 0, 0, 0, false)
+    this.pago = new PagoModel(new Date, 0,'','','')
   }
   
   ngOnInit() {
@@ -72,6 +74,11 @@ export class ResumenPagoComponent implements OnInit {
 
     this.evento = await this._eventos.getOneEvento(this.idEvento)
     this.costos = await this._eventos.getCostos(this.idEvento)
+    var factura = await this._pagos.getDatosFactura(this.idEvento, 'evento')
+    this.factura.RFC = factura.RFC
+    this.factura.razon = factura.razon
+    this.factura.email = factura.email
+    this.factura.telefono = factura.telefono
 
 
     this.costos.promocion > 0 ? 
@@ -221,13 +228,26 @@ export class ResumenPagoComponent implements OnInit {
     this.factura.subtotal = this.amount
     this.factura.iva = this.IVA
     this.factura.total = this.TOTAL
+    this.factura.concepto = 'evento'
     this.costos.resto = this.resto
-    console.log(this.factura, this.costos)
-    // this._pagos.saveDatosFacturacion(this.idEvento, this.factura)
+    this._pagos.saveDatosFacturacion(this.idEvento, this.factura)
   }
 
-  onPagar() {
-    
+  ticket: any
+  uploadTicket(file: any) {
+    this.ticket = file.target.files[0]
+  }
+
+  onPagar(tipo_pago) {
+    this.pago.cantidad = this.amount
+    this.pago.tipo = tipo_pago
+    if (this.ticket) {
+      tipo_pago == 'transferencia' ?
+      this._pagos.pagoTransferencia(this.idEvento, this.factura, this.ticket) :
+      this._pagos
+    } else {
+      this._alerta.sendAlertaCont('Debes agregar una imagen del ticket primero')
+    }
   }
 
 }

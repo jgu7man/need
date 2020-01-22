@@ -55,7 +55,7 @@ export class CrearEventoComponent implements OnInit {
     private _adminData: AdminDataService
     ) {
     this.datos = new DatosModel(new Date,new Date,'', '', '', '', '', 0, 0);
-    this.personal = new PersonalModel( '', '', '', {});
+    this.personal = new PersonalModel( '', '');
     this.evento = new EventoModel('', '', '', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
     this.costos = new CostosModel(0,0,0,0,0,false,[])
     this.inDate = new DateModel(0,0,0,0,0)
@@ -237,8 +237,11 @@ export class CrearEventoComponent implements OnInit {
     
     await sessionStorage.setItem(this.idEvento + 'datos', JSON.stringify(this.datos))
     console.log(this.evento, this.datos, this.personal, this.costos)
-    this.idEvento = await this._Evento.postEvento(this.idEvento, this.evento, this.datos, this.personal, this.costos).then( res => {this.idEvento = res})
-    this._Router.navigate(['evento-creado/'+this.idEvento])
+    this.idEvento = await this._Evento.postEvento(this.idEvento, this.evento, this.datos, this.personal, this.costos)
+      .then(res => {
+        this.idEvento = res
+        this._Router.navigate(['evento-creado/'+this.idEvento])
+      })
     
 
   }

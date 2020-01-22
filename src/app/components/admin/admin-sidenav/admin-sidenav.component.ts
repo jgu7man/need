@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-sidenav',
@@ -9,7 +10,8 @@ import { AuthService } from '../../../services/auth.service';
 export class AdminSidenavComponent implements OnInit {
 
   constructor(
-    public auth: AuthService
+    public auth: AuthService,
+    public router: Router
   ) { }
 
   ngOnInit() {

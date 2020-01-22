@@ -134,7 +134,6 @@ export class CoEventoService {
                 equipo.push({ name: puesto, miembros: puestoArray, cantidad: personalObj[puesto] })
             })
 
-        console.log(equipo)
         return equipo
     }
 
