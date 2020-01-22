@@ -20,7 +20,7 @@ export class TransferenciaComponent implements OnInit {
     private _pagos: PagoService,
     public location: Location
   ) {
-    this.transferencia = new TransferenciaModel('', new Date, 'evento', '', '', '', 0, 0, 0, 0, false, '', '','')
+    this.transferencia = new TransferenciaModel('', new Date, 'evento', '', '', '', 0, 0, 0, 0, false, false, '', '','')
    }
 
   

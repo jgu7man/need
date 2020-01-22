@@ -14,16 +14,14 @@
                     <p class="ltxt">Pago de {{factura.concepto}} </p>
                     <table>
                         <tbody>
-                            <ng-container *ngIf="factura.concepto == 'evento'">
-                                <tr>
-                                    <th>Tipo de evento:</th>
-                                    <td>{{evento.tipoEvento}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Fecha del evento:</th>
-                                    <td>{{eventoStarts.fecha}} a las {{eventoStarts.hora}}</td>
-                                </tr>
-                            </ng-container>
+                            <tr>
+                                <th>Tipo de evento:</th>
+                                <td>{{evento.tipoEvento}}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha del evento:</th>
+                                <td>{{eventoStarts.fecha}} a las {{eventoStarts.hora}}</td>
+                            </tr>
                             <tr>
                                 <td class="resaltado"> ¿Requiere factura? </td>
                                 <td>

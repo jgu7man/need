@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
+import { PlanModel } from '../../models/direcorio/plan.model';
 
 export interface plan {
     name: string,
@@ -65,6 +66,6 @@ export class PlanesService {
     async getPlan(name){
         var res = await this.fs.collection('planes').ref.doc(name).get()
         var plan = res.data()
-        return plan
+        return plan as PlanModel
     }
 }

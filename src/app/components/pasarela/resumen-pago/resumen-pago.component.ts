@@ -73,7 +73,7 @@ export class ResumenPagoComponent implements OnInit {
     })
 
     this.evento = await this._eventos.getOneEvento(this.idEvento)
-    this.costos = await this._eventos.getCostos(this.idEvento)
+    this.costos = await (await this._eventos.getCostos(this.idEvento)).costos
     var factura = await this._pagos.getDatosFactura(this.idEvento, 'evento')
     this.factura.RFC = factura.RFC
     this.factura.razon = factura.razon

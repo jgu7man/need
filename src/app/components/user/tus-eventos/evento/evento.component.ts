@@ -7,6 +7,7 @@ import { CoEventoService } from '../../../../services/colaboradores/coeventos.se
 import { EventoService } from '../../../../services/evento.service';
 import { CostosModel } from '../../../../models/evento/costos.model';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { PagoModel } from '../../../../models/evento/pago.model';
 declare var $;
 
 @Component({
@@ -22,6 +23,7 @@ export class EventoComponent implements OnInit {
   public costos: CostosModel
   public datos: DatosModel;
   public servicio: PersonalModel;
+  public pagos: PagoModel[]
   public equipo: any
   public owner
 
@@ -69,7 +71,9 @@ export class EventoComponent implements OnInit {
         this.usuario = await this._usuario.getUserPerfil(this.evento.usuario)
       }
 
-    this.costos = await this._evento.getCostos(this.idEvento)
+    this.costos = await (await this._evento.getCostos(this.idEvento)).costos
+    this.pagos = await (await this._evento.getCostos(this.idEvento)).pagos
+    console.log(this.pagos)
     var datos = await this._evento.getDatos(this.idEvento)
     this.datos = datos as DatosModel
     var resEquipo = await this._coEvento.getEquipo(this.idEvento, this.usuario.uid)

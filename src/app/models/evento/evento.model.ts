@@ -13,7 +13,7 @@ export class EventoModel {
         public estado_equipo: 'espera' | 'completo',
         public fecha: Date,
         public lugar: string,
-        public ciudad: string,
+        public area: string,
         public costo: number
     ){}
 }

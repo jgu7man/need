@@ -1,9 +1,11 @@
 .eventoCont {
     background: #000;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, .5);
     margin: 1em 0em;
     vertical-align: middle;
     padding: 1em;
+    position: relative;
+    z-index: 2;
 }
 
 .contenido {
@@ -17,6 +19,25 @@
     text-align: right;
 }
 
+.fecha,
+.tipoEvento {
+    font-size: 1.5em;
+}
+
+.fecha {
+    color: #ccc;
+}
+
+.label {
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
+.vacancy {
+    cursor: pointer;
+    font-weight: 700;
+}
+
 #barraTitulo>div {
     height: 2em;
 }
@@ -27,4 +48,7 @@
 
 .vacantes {
     display: none;
+    top: -1em;
+    position: relative;
+    z-index: 1;
 }

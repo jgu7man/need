@@ -14,7 +14,7 @@ export class CoEventoService {
 
     async getVacantes(id: string) {
         var eventRef = this.fs.collection('eventos').ref.doc(id)
-        var vacantes = await eventRef.collection('info').doc('vacantes').get()
+        var vacantes = await eventRef.collection('personal').doc('vacantes').get()
         return vacantes.data()
     }
     

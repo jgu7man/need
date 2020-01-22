@@ -28,7 +28,7 @@ export class TusEventosComponent implements OnInit {
   ) {
     this.evento = new EventoModel('', '','', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
     this.datos = new DatosModel(new Date,new Date,'','','','','',0,0),
-    this.servicio = new PersonalModel('','','',{})
+    this.servicio = new PersonalModel('','')
   }
 
   ngOnInit() {

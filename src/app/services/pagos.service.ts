@@ -31,7 +31,7 @@ export class PagoService {
         const userDoc = this.fs.collection('usuarios').ref.doc(user.uid)
 
         var collection
-        datosFactura.concepto == 'evento' ? collection = 'eventos' : collection == 'suscripciones'
+        datosFactura.concepto == 'evento' ? collection = 'eventos' : collection == 'negocios'
         const servicioDoc = this.fs.collection(collection).ref.doc(idServicio)
 
         const datos = {
@@ -64,7 +64,7 @@ export class PagoService {
     }
 
 
-    createFactura(idServicio, datosFactura: FacturaModel) {
+    createFactura(idServicio, datosFactura) {
         const user = JSON.parse(localStorage.getItem('needlog'))
         this.fs.collection('facturas').ref.doc(idServicio).set({
             idUsuario: user.uid,
@@ -73,7 +73,7 @@ export class PagoService {
             email: datosFactura.email,
             telefono: datosFactura.telefono,
             concepto: datosFactura.concepto,
-            requerida: datosFactura.requerida,
+            requerida: datosFactura.factura_req,
             subtotal: datosFactura.subtotal,
             iva: datosFactura.iva,
             total: datosFactura.total,
@@ -128,6 +128,51 @@ export class PagoService {
 
     }
 
+    async suscripcionTransferencia( datosFactura, file: any) {
+        const transDoc = this.fs.collection('transferencias').ref
+        const user = JSON.parse(localStorage.getItem('needlog'))
+        var idTransferencia
+
+        await transDoc.add({
+            fecha: new Date(),
+            concepto: datosFactura.concepto,
+            razon: datosFactura.razon,
+            RFC: datosFactura.RFC,
+            email: datosFactura.email,
+            telefono: datosFactura.telefono,
+            subtotal: datosFactura.subtotal,
+            iva: datosFactura.iva,
+            total: datosFactura.total,
+            usuario: user.uid,
+        })
+
+        const id = new Date().getTime()
+        const name = id + file.name
+        const path = `tickets_de_pago/${name}`
+        const ref = this.st.ref(path)
+        const task = this.st.upload(path, file)
+        
+        $("app-loading").fadeToggle()
+        // $("app-uploading").fadeToggle()
+
+        await task.percentageChanges().subscribe(res => {
+            return this.porcentaje.next(res)
+        })
+
+        task.snapshotChanges().pipe(
+            finalize(() => {
+                ref.getDownloadURL().subscribe(res => {
+                    transDoc.doc(idTransferencia).update({ imgTicket: res }).then(res => {
+                        this._alerta.sendAlertaCont('Se agregó la información de tu pago, la revisión puede tardar 24 horas, hasta entonces debes esperar para ver reflejado el pago').subscribe(res => {
+                            this._router.navigate(['/usuario'])
+                        })
+                    })
+                })
+            })
+        ).subscribe()
+
+    }
+
     async getTrasnferencias() {
         const coll = this.fs.collection('transferencias').ref.orderBy('fecha', 'desc')
         var collRes = await coll.get()
@@ -139,6 +184,10 @@ export class PagoService {
             transferencias.push(transferencia)
         })
         return transferencias as TransferenciaModel[]
+    }
+
+    async getPagos() {
+        
     }
 
     async getOneTransferencia(id) {
@@ -184,6 +233,7 @@ export class PagoService {
             estado: 'confirmado'
         })
 
+        await this.createFactura(transferencia.id, transferencia)
         
         this._historial.setActividad('eventos', transferencia.id, 'usuarios', 'Transferencia adjudicada al evento', 'finanzas')
 

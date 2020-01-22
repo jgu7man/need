@@ -20,7 +20,7 @@ export class DetallesComponent implements OnInit {
   @Input() owner: boolean = false
   public uid: string
   public usuario: UsuarioModel
-  public anticipos
+  @Input() pagos
   
   constructor( 
     private fs: AngularFirestore,

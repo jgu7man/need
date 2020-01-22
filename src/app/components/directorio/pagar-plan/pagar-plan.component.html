@@ -1,53 +1,157 @@
-<div class="row" id="barraTitulo">
-    <div class="col s1">
-        <a href="javascript:history.back()" class="back ltxt">
-            <i class="fas fa-arrow-left"></i>
-        </a>
+<div class="contenido">
+    <div class="row title">
+        <div class="col s12">
+            <p class="titleLabel ltxt center">
+                PAGO DE SUSCRIPCIÓN
+            </p>
+        </div>
     </div>
-    <div class="col s10">
-        <p class="titleLabel ltxt center">
-            PAGAR
-        </p>
-    </div>
-</div>
-<div class="container contenido" id="pagarPlan">
-    <ng-container *ngIf="plan">
-        <h4 class="center ltxt">¡Buenas noticias!</h4>
-        <h5 class="center ltxt">En este momento, por preventa estamos regalando 3 meses gratis en todos nuestros planes. Haz un pago inicial y disfruta de esta promoción</h5>
 
-        <div class="row">
-            <div class="col s12">
-                <h6 class="center grey-text lighten-1">Lo sentimos</h6>
-                <p class="center ltxt">Por ahora sólo podemos hacer el cobro por transferencia electrónica. <br> Tendrás que hacer un depósito por <span class="resaltado">${{plan.pago_inicial}}°°</span> para el plan {{plan.nombre}} a alguna de las siguientes opciones</p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Número de tarjeta - BBVA</th>
-                            <td>4152 3135 6020 4880</td>
-                        </tr>
-                        <tr>
-                            <th>Número de tarjeta - Santander</th>
-                            <td>5579 0701 0254 0534</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="center ltxt">
-                    Al hacer la transferencia, envía una foto o imagen del recibo a <span class="resaltado">app.need.mx@gmail.com</span> y el correo con el que has registrado la compra y nosotros nos pondremos en contacto contigo
-                </p>
-                <!-- <app-pago-form [nombre]="plan.name" [concepto]="'plan'" [total]="plan.total"></app-pago-form> -->
+    <form action="#" onsubmit="return false" #cantPago="ngForm">
+        <div class="container" *ngIf="plan">
+            <div class="row">
+                <div class="col s12 m6 seccion bg-3">
+                    <p class="ltxt">Pago de Plan</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Tipo de plan</th>
+                                <td>{{plan.nombre}}</td>
+                            </tr>
+                            <tr>
+                                <td class="resaltado"> ¿Requiere factura? </td>
+                                <td>
+                                    <span class="switch">
+                                        <label>No
+                                            <input type="checkbox" (change)="needFactura($event)">
+                                            <span class="lever"></span> Sí
+                                    </label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nombre:</th>
+                                <td>
+                                    <input type="text" name="razon" id="razon" [(ngModel)]="factura.razon" #razon="ngModel">
+                                </td>
+                            </tr>
+                            <tr *ngIf="factura.requerida">
+                                <th>R.F.C.:<span class="mintxt requerido">(requerido)</span></th>
+                                <td>
+                                    <input type="text" name="RFC" id="RFC" [(ngModel)]="factura.RFC" #RFC="ngModel" [required]="factura.requerida">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Correo:</th>
+                                <td>
+                                    <input type="email" name="email" id="email" [(ngModel)]="factura.email" #email="ngModel">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono: <span class="mintxt">(opcional)</span></th>
+                                <td>
+                                    <input type="text" name="telefono" id="telefono" [(ngModel)]="factura.telefono" #telefono="ngModel">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s12 m6 offset-s6 seccion bg-3">
+                    <h5 class="ltxt">SERVICIO</h5>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="concepto">Concepto</th>
+                                <th class="opcion"> </th>
+                                <th class="cantidad">Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Costo mensual</td>
+                                <td class="opcion">
+                                    <button class="needbtn">Editar</button>
+                                </td>
+                                <td class="cantidad">${{plan.precio}}</td>
+                            </tr>
+                            <tr>
+                                <td>Pago inicial</td>
+                                <td> </td>
+                                <td class="cantidad">${{plan.pago_inicial}}</td>
+                            </tr>
+                            <tr>
+                                <td>SUBTOTAL:</td>
+                                <td> </td>
+                                <td class="cantidad">${{SUBTOTAL}}</td>
+                            </tr>
+                            <tr>
+                                <td>I.V.A. <span class="mintxt">(16%)</span>:</td>
+                                <td> </td>
+                                <td class="cantidad">${{IVA.toFixed(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td> </td>
+                                <td class="cantidad "> $<span class="resaltado total">{{TOTAL.toFixed(2)}}</span> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 seccion bg-3">
+                    <h4 class="ltxt">Formas de pago</h4>
+                    <p class="ltxt">Puedes elegir una de las siguientes formas de pago</p>
 
-                <!-- <button class="needbtn" (click)="sendSolicitud()">Enviar solicitud</button> -->
+                    <div class="col s12">
+                        <button class="needbtn" (click)="onTipoPago('transferencia')">
+                            Transferencia bancaria
+                        </button>
+                        <br>
+                        <br>
+                        <button class="needbtn" (click)="onTipoPago('linea')">
+                            Pago en linea
+                        </button>
+                    </div>
+                </div>
+                <div class="col s12 m6 seccion bg-3" *ngIf="pagoTarjeta">
+                    <ng-container *ngIf="pagoTarjeta == 'linea'; then linea; else transferencia"></ng-container>
+                    <ng-template #linea>
+                        <p class="resaltado txt_normal">
+                            Pagar con tarjeta de terminación: Master Card ...1234
+                        </p>
+
+                        <button class="needbtn" (click)="onPagar('tarjeta')">
+                            PAGAR
+                        </button>
+
+                    </ng-template>
+                    <ng-template #transferencia>
+                        <p class="ltxt center txt_normal">
+                            Deberás hacer una transferencia por la cantidad de $<span class="resaltado">{{amount}}</span> al número de tarjeta <br><br>
+                            <span class="resaltado">0000 0000 0000 0000</span><br><br> Una vez hecho el depósito vuelve a esta pantalla para subir una foto del ticket de depósito aquí:
+                        </p>
+                        <div class="col s12 input-field file-field">
+                            <div class="btn purple">
+                                <span>Imagen</span>
+                                <input type="file" (change)="uploadTicket($event)">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+
+                        <p class="resaltado txt_normal">
+                            Ya que el pago será por transferencia, tardaremos al menos 24 horas en verificar que el pago se haya realizado y podremos poner tu evento como confirmado.
+                        </p>
+
+                        <button class="needbtn" (click)="onPagar('transferencia')">Subir</button>
+
+
+                    </ng-template>
+
+                </div>
             </div>
         </div>
-
-    </ng-container>
-
-    <!-- <ng-template #mensual>
-
-        <p class="ltxt center">¡Muy bien! disfruta de un mes gratis de los servicios </p>
-        <p class="center ltxt">Por ahora sólo podemos hacer el cobro por transferencia electrónica. Pero podrás disfrutar de tu servicios una vez que demos autorización a tu negocio. Espero nuestro correo.</p>
-
-        <button class="needbtn" (click)="sendSolicitud()">Enviar solicitud</button>
-
-    </ng-template> -->
+    </form>
 </div>

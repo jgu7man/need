@@ -25,7 +25,6 @@ export class VerVacantesComponent implements OnInit {
     if (!this.postulado) {
       this.vacantes = await this._coEventos.getVacantes(this.idEvento) as VacantesModel
     } 
-    console.log(this.vacantes);
   }
 
 }

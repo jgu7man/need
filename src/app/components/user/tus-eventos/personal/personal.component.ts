@@ -27,7 +27,7 @@ export class PersonalComponent implements OnInit {
     private fs: AngularFirestore,
     private _coEvento: CoEventoService
   ) { 
-    this.personal = new PersonalModel('','','',{});
+    this.personal = new PersonalModel('','');
     this.extras = new ExtrasModel(0,0,0,0,0,0)
     
   }
@@ -39,7 +39,7 @@ export class PersonalComponent implements OnInit {
     const personal = infoPeronal.data()
 
     this.personal = personal as PersonalModel
-    this.extras = this.personal.extras as ExtrasModel
+    // this.extras = this.personal as ExtrasModel
 
     this.checkOwner()
     this.checkPostulacion()

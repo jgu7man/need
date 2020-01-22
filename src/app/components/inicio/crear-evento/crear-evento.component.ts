@@ -227,7 +227,7 @@ export class CrearEventoComponent implements OnInit {
     this.evento.usuario = log.uid
     this.evento.fecha = this.datos.inicia
     this.evento.lugar = `${this.datos.lugar}, ${this.datos.ciudad}, ${this.datos.estado}`
-    this.evento.ciudad = this.datos.estado
+    this.evento.area = this.datos.estado
     this.evento.estado = 'creado'
     this.evento.costo = this.costos.costo_servicio
     this.datos.lat = this.lat

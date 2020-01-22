@@ -92,7 +92,7 @@ export class CotizacionComponent implements OnInit {
         let personal = await this._eventos.getPersonal(this.idEvento)
         this.personal = personal.personal
         this.extrasArray = personal.extras
-        this.costos = await this._eventos.getCostos(this.idEvento)
+        this.costos = await (await this._eventos.getCostos(this.idEvento)).costos
         this.getpuestos()
       } else {
         await this._eventos.deleteEvento(this.idEvento)

@@ -9,17 +9,22 @@ import { DatosModel } from '../models/evento/datosevento.model';
 import { AlertaService } from './alerta.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { PagoModel } from '../models/evento/pago.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
 export class EventoService{
  
+    private apiKey = 'AIzaSyD5qs1RP5Hm53w19CXYG_5VGm7zi0O4Vns'
     constructor(
         private fs: AngularFirestore,
         private _historial: HistorialService,
         private _alerta: AlertaService,
         private _location: Location,
-        private router: Router
+        private router: Router,
+        private _http: HttpClient,
     ) {}
 
     async savePreEvento(uid, idEvento) {
@@ -159,6 +164,44 @@ export class EventoService{
         return eventos
     }
 
+    
+
+    async getEventosByCity() {
+        const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+        var eventos = []
+        var evento: EventoModel
+        var today = new Date()
+        var lat: number, lng: number
+        // console.log('ejecutado')
+        navigator.geolocation.getCurrentPosition(geo => {
+            lat = geo.coords.latitude
+            lng = geo.coords.longitude
+        })
+        await waitFor(500)
+        console.log(lat, lng)
+        var ubi = await this.geoCoder(lat, lng).toPromise()
+        console.log(ubi)
+
+        var splitUbi = ubi.results[0].formatted_address.split(',')
+        var area = splitUbi[0]
+        console.log(area)
+    
+        var eventRef = await this.fs.collection('eventos').ref
+            .where('area','==', area)
+            .orderBy('fecha').startAfter(today).get()
+
+        eventRef.forEach( event => {
+            evento = event.data() as EventoModel
+            evento.fecha = event.data().fecha.toDate()
+            eventos.push(evento)
+        })
+        return eventos
+    }
+
+    geoCoder(lat: number, long: number): Observable<any>{
+        return this._http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&result_type=administrative_area_level_1&key=" + this.apiKey)
+      }
+
     async getOneEvento(id: string) {
         var eventRef = this.fs.collection('eventos').ref.doc(id)
         var eventoRes = await eventRef.get()
@@ -232,7 +275,17 @@ export class EventoService{
     async getCostos(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         var infoCostos = await eventoRef.collection('finanzas').doc('costos').get()
-        return infoCostos.data() as CostosModel    
+        var pagosCol = await eventoRef.collection('pagos').orderBy('fecha', 'asc').get()
+        var pagos = []
+        pagosCol.forEach(pago => {
+            var pay = pago.data()
+            pay.fecha = pago.data().fecha.toDate()
+            pagos.push(pay)
+        })
+        return {
+            costos: infoCostos.data() as CostosModel,
+            pagos: pagos as PagoModel[]
+        }    
     }
 
     async cancelEvento(idEvento) {

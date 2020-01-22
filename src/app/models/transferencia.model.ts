@@ -10,6 +10,7 @@ export class TransferenciaModel {
         public subtotal: number,
         public iva: number,
         public total: number,
+        public factura_req: boolean,
         public adjudicada: boolean,
         public imgTicket: string,
         public usuario: string,

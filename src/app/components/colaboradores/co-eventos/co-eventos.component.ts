@@ -22,7 +22,7 @@ export class CoEventosComponent implements OnInit {
    }
 
   async ngOnInit() {
-    this.eventos = await this._eventos.getEventos()
+    this.eventos = await this._eventos.getEventosByCity()
   }
 
   trackByFn(index, evento) {
