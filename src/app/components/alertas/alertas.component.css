@@ -22,3 +22,7 @@
 .opciones .opcion {
     width: 50%;
 }
+
+p {
+    color: #202020 !important;
+}

@@ -1,0 +1,28 @@
+<div class="row bg-2 seccion">
+    <h5>Mándanos un mensaje</h5>
+    <form action="#" onsubmit="return false" #sendEmail="ngForm">
+        <div class="col s12">
+            <div class="input-field col s12">
+                <input type="text" name="nombre" id="nombre" [(ngModel)]="contacto.nombre" #nombre="ngModel">
+                <label for="nombre" [ngClass]="{'active': contacto.nombre}">Nombre</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" name="email" id="email" [(ngModel)]="contacto.email" #email="ngModel">
+                <label for="email" [ngClass]="{'active': contacto.email}">Email</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" name="telefono" id="telefono" [(ngModel)]="contacto.telefono" #telefono="ngModel">
+                <label for="telefono">Teléfono</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" name="asunto" id="asunto" [(ngModel)]="contacto.asunto" #asunto="ngModel">
+                <label for="asunto">Asunto</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea id="mensaje" name="mensaje" class="materialize-textarea" [(ngModel)]="contacto.mensaje" #mensaje="ngModel"></textarea>
+                <label for="nombre">Mensaje</label>
+            </div>
+            <button class="btn needbtn waves-effect" (click)="_contacto.requestHelp(contacto)">Enviar</button>
+        </div>
+    </form>
+</div>

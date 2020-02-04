@@ -52,7 +52,7 @@
                 <p class="itemIcon"><i class="fas fa-address-book"></i><br><span class="name">Directorio</span></p>
                 <p class="itemLink">DIRECTORIO</p>
             </li>
-            <li class="navitem" id="menuIcon" (click)="menu = !menu" (click)="toggleMenu()">
+            <li class="navitem" id="menuIcon" (click)="toggleMenu()">
                 <p class="itemIcon"><i class="fas fa-bars"></i><br><span class="name">Menu</span></p>
                 <p class="itemLink">MENÚ</p>
             </li>
@@ -60,9 +60,9 @@
         </ul>
     </div>
 </div>
-<div id="menu">
-    <div id="close" style="display: none" (click)="menu = !menu" (click)="toggleMenu()">
+<div id="menu" class="closed">
+    <div id="close" style="display: none" (click)="cerrarMenu()">
         <i class="fas fa-times"></i><br><span class="name"></span>
     </div>
-    <app-main-menu *ngIf="menu" (cerrarMenu)="cerrarMenu($event)"></app-main-menu>
+    <app-main-menu style="display: none;" (cerrarMenu)="cerrarMenu($event)"></app-main-menu>
 </div>

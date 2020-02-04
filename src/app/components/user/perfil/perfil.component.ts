@@ -51,7 +51,6 @@ export class PerfilComponent implements OnInit {
     this._notificaciones.receiveMessage()
     this.nuevaNotificacion = this._notificaciones.currentMessage
     this.notificaciones = await this._notificaciones.getUserNotidfications()
-    console.log(this.notificaciones)
   }
 
   async delNotificacion(id) {

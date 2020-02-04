@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CotizacionComponent } from './components/inicio/cotizacion/cotizacion.component';
 import { LoginUserComponent } from './components/inicio/login-user/login-user.component';
@@ -65,6 +65,8 @@ import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
 import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
+import { DocPanelComponent } from './components/externos/doc-panel/doc-panel.component';
+import { AyudaComponent } from './components/externos/ayuda/ayuda.component';
 
 
 const routes: Routes = [
@@ -100,7 +102,7 @@ const routes: Routes = [
   // Directorio
   { path: 'directorio', component: DirectorioComponent, data: {nav: 4}, children: [
     { path: '', component: CategoriasComponent},
-    { path: 'bienvenida', component: NegBienvenidaComponent},
+    { path: 'planes', component: NegBienvenidaComponent},
     { path: 'categorias', component: CategoriasComponent},
     { path: 'categoria/:name', component: CategoriaComponent},
     { path: 'suscripcion', component: SuscribirComponent, children: [
@@ -164,16 +166,23 @@ const routes: Routes = [
     { path: 'transferencia/:id', component: TransferenciaComponent },
   ] },
   
-
+  { path: 'docs', component: DocPanelComponent, children:[
+    { path: 'costos_y_tarifas', component: PreciosComponent },
+    { path: 'terminos_y_condiciones', component: TycComponent },
+    { path: 'politica_de_privacidad', component: PdpComponent },
+  ]},
+  { path: 'ayuda', component: AyudaComponent },
   { path: 'negocio/:neg', component: NegocioComponent },
-  { path: 'conocenos', component: ConocenosComponent },
-  { path: 'precios', component: PreciosComponent },
-  { path: 'tyc', component: TycComponent },
-  { path: 'pdp', component: PdpComponent },
 ];
 
+const routerOptions: ExtraOptions = {
+  useHash: false,
+  anchorScrolling: 'enabled',
+  scrollPositionRestoration: 'enabled'
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

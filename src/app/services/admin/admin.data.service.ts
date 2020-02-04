@@ -9,7 +9,7 @@ export class AdminDataService {
         private fs: AngularFirestore
     ) {}
 
-    async getPersonalPrecios() {
+    async getPersonalPreciosObject() {
         const coll = this.fs.collection('personal').ref
         var personalRes = coll.get()
         var personal = {};
@@ -17,6 +17,16 @@ export class AdminDataService {
             Object.defineProperty(personal, elemento.id,
             { value: elemento.data().precio, enumerable: true, configurable: true, writable: false })
         })
+        return personal
+    }
+
+    async getPersonalPreciosArray() {
+        const coll = this.fs.collection('personal').ref
+        var personalRes = coll.get()
+        var personal = [];
+            (await personalRes).forEach(el => {
+            personal.push(el.data())
+            })
         return personal
     }
 }

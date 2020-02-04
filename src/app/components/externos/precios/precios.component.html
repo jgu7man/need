@@ -1,22 +1,122 @@
-<div class="row" id="barraTitulo">
-    <div class="col s1">
-        <a href="javascript:history.back()" class="back ltxt" style="padding: 0 0.5em">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-    </div>
-    <div class="col s10">
-        <p class="titleLabel ltxt center">
-            PRECIOS
-        </p>
+<div class="documento">
+    <div class="col s12">
+        <h4 class="ltxt">
+            COSTOS Y TARFIFAS
+        </h4>
+        <p class="ltxt">Última actualización: 04 de febrero de 2020</p>
     </div>
 </div>
-<div class="container contenido" style="padding-top: 5em">
+<div class="bg-2 seccion" id="texto">
 
-    <div class="listMenu">
-        <div class="concepto" *ngFor="let precio of precios">
-            <p class="conceptName">{{ precio.concept }}</p>
-            <p class="conceptPrecio">{{precio.precio}}</p>
-            <img src="{{precio.imagen}}" alt="">
+    <div class="row">
+        <div class="col s12">
+            <h5 id="eventos">1. Eventos</h5>
+            <p>
+                Los eventos en NEED tienen diferentes precios a partir de las necesidades de cada cliente. En NEED puedes cotizar eventos desde la página de inicio o desde la sección “evento nuevo” (en el caso de clientes con cuenta) sin ningún costo, además puedes utilizar
+                el cotizador agregando o quitando elementos del equipo de tu evento. Una vez cotizado. También puedes crear eventos con la cantidad de personal que desees sin costo alguno. Sin necesidad de que algún colaborador de need se suscriba a tu
+                evento.
+            </p>
+            <p>
+                Los eventos deberán ser anticipados con al menos la mitad del costo del servicio cotizado para considerarse un evento confirmado. Si un evento no es confirmado 5 días hábiles antes de su fecha programada, este no será considerado para ser cumplido por
+                ninguno de nuestros colaboradores, ni por cuenta de NEED. Si un evento no es liquidado 48 horas antes del evento, este no será considerado para ser cumplido por ninguno de nuestros colaboradores, ni por cuenta de NEED.
+            </p>
+            <p>
+                En el momento de crear tu evento puedes optar por anticipar o liquidarlo, esto garantiza que tu evento estará confirmado y el equipo de colaboradores se reunirá más pronto.
+            </p>
+
+
+
+            <h6 id="cancelacion_de_eventos">1.1 Cancelación de eventos</h6>
+            <p>
+                En caso de cancelación:
+            </p>
+            <ol type="1">
+                <li>si el evento no se encuentra confirmado o liquidado, puede cancelarse sin costo alguno.</li>
+                <li>si el evento se encuentra liquidado, no se hará devolución del 50% del costo total del servicio cotizado. El resto, será devuelto mediante el método que el cliente decida una vez se le haya contactado.</li>
+                <li>si el evento se encuentra anticipado y el evento aún está programado a más de 5 días hábiles, se puede optar por la opción de postergar la fecha, haciendo válido el anticipo.</li>
+                <li>si el evento se encuentra anticipado y el evento está programado dentro de lo próximos 5 días hábiles posteriores a la cancelación; no se hará devolución del 50% del costo total del servicio cotizado.</li>
+            </ol>
+
+
+            <h6 id="promocion_de_eventos">1.2 Promoción de eventos</h6>
+            <p>
+                Es posible promocionar un evento para que los colaboradores se suscriban al evento lo más pronto posible. Esto tiene un costo fijo de $120°° y es válido sólo una vez por evento.
+            </p>
+            <p>
+                En caso de eventos que sean creados 48 horas antes de la fecha y hora deseada, es obligatorio pagar la promoción del evento para garantizar el poder brindar el servicio de manera inmediata.
+            </p>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <h5 id="directorio">2. Directorio</h5>
+            <p>
+                Cualquier cliente común podrá contratar espacio publicitario en el directorio de NEED que consta de una suscripción periódica. Los costos se especifican en la sección de https://need.mx/directorio/planes
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <h5 id="colaboradores">3. Colaboradores</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of precios">
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.descripcion}}</td>
+                        <td>${{item.precio}}°°</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <h5 id="impuestos">4. Impuestos</h5>
+            <p>
+                Los impuestos correspondientes a un servicio o suscripción corren por cuenta del cliente sólo en el determinado caso de requerir factura tal como indican las leyes mexicanas. Se cobrará el resultante del impuesto por el valor agregado (I.V.A.) que es
+                el 16% del servicio cotizado; menos la retención por el ejercicio de outsourcing del 6%; tal como lo indica la ley...
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col s12">
+            <h5 id="costos_extras">5. Costos Extras</h5>
+
+
+            <h6 id="horas_extras_servicio">5.1 Horas extras de servicio</h6>
+            <p>
+                Todo evento de NEED está contemplado para 5 horas de trabajo por cada colaborador. Esto significa que el precio unitario por colaborador corresponde a 5 horas de trabajo o menos, más 2 horas previas al evento para los preparativos del evento.
+            </p>
+            <p>
+                Las horas extras de servicio que se requieran para un evento podrán cotizarse al momento de la creación de dicho evento o en el resumen de pago y aplica para todo el personal requerido en el evento. No es posible contratar menos personal por más horas.
+                Estas horas extras podrán ser facturadas en el momento de anticipar o liquidar en una sola exhibición el evento.
+            </p>
+
+
+
+            <h6 id="horas_extras_evento">5.2 Horas extras en el evento</h6>
+            <p>
+                De requerirse horas extras de servicio en el evento, NEED se deslinda de cualquier costo y/o acuerdo con el personal contratado. A su vez, estas horas extras no podrán ser facturadas ni representarán un servicio propio de NEED.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s6 center">
+        <p [routerLink]="['../pdp']" fragment="texto" class="link">Volver al princpio</p>
     </div>
 </div>

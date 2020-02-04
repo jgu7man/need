@@ -2,17 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs'
-// import * as firebase from 'firebase';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { mergeMapTo } from 'rxjs/operators';
 
 
-// import 'rxjs/add/operator/take';
-
 @Injectable({providedIn:'root'})
 export class NotificacionesService {
 
-  // messaging = firebase.messaging()
   currentMessage = new BehaviorSubject(null)
   public uid
 
@@ -47,11 +43,11 @@ export class NotificacionesService {
       });
     }
 
-    receiveMessage() {
-       this.messaging.messages.subscribe((payload) => {
-        console.log("Mensaje recibido. ", payload);
-        this.currentMessage.next(payload)
-      });
+  receiveMessage() {
+      this.messaging.messages.subscribe((payload) => {
+      console.log("Mensaje recibido. ", payload);
+      this.currentMessage.next(payload)
+    });
 
   }
   

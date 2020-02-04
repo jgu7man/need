@@ -1,0 +1,29 @@
+<h5 class="ltxt">Enlaces de documentación</h5>
+
+<ul class="collection">
+    <li class="collection-item">
+        <a [routerLink]="['/docs/ayuda']" routerLinkActive="active">Ayuda</a>
+    </li>
+    <li class="collection-item">
+        <a [routerLink]="['/docs/terminos_y_condiciones']" routerLinkActive="active">Términos y condiciones</a>
+    </li>
+    <li class="collection-item">
+        <a [routerLink]="['/docs/politica_de_privacidad']" routerLinkActive="active">Políticas de privacidad</a>
+    </li>
+    <li class="collection-item">
+        <a [routerLink]="['/docs/costos_y_tarifas']" routerLinkActive="active">Costos y tarifas</a>
+    </li>
+</ul>
+
+<h5>...en el documento</h5>
+
+<ol class="collection">
+    <li class="collection-item" *ngFor="let item of indice.anclas">
+        <a [routerLink]="[indice.page_route]" [fragment]="item.ruta">{{item.display}}</a>
+        <ol>
+            <li *ngFor="let child of item.childrens">
+                <a [routerLink]="[indice.page_route]" [fragment]="child.ruta">{{child.display}}</a>
+            </li>
+        </ol>
+    </li>
+</ol>

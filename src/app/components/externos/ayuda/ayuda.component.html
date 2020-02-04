@@ -1,0 +1,27 @@
+<div class="contenido">
+    <div class="row title">
+        <div class="col s1">
+            <a href="javascript:history.back()" class="back ltxt">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="col s10">
+            <p class="titleLabel ltxt center">
+                AYUDA
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s9">
+                <router-outlet></router-outlet>
+                <app-whatsapp-form></app-whatsapp-form>
+            </div>
+            <div class="col s3">
+                <app-docs-menu></app-docs-menu>
+            </div>
+        </div>
+    </div>
+
+</div>

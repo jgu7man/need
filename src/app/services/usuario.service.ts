@@ -100,4 +100,6 @@ export class UsuarioService {
         var result = await coRef.where('email', '==', email).get()
         return result.size == 0 ? 0 : result.docs[0].id
     }
+
+    
 }

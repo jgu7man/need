@@ -106,6 +106,10 @@ import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
+import { DocPanelComponent } from './components/externos/doc-panel/doc-panel.component';
+import { DocsMenuComponent } from './components/externos/docs-menu/docs-menu.component';
+import { AyudaComponent } from './components/externos/ayuda/ayuda.component';
+import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form/whatsapp-form.component';
 
 @NgModule({
   declarations: [
@@ -192,6 +196,10 @@ import { TransferenciaComponent } from './components/admin/admin-trasnferencias/
     AdminTrasnferenciasComponent,
     AdminFacturasComponent,
     TransferenciaComponent,
+    DocPanelComponent,
+    DocsMenuComponent,
+    AyudaComponent,
+    WhatsappFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),

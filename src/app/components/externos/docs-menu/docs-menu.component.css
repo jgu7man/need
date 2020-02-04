@@ -1,0 +1,30 @@
+.collection .collection-item {
+    background-color: #190319 !important;
+}
+
+ol {
+    counter-reset: item;
+    padding: 0;
+}
+
+li {
+    display: block;
+    transition: all .2s;
+}
+
+li:hover {
+    font-weight: 700;
+}
+
+li ol li:hover {
+    text-decoration: underline;
+}
+
+ol li ol li {
+    margin-left: 1em;
+}
+
+ol li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item
+}

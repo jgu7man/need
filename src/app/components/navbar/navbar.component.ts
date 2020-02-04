@@ -50,13 +50,18 @@ export class NavbarComponent implements OnInit {
     window.innerWidth;
   }
 
-  toggleMenu(){
-    $("#menu").toggleClass('opened')
-    $("#close").toggle()
+  async toggleMenu(){
+    await $("app-main-menu").toggle()
+    await $("#menu").toggleClass('opened').toggleClass('closed')
+    await $("#close").toggle()
   }
-
-  cerrarMenu(e){
-    this.menu = e
+  
+  async cerrarMenu(e) {
+    const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+    await $("#menu").toggleClass('opened').toggleClass('closed')
+    await $("#close").toggle()
+    await waitFor(1000)
+    await $("app-main-menu").toggle()
   }
 
   

@@ -22,17 +22,20 @@
                 <p class="Link" *ngIf="perfilMenu" [routerLink]="['/', perfilMenu.perfil]" (click)="switchMenu(perfilMenu.perfil)" (click)="toggleMenu()">
                     {{perfilMenu.legend}}
                 </p>
-                <p class="Link" [routerLink]="['/directorio/bienvenida']" (click)="toggleMenu()">
+                <p class="Link" [routerLink]="['/directorio/planes']" (click)="toggleMenu()">
                     NEED Business
                 </p>
-                <p class="Link sub" [routerLink]="['/conocenos']" (click)="toggleMenu()">
-                    Conócenos
+                <p class="Link sub" [routerLink]="['docs/ayuda']" (click)="toggleMenu()">
+                    Ayuda
                 </p>
-                <p class="Link sub" [routerLink]="['/tyc']" (click)="toggleMenu()">
+                <p class="Link sub" [routerLink]="['docs/terminos_y_condiciones']" (click)="toggleMenu()">
                     Términos y condiciones
                 </p>
-                <p class="Link sub" [routerLink]="['/pdp']" (click)="toggleMenu()">
+                <p class="Link sub" [routerLink]="['docs/politica_de_privacidad']" (click)="toggleMenu()">
                     Política de privacidad
+                </p>
+                <p class="Link sub" [routerLink]="['docs/costos_y_tarifas']" (click)="toggleMenu()">
+                    Cargos y tarifas
                 </p>
                 <ng-template #usuario>
                     <p class="Link logout" (click)="authService.singOut()" (click)="toggleMenu()">

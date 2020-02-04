@@ -1,15 +1,52 @@
-.categoria {
-    height: 8em;
-    margin: 0 0 1em;
-    overflow: hidden;
+#texto p {
+    color: #ccc;
+    text-align: justify;
 }
 
-.categoName {
-    font-size: 1.5em;
-    position: absolute;
-    font-weight: 600;
-    color: #fff;
-    margin-left: 1em;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-    line-height: 8;
+#texto {
+    padding: 0em 3em 6em;
+    top: 4em;
+    position: relative;
+}
+
+.seccion {
+    top: -2em !important;
+}
+
+.documento {
+    position: relative;
+    z-index: 2;
+}
+
+.link {
+    color: gold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.collection .collection-item,
+.collection .collection-item .title {
+    background: none !important;
+}
+
+.collection .collection-item p {
+    margin: 0;
+}
+
+h5 {
+    color: gold !important;
+}
+
+h6 {
+    color: #b1861b !important;
+}
+
+h5,
+h6 {
+    padding-top: 5em;
+}
+
+ul li {
+    list-style-type: disc !important;
+    margin-left: 3em;
 }

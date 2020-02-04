@@ -40,8 +40,24 @@ html {
 }
 
 p {
-    font-weight: bolder !important;
+    /* font-weight: bolder !important; */
     font-size: 18px !important;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol {
+    color: #e3e3e3 !important
+}
+
+a {
+    color: #ccc !important;
 }
 
 input:not([type]),
@@ -314,7 +330,7 @@ label {
 }
 
 .needbtn {
-    background: #6C009C;
+    background: #6C009C !important;
     color: #e3e3e3;
     font-weight: 600;
     border-radius: 5px;
@@ -328,7 +344,7 @@ label {
 }
 
 .needbtn:hover {
-    background: #7701aa
+    background: #7701aa !important
 }
 
 .needbtn:disabled {
