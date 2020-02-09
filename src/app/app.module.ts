@@ -4,12 +4,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { PagoModule } from "./pagos/pago.module";
+
 
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireFunctionsModule } from "@angular/fire/functions";
 import { environment } from "../environments/environment";
 import { AgmCoreModule } from "@agm/core";
 
@@ -47,7 +50,7 @@ import { CategoriasComponent } from './components/directorio/all-catego/categori
 import { NegBienvenidaComponent } from './components/directorio/neg-bienvenida/neg-bienvenida.component';
 import { CategoriaComponent } from './components/directorio/categoria/categoria.component';
 import { SuscribirComponent } from './components/directorio/suscribir/suscribir.component';
-import { PagarPlanComponent } from './components/directorio/pagar-plan/pagar-plan.component';
+import { PagarPlanComponent } from './components/pasarela/pagar-plan/pagar-plan.component';
 import { ListaPlanesComponent } from './components/directorio/lista-planes/lista-planes.component';
 import { FormNegocioComponent } from './components/negocio/form-negocio/form-negocio.component';
 import { PagoFormComponent } from './components/pago-form/pago-form.component';
@@ -102,7 +105,7 @@ import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-
 import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
 import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
-import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen-pago.component';
+import { PagarEventoComponent } from './components/pasarela/pagar-evento/pagar-evento.component';
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
@@ -110,6 +113,12 @@ import { DocPanelComponent } from './components/externos/doc-panel/doc-panel.com
 import { DocsMenuComponent } from './components/externos/docs-menu/docs-menu.component';
 import { AyudaComponent } from './components/externos/ayuda/ayuda.component';
 import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form/whatsapp-form.component';
+
+import { PagoTarjetaComponent } from './pagos/components/pago-tarjeta/pago-tarjeta.component';
+
+import { DatosFacturacionComponent } from './components/pasarela/datos-facturacion/datos-facturacion.component';
+import { CalculosFacturacionComponent } from './components/pasarela/calculos-facturacion/calculos-facturacion.component';
+import { PagoTransferenciaComponent } from './pagos/components/pago-transferencia/pago-transferencia.component';
 
 @NgModule({
   declarations: [
@@ -192,7 +201,7 @@ import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form
     AddCategoriaComponent,
     TablaCategoriasComponent,
     EditCategoriaComponent,
-    ResumenPagoComponent,
+    PagarEventoComponent,
     AdminTrasnferenciasComponent,
     AdminFacturasComponent,
     TransferenciaComponent,
@@ -200,6 +209,10 @@ import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form
     DocsMenuComponent,
     AyudaComponent,
     WhatsappFormComponent,
+    PagoTarjetaComponent,
+    PagoTransferenciaComponent,
+    DatosFacturacionComponent,
+    CalculosFacturacionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -208,25 +221,27 @@ import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireMessagingModule,
+    AngularFireFunctionsModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FullCalendarModule,
     AgmCoreModule.forRoot({
-        apiKey: "AIzaSyD5qs1RP5Hm53w19CXYG_5VGm7zi0O4Vns"
+      apiKey: "AIzaSyD5qs1RP5Hm53w19CXYG_5VGm7zi0O4Vns"
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     LocalStorageModule.forRoot({
-            prefix: 'my-app',
-            storageType: 'localStorage',
-            encryptionActive: true,
-            encryptionOptions: {
-                encryptionKey: 'keyForEncriptHere',
-                encryptionIv: 'iVHere',
-                encryptionSalt: 'saltHere'
-            }
-        })
+      prefix: 'my-app',
+      storageType: 'localStorage',
+      encryptionActive: true,
+      encryptionOptions: {
+          encryptionKey: 'keyForEncriptHere',
+          encryptionIv: 'iVHere',
+          encryptionSalt: 'saltHere'
+      }
+    }),
+    PagoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

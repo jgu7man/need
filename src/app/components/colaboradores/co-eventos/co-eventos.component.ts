@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventoService } from '../../../services/evento.service';
+import { EventoService } from '../../../services/eventos/evento.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { PersonalModel } from '../../../models/evento/personal.model';

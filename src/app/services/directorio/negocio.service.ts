@@ -1,12 +1,13 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NegocioModel } from '../../models/direcorio/negocio.model';
+import { NegocioModel } from '../../models/directorio/negocio.model';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
-import { NegocioDatosModel } from 'src/app/models/direcorio/negocio-datos.model';
-import { NegocioExtrasModel } from 'src/app/models/direcorio/negocio-extras.model';
+import { NegocioDatosModel } from 'src/app/models/directorio/negocio-datos.model';
+import { NegocioExtrasModel } from 'src/app/models/directorio/negocio-extras.model';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -17,8 +18,11 @@ export class NegocioService {
 
     constructor(
         private fs: AngularFirestore,
-        private ft: AngularFireStorage
+        private ft: AngularFireStorage,
+        private router: Router
     ){}
+
+    @Output() setPorcentaje: EventEmitter<any> = new EventEmitter()
 
     async saveNegocio(negocio: NegocioModel) {
         var negocioSaved = await this.fs.collection('negocios').ref.add({
@@ -110,13 +114,16 @@ export class NegocioService {
     async getNegocio( idNegocio: any) {
         var negocio = await this.fs.collection('negocios').ref
             .doc(idNegocio).get()
-        return  negocio.data() as NegocioModel
+        
+        return negocio.exists ?
+            negocio.data() as NegocioModel : false
     }
 
     async getNegocioDatos(negId: string) {
         var negocioDatos = await this.fs.collection('negocios').ref
             .doc(negId).collection('datos').doc('datos').get()
-        return  negocioDatos.data() as NegocioDatosModel
+        return negocioDatos.exists ? 
+            negocioDatos.data() as NegocioDatosModel : false
     }
 
     async getNegocioExtras(negId: string) {
@@ -128,19 +135,21 @@ export class NegocioService {
     async subirImagen(idNegocio, file) {
         const id = new Date().getTime()
         const name = id + file.name
-        const path = `imgNegocios/${name}`
+        const path = `negocios/${idNegocio}/perfil/${name}`
         const ref = this.ft.ref(path)
         const task = this.ft.upload(path, file)
         
+        // $("app-loading").fadeToggle()
         await task.percentageChanges().subscribe(res => {
-        //   return this.setPorcentaje.emit(res)
+          return this.setPorcentaje.emit(res)
         })
+
     
         task.snapshotChanges().pipe(
             finalize(() => {
-              ref.getDownloadURL().subscribe(res => {
+                ref.getDownloadURL().subscribe(res => {
                   this.fs.collection("negocios").doc(idNegocio).update({
-                    nAvatar: res
+                    imgPerfil: res
                   })
                 })
             })

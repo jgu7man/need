@@ -3,7 +3,7 @@ import { CategoriasDirectorioService } from '../../../../services/directorio/cat
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Location } from '@angular/common';
-import { CategoriaModel } from '../../../../models/direcorio/categoria.model';
+import { CategoriaModel } from '../../../../models/directorio/categoria.model';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 

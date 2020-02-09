@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../../services/auth.service";
-import { UsuarioService } from '../../../services/usuario.service';
+import { AuthService } from "../../../services/usuarios/auth.service";
+import { UsuarioService } from '../../../services/usuarios/usuario.service';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 declare var $: any;

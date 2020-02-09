@@ -16,7 +16,6 @@ export class AlertaService {
     constructor() { }
 
     sendAlertaCont(msg: any): Observable<any> {
-        console.log('Recibe mensaje')
         this.alertMsg$.next(msg)
         return this.responseAlert$
     }

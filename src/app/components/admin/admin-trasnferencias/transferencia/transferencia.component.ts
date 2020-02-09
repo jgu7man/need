@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PagoService } from '../../../../services/pagos.service';
-import { TransferenciaModel } from 'src/app/models/transferencia.model';
+import { TransferenciasService } from '../../../../pagos/services/transferencias.service';
+import { TransferenciaModel } from 'src/app/models/finanzas/transferencia.model';
 import { Location } from '@angular/common';
 import { EventoModel } from '../../../../models/evento/evento.model';
+import { TransaccionModel } from '../../../../models/finanzas/transaccion.model';
+import { FacturaModel } from '../../../../models/finanzas/factura.model';
 
 @Component({
   selector: 'app-transferencia',
@@ -12,15 +14,18 @@ import { EventoModel } from '../../../../models/evento/evento.model';
 })
 export class TransferenciaComponent implements OnInit {
 
-  public transferencia: TransferenciaModel
+  public transferencia: TransaccionModel
   public evento: EventoModel
+  public cantidadConfirmada:number
+  public factura: FacturaModel
 
   constructor(
     private _route: ActivatedRoute,
-    private _pagos: PagoService,
+    private _pagos: TransferenciasService,
     public location: Location
   ) {
-    this.transferencia = new TransferenciaModel('', new Date, 'evento', '', '', '', 0, 0, 0, 0, false, false, '', '','')
+    this.factura = new FacturaModel('',new Date(), new Date(), '','evento','','','','',0,0,0,0,'publica')
+    this.transferencia = new TransaccionModel('','','','evento',this.factura,'',false, 'transferencia')
    }
 
   
@@ -31,9 +36,44 @@ export class TransferenciaComponent implements OnInit {
     })
   }
 
+
+
+
   onAdjudicar() {
-    console.log('Se adjudicó')
-    this._pagos.adjudicarTransferencia(this.transferencia)
+    $('#adjudicar_btn').attr('disabled')
+
+    // Revisa que la cantidad del ticket corresponde con la que el cliente marcó
+    if (this.transferencia.factura.total == this.cantidadConfirmada) {
+      
+      // Revisa el tipo de concepto al que refiere la transaccion
+      if (this.transferencia.concepto == 'evento') {
+        this._pagos.adjudicarTransferEvento(this.transferencia)
+      } else {
+        // this._pagos.adjudicarTransferenciaSuscripcion(this.transferencia)
+      }
+
+    } else {
+      
+      // Si la cantidad declarada por el cliente y la del ticket no corresponde, 
+      // cuadra las cantidades dependiendo si la factura es privada o publica
+      if (this.transferencia.factura.tipo_factura == 'privada') {
+        this.transferencia.factura.total = +this.cantidadConfirmada.toFixed(2)
+        this.transferencia.factura.subtotal = +(this.cantidadConfirmada / 1.16).toFixed(2)
+        this.transferencia.factura.iva = +(this.transferencia.factura.total - this.transferencia.factura.subtotal).toFixed(2)
+      } else {
+        this.transferencia.factura.total = +this.cantidadConfirmada.toFixed(2)
+      }
+
+
+
+      // Revisa el tipo de concepto al que refiere la transaccion
+      if (this.transferencia.concepto == 'evento') {
+        this._pagos.adjudicarTransferEvento(this.transferencia)
+      } else {
+        // this._pagos.adjudicarTransferenciaSuscripcion(this.transferencia)
+      }
+    }
+    
   }
 
 }

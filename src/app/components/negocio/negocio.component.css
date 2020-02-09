@@ -11,6 +11,7 @@
     padding: 0 1em;
     top: .5em;
     right: 0em;
+    max-width: 100px;
 }
 
 .activated {
@@ -170,7 +171,8 @@ input[type="file" i] {
     transition: all .3s
 }
 
-#ratings {
+#ratings,
+#rating {
     margin-left: 1em;
     color: #ccc;
 }
@@ -191,7 +193,7 @@ input[type="file" i] {
         padding-bottom: 0;
     }
     #perfil {
-        margin-top: 5em;
+        margin-top: 2em;
         width: 90vw;
     }
     #perfil .s4 {

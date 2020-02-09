@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NegocioModel } from '../../../models/direcorio/negocio.model';
+import { NegocioModel } from '../../../models/directorio/negocio.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MailService } from '../../../services/mail.service'
 import { NegocioService } from '../../../services/directorio/negocio.service';
@@ -25,7 +25,7 @@ export class AdminNegociosComponent implements OnInit {
     private _alerta: AlertaService,
   ) {
     this.negocios = []
-    this.negocio = new NegocioModel('','','','','', new Date, new Date, new Date, '', 'solicitud')
+    this.negocio = new NegocioModel('','','','','', new Date, new Date, new Date, '','', 'solicitud')
    }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NegocioExtrasModel } from 'src/app/models/direcorio/negocio-extras.model';
+import { NegocioExtrasModel } from 'src/app/models/directorio/negocio-extras.model';
 
 @Component({
   selector: 'app-form-extras-negocio',

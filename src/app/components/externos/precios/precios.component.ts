@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PreciosPersonal, ListaDePrecios, ListaPreciosModel } from '../../../models/precios.personal';
+import { PreciosPersonal, ListaDePrecios, ListaPreciosModel } from '../../../models/finanzas/precios.personal';
 import { AdminDataService } from '../../../services/admin/admin.data.service';
 import { DocumentacionService } from '../../../services/documentacion.service';
 

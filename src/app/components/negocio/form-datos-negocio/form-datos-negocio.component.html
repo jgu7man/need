@@ -4,6 +4,13 @@
             <div class="negImagen">
                 <img id="imagenNegocio" src="{{negocioDatos.imgPerfil}}" alt="">
             </div>
+            <div class="center load" *ngIf="percent">
+                <span *ngIf="percent && percent != 100; else cargado">
+                    Cargando: {{percent.toFixed(0)}}%
+                </span>
+                <ng-template #cargado><span>CARGADO</span></ng-template>
+            </div>
+
         </div>
         <div class="col s6 file-field input-field">
             <div class="btn fileneedbtn">

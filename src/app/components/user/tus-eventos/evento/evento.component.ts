@@ -4,9 +4,9 @@ import { DatosModel } from '../../../../models/evento/datosevento.model';
 import { PersonalModel } from '../../../../models/evento/personal.model';
 import { ActivatedRoute } from '@angular/router';
 import { CoEventoService } from '../../../../services/colaboradores/coeventos.service';
-import { EventoService } from '../../../../services/evento.service';
+import { EventoService } from '../../../../services/eventos/evento.service';
 import { CostosModel } from '../../../../models/evento/costos.model';
-import { UsuarioService } from '../../../../services/usuario.service';
+import { UsuarioService } from '../../../../services/usuarios/usuario.service';
 import { PagoModel } from '../../../../models/evento/pago.model';
 declare var $;
 
@@ -45,7 +45,7 @@ export class EventoComponent implements OnInit {
     });
 
     await this.getData();
-    $('app-loading').fadeToggle()
+    $('app-loading').fadeOut()
 
   }
 

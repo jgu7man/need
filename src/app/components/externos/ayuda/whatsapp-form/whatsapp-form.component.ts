@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpMessageModel } from '../../../../models/help-message.model';
-import { ContactoService } from '../../../../services/contacto.service';
-import { AuthService } from '../../../../services/auth.service';
+import { ContactoService } from '../../../../services/usuarios/contacto.service';
+import { AuthService } from '../../../../services/usuarios/auth.service';
 import { UsuarioModel } from '../../../../models/usuario.model';
 
 @Component({

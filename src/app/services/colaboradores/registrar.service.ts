@@ -77,11 +77,11 @@ export class RegistrarService {
     saveImgPerfil(idColab, file) {
         const id = new Date().getTime()
             const name = id + file.name
-            const path = `imgPerfilCo/${name}`
+            const path = `colaboradores/${idColab}/imgPerfilCo/${name}`
             const ref = this.storage.ref(path)
             const task = this.storage.upload(path, file)
             
-            $("app-loading").fadeToggle()
+            $("app-loading").fadeIn()
             // $("app-uploading").fadeToggle()
 
             // await task.percentageChanges().subscribe(res => {
@@ -94,7 +94,8 @@ export class RegistrarService {
                         this.fs.collection('colaboradores').ref.doc(idColab).update({
                           imgPerfil: res
                         }).then(res => {
-                          this.router.navigate(['/colaborador-registrado', idColab])
+                            this.router.navigate(['/colaborador-registrado', idColab])
+                            $("app-loading").fadeOut()
                       })
                     })
                 })

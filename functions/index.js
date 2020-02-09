@@ -1,18 +1,12 @@
-"use strict";
-const fuctions = require('firebase-functions');
-const admin = require('firebase-admin');
+/* jshint esversion: 8 */
 
-var config = {
-    apiKey: "AIzaSyD0XTabizVpvEdD5rUacP_OvwvnabwYjsA",
-    authDomain: "need-f6bad.firebaseapp.com",
-    databaseURL: "https://need-f6bad.firebaseio.com",
-    projectId: "need-f6bad",
-    storageBucket: "need-f6bad.appspot.com",
-    messagingSenderId: "837988614895",
-    appId: "1:837988614895:web:30f9bc23694a8675"
-};
-admin.initializeApp(config);
-const fs = admin.firestore();
+const functions = require('firebase-functions');
+const cors = require('cors')({ origin: true });
+const notificaciones = require('./notificaciones/notificaciones');
+const pagos_stripe = require('./pagos/pago_stripe');
+
+
+
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const angularUniversal = require("angular-universal-express-firebase");
@@ -25,61 +19,22 @@ exports.need = angularUniversal.trigger({
     browserCacheExpiry: 600
 });
 
-exports.notificaciones = fuctions.firestore
-    .document('usuarios/{uid}/notificaciones/{notification}')
-    .onCreate(async(snap, context) => {
 
-        const mensaje = snap.data();
-        const uid = snap.ref.parent.parent.id;
+// NOTIFICACIONES
+exports.notificaciones = functions.firestore
+    .document('usuarios/{uid}/notificaciones/{notification}').onCreate(async(snap, context) => { notificaciones.notificacion_usuario(snap); });
+exports.evento_cubierto = functions.firestore
+    .document('eventos/{eid}/personal/vacantes').onUpdate(async(change, context) => { notificaciones.evento_cubierto(change); });
 
-
-        const payload = {
-            notification: {
-                title: mensaje.title,
-                body: mensaje.body,
-                icon: 'https://need.mx/assets/img/logos/logo256.png',
-
-            },
-            data: {
-                openURL: `https://need.mx/usuario/perfil`
-            }
-        };
-
-
-
-        var usuario = fs.collection('usuarios').doc(uid);
-        var tokenDoc = await usuario.collection('tokens').doc('token_notificaciones').get();
-        var token = tokenDoc.data().token;
-        var res = await admin.messaging().sendToDevice(token, payload);
-
-
-        // .catch(err => { console.log(err); });
-
+// PAGOS
+exports.pago_stripe = functions.firestore
+    .document('stripe_pagos/{idPago}').onCreate(async(snap, context) => {
+        pagos_stripe.pago_stripe(snap);
     });
 
-
-exports.evento_cubierto = fuctions.firestore
-    .document('eventos/{eid}/personal/vacantes')
-    .onUpdate(async(change, context) => {
-
-        const newValue = change.after.data();
-        const eventoRes = await change.after.ref.parent.parent.get();
-        const evento = eventoRes.data();
-        const today = new Date();
-
-        if (newValue.vacantes_total == 0) {
-            const fechaEvento = evento.fecha.toDate();
-            const eventoNotificado = `${evento.tipoEvento} para el ${fechaEvento.toLocaleDateString()}`;
-            console.log(fechaEvento, eventoNotificado);
-            await fs.collection('usuarios').doc(evento.usuario)
-                .collection('notificaciones').add({
-                    time: today,
-                    title: '¡Listo!',
-                    body: `Ya está listo tu evento de ${eventoNotificado}. Todo el personal que solicitaste está cubierto por nuestro equipo. Ahora ya puedes pagar el anticipo para asegurar tu evento.`,
-                    eid: evento.id
-                });
-
-
-        }
-
+exports.pagar_con_stripe = functions.https.onRequest((req, res) => {
+    return cors(req, res, () => {
+        console.log(res);
+        pagos_stripe.pagar_con_stripe(req, res);
     });
+});

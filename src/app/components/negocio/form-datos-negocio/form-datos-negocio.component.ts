@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NegocioDatosModel } from 'src/app/models/direcorio/negocio-datos.model';
+import { NegocioDatosModel } from 'src/app/models/directorio/negocio-datos.model';
 import { NegocioService } from '../../../services/directorio/negocio.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,6 +13,7 @@ export class FormDatosNegocioComponent implements OnInit {
   public negocioDatos: NegocioDatosModel
   public negId: string
   public image: any
+  public percent
   constructor(
     private _negocio: NegocioService,
     private _ruta: ActivatedRoute,
@@ -23,10 +24,13 @@ export class FormDatosNegocioComponent implements OnInit {
    }
 
   ngOnInit() {
+    this._negocio.setPorcentaje.subscribe( percent => {
+      this.percent = percent
+    })
   }
 
   imagen(fileInput: any){
-    this.image = <Array<File>>fileInput.target.files;
+    this.image = <Array<File>>fileInput.target.files[0];
 
     var reader = new FileReader();
     reader.onload = function() {
@@ -34,12 +38,12 @@ export class FormDatosNegocioComponent implements OnInit {
       image.src = reader.result
     }
     reader.readAsDataURL(fileInput.target.files[0]);
+    this._negocio.subirImagen(this.negId, this.image)
   }
 
 
   async onSubmit() {
     await this._negocio.saveDatosNegocio(this.negId, this.negocioDatos)
-    await this._negocio.subirImagen(this.negId, this.image)
     this.router.navigate(['/negocio/', this.negId])
   }
 

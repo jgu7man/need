@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaModel } from '../../../../models/direcorio/categoria.model';
-import { CategoriasService } from '../../../../services/categorias.service';
+import { CategoriaModel } from '../../../../models/directorio/categoria.model';
 import { CategoriasDirectorioService } from '../../../../services/directorio/categorias.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';

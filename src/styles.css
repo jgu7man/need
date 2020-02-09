@@ -26,6 +26,10 @@ html {
     background: #110011;
 }
 
+body {
+    overflow-x: hidden !important;
+}
+
 *::-webkit-scrollbar {
     width: 15px;
 }
@@ -634,7 +638,6 @@ form .row {
     left: 50%;
     transform: translatex(-50%);
     padding: 0 2em 0em;
-    top: -6em;
     min-height: 80vh;
 }
 

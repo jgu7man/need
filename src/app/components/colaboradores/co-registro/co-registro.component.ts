@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ColaboradorModel } from '../../../models/colaboradores/colaborador.model';
 import { RegistrarService } from 'src/app/services/colaboradores/registrar.service';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/usuarios/auth.service';
 import { CoauthService } from '../../../services/colaboradores/coauth.service';
 
 @Component({

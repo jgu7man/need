@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpMessageModel } from 'src/app/models/help-message.model';
-import { ContactoService } from 'src/app/services/contacto.service';
+import { ContactoService } from 'src/app/services/usuarios/contacto.service';
 
 @Component({
   selector: 'app-ayuda',

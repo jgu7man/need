@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatosModel } from '../../../models/evento/datosevento.model';
 import { PersonalModel } from '../../../models/evento/personal.model';
 import { EventoModel } from '../../../models/evento/evento.model';
-import { EventoService } from '../../../services/evento.service';
+import { EventoService } from '../../../services/eventos/evento.service';
 import { HorarioModel } from 'src/app/models/evento/horario.model';
 import { DateModel } from 'src/app/models/evento/date.model';
 import { AlertaService } from '../../../services/alerta.service';

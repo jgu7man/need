@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EventoService } from '../../../services/evento.service';
+import { EventoService } from '../../../services/eventos/evento.service';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NotificacionesService } from '../../../services/notificaciones.service';

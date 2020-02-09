@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatosModel } from '../../../../models/evento/datosevento.model';
 import { ActivatedRoute } from '@angular/router';
-import { EventoService } from '../../../../services/evento.service';
+import { EventoService } from '../../../../services/eventos/evento.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({

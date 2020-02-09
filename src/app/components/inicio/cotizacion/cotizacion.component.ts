@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatosModel } from '../../../models/evento/datosevento.model';
 import { PersonalModel } from '../../../models/evento/personal.model';
-import { PreciosPersonalModel } from "../../../models/precios.personal.model";
-import { PreciosPersonal } from '../../../models/precios.personal';
+import { PreciosPersonalModel } from "../../../models/finanzas/precios.personal.model";
+import { PreciosPersonal } from '../../../models/finanzas/precios.personal';
 import { EventoModel } from 'src/app/models/evento/evento.model';
 import { ExtrasModel } from '../../../models/evento/extras.model';
 import { UsuarioModel } from '../../../models/usuario.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from '../../../services/alerta.service';
 import { CostosModel } from '../../../models/evento/costos.model';
-import { EventoService } from '../../../services/evento.service';
+import { EventoService } from '../../../services/eventos/evento.service';
 declare var $
 
 @Component({

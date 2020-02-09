@@ -7,6 +7,12 @@
     position: relative !important;
 }
 
+.load {
+    position: relative;
+    top: -3em;
+    color: #ccc;
+}
+
 @media screen and (min-width: 500px) {
     select {
         left: 10px !important;

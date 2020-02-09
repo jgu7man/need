@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EventoModel } from '../../../../models/evento/evento.model';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { UsuarioService } from '../../../../services/usuario.service';
+import { UsuarioService } from '../../../../services/usuarios/usuario.service';
 import { UsuarioModel } from '../../../../models/usuario.model';
 import { CostosModel } from '../../../../models/evento/costos.model';
-import { EventoService } from '../../../../services/evento.service';
+import { EventoService } from '../../../../services/eventos/evento.service';
 
 @Component({
   selector: 'app-detalles',

@@ -1,0 +1,39 @@
+<h5 class="ltxt" *ngIf="dataObtained()">SERVICIO</h5>
+<table>
+    <thead>
+        <tr>
+            <th class="concepto">Concepto</th>
+            <th class="opcion"> </th>
+            <th class="cantidad">Costo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{producto}}</td>
+            <td class="opcion">
+                <button class="needbtn">Editar</button>
+            </td>
+            <td class="cantidad">${{precio}}</td>
+        </tr>
+        <tr>
+            <td>Cantidad a pagar</td>
+            <td> </td>
+            <td class="cantidad">${{amount}}</td>
+        </tr>
+        <tr>
+            <td>SUBTOTAL:</td>
+            <td> </td>
+            <td class="cantidad">${{SUBTOTAL.toFixed(2)}}</td>
+        </tr>
+        <tr>
+            <td>I.V.A. <span class="mintxt">(16%)</span>:</td>
+            <td> </td>
+            <td class="cantidad">${{IVA.toFixed(2)}}</td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td> </td>
+            <td class="cantidad "> $<span class="resaltado total">{{TOTAL.toFixed(2)}}</span> </td>
+        </tr>
+    </tbody>
+</table>

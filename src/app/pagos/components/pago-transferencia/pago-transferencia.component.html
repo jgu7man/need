@@ -1,0 +1,19 @@
+<p class="ltxt center txt_normal">
+    Deberás hacer una transferencia por la cantidad de $<span class="resaltado">{{transaccion.factura.total}}</span> al número de tarjeta <br><br>
+    <span class="resaltado">0000 0000 0000 0000</span><br><br> Una vez hecho el depósito vuelve a esta pantalla para subir una foto del ticket de depósito aquí:
+</p>
+<div class="col s12 input-field file-field">
+    <div class="btn purple">
+        <span>Imagen</span>
+        <input type="file" (change)="uploadTicket($event)">
+    </div>
+    <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+    </div>
+</div>
+
+<p class="resaltado txt_normal">
+    Ya que el pago será por transferencia, tardaremos al menos 24 horas en verificar que el pago se haya realizado y podremos poner tu evento como confirmado.
+</p>
+
+<button class="needbtn" (click)="onPagar('transferencia')">Subir</button>

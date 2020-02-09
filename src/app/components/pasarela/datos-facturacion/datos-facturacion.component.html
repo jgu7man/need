@@ -1,0 +1,28 @@
+<table *ngIf="factura">
+    <tbody>
+        <tr>
+            <th>Nombre:</th>
+            <td>
+                <input type="text" name="razon" id="razon" [(ngModel)]="factura.razon" #razon="ngModel">
+            </td>
+        </tr>
+        <tr *ngIf="factura.tipo_factura == 'privada'">
+            <th>R.F.C.:<span class="mintxt requerido">(requerido)</span></th>
+            <td>
+                <input type="text" name="RFC" id="RFC" [(ngModel)]="factura.RFC" #RFC="ngModel" [required]="factura.tipo_factura == 'privada'">
+            </td>
+        </tr>
+        <tr>
+            <th>Correo:</th>
+            <td>
+                <input type="email" name="email" id="email" [(ngModel)]="factura.email" #email="ngModel">
+            </td>
+        </tr>
+        <tr>
+            <th>Teléfono: <span class="mintxt">(opcional)</span></th>
+            <td>
+                <input type="text" name="telefono" id="telefono" [(ngModel)]="factura.telefono" #telefono="ngModel">
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ColaboradorModel } from '../../../models/colaboradores/colaborador.model';
 import { ColaboradorService } from '../../../services/colaboradores/colaborador.service';
 import { Location } from '@angular/common';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/usuarios/auth.service';
 import { Router } from '@angular/router';
 import { CoauthService } from '../../../services/colaboradores/coauth.service';
 

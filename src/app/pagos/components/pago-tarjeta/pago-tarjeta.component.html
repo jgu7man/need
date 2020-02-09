@@ -1,0 +1,16 @@
+<form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+    <div class="row">
+        <div class="col s12">
+            <h6 for="card-info" class="center">Información de tarjeta</h6>
+            <div id="card-info" #cardInfo></div>
+
+            <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <button type="submit" class="btn needbtn">Pagar ${{transaccion.factura.total}}</button>
+        </div>
+    </div>
+</form>

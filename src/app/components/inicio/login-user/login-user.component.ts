@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../../services/auth.service";
+import { AuthService } from "../../../services/usuarios/auth.service";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UsuarioModel } from "../../../models/usuario.model";
 
@@ -45,12 +45,12 @@ export class LoginUserComponent implements OnInit {
   }
 
   google() {
-    $("app-loading").fadeToggle()
+    $("app-loading").fadeIn()
     this.authService.googleSingIn(this.link)
   }
 
   facebook() {
-    $("app-loading").fadeToggle()
+    $("app-loading").fadeIn()
     this.authService.facebookSingIn(this.link)
   }
 

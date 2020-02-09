@@ -22,7 +22,7 @@ export class FileService {
             const ref = this.st.ref(path)
             const task = this.st.upload(path, file)
             
-            $("app-loading").fadeToggle()
+            $("app-loading").fadeIn()
             // $("app-uploading").fadeToggle()
 
             await task.percentageChanges().subscribe(res => {
@@ -36,6 +36,7 @@ export class FileService {
                           imgPerfil: res
                         }).then(res => {
                           this.router.navigate(['/usuario', idServicio])
+                          $("app-loading").fadeOut()
                       })
                     })
                 })

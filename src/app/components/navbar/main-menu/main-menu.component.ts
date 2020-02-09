@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from "../../../services/auth.service";
+import { AuthService } from "../../../services/usuarios/auth.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { ColaboradorService } from '../../../services/colaboradores/colaborador.service';
@@ -53,7 +53,6 @@ export class MainMenuComponent implements OnInit {
       }
     }
 
-    console.log(this.perfilMenu);
   }
 
   switchMenu(perfil) {

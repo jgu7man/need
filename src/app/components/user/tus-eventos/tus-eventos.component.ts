@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioModel } from '../../../models/usuario.model';
 // import { UsuarioService } from '../../../services/usuario.service';
-import { EventoService } from '../../../services/evento.service';
+import { EventoService } from '../../../services/eventos/evento.service';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { PersonalModel } from '../../../models/evento/personal.model';
 import { DatosModel } from '../../../models/evento/datosevento.model';

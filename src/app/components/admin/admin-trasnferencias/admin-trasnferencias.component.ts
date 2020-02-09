@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PagoService } from '../../../services/pagos.service';
-import { TransferenciaModel } from 'src/app/models/transferencia.model';
+import { TransferenciasService } from '../../../pagos/services/transferencias.service';
+import { TransferenciaModel } from 'src/app/models/finanzas/transferencia.model';
+import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
 
 @Component({
   selector: 'app-admin-trasnferencias',
@@ -10,10 +11,10 @@ import { TransferenciaModel } from 'src/app/models/transferencia.model';
 export class AdminTrasnferenciasComponent implements OnInit {
 
   constructor(
-    private _pagos: PagoService
+    private _pagos: TransferenciasService
   ) { }
 
-  public transferencias: TransferenciaModel[]
+  public transferencias: TransaccionModel[]
 
   async ngOnInit() {
     this.transferencias = await this._pagos.getTrasnferencias()

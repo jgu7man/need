@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
-import { PlanModel } from '../../models/direcorio/plan.model';
+import { PlanModel } from '../../models/directorio/plan.model';
 
 export interface plan {
     name: string,

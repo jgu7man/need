@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NegocioService } from '../../services/directorio/negocio.service';
-import { NegocioModel } from '../../models/direcorio/negocio.model';
-import { NegocioDatosModel } from 'src/app/models/direcorio/negocio-datos.model';
-import { NegocioExtrasModel } from 'src/app/models/direcorio/negocio-extras.model';
+import { NegocioModel } from '../../models/directorio/negocio.model';
+import { NegocioDatosModel } from 'src/app/models/directorio/negocio-datos.model';
+import { NegocioExtrasModel } from 'src/app/models/directorio/negocio-extras.model';
 declare var $: any;
 
 @Component({
@@ -18,6 +18,8 @@ export class NegocioComponent implements OnInit {
   public negocio: NegocioModel;
   public negocioDatos: NegocioDatosModel
   public negocioExtras: NegocioExtrasModel
+  public imgArray
+  public comentArray
   public negocioRating: number
   public images: any;
   public rater: boolean;
@@ -25,9 +27,9 @@ export class NegocioComponent implements OnInit {
   constructor(
     private _negocio: NegocioService,
     private href: ActivatedRoute,
-    private _ruta: Router,
+    private router: Router,
   ) { 
-    this.negocio = new NegocioModel('','','','','',new Date, new Date,  new Date,'','solicitud')
+    this.negocio = new NegocioModel('','','','','',new Date, new Date,  new Date,'','','solicitud')
     this.negocioDatos = new NegocioDatosModel('', '', '', '', '', '', '', '')
     this.negocioExtras = new NegocioExtrasModel('',[],[])
   }
@@ -44,9 +46,18 @@ export class NegocioComponent implements OnInit {
     })
       
       // tomar la información del negocio
-    this.negocio = await this._negocio.getNegocio(this.negocioId)
-    this.negocioDatos = await this._negocio.getNegocioDatos(this.negocioId)
+    this.negocio = await this._negocio.getNegocio(this.negocioId) as NegocioModel
+    if(!this.negocio) this.router.navigate(['/directorio/suscripcion/add/' + this.negocioId])
+
+    this.negocioDatos = await this._negocio.getNegocioDatos(this.negocioId) as NegocioDatosModel
+    if(!this.negocioDatos)this.router.navigate(['/directorio/suscripcion/datos/' + this.negocioId])
+
+
     this.negocioExtras = await this._negocio.getNegocioExtras(this.negocioId)
+    if (this.negocioExtras) {
+      this.imgArray = this.negocioExtras.images
+      this.comentArray = this.negocioExtras.comentarios
+    }
       
       setTimeout(()=> {this.content();}, 1000)
   }
@@ -75,7 +86,7 @@ export class NegocioComponent implements OnInit {
     )
     
     // si no hay imágenes, invita al dueño a ingresar
-    if ( this.negocioExtras.images == undefined ){
+    if ( this.imgArray == undefined ){
       $("#slides").css('display', 'none');
       $("#textAdd").css('display', 'inline-block');
     }
@@ -95,7 +106,7 @@ export class NegocioComponent implements OnInit {
 
   
   async agregarImagenes(fileInput: any){
-    $("app-loading").fadeToggle()
+    $("app-loading").fadeIn()
     this.images = <Array<File>>fileInput.target.files;
     // sube imágenes
     this.images.forEach(file => {
@@ -108,7 +119,7 @@ export class NegocioComponent implements OnInit {
       res => { 
         console.log('se actualizó documento');
         this.negocioExtras = res;
-        $("app-loading").fadeToggle()
+        $("app-loading").fadeOut()
       }, err=> {console.log(<any>err);}
     )
     
@@ -116,7 +127,7 @@ export class NegocioComponent implements OnInit {
 
   // ir a editar el negocio
   editNegocio(){
-    this._ruta.navigate(['/usuario/edit-negocio/'+this.negocioId])
+    this.router.navigate(['/usuario/edit-negocio/'+this.negocioId])
   }
 
   // recomendar negocio: true || false

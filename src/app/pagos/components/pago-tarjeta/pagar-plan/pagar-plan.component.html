@@ -1,0 +1,95 @@
+<div class="contenido">
+    <div class="row title">
+        <div class="col s12">
+            <p class="titleLabel ltxt center">
+                PAGO DE SUSCRIPCIÓN
+            </p>
+        </div>
+    </div>
+
+    <form action="#" onsubmit="return false" #cantPago="ngForm">
+        <div class="container" *ngIf="plan">
+            <div class="row">
+                <div class="col s12 m6 seccion bg-3">
+                    <p class="ltxt">{{transaccion.concepto}} {{factura.descripcion}} </p>
+                    <p>
+                        <span class="switch">
+                            <span class="resaltado"> ¿Requiere factura? </span>
+                        <label>
+                            No
+                                <input type="checkbox" (change)="needFactura($event)">
+                                <span class="lever"></span> 
+                            Sí
+                        </label>
+                        </span>
+                    </p>
+
+
+                    <app-datos-facturacion *ngIf="transaccion.idUsuario" [uid]="transaccion.idUsuario" [factura]="transaccion.factura" (datos_factura)="getDatosFactura($event)"></app-datos-facturacion>
+
+
+                </div>
+                <div class="col s12 m6 offset-s6 seccion bg-3">
+
+
+                    <app-calculos-facturacion [producto]="factura.concepto + '' + factura.descripcion" [precio]="plan.precio" [amount]="plan.pago_inicial" [sumarIVA]=false (sendCalculos)="getCostos($event)"></app-calculos-facturacion>
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 seccion bg-3">
+                    <h4 class="ltxt">Formas de pago</h4>
+                    <p class="ltxt">Puedes elegir una de las siguientes formas de pago</p>
+
+                    <div class="col s12">
+                        <button class="needbtn" (click)="onTipoPago('transferencia')">
+                            Transferencia bancaria
+                        </button>
+                        <br>
+                        <br>
+                        <button class="needbtn" (click)="onTipoPago('linea')">
+                            Pago en linea
+                        </button>
+                    </div>
+                </div>
+                <div class="col s12 m6 seccion bg-3" *ngIf="tipoPago">
+
+                    <ng-container *ngIf="tipoPago == 'linea'; then linea; else transferencia"></ng-container>
+
+                    <ng-template #linea>
+
+                        <app-pago-tarjeta [transaccion]="transaccion"></app-pago-tarjeta>
+
+                    </ng-template>
+
+                    <ng-template #transferencia>
+
+                        <p class="ltxt center txt_normal">
+                            Deberás hacer una transferencia por la cantidad de $<span class="resaltado">{{transaccion.factura.total}}</span> al número de tarjeta <br><br>
+                            <span class="resaltado">0000 0000 0000 0000</span><br><br> Una vez hecho el depósito vuelve a esta pantalla para subir una foto del ticket de depósito aquí:
+                        </p>
+                        <div class="col s12 input-field file-field">
+                            <div class="btn purple">
+                                <span>Imagen</span>
+                                <input type="file" (change)="uploadTicket($event)">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+
+                        <p class="resaltado txt_normal">
+                            Ya que el pago será por transferencia, tardaremos al menos 24 horas en verificar que el pago se haya realizado y podremos poner tu evento como confirmado.
+                        </p>
+
+                        <button class="needbtn" (click)="onPagar('transferencia')">Subir</button>
+
+
+                    </ng-template>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

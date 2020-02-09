@@ -22,7 +22,7 @@ export class CoauthService {
     }
 
     async googleSingIn() {
-        $("app-loading").fadeToggle()
+        $("app-loading").fadeIn()
         const provider = new auth.GoogleAuthProvider();
         const credential = await this.auth.auth.signInWithPopup(provider);
         
@@ -30,7 +30,7 @@ export class CoauthService {
     }
 
     async googleSingUp() {
-        $("app-loading").fadeToggle()
+        $("app-loading").fadeIn()
         const provider = new auth.GoogleAuthProvider();
         const credential = await this.auth.auth.signInWithPopup(provider);
         
@@ -49,7 +49,7 @@ export class CoauthService {
             localStorage.setItem('needlog', JSON.stringify(userDoc.data()))
             this.router.navigate(['/colaborador/perfil']);
         }
-        $("app-loading").fadeToggle()
+        $("app-loading").fadeOut()
           
     
     }

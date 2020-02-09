@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PersonalModel } from '../../../../models/evento/personal.model';
 import { ActivatedRoute } from '@angular/router';
-import { EventoService } from '../../../../services/evento.service';
+import { EventoService } from '../../../../services/eventos/evento.service';
 import { ExtrasModel } from '../../../../models/evento/extras.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CoEventoService } from '../../../../services/colaboradores/coeventos.service';

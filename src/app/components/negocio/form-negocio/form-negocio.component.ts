@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CategoriasDirectorioService } from '../../../services/directorio/categorias.service';
 import { NegocioService } from '../../../services/directorio/negocio.service';
-import { NegocioModel } from '../../../models/direcorio/negocio.model';
+import { NegocioModel } from '../../../models/directorio/negocio.model';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $:any;
 
@@ -23,7 +23,7 @@ export class FormNegocioComponent implements OnInit {
     private router: Router,
     private _ruta: ActivatedRoute,
   ) { 
-    this.negocio = new NegocioModel('','','','','',new Date, new Date,  new Date, '','solicitud');
+    this.negocio = new NegocioModel('','','','','',new Date, new Date,  new Date, '','','solicitud');
     _ruta.params.subscribe( params => {this.negocioId = params['id']})
   }
 
@@ -37,7 +37,7 @@ export class FormNegocioComponent implements OnInit {
     if (this.negocioId){
       this._negocio.getNegocio(this.negocioId).then(
         res => {
-          this.negocio = res
+          if(res) this.negocio = res as NegocioModel
         }, 
         err => {console.log(<any>err)}
         );

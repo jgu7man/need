@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonalModel } from '../../../models/evento/personal.model';
-import { ListaDePrecios } from '../../../models/precios.personal';
+import { ListaDePrecios } from '../../../models/finanzas/precios.personal';
 import { EventoModel } from '../../../models/evento/evento.model';
 import { ExtrasModel } from '../../../models/evento/extras.model';
 import { Router } from '@angular/router';

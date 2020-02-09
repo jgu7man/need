@@ -28,12 +28,19 @@
                     <li>Email: {{transferencia.email}}</li>
                     <li>Teléfono: {{transferencia.telefono}}</li>
                 </ul>
+                <p>Cantidades solicitadas</p>
                 <ul class="bordered">
                     <li>Subtotal: {{transferencia.subtotal}}</li>
                     <li>IVA: {{transferencia.iva}}</li>
                     <li>Total: {{transferencia.total}}</li>
                 </ul>
-                <button class="btn purple center" (click)="onAdjudicar()" [disabled]="transferencia.adjudicada">Adjudicar</button>
+                <form action="#" onsubmit="return false" #confirmar="ngForm">
+                    <div class="col s12">
+                        <input type="number" [(ngModel)]="cantidadConfirmada" name="cantidad_confirmar" id="cantidad_confirmar" required>
+                        <label for="cantidad_confirmar">Confirma la cantidad depositada</label>
+                    </div>
+                    <button class="btn purple center" id="adjudicar_btn" (click)="onAdjudicar()" [disabled]="transferencia.adjudicada || !cantidadConfirmada">Adjudicar</button>
+                </form>
             </div>
         </div>
         <div class="row">

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
+
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CotizacionComponent } from './components/inicio/cotizacion/cotizacion.component';
 import { LoginUserComponent } from './components/inicio/login-user/login-user.component';
@@ -20,7 +21,7 @@ import { CategoriasComponent } from './components/directorio/all-catego/categori
 import { NegBienvenidaComponent } from './components/directorio/neg-bienvenida/neg-bienvenida.component';
 import { CategoriaComponent } from './components/directorio/categoria/categoria.component';
 import { SuscribirComponent } from './components/directorio/suscribir/suscribir.component';
-import { PagarPlanComponent } from './components/directorio/pagar-plan/pagar-plan.component';
+import { PagarPlanComponent } from './components/pasarela/pagar-plan/pagar-plan.component';
 
 import { NegocioComponent } from './components/negocio/negocio.component';
 import { ConocenosComponent } from './components/externos/conocenos/conocenos.component';
@@ -61,7 +62,7 @@ import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-
 import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
 import { EditCategoriaComponent } from './components/admin/admin-categorias/edit-categoria/edit-categoria.component';
-import { ResumenPagoComponent } from './components/pasarela/resumen-pago/resumen-pago.component';
+import { PagarEventoComponent } from './components/pasarela/pagar-evento/pagar-evento.component';
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
 import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
@@ -96,7 +97,7 @@ const routes: Routes = [
     { path: 'perfil', component: PerfilComponent, data: { nav: 3 } },
     { path: 'nuevo-evento', component: NuevoEventoComponent },
     { path: 'ver_colaborador/:id', component: VerColaboradorComponent },
-    { path: 'resumen-pago/:id', component: ResumenPagoComponent}
+    { path: 'resumen-pago/:id', component: PagarEventoComponent}
   ] },
   
   // Directorio
@@ -111,7 +112,8 @@ const routes: Routes = [
       { path: 'extras', component: FormExtrasNegocioComponent, data: { nav: 3 } },
       
     ]},
-    { path: 'pagarPlan/:plan', component: PagarPlanComponent},
+    { path: 'pagarPlan/:plan', component: PagarPlanComponent },
+    { path: 'pagarPlan/', redirectTo: 'planes', pathMatch: 'full'},
   ] },
   
   // Colaborador
