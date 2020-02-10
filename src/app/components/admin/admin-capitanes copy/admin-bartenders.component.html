@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col s10">
+        <h2 class="grey-text lighten-1">BARTENDERS</h2>
+    </div>
+</div>
+
+<div class="row">
+    <form action="#" method="post" onsubmit="return false" (ngSubmit)="onSearch()" #search="ngForm">
+        <div class="col s12 input-field">
+            <input type="email" name="email" id="email" [(ngModel)]="emailToSearch" #email="ngModel" placeholder="Buscar por email">
+            <button class="btn waves-effect purple lighten-1">Agregar</button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <table class="highlight bordered responsive-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let bar of bartenders">
+                    <td>{{bar.data.nombre}}</td>
+                    <td>{{bar.data.apellido_paterno}} {{bar.data.apellido_materno}}</td>
+                    <td>{{bar.data.email}}</td>
+                    <td class="options">
+                        <i class="fas fa-trash red-text" (click)="onDeleteAsCap(bar.uid)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

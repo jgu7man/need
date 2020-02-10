@@ -94,6 +94,7 @@ import { AdminTabsComponent } from './components/admin/admin-tabs/admin-tabs.com
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { CoInfoComponent } from './components/admin/admin-colaboradores/co-info/co-info.component';
 import { AdminCapitanesComponent } from './components/admin/admin-capitanes/admin-capitanes.component';
+import { AdminBartendersComponent } from './components/admin/admin-capitanes copy/admin-bartenders.component';
 import { AdminEventoComponent } from './components/admin/admin-evento/admin-evento.component';
 import { AdminEventosComponent } from './components/admin/admin-eventos/admin-eventos.component';
 import { AdminNegociosComponent } from './components/admin/admin-negocios/admin-negocios.component';
@@ -119,6 +120,7 @@ import { PagoTarjetaComponent } from './pagos/components/pago-tarjeta/pago-tarje
 import { DatosFacturacionComponent } from './components/pasarela/datos-facturacion/datos-facturacion.component';
 import { CalculosFacturacionComponent } from './components/pasarela/calculos-facturacion/calculos-facturacion.component';
 import { PagoTransferenciaComponent } from './pagos/components/pago-transferencia/pago-transferencia.component';
+import { FacturaAdminComponent } from './components/admin/admin-facturas/factura-admin/factura-admin.component';
 
 @NgModule({
   declarations: [
@@ -190,6 +192,7 @@ import { PagoTransferenciaComponent } from './pagos/components/pago-transferenci
     AdminDashboardComponent,
     CoInfoComponent,
     AdminCapitanesComponent,
+    AdminBartendersComponent,
     AdminEventoComponent,
     AdminEventosComponent,
     AdminNegociosComponent,
@@ -212,7 +215,8 @@ import { PagoTransferenciaComponent } from './pagos/components/pago-transferenci
     PagoTarjetaComponent,
     PagoTransferenciaComponent,
     DatosFacturacionComponent,
-    CalculosFacturacionComponent
+    CalculosFacturacionComponent,
+    FacturaAdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),

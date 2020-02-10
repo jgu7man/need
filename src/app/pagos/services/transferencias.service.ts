@@ -57,7 +57,8 @@ export class TransferenciasService {
 
         // Rellenar campos faltantes
         transferData.idUsuario = user.uid
-        transferData.factura.mesFacturado = new Date(year, month, 30)
+        transferData.factura.mesFacturado = new Date(year, month, 0, 23, 59)
+        transferData.factura.idServicio = transferData.idServicio
 
         // Ordenar objeto
         var transferencia = {}

@@ -5,8 +5,12 @@
 </div>
 
 <div class="row">
-    <div class="col s12 right">
+    <div class="col s3 right">
         <button class="btn waves-effect purple lighten-1">Agregar</button>
+    </div>
+    <div class="col s3">
+        <input type="month" id="monthSelected" class="datepicker">
+        <input type="button" class="btn needbtn" value="Buscar" (click)="getFacturas()">
     </div>
 </div>
 
@@ -25,16 +29,24 @@
 
             <tbody>
                 <tr *ngFor="let factura of facturas">
-                    <td> {{factura.fecha}} </td>
+                    <td> {{factura.fecha.toLocaleDateString()}} </td>
                     <td>{{factura.concepto}} </td>
                     <td> {{factura.razon}} </td>
                     <td> <i class="fas fa-check gold-text" *ngIf="factura.requerida"></i> </td>
                     <td class="options valign-wrapper">
                         <i class="fas fa-trash red-text"></i>
-                        <i class="fas fa-external-link-alt green-text" [routerLink]="['../co_info']"></i>
+                        <i class="fas fa-external-link-alt green-text" (click)="selectFactura(factura.id)"></i>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="doc_view bg-3" *ngIf="facturaSelected">
+    <div class="row">
+        <div class="col s12">
+            <app-factura-admin [idFactura]="facturaSelected" (cerrar)="cerrarFactura($event)"></app-factura-admin>
+        </div>
     </div>
 </div>

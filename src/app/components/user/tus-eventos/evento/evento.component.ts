@@ -73,7 +73,6 @@ export class EventoComponent implements OnInit {
 
     this.costos = await (await this._evento.getCostos(this.idEvento)).costos
     this.pagos = await (await this._evento.getCostos(this.idEvento)).pagos
-    console.log(this.pagos)
     var datos = await this._evento.getDatos(this.idEvento)
     this.datos = datos as DatosModel
     var resEquipo = await this._coEvento.getEquipo(this.idEvento, this.usuario.uid)

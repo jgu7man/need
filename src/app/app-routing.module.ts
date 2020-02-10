@@ -68,6 +68,7 @@ import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnfere
 import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
 import { DocPanelComponent } from './components/externos/doc-panel/doc-panel.component';
 import { AyudaComponent } from './components/externos/ayuda/ayuda.component';
+import { AdminBartendersComponent } from './components/admin/admin-capitanes copy/admin-bartenders.component';
 
 
 const routes: Routes = [
@@ -144,6 +145,7 @@ const routes: Routes = [
     { path: 'administradores', component: AdminAdministradoresComponent },
     { path: 'colaboradores', component: AdminColaboradoresComponent },
     { path: 'capitanes', component: AdminCapitanesComponent },
+    { path: 'bartenders', component: AdminBartendersComponent },
     { path: 'co_info/:id', component: CoInfoComponent },
     { path: 'usuarios', component: AdminUsuariosComponent },
     { path: 'ver_usuario/:id', component: VerUsuarioComponent },

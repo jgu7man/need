@@ -73,14 +73,18 @@ export class FacturaService {
         const coll = this.fs.collection('facturas').ref
         var facturas: FacturaModel[] = [];
 
+
         if (filtro == 'todas') {
-            let resColl = await coll.where('mesFacturacion', '==', month).get();
+            let resColl = await coll.where('mesFacturado', '==', month).get();
             
             (await resColl).forEach(doc => {
+                console.log(doc.data())
                 var factura:FacturaModel = doc.data() as FacturaModel
                 factura.fecha = doc.data().fecha.toDate()
+                factura['id'] = doc.id
                 facturas.push(factura)    
             })
+
 
         } else if (filtro == 'requeridas') {
             let resColl = await coll
@@ -88,29 +92,47 @@ export class FacturaService {
                 .where('mesFacturacion', '==', month).get();
             
             if (resColl.size > 0) {
-               (await resColl).forEach(doc => {
+                (await resColl).forEach(doc => {
+                   console.log(doc.data())
                     var factura:FacturaModel = doc.data() as FacturaModel
                     factura.fecha = doc.data().fecha.toDate()
+                    factura['id'] = doc.id
                     facturas.push(factura)    
                 }) 
             } else {
                 console.log('No hay facturas requeridas este mes')
             }
+
         } else if ('publicas') {
-            let resColl = await coll.where('mesFacturacion', '==', month).get();
+
+            let resColl = await coll.where('mesFacturado', '==', month).get();
             
             (await resColl).forEach(doc => {
+                console.log(doc.data())
                 var factura: FacturaModel = doc.data() as FacturaModel
                 
                 if (factura.tipo_factura == 'publica') {
                     factura.fecha = doc.data().fecha.toDate()
+                    factura['id'] = doc.id
                     facturas.push(factura)    
                 }
 
             })
+
         }
 
+
         return facturas
+    }
+
+
+    async getOneFactura(idFactura: string) {
+        const facColl = this.fs.collection('facturas').ref
+        const facDoc = facColl.doc(idFactura).get()
+        var factura: FacturaModel = (await facDoc).data() as FacturaModel
+        factura.fecha = (await facDoc).get('fecha').toDate()
+        
+        return factura
     }
 
 

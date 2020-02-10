@@ -21,3 +21,9 @@ option {
 .collection-item {
     background: #202020;
 }
+
+#atributos label,
+#atributos button {
+    display: block;
+    margin-bottom: 5px;
+}

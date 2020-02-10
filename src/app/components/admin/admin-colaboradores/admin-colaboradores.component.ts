@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { IndexService } from '../../../services/indexar.service';
 
 @Component({
   selector: 'app-admin-colaboradores',
@@ -8,23 +9,30 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AdminColaboradoresComponent implements OnInit {
 
-  constructor(private fs: AngularFirestore) { }
   public colabs = []
+  public first = 1
+  public last = this.first + 9
+  public coCant
+  public pageAnclas = []
+  public fieldSort
+  constructor(private fs: AngularFirestore, public _index: IndexService) { }
 
-  ngOnInit() {
-    this.getColabs()
-  }
-
-  async getColabs() {
-    var colabsCol = await this.fs.collection('colaboradores').ref.get()
-    colabsCol.forEach(co => {
-      this.colabs.push(co.data())
+  async ngOnInit() {
+    $('app-loading').fadeIn()
+    this._index.initIndex('colaboradores', 'email', 10)
+    this._index.dataIndexed.subscribe(data => {
+      $('app-loading').fadeOut()
+      this.colabs = data.pageContent
+      this.first = data.firstIndex
+      this.last = data.lastIndex
+      this.coCant = data.collectionSize
     })
-    console.log(this.colabs);
+    
+    
   }
-  
+
+
   onChangeEstado(id: string, estado) {
-    console.log(estado);
     this.fs.collection('colaboradores').ref.doc(id)
       .update({ estado: estado})
   }

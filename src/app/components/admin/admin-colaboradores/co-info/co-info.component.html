@@ -9,15 +9,18 @@
             <h5>{{co.nombre}} {{co.apellido_paterno}} {{co.apellido_materno}} </h5>
             <p class="grey-text lighten-1">{{co.email}}</p>
             <div class="col s6">
-                <p class="grey-text lighten-1">Estado: <i class="fas fa-circle" [ngClass]="{'yellow-text': co.estado == 'pendiente', 'red-text': co.estado == 'independiente', 'green-text': co.estado == 'activo'}"></i> <span>
+                <p class="grey-text lighten-1">Estado: <i class="fas fa-circle" [ngClass]="{'yellow-text': co.estado == 'solicitud', 'red-text': co.estado == 'inactivo', 'green-text': co.estado == 'activo'}"></i> <span>
                     <select name="estado" id="estado" [(ngModel)]="co.estado" (change)="onChangeEstado(co.id, co.estado)">
                     <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option> 
                     </select>
                 </span> </p>
             </div>
-            <div class="col s6">
+            <div class="col s6" id="atributos">
+                <label for="">Atributos</label>
                 <button class="btn purple lighten-1" (click)="onChangeCapitan()" *ngIf="!co.capitan">Hacer capitán</button>
                 <button class="btn purple lighten-1" (click)="onChangeCapitan()" *ngIf="co.capitan">Quitar como capitán</button>
+                <button class="btn purple lighten-1" (click)="onChangeBartender()" *ngIf="!co.bartender">Hacer bartender</button>
+                <button class="btn purple lighten-1" (click)="onChangeBartender()" *ngIf="co.bartender">Quitar como bartender</button>
             </div>
         </div>
     </div>

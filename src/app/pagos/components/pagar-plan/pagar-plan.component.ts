@@ -70,7 +70,7 @@ export class PagarPlanComponent implements OnInit {
 
     var month = new Date().getMonth()
     var year = new Date().getFullYear()
-    this.transaccion.factura.mesFacturado = new Date(year, month, 30)
+    this.transaccion.factura.mesFacturado = new Date(year, month, 0, 23, 59)
   }
 
   getDatosFactura(factura) {
@@ -90,6 +90,10 @@ export class PagarPlanComponent implements OnInit {
 
 
   // OPCIONES
+
+  onFacturar() {
+    return this.transaccion.factura.tipo_factura == 'privada' ? true : false
+  }
 
   needFactura(e) {
     if (this.transaccion.factura.tipo_factura == 'publica') {

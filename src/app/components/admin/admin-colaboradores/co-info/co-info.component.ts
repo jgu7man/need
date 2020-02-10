@@ -39,9 +39,9 @@ export class CoInfoComponent implements OnInit {
     var eventosCol = await userRef.collection('eventos').orderBy('inicia', 'asc').get()
     
     this.co = coDoc.data()
-    this.datos = datosDoc.data()
-    this.exp_laboral = expLaboralDoc.data()
-    this.sortExp()
+    if (this.datos) this.datos = datosDoc.data()
+    if (this.exp_laboral) this.exp_laboral = expLaboralDoc.data()
+    if (this.co, this.datos, this.exp_laboral) this.sortExp()
 
     ratingCol.forEach(rate => {
       this.comentarios.push({ uid: rate.id, coment: rate.data().comentario })
@@ -84,6 +84,17 @@ export class CoInfoComponent implements OnInit {
     } else {
       this.co.capitan = true
       coRef.update({ capitan: true })
+    }
+  }
+
+  onChangeBartender() {
+    const coRef = this.fs.collection('colaboradores').ref.doc(this.coId)
+    if (this.co.bartender) {
+      this.co.bartender = !this.co.bartender
+      coRef.update({ bartender: this.co.bartender })
+    } else {
+      this.co.bartender = true
+      coRef.update({ bartender: true })
     }
   }
 

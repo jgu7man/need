@@ -1,0 +1,9 @@
+#datos {
+    overflow-y: scroll;
+    padding-bottom: 5em;
+    max-height: 90vh;
+}
+
+.close {
+    cursor: pointer;
+}

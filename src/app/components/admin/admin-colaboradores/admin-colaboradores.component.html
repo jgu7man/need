@@ -25,7 +25,7 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let co of colabs">
+                <tr *ngFor="let co of colabs;let i=index">
                     <td class="perfil">
                         <img [src]="co.imgPerfil" alt="">
                     </td>
@@ -36,10 +36,22 @@
                     </td>
                     <td class="options valign-wrapper">
                         <i class="fas fa-trash red-text"></i>
-                        <i class="fas fa-external-link-alt green-text" [routerLink]="['../co_info', co.id]"></i>
+                        <i class="fas fa-external-link-alt green-text" [routerLink]="['../co_info', co.uid]"></i>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s2">
+        <button class="btn needbtn" (click)="_index.getPrevPage()" [disabled]="first<=1">Atrás</button>
+    </div>
+    <div class="col s8 center ltxt">
+        Mostrando del {{first}} al {{last}} de {{coCant}}
+    </div>
+    <div class="col s2">
+        <button class="btn needbtn" (click)="_index.getNextPage()" [disabled]="last>coCant">Siguiente</button>
     </div>
 </div>
