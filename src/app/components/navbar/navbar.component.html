@@ -61,7 +61,7 @@
     </div>
 </div>
 <div id="menu" class="closed">
-    <div id="close" style="display: none" (click)="cerrarMenu()">
+    <div id="close" style="display: none" (click)="cerrarMenu($event)">
         <i class="fas fa-times"></i><br><span class="name"></span>
     </div>
     <app-main-menu style="display: none;" (cerrarMenu)="cerrarMenu($event)"></app-main-menu>

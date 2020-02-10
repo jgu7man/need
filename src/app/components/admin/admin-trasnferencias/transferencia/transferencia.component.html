@@ -21,18 +21,18 @@
                 <ul class="bordered">
                     <li>Concepto: {{transferencia.concepto}}</li>
                     <li>
-                        Fecha: {{transferencia.fecha.toLocaleDateString()}} - {{transferencia.fecha.toLocaleTimeString()}}
+                        Fecha: {{transferencia.factura.fecha.toLocaleDateString()}} - {{transferencia.factura.fecha.toLocaleTimeString()}}
                     </li>
-                    <li>Razón social: {{transferencia.razon}}</li>
-                    <li>R.F.C.: {{transferencia.RFC}}</li>
-                    <li>Email: {{transferencia.email}}</li>
-                    <li>Teléfono: {{transferencia.telefono}}</li>
+                    <li>Razón social: {{transferencia.factura.razon}}</li>
+                    <li>R.F.C.: {{transferencia.factura.RFC}}</li>
+                    <li>Email: {{transferencia.factura.email}}</li>
+                    <li>Teléfono: {{transferencia.factura.telefono}}</li>
                 </ul>
                 <p>Cantidades solicitadas</p>
                 <ul class="bordered">
-                    <li>Subtotal: {{transferencia.subtotal}}</li>
-                    <li>IVA: {{transferencia.iva}}</li>
-                    <li>Total: {{transferencia.total}}</li>
+                    <li>Subtotal: {{transferencia.factura.subtotal}}</li>
+                    <li>IVA: {{transferencia.factura.iva}}</li>
+                    <li>Total: {{transferencia.factura.total}}</li>
                 </ul>
                 <form action="#" onsubmit="return false" #confirmar="ngForm">
                     <div class="col s12">

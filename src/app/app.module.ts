@@ -115,11 +115,14 @@ import { DocsMenuComponent } from './components/externos/docs-menu/docs-menu.com
 import { AyudaComponent } from './components/externos/ayuda/ayuda.component';
 import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form/whatsapp-form.component';
 
-import { PagoTarjetaComponent } from './pagos/components/pago-tarjeta/pago-tarjeta.component';
+import { PagoTarjetaPagosComponent } from './pagos/components/pago-tarjeta/pago-tarjeta.component';
+import { DatosFacturacionPagosComponent } from "./pagos/components/datos-facturacion/datos-facturacion.component";
+import { CalculosFacturacionPagosComponent } from "./pagos/components/calculos-facturacion/calculos-facturacion.component";
+import { PagarPlanPagosComponent } from "./pagos/components/pagar-plan/pagar-plan.component";
 
 import { DatosFacturacionComponent } from './components/pasarela/datos-facturacion/datos-facturacion.component';
 import { CalculosFacturacionComponent } from './components/pasarela/calculos-facturacion/calculos-facturacion.component';
-import { PagoTransferenciaComponent } from './pagos/components/pago-transferencia/pago-transferencia.component';
+import { PagoTransferenciaPagosComponent } from './pagos/components/pago-transferencia/pago-transferencia.component';
 import { FacturaAdminComponent } from './components/admin/admin-facturas/factura-admin/factura-admin.component';
 
 @NgModule({
@@ -212,11 +215,15 @@ import { FacturaAdminComponent } from './components/admin/admin-facturas/factura
     DocsMenuComponent,
     AyudaComponent,
     WhatsappFormComponent,
-    PagoTarjetaComponent,
-    PagoTransferenciaComponent,
+    PagoTarjetaPagosComponent,
+    PagoTransferenciaPagosComponent,
     DatosFacturacionComponent,
     CalculosFacturacionComponent,
-    FacturaAdminComponent
+    FacturaAdminComponent,
+    DatosFacturacionPagosComponent,
+    CalculosFacturacionPagosComponent,
+    PagarPlanPagosComponent,
+    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),

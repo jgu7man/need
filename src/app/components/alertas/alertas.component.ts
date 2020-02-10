@@ -32,7 +32,7 @@ export class AlertasComponent implements OnInit {
 
   }
 
-  getResponse(res:boolean) {
+  getResponse(res:any) {
     this._alerta.responseAlert$.next(res)
     this.opcion = false
     $('app-alertas').fadeToggle()

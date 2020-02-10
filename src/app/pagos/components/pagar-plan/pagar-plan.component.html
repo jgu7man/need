@@ -25,14 +25,14 @@
                     </p>
 
 
-                    <app-datos-facturacion *ngIf="transaccion.idUsuario" [uid]="transaccion.idUsuario" [factura]="transaccion.factura" (datos_factura)="getDatosFactura($event)"></app-datos-facturacion>
+                    <app-datos-facturacion-pagos *ngIf="transaccion.idUsuario" [uid]="transaccion.idUsuario" [factura]="transaccion.factura" (datos_factura)="getDatosFactura($event)"></app-datos-facturacion-pagos>
 
 
                 </div>
                 <div class="col s12 m6 offset-s6 seccion bg-3">
 
 
-                    <app-calculos-facturacion [facturar]="onFacturar()" [producto]="factura.concepto + '' + factura.descripcion" [precio]="plan.precio" [amount]="plan.pago_inicial" [sumarIVA]=false (sendCalculos)="getCostos($event)"></app-calculos-facturacion>
+                    <app-calculos-facturacion-pagos [facturar]="onFacturar()" [producto]="factura.concepto + '' + factura.descripcion" [precio]="plan.precio" [amount]="plan.pago_inicial" [sumarIVA]=false (sendCalculos)="getCostos($event)"></app-calculos-facturacion-pagos>
 
 
                 </div>
@@ -59,7 +59,7 @@
 
                     <ng-template #linea>
 
-                        <app-hacer-pago [transaccion]="transaccion"></app-hacer-pago>
+                        <app-pago-tarjeta [transaccion]="transaccion"></app-pago-tarjeta>
 
                     </ng-template>
 

@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-calculos-facturacion',
+  selector: 'app-calculos-facturacion-pagos',
   templateUrl: './calculos-facturacion.component.html',
   styleUrls: ['./calculos-facturacion.component.css']
 })
-export class CalculosFacturacionComponent implements OnInit {
+export class CalculosFacturacionPagosComponent implements OnInit {
 
   @Input() producto
   @Input() precio

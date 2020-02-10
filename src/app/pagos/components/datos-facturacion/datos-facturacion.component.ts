@@ -3,11 +3,11 @@ import { FacturaModel } from '../../../models/finanzas/factura.model';
 import { FacturaService } from '../../../services/finanzas/facturas.service';
 
 @Component({
-  selector: 'app-datos-facturacion',
+  selector: 'app-datos-facturacion-pagos',
   templateUrl: './datos-facturacion.component.html',
   styleUrls: ['./datos-facturacion.component.css']
 })
-export class DatosFacturacionComponent implements OnInit {
+export class DatosFacturacionPagosComponent implements OnInit {
 
   @Input() uid: string
   @Input() factura: FacturaModel

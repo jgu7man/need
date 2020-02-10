@@ -12,7 +12,7 @@ declare var Stripe: any
   templateUrl: './pago-tarjeta.component.html',
   styleUrls: ['./pago-tarjeta.component.css']
 })
-export class PagoTarjetaComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PagoTarjetaPagosComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('cardInfo', {static: true}) cardInfo: ElementRef
 
 

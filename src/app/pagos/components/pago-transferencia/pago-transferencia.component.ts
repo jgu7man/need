@@ -8,7 +8,7 @@ import { AlertaService } from '../../../services/alerta.service';
   templateUrl: './pago-transferencia.component.html',
   styleUrls: ['./pago-transferencia.component.css']
 })
-export class PagoTransferenciaComponent implements OnInit {
+export class PagoTransferenciaPagosComponent implements OnInit {
 
   transaccion: TransaccionModel
   constructor(

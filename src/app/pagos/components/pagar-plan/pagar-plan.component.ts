@@ -18,7 +18,7 @@ declare var $: any;
   templateUrl: './pagar-plan.component.html',
   styleUrls: ['./pagar-plan.component.css']
 })
-export class PagarPlanComponent implements OnInit {
+export class PagarPlanPagosComponent implements OnInit {
 
   public plan:PlanModel
   public planName: string;
