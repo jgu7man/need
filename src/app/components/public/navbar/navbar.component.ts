@@ -54,9 +54,11 @@ export class NavbarComponent implements OnInit {
 
   togglePanel () {
     let open = $( '#menu' ).hasClass( 'opened' ),
-      close = $( '#menu' ).hasClass('closed')
+      close = $( '#menu' ).hasClass( 'closed' )
     open ? $( "#menu" ).removeClass( 'opened' ) : $( "#menu" ).addClass( 'opened' )
     close ? $( "#menu" ).removeClass( 'closed' ) : $( "#menu" ).addClass( 'closed' )
+    if ( open && close ) { $( "#menu" ).addClass( 'opened' ); $( "#menu" ).removeClass( 'closed' ) }
+    if ( !open && !close ) { $( "#menu" ).removeClass( 'opened' ); $( "#menu" ).addClass( 'closed' ) }
   }
 
   async toggleMenu () {

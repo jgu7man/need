@@ -31,6 +31,7 @@ export class CoRegistroComponent implements OnInit {
       this.colab.uid = user.uid
       this.colab.email = user.email
       this.loged = true
+      $('app-loading').fadeOut()
     })
   }
 

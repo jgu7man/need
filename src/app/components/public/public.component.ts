@@ -18,7 +18,6 @@ export class PublicComponent implements OnInit {
   }
 
   getPage(outlet) {
-     console.groupCollapsed(outlet.activatedRouteData['nav'])
     return outlet.activatedRouteData['nav'];
   }
 }
