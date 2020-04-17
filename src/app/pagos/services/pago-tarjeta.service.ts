@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TransaccionModel } from '../../models/finanzas/transaccion.model';
-import { SuscripcionService } from '../../services/directorio/suscripcion.service';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { SuscripcionService } from 'src/app/services/directorio/suscripcion.service';
 import { PagosEventoService } from 'src/app/services/eventos/pagos_evento.service';
 
 @Injectable({

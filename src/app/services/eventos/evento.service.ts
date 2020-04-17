@@ -1,15 +1,15 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore, docChanges } from '@angular/fire/firestore';
-import { EventoModel } from '../../models/evento/evento.model';
-import { Actividad } from '../../models/evento/actividad.model';
+import { EventoModel } from 'src/app/models/evento/evento.model';
+import { Actividad } from 'src/app/models/evento/actividad.model';
 import { HistorialService } from '../historial.service';
-import { PersonalModel } from '../../models/evento/personal.model';
-import { CostosModel } from '../../models/evento/costos.model';
-import { DatosModel } from '../../models/evento/datosevento.model';
+import { PersonalModel } from 'src/app/models/evento/personal.model';
+import { CostosModel } from 'src/app/models/evento/costos.model';
+import { DatosModel } from 'src/app/models/evento/datosevento.model';
 import { AlertaService } from '../alerta.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { PagoModel } from '../../models/evento/pago.model';
+import { PagoModel } from 'src/app/models/evento/pago.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

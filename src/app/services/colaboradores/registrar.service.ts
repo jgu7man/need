@@ -1,10 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { ColaboradorModel } from '../../models/colaboradores/colaborador.model';
+import { ColaboradorModel } from 'src/app/models/colaboradores/colaborador.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { DatosCoModel } from '../../models/colaboradores/datosCo.model';
-import { ExpLaboralModel } from '../../models/colaboradores/expLaboral.model';
+import { DatosCoModel } from 'src/app/models/colaboradores/datosCo.model';
+import { ExpLaboralModel } from 'src/app/models/colaboradores/expLaboral.model';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 

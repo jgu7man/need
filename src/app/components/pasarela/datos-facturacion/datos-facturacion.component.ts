@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FacturaModel } from '../../../models/finanzas/factura.model';
-import { FacturaService } from '../../../services/finanzas/facturas.service';
+import { FacturaModel } from 'src/app/models/finanzas/factura.model';
+import { FacturaService } from 'src/app/services/finanzas/facturas.service';
 
 @Component({
   selector: 'app-datos-facturacion',

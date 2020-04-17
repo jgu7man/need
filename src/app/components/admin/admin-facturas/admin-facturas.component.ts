@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FacturaService } from '../../../services/finanzas/facturas.service';
-import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
+import { FacturaService } from 'src/app/services/finanzas/facturas.service';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
 
 @Component({
   selector: 'app-admin-facturas',

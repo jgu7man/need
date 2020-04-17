@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
-import { UsuarioInterface } from '../../models/usuario.interface';
+import { UsuarioInterface } from 'src/app/models/usuario.interface';
 
 @Injectable({providedIn: 'root'})
 export class CoauthService {

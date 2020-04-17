@@ -28,6 +28,7 @@ html {
 
 body {
     overflow-x: hidden !important;
+    background: #110011 !important;
 }
 
 *::-webkit-scrollbar {

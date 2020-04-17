@@ -1,19 +1,19 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { AuthService } from '../../services/usuarios/auth.service';
-import { FacturaService } from '../../services/finanzas/facturas.service';
-import { AlertaService } from '../../services/alerta.service';
-import { HistorialService } from '../../services/historial.service';
-import { TransaccionModel } from '../../models/finanzas/transaccion.model';
-import { TransferenciaModel } from '../../models/finanzas/transferencia.model';
-import { PagoModel } from '../../models/evento/pago.model';
+import { AuthService } from 'src/app/services/usuarios/auth.service';
+import { FacturaService } from 'src/app/services/finanzas/facturas.service';
+import { AlertaService } from 'src/app/services/alerta.service';
+import { HistorialService } from 'src/app/services/historial.service';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { TransferenciaModel } from 'src/app/models/finanzas/transferencia.model';
+import { PagoModel } from 'src/app/models/evento/pago.model';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { UsuarioModel } from '../../models/usuario.model';
-import { PagosEventoService } from '../../services/eventos/pagos_evento.service';
-import { SuscripcionService } from '../../services/directorio/suscripcion.service';
+import { UsuarioModel } from 'src/app/models/usuario.model';
+import { PagosEventoService } from 'src/app/services/eventos/pagos_evento.service';
+import { SuscripcionService } from 'src/app/services/directorio/suscripcion.service';
 
 
 @Injectable({ providedIn: 'root' })

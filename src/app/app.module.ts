@@ -23,65 +23,69 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { AppComponent } from './app.component';
 
-import { InicioComponent } from './components/inicio/inicio.component';
-import { HeroformComponent } from './components/inicio/heroform/heroform.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { MainMenuComponent } from './components/navbar/main-menu/main-menu.component';
-import { CotizacionComponent } from './components/inicio/cotizacion/cotizacion.component';
-import { LoginUserComponent } from './components/inicio/login-user/login-user.component';
-import { LoadingComponent } from './components/inicio/loading/loading.component';
-import { CrearEventoComponent } from './components/inicio/crear-evento/crear-evento.component';
-import { NuevoEventoComponent } from './components/user/nuevo-evento/nuevo-evento.component';
+import { InicioComponent } from './components/public/inicio/inicio.component';
+import { HeroformComponent } from './components/public/inicio/heroform/heroform.component';
+import { NavbarComponent } from './components/public/navbar/navbar.component';
+import { FooterComponent } from './components/public/footer/footer.component';
+import { MainMenuComponent } from './components/public/navbar/main-menu/main-menu.component';
+import { CotizacionComponent } from './components/public/inicio/cotizacion/cotizacion.component';
+import { LoginUserComponent } from './components/public/inicio/login-user/login-user.component';
+import { LoadingComponent } from './components/public/inicio/loading/loading.component';
+import { CrearEventoComponent } from './components/public/inicio/crear-evento/crear-evento.component';
+import { NuevoEventoComponent } from './components/public/user/nuevo-evento/nuevo-evento.component';
 
 import { EventoCreadoComponent } from './components/notificaciones/evento-creado/evento-creado.component';
 
-import { TusEventosComponent } from './components/user/tus-eventos/tus-eventos.component';
-import { UsuarioComponent } from './components/user/user.component';
-import { EventoComponent } from './components/user/tus-eventos/evento/evento.component';
-import { DatosComponent } from "./components/user/tus-eventos/datos/datos.component";
-import { DetallesComponent } from './components/user/tus-eventos/detalles/detalles.component';
-import { PersonalComponent } from './components/user/tus-eventos/personal/personal.component';
+import { TusEventosComponent } from './components/public/user/tus-eventos/tus-eventos.component';
+import { UsuarioComponent } from './components/public/user/user.component';
+import { EventoComponent } from './components/public/user/tus-eventos/evento/evento.component';
+import { DatosComponent } from "./components/public/user/tus-eventos/datos/datos.component";
+import { DetallesComponent } from './components/public/user/tus-eventos/detalles/detalles.component';
+import { PersonalComponent } from './components/public/user/tus-eventos/personal/personal.component';
 
-import { PerfilComponent } from './components/user/perfil/perfil.component';
+import { PerfilComponent } from './components/public/user/perfil/perfil.component';
 
-import { DirectorioComponent } from './components/directorio/directorio.component';
-import { CategoriasComponent } from './components/directorio/all-catego/categorias.component';
-import { NegBienvenidaComponent } from './components/directorio/neg-bienvenida/neg-bienvenida.component';
-import { CategoriaComponent } from './components/directorio/categoria/categoria.component';
-import { SuscribirComponent } from './components/directorio/suscribir/suscribir.component';
+import { DirectorioComponent } from './components/public/directorio/directorio.component';
+import { CategoriasComponent } from './components/public/directorio/all-catego/categorias.component';
+import { NegBienvenidaComponent } from './components/public/directorio/neg-bienvenida/neg-bienvenida.component';
+import { CategoriaComponent } from './components/public/directorio/categoria/categoria.component';
+import { SuscribirComponent } from './components/public/directorio/suscribir/suscribir.component';
 import { PagarPlanComponent } from './components/pasarela/pagar-plan/pagar-plan.component';
-import { ListaPlanesComponent } from './components/directorio/lista-planes/lista-planes.component';
-import { FormNegocioComponent } from './components/negocio/form-negocio/form-negocio.component';
+import { ListaPlanesComponent } from './components/public/directorio/lista-planes/lista-planes.component';
+import { FormNegocioComponent } from './components/public/negocio/form-negocio/form-negocio.component';
 import { PagoFormComponent } from './components/pago-form/pago-form.component';
 
-import { NegocioComponent } from './components/negocio/negocio.component';
-import { ConocenosComponent } from './components/externos/conocenos/conocenos.component';
-import { PreciosComponent } from './components/externos/precios/precios.component';
-import { TycComponent } from './components/externos/tyc/tyc.component';
-import { PdpComponent } from './components/externos/pdp/pdp.component';
+import { NegocioComponent } from './components/public/negocio/negocio.component';
+import { ConocenosComponent } from './components/public/docs/conocenos/conocenos.component';
+import { PreciosComponent } from './components/public/docs/precios/precios.component';
+import { TycComponent } from './components/public/docs/tyc/tyc.component';
+import { PdpComponent } from './components/public/docs/pdp/pdp.component';
+import { DocPanelComponent } from './components/public/docs/doc-panel/doc-panel.component';
+import { DocsMenuComponent } from './components/public/docs/docs-menu/docs-menu.component';
+import { AyudaComponent } from './components/public/docs/ayuda/ayuda.component';
+import { WhatsappFormComponent } from './components/public/docs/ayuda/whatsapp-form/whatsapp-form.component';
 
-import { ColaboradoresComponent } from './components/colaboradores/colaboradores.component';
-import { CoLoginComponent } from './components/colaboradores/co-login/co-login.component';
-import { CoRegistroComponent } from './components/colaboradores/co-registro/co-registro.component';
-import { CoDatosComponent } from './components/colaboradores/co-registro/co-datos/co-datos.component';
-import { CoExpLaboralComponent } from './components/colaboradores/co-registro/co-exp-laboral/co-exp-laboral.component';
-import { CoExpLugaresComponent } from './components/colaboradores/co-registro/co-exp-lugares/co-exp-lugares.component';
-import { CoExpLugaresDisplayComponent } from './components/colaboradores/co-registro/co-exp-lugares-display/co-exp-lugares-display.component';
+import { ColaboradoresComponent } from './components/public/colaboradores/colaboradores.component';
+import { CoLoginComponent } from './components/public/colaboradores/co-login/co-login.component';
+import { CoRegistroComponent } from './components/public/colaboradores/co-registro/co-registro.component';
+import { CoDatosComponent } from './components/public/colaboradores/co-registro/co-datos/co-datos.component';
+import { CoExpLaboralComponent } from './components/public/colaboradores/co-registro/co-exp-laboral/co-exp-laboral.component';
+import { CoExpLugaresComponent } from './components/public/colaboradores/co-registro/co-exp-lugares/co-exp-lugares.component';
+import { CoExpLugaresDisplayComponent } from './components/public/colaboradores/co-registro/co-exp-lugares-display/co-exp-lugares-display.component';
 import { ColaboradorGuardadoComponent } from './components/notificaciones/colaborador-guardado/colaborador-guardado.component';
-import { CoPerfilComponent } from './components/colaboradores/co-perfil/co-perfil.component';
-import { CoEventosComponent } from './components/colaboradores/co-eventos/co-eventos.component';
-import { CoTusEventosComponent } from './components/colaboradores/co-tus-eventos/co-tus-eventos.component';
-import { CoAddImagenComponent } from './components/colaboradores/co-add-imagen/co-add-imagen.component';
-import { CoEventoComponent } from './components/colaboradores/co-eventos/co-evento/co-evento.component';
-import { VerVacantesComponent } from './components/colaboradores/co-eventos/ver-vacantes/ver-vacantes.component';
-import { PostularComponent } from './components/colaboradores/co-eventos/co-evento/postular/postular.component';
+import { CoPerfilComponent } from './components/public/colaboradores/co-perfil/co-perfil.component';
+import { CoEventosComponent } from './components/public/colaboradores/co-eventos/co-eventos.component';
+import { CoTusEventosComponent } from './components/public/colaboradores/co-tus-eventos/co-tus-eventos.component';
+import { CoAddImagenComponent } from './components/public/colaboradores/co-add-imagen/co-add-imagen.component';
+import { CoEventoComponent } from './components/public/colaboradores/co-eventos/co-evento/co-evento.component';
+import { VerVacantesComponent } from './components/public/colaboradores/co-eventos/ver-vacantes/ver-vacantes.component';
+import { PostularComponent } from './components/public/colaboradores/co-eventos/co-evento/postular/postular.component';
 import { PostulacionExitosaComponent } from './components/notificaciones/postulacion-exitosa/postulacion-exitosa.component';
-import { VerEquipoComponent } from './components/user/tus-eventos/ver-equipo/ver-equipo.component';
+import { VerEquipoComponent } from './components/public/user/tus-eventos/ver-equipo/ver-equipo.component';
 import { AlertasComponent } from './components/alertas/alertas.component';
-import { VerColaboradorComponent } from './components/colaborador/ver-colaborador/ver-colaborador.component';
-import { VerUsuarioComponent } from './components/user/ver-usuario/ver-usuario.component'
-import { EditNegocioComponent } from './components/negocio/edit-negocio/edit-negocio.component';
+import { VerColaboradorComponent } from './components/public/colaboradores/ver-colaborador/ver-colaborador.component';
+import { VerUsuarioComponent } from './components/public/user/ver-usuario/ver-usuario.component'
+import { EditNegocioComponent } from './components/public/negocio/edit-negocio/edit-negocio.component';
 import { AgregarTarjetaComponent } from './components/pago-form/agregar-tarjeta/agregar-tarjeta.component';
 
 import { AdminComponent } from './components/admin/admin.component';
@@ -100,8 +104,8 @@ import { AdminEventosComponent } from './components/admin/admin-eventos/admin-ev
 import { AdminNegociosComponent } from './components/admin/admin-negocios/admin-negocios.component';
 import { AdminCategoriasComponent } from './components/admin/admin-categorias/admin-categorias.component';
 import { AdminConfiguracionComponent } from './components/admin/admin-configuracion/admin-configuracion.component';
-import { FormDatosNegocioComponent } from './components/negocio/form-datos-negocio/form-datos-negocio.component';
-import { FormExtrasNegocioComponent } from './components/negocio/form-extras-negocio/form-extras-negocio.component';
+import { FormDatosNegocioComponent } from './components/public/negocio/form-datos-negocio/form-datos-negocio.component';
+import { FormExtrasNegocioComponent } from './components/public/negocio/form-extras-negocio/form-extras-negocio.component';
 import { NegocioInfoComponent } from './components/admin/admin-negocios/negocio-info/negocio-info.component';
 import { AddCategoriaComponent } from './components/admin/admin-categorias/add-categoria/add-categoria.component';
 import { TablaCategoriasComponent } from './components/admin/admin-categorias/tabla-categorias/tabla-categorias.component';
@@ -110,10 +114,6 @@ import { PagarEventoComponent } from './components/pasarela/pagar-evento/pagar-e
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { TransferenciaComponent } from './components/admin/admin-trasnferencias/transferencia/transferencia.component';
-import { DocPanelComponent } from './components/externos/doc-panel/doc-panel.component';
-import { DocsMenuComponent } from './components/externos/docs-menu/docs-menu.component';
-import { AyudaComponent } from './components/externos/ayuda/ayuda.component';
-import { WhatsappFormComponent } from './components/externos/ayuda/whatsapp-form/whatsapp-form.component';
 
 import { PagoTarjetaPagosComponent } from './pagos/components/pago-tarjeta/pago-tarjeta.component';
 import { DatosFacturacionPagosComponent } from "./pagos/components/datos-facturacion/datos-facturacion.component";
@@ -124,6 +124,7 @@ import { DatosFacturacionComponent } from './components/pasarela/datos-facturaci
 import { CalculosFacturacionComponent } from './components/pasarela/calculos-facturacion/calculos-facturacion.component';
 import { PagoTransferenciaPagosComponent } from './pagos/components/pago-transferencia/pago-transferencia.component';
 import { FacturaAdminComponent } from './components/admin/admin-facturas/factura-admin/factura-admin.component';
+import { PublicComponent } from './components/public/public.component';
 
 @NgModule({
   declarations: [
@@ -223,6 +224,7 @@ import { FacturaAdminComponent } from './components/admin/admin-facturas/factura
     DatosFacturacionPagosComponent,
     CalculosFacturacionPagosComponent,
     PagarPlanPagosComponent,
+    PublicComponent,
     
   ],
   imports: [

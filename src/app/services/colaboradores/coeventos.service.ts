@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore, docChanges } from '@angular/fire/firestore';
 import { EquipoModel } from 'src/app/models/colaboradores/equipo.model';
-import { PersonalModel } from '../../models/evento/personal.model';
+import { PersonalModel } from 'src/app/models/evento/personal.model';
 
 @Injectable({ providedIn: 'root' })
 export class CoEventoService {

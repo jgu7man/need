@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ColaboradorService } from '../../../services/colaboradores/colaborador.service';
-import { AlertaService } from '../../../services/alerta.service';
-import { AdminAlertaService } from '../../../services/admin/admin-alerta.service';
+import { ColaboradorService } from 'src/app/services/colaboradores/colaborador.service';
+import { AlertaService } from 'src/app/services/alerta.service';
+import { AdminAlertaService } from 'src/app/services/admin/admin-alerta.service';
 
 @Component({
   selector: 'app-admin-administradores',

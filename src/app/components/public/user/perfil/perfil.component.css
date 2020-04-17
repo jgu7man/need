@@ -1,0 +1,138 @@
+#datosUsuario {
+    background: url('../../../../../assets/img/profileBg.png');
+    background-size: cover;
+    padding: 3em 3em 0em;
+    position: relative;
+    top: -5em;
+    height: 10em;
+    box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.5)
+}
+
+#fotoPerfil {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#fotoPerfil img {
+    height: 100%;
+    position: relative;
+    margin: auto;
+}
+
+#datosUsuario .col {
+    position: relative;
+    color: #ccc;
+    top: 3em;
+}
+
+#datos {
+    text-align: center;
+    margin-top: .5em;
+}
+
+#nombre {
+    color: gold;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+#rating {
+    color: #ccc;
+    height: 60px;
+}
+
+#rating .s6 {
+    position: relative;
+    top: -2em;
+}
+
+.number {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+#finanzas,
+#negocios {
+    color: #ccc;
+    padding: 2em;
+    font-weight: 600;
+}
+
+.negocio {
+    padding: 0.5em;
+    cursor: pointer;
+    border-top: solid .5px #ccc;
+    border-bottom: solid .5px;
+}
+
+.imgNegocio {
+    height: 100%;
+    max-width: 200%;
+}
+
+.imgNegocio img {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.imgName {
+    font-size: 1.3em;
+    vertical-align: middle;
+    line-height: 2;
+}
+
+#noNeg {
+    background: #ccc;
+    color: #000;
+    text-align: center;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#noNeg span {
+    color: gold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.resaltado {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.seccion {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 1em;
+    margin: 3em 0em 2em;
+    padding: 2em;
+}
+
+.fa-trash-alt {
+    cursor: pointer
+}
+
+@media screen and (min-width: 500px) {
+    #rating {
+        width: 30%;
+    }
+    #finanzas {
+        width: 45%;
+        margin: 5%;
+        display: inline-block;
+    }
+    #negocios {
+        width: 40%;
+        margin: 2.5%;
+        display: inline-block
+    }
+    .seccion {
+        max-width: 100%;
+        margin-top: 0;
+    }
+}

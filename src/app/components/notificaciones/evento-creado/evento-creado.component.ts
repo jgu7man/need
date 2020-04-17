@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EventoService } from '../../../services/eventos/evento.service';
-import { EventoModel } from '../../../models/evento/evento.model';
+import { EventoService } from 'src/app/services/eventos/evento.service';
+import { EventoModel } from 'src/app/models/evento/evento.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { NotificacionesService } from '../../../services/notificaciones.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 declare var $;
 @Component({
   selector: 'app-evento-creado',

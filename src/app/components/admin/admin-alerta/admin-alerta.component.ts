@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminAlertaService } from '../../../services/admin/admin-alerta.service';
+import { AdminAlertaService } from 'src/app/services/admin/admin-alerta.service';
 
 @Component({
   selector: 'app-admin-alerta',

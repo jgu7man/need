@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { PlanesService } from '../../../services/directorio/planes.service';
-import { NegocioService } from '../../../services/directorio/negocio.service';
-import { PlanModel } from '../../../models/directorio/plan.model';
-import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
-import { AlertaService } from '../../../services/alerta.service';
-import { PagoModel } from '../../../models/evento/pago.model';
-import { TransferenciasService } from '../../services/transferencias.service';
-import { FacturaService } from '../../../services/finanzas/facturas.service';
-import { FacturaModel } from '../../../models/finanzas/factura.model';
-import { AuthService } from '../../../services/usuarios/auth.service';
+import { PlanesService } from 'src/app/services/directorio/planes.service';
+import { NegocioService } from 'src/app/services/directorio/negocio.service';
+import { PlanModel } from 'src/app/models/directorio/plan.model';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { AlertaService } from 'src/app/services/alerta.service';
+import { PagoModel } from 'src/app/models/evento/pago.model';
+import { TransferenciasService } from 'src/app/pagos/services/transferencias.service';
+import { FacturaService } from 'src/app/services/finanzas/facturas.service';
+import { FacturaModel } from 'src/app/models/finanzas/factura.model';
+import { AuthService } from 'src/app/services/usuarios/auth.service';
 declare var $: any;
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AlertaService } from '../../services/alerta.service';
+import { AlertaService } from 'src/app/services/alerta.service';
 
 @Component({
   selector: 'app-alertas',

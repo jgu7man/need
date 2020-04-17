@@ -1,3 +1,16 @@
 {
-    "editor.defaultFormatter": "Angular.ng-template"
+    "editor.defaultFormatter": "Angular.ng-template",
+    "material-icon-theme.folders.associations": {
+    },
+    "material-icon-theme.folders.theme": "specific",
+    "material-icon-theme.showUpdateMessage": true,
+
+    "better-comments.tags": [
+        {
+            "tag": "**",
+            "color": "#98C379",
+            "strikethrough": false,
+            "backgroundColor": "#f2f2f5"
+        },
+    ]
 }

@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { TransferenciasService } from '../../../../pagos/services/transferencias.service';
 import { TransferenciaModel } from 'src/app/models/finanzas/transferencia.model';
 import { Location } from '@angular/common';
-import { EventoModel } from '../../../../models/evento/evento.model';
-import { TransaccionModel } from '../../../../models/finanzas/transaccion.model';
-import { FacturaModel } from '../../../../models/finanzas/factura.model';
+import { EventoModel } from 'src/app/models/evento/evento.model';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { FacturaModel } from 'src/app/models/finanzas/factura.model';
 
 @Component({
   selector: 'app-transferencia',

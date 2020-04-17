@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HelpMessageModel } from '../../models/help-message.model';
+import { HelpMessageModel } from 'src/app/models/help-message.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from '../alerta.service';
 

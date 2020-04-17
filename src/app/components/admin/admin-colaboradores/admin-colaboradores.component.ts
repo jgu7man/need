@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { IndexService } from '../../../services/indexar.service';
+import { IndexService } from 'src/app/services/indexar.service';
 
 @Component({
   selector: 'app-admin-colaboradores',

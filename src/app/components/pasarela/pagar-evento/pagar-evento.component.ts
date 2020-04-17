@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { EventoService } from '../../../services/eventos/evento.service';
+import { EventoService } from 'src/app/services/eventos/evento.service';
 import { ActivatedRoute } from '@angular/router';
-import { PersonalModel } from '../../../models/evento/personal.model';
-import { CostosModel } from '../../../models/evento/costos.model';
-import { EventoModel } from '../../../models/evento/evento.model';
-import { DatosModel } from '../../../models/evento/datosevento.model';
-import { UsuarioService } from '../../../services/usuarios/usuario.service';
-import { UsuarioModel } from '../../../models/usuario.model';
+import { PersonalModel } from 'src/app/models/evento/personal.model';
+import { CostosModel } from 'src/app/models/evento/costos.model';
+import { EventoModel } from 'src/app/models/evento/evento.model';
+import { DatosModel } from 'src/app/models/evento/datosevento.model';
+import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import { UsuarioModel } from 'src/app/models/usuario.model';
 import { AdminDataService } from 'src/app/services/admin/admin.data.service';
-import { HorarioModel } from '../../../models/evento/horario.model';
+import { HorarioModel } from 'src/app/models/evento/horario.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { PagoModel } from '../../../models/evento/pago.model';
-import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
-import { AlertaService } from '../../../services/alerta.service';
+import { PagoModel } from 'src/app/models/evento/pago.model';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { AlertaService } from 'src/app/services/alerta.service';
 import { TransferenciasService } from "../../../pagos/services/transferencias.service";
-import { FacturaService } from '../../../services/finanzas/facturas.service';
-import { FacturaModel } from '../../../models/finanzas/factura.model';
+import { FacturaService } from 'src/app/services/finanzas/facturas.service';
+import { FacturaModel } from 'src/app/models/finanzas/factura.model';
 
 @Component({
   selector: 'app-pagar-evento',

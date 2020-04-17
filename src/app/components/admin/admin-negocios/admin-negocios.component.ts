@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NegocioModel } from '../../../models/directorio/negocio.model';
+import { NegocioModel } from 'src/app/models/directorio/negocio.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MailService } from '../../../services/mail.service'
-import { NegocioService } from '../../../services/directorio/negocio.service';
-import { AlertaService } from '../../../services/alerta.service';
+import { MailService } from 'src/app/services/mail.service'
+import { NegocioService } from 'src/app/services/directorio/negocio.service';
+import { AlertaService } from 'src/app/services/alerta.service';
 declare var $: any;
 declare var jQuery: any;
 

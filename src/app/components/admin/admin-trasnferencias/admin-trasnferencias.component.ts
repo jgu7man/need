@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferenciasService } from '../../../pagos/services/transferencias.service';
 import { TransferenciaModel } from 'src/app/models/finanzas/transferencia.model';
-import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
 
 @Component({
   selector: 'app-admin-trasnferencias',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriasDirectorioService } from '../../../../services/directorio/categorias.service';
+import { CategoriasDirectorioService } from 'src/app/services/directorio/categorias.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Location } from '@angular/common';
-import { CategoriaModel } from '../../../../models/directorio/categoria.model';
+import { CategoriaModel } from 'src/app/models/directorio/categoria.model';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 

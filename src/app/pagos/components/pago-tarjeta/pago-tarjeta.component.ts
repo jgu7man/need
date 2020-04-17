@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef, Input } from '@angular/core';
-import { PagoTarjetaService } from '../../services/pago-tarjeta.service';
+import { PagoTarjetaService } from 'src/app/pagos/services/pago-tarjeta.service';
 import { environment } from '../../../../environments/environment';
-import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
-import { FacturaModel } from '../../../models/finanzas/factura.model';
-import { AlertaService } from '../../../services/alerta.service';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { FacturaModel } from 'src/app/models/finanzas/factura.model';
+import { AlertaService } from 'src/app/services/alerta.service';
 import { Router } from '@angular/router';
 declare var Stripe: any
 

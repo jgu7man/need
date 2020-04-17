@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FacturaService } from '../finanzas/facturas.service';
 import { HistorialService } from '../historial.service';
-import { TransaccionModel } from '../../models/finanzas/transaccion.model';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
 
 @Injectable({providedIn: 'root'})
 export class PagosEventoService {

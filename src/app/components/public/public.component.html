@@ -1,0 +1,8 @@
+<navbar id="navbar"></navbar>
+
+<div class="route-container" [@swipePublic]="getPage(page)">
+    <router-outlet #page="outlet"></router-outlet>
+</div>
+<app-footer id="footer"></app-footer>
+<app-alertas class="overlay" style="display: none;"></app-alertas>
+<app-loading class="overlay" style="display: none;"></app-loading>

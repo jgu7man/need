@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Actividad } from '../models/evento/actividad.model';
+import { Actividad } from 'src/app/models/evento/actividad.model';
 
 @Injectable({ providedIn: 'root' })
 export class HistorialService {

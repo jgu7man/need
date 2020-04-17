@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ItemExpLaboral } from '../../../../models/colaboradores/item.expLaboral.model';
+import { ItemExpLaboral } from 'src/app/models/colaboradores/item.expLaboral.model';
 
 @Component({
   selector: 'app-co-info',

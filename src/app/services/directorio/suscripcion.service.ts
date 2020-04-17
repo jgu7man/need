@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
-import { TransaccionModel } from '../../models/finanzas/transaccion.model';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
 import { FacturaService } from '../finanzas/facturas.service';
 
 @Injectable({ providedIn: 'root' })

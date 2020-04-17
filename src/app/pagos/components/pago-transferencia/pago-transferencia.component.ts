@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TransaccionModel } from '../../../models/finanzas/transaccion.model';
-import { TransferenciasService } from '../../services/transferencias.service';
-import { AlertaService } from '../../../services/alerta.service';
+import { TransaccionModel } from 'src/app/models/finanzas/transaccion.model';
+import { TransferenciasService } from 'src/app/pagos/services/transferencias.service';
+import { AlertaService } from 'src/app/services/alerta.service';
 
 @Component({
   selector: 'app-pago-transferencia',

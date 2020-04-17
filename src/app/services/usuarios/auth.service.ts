@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { UsuarioInterface } from '../../models/usuario.interface';
+import { UsuarioInterface } from 'src/app/models/usuario.interface';
 import { auth } from 'firebase/app';
 
 @Injectable({
