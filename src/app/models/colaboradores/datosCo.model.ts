@@ -5,7 +5,7 @@ export class DatosCoModel{
         public colonia: string,
         public ciudad: string,
         public estado: string,
-        public pais: 'México',
+        public pais: string,
         public CURP: string,
         public RFC: string,
     ){}

@@ -5,7 +5,3 @@
     left: 50% !important;
     transform: translateX(-50%);
 }
-
-.fa-times {
-    cursor: pointer;
-}

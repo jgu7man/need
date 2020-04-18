@@ -15,9 +15,6 @@ export class CoAddImagenComponent implements OnInit {
   public imgHeight: number
   public isNOTEqual: boolean
   public isLoaded: boolean
-
-  public imgFront
-  public imgBack
   constructor(
     private _ruta: ActivatedRoute,
     private _reg: RegistrarService
@@ -30,7 +27,7 @@ export class CoAddImagenComponent implements OnInit {
   ngOnInit() {
   }
 
-  async imagenPerfil(fileInput: any){
+  async imagen(fileInput: any){
     this.imgPerfil = <Array<File>>fileInput.target.files[0];
     
     var reader = new FileReader();
@@ -39,36 +36,16 @@ export class CoAddImagenComponent implements OnInit {
       image.src = reader.result
     }
 
-    this._reg.saveImgDoc(this.idColab, this.imgPerfil, 'perfil')
+    image.onload = () => {
+      this.imgWidth = image.naturalWidth
+      this.imgHeight = image.naturalHeight
+      if (this.imgWidth == this.imgHeight) {
+        this._reg.saveImgPerfil(this.idColab, this.imgPerfil)
+      } else {
+        return this.isNOTEqual = true
+      }
+    }
     reader.readAsDataURL(fileInput.target.files[0]);
-
-  }
-
-  async imagenFront( fileInput: any ) {
-    this.imgFront = <Array<File>> fileInput.target.files[ 0 ];
-
-    var reader = new FileReader();
-    var image: any = document.getElementById( 'identFront' );
-    reader.onload = function () {
-      image.src = reader.result
-    }
-    
-    this._reg.saveImgDoc( this.idColab, this.imgFront, 'identFront' )
-    reader.readAsDataURL( fileInput.target.files[ 0 ] );
-
-  }
-
-  async imagenBack( fileInput: any ) {
-    this.imgBack = <Array<File>> fileInput.target.files[ 0 ];
-
-    var reader = new FileReader();
-    var image: any = document.getElementById( 'identBack' );
-    reader.onload = function () {
-      image.src = reader.result
-    }
-    
-    this._reg.saveImgDoc( this.idColab, this.imgBack, 'identBack' )
-    reader.readAsDataURL( fileInput.target.files[ 0 ] );
 
   }
 

@@ -2,110 +2,41 @@
     <div class="row title">
         <div class="col s12">
             <p class="titleLabel center ltxt">
-                Documentación
+                IMAGEN DE PERFIL
             </p>
         </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <!-- * INICIO DE PERFIL -->
-            <div class="col s12 m6 sec">
-                <div class="row">
-                    <div class="col s12 center">
-                        <h4>Imagen de perfil</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 center">
-                        <p class="grey-text lighten-1">
-                            Agrega una imagen de perfil presentable de caracter profesional, donde se pueda ver bien tu rostro y donde tu gesto y peinados sean formales <br>
-                            <span class="resaltado">Sube una imagen de proporción 1:1 (cuadrada)</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 center">
-                        <div class="imgColaborador">
-                            <img id="imgColaborador" src="/assets/img/co_blank_purple.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12" *ngIf="isNOTEqual">
-                        <p class="center red" width="300">La imagen no es cuadrada. Debes subir una imagen que tenga lo mismo de ancho que de alto</p>
-                    </div>
-                    <div class="col s12 m6 center input-field file-field">
-                        <div class="btn-large">
-                            <span>Subir</span>
-                            <input type="file" name="imgPerfil" id="imgPerfil" (change)="imagenPerfil($event)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="hidden">
-                        </div>
-                    </div>
+            <div class="col s12 center">
+                <p class="grey-text lighten-1">
+                    Agrega una imagen de perfil presentable de caracter profesional, donde se pueda ver bien tu rostro y donde tu gesto y peinados sean formales <br>
+                    <span class="resaltado">Sube una imagen de proporción 1:1 (cuadrada)</span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center">
+                <div class="imgColaborador">
+                    <img id="imgColaborador" src="/assets/img/co_blank_purple.png" alt="">
                 </div>
             </div>
-            <!-- FIN DE PERFIL -->
-
-
-            <!-- INICIO IDENTIFICACIÓN -->
-            <div class="col s12 m6 sec">
-
-                <div class="row">
-                    <div class="col s12 center">
-                        <h4>Identificación</h4>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col s12 center">
-                        <p>Deberás agregar imágenes de una identificación oficial: INE, Licencia de conducir o Escolar</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <p>Frente</p>
-                    <div class="col s9 center">
-                        <div class="identFront">
-                            <img id="identFront" src="" alt="">
-                        </div>
-                    </div>
-                    <div class="col s3 center input-field file-field">
-                        <div class="btn-large">
-                            <span>Subir</span>
-                            <input type="file" name="imgIdentFront" id="imgIdentFront" (change)="imagenFront($event)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="hidden">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p>Detrás</p>
-                    <div class="col s9 center">
-                        <div class="identBack">
-                            <img id="identBack" src="" alt="">
-                        </div>
-                    </div>
-                    
-                    <div class="col s3 center input-field file-field">
-                        <div class="btn-large">
-                            <span>Subir</span>
-                            <input type="file" name="imgIdentFront" id="imgIdentFront" (change)="imagenBack($event)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="hidden">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    
-                </div>
-
+        </div>
+        <div class="row">
+            <div class="col s12" *ngIf="isNOTEqual">
+                <p class="center red" width="300">La imagen no es cuadrada. Debes subir una imagen que tenga lo mismo de ancho que de alto</p>
             </div>
-            <!-- TERMINA IDENTIFICACIÓN -->
+            <div class="col s12 center input-field file-field">
+                <div class="btn-large">
+                    <span>Subir</span>
+                    <input type="file" name="imgPerfil" id="imgPerfil" (change)="imagen($event)">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="hidden">
+                </div>
+            </div>
+
         </div>
     </div>
 

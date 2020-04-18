@@ -1,13 +1,7 @@
 <div class="row" id="activaidades">
-    <div class="col s12 actividad bg-3 grey-text lighten-1"
-     *ngFor="let lugar of lugares; let i = index" >
+    <div class="col s12 actividad bg-3 grey-text lighten-1" *ngFor="let lugar of lugares">
         <table>
             <thead>
-                <tr>
-                    <th colspan="4" class="rigth">
-                        <i class="fas fa-times grey-text" (click)="delExp(i)"></i>
-                    </th>
-                </tr>
                 <tr>
                     <th colspan=1>Desde:</th>
                     <td colspan=1>{{lugar.desde}}</td>

@@ -20,11 +20,6 @@ import { CompareValidatorDirective } from './directives/validator.directive';
 import { PwdToggleDirective } from './directives/pwd-toggle.directive';
 import { LocalStorageModule } from 'angular-2-local-storage-encrypt';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { TextMaskModule } from 'angular2-text-mask';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
-export var maskOptions: Partial<IConfig> | ( () => Partial<IConfig> );
-
-
 
 import { AppComponent } from './app.component';
 
@@ -258,9 +253,7 @@ import { PublicComponent } from './components/public/public.component';
           encryptionIv: 'iVHere',
           encryptionSalt: 'saltHere'
       }
-    } ),
-    NgxMaskModule.forRoot( maskOptions ),
-    TextMaskModule,
+    }),
     PagoModule
   ],
   providers: [],

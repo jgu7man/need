@@ -14,14 +14,6 @@
     border-radius: 50%;
 }
 
-.identFront, .identBack {
-    width: 300px;
-    position: relative;
-    margin: 0 auto;
-    overflow: hidden;
-    height: 166.66666px;
-}
-
 img {
     border-style: none;
     width: 100%;
@@ -33,8 +25,4 @@ img {
 
 .titleLabel {
     margin-bottom: 0;
-}
-
-.sec {
-    padding: 1em;
 }

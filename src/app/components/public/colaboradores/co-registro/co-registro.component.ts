@@ -35,7 +35,8 @@ export class CoRegistroComponent implements OnInit {
     })
   }
 
-  async onSubmit () {
+  async onSubmit() {
+    
     this._reg.onRegistrar(this.colab)
   }
 

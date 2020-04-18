@@ -25,12 +25,12 @@ export class RegistrarService {
         const userRef = this.fs.collection('usuarios').ref
         
         colRef.doc(colab.uid).set({
-            uid: colab.uid,
-            email: colab.email,
-            nombre: colab.nombre.toLowerCase(),
-            apellido_paterno: colab.apellido_paterno.toLowerCase(),
-            apellido_materno: colab.apellido_materno.toLowerCase(),
-            estado: colab.estado.toLowerCase()
+                uid: colab.uid,
+                email: colab.email,
+                nombre: colab.nombre,
+                apellido_paterno: colab.apellido_paterno,
+                apellido_materno: colab.apellido_materno,
+                estado: colab.estado
             })
         
         // ASIGNAR EN COLECCIÓN USUARIOS EL VALOR DE COLABORADOR
@@ -48,14 +48,14 @@ export class RegistrarService {
         this.fs.collection('colaboradores').ref.doc(idColab)
             .collection('info').doc('datos').set({
                 telefono: datos.telefono,
-                direccion: datos.direccion.toLowerCase(),
-                colonia: datos.colonia.toLowerCase(),
-                ciudad: datos.ciudad.toLowerCase(),
-                estado: datos.estado.toLowerCase(),
-                pais: datos.pais.toLowerCase(),
-                CURP: datos.CURP.toUpperCase(),
-                RFC: datos.RFC.toUpperCase()
-            }).then(() => {
+                direccion: datos.direccion,
+                colonia: datos.colonia,
+                ciudad: datos.ciudad,
+                estado: datos.estado,
+                pais: datos.pais,
+                CURP: datos.CURP,
+                RFC: datos.RFC
+            }).then(ref => {
                 this.router.navigate(['/colaborador/exp_laboral', idColab])
             })
     }
@@ -69,18 +69,19 @@ export class RegistrarService {
                 barman: datos.barman,
                 hostess: datos.hostess,
                 vigilante: datos.vigilante,
-            }).then(() => {
+            }).then(ref => {
                 this.router.navigate(['/colaborador/add_imagen', idColab])
             })
     }
 
-    saveImgDoc(idColab:string, file, doc: 'perfil' | 'identFront' | 'identBack') {
+    saveImgPerfil(idColab, file) {
         const id = new Date().getTime()
-            const path = `colaboradores/${idColab}/${doc}-${idColab}`
+            const name = id + file.name
+            const path = `colaboradores/${idColab}/imgPerfilCo/${name}`
             const ref = this.storage.ref(path)
             const task = this.storage.upload(path, file)
             
-            // $("app-loading").fadeIn()
+            $("app-loading").fadeIn()
             // $("app-uploading").fadeToggle()
 
             // await task.percentageChanges().subscribe(res => {
@@ -91,13 +92,11 @@ export class RegistrarService {
                 finalize(() => {
                     ref.getDownloadURL().subscribe(res => {
                         this.fs.collection('colaboradores').ref.doc(idColab).update({
-                          [doc]: res
-                        } )
-                            .then( res => {
-                                console.log(doc, 'agregada')
-                                // this.router.navigate(['/colaborador-registrado', idColab])
-                                // $("app-loading").fadeOut()
-                            })
+                          imgPerfil: res
+                        }).then(res => {
+                            this.router.navigate(['/colaborador-registrado', idColab])
+                            $("app-loading").fadeOut()
+                      })
                     })
                 })
             ).subscribe()

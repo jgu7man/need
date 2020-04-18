@@ -103,7 +103,7 @@
                     <label for="estado">Estado</label>
                     <select name="estado" id="estado" [(ngModel)]="datos.estado" #estado="ngModel">
                         <option disabled selected>Elige un estado</option>
-                        <option *ngFor="let edo of _formDatos.estados" [value]="edo">{{edo}}</option>
+                        <option *ngFor="let edo of estados" [value]="edo">{{edo}}</option>
                     </select>
                 </div>
             </div>
