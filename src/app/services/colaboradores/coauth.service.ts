@@ -37,7 +37,8 @@ export class CoauthService {
         return credential.user
     }
 
-    private async updateCoData({ uid, email, displayName, photoURL }: UsuarioInterface) {
+    private async updateCoData ( { uid, email, displayName, photoURL }: UsuarioInterface ) {
+        console.log('actualizando')
         const coRef = this.fs.collection('colaboradores').ref.doc(uid);
         var coData = await coRef.get()
         if (!coData.exists) {

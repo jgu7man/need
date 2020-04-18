@@ -1,3 +1,14 @@
 .contenido {
     width: 100vw !important;
 }
+
+select {
+    opacity: 1 !important;
+    display: block !important;
+    background: #2a062a;
+    border: none;
+    box-shadow: inset 2px 2px 3px rgba(0,0,0,0.3);
+    margin-bottom: 2em;
+    cursor: pointer;
+    width: 98%;
+}

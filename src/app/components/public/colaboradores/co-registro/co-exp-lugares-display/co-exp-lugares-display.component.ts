@@ -15,4 +15,8 @@ export class CoExpLugaresDisplayComponent implements OnInit {
   ngOnInit() {
   }
 
+  delExp (i) {
+    this.lugares.splice(i, 1)
+  }
+
 }

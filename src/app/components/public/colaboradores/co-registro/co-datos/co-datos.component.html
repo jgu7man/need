@@ -10,7 +10,7 @@
         <div class="row formulario bg-2">
             <form id="coRegistro" #coRegistro="ngForm" (ngSubmit)="onSubmit()" onsubmit="return false" action="">
                 <div class="col s12 input-field">
-                    <input type="text" name="telefono" id="telefono" [(ngModel)]="CoDatos.telefono" #telefono="ngModel">
+                    <input type="text" name="telefono" id="telefono" [(ngModel)]="CoDatos.telefono" #telefono="ngModel" minlength="10" mask="(000) 000 0000">
                     <label for="telefono">Teléfono</label>
                 </div>
                 <div class="col s12 input-field">
@@ -25,20 +25,23 @@
                     <input type="text" name="ciudad" id="ciudad" [(ngModel)]="CoDatos.ciudad" #ciudad="ngModel">
                     <label for="ciudad">Ciudad</label>
                 </div>
-                <div class="col s12 input-field">
-                    <input type="text" name="estado" id="estado" [(ngModel)]="CoDatos.estado" #estado="ngModel">
+                <div class="col s12">
                     <label for="estado">Estado</label>
+                    <select class="grey-text" name="estado" id="estado" [(ngModel)]="CoDatos.estado" #estado="ngModel">
+                        <option disabled selected>Elige un estado</option>
+                        <option  *ngFor="let edo of _formDatos.estados" [value]="edo">{{edo}}</option>
+                    </select>
                 </div>
                 <div class="col s12 input-field">
-                    <input type="text" name="pais" id="pais" [(ngModel)]="CoDatos.pais" #pais="ngModel">
-                    <label for="pais">País</label>
+                    <input type="text" name="pais" id="pais" [(ngModel)]="CoDatos.pais" #pais="ngModel" disabled class="grey-text">
+                    <label for="pais" class="active">País</label>
                 </div>
                 <div class="col s12 input-field">
-                    <input type="text" name="CURP" id="CURP" [(ngModel)]="CoDatos.CURP" #CURP="ngModel">
+                    <input type="text" name="CURP" id="CURP" [(ngModel)]="CoDatos.CURP" #CURP="ngModel" mask="SSSS 000000 AAAAAA AA" >
                     <label for="CURP">CURP</label>
                 </div>
                 <div class="col s12 input-field">
-                    <input type="text" name="RFC" id="RFC" [(ngModel)]="CoDatos.RFC" #RFC="ngModel">
+                    <input type="text" name="RFC" id="RFC" [(ngModel)]="CoDatos.RFC" #RFC="ngModel" mask="AAAA 000000 AAA" >
                     <label for="RFC">RFC</label>
                 </div>
                 <div class="col s12">

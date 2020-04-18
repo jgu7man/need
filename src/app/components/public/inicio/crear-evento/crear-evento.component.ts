@@ -9,6 +9,7 @@ import { DateModel } from 'src/app/models/evento/date.model';
 import { AlertaService } from 'src/app/services/alerta.service';
 import { CostosModel } from 'src/app/models/evento/costos.model';
 import { AdminDataService } from 'src/app/services/admin/admin.data.service';
+import { FormDatosServices } from '../../../../services/admin/forms.service';
 
 declare var jQuery:any;
 declare var $:any;
@@ -52,7 +53,8 @@ export class CrearEventoComponent implements OnInit {
     private _Router: Router,
     private _Evento: EventoService,
     private _alerta: AlertaService,
-    private _adminData: AdminDataService
+    private _adminData: AdminDataService,
+    public _formDatos: FormDatosServices
     ) {
     this.datos = new DatosModel(new Date,new Date,'', '', '', '', '', 0, 0);
     this.personal = new PersonalModel( '', '');
@@ -291,40 +293,7 @@ export class CrearEventoComponent implements OnInit {
     })
   }
 
-  public estados = [
-			'Aguascalientes',
-			'Baja California',
-			'Baja California Sur',
-			'Campeche',
-			'Chiapas',
-			'Chihuahua',
-			'Coahuila',
-			'Colima',
-			'Ciudad de México',
-			'Durango',
-			'Guanajuato',
-			'Guerrero',
-			'Hidalgo',
-			'Jalisco',
-			'Mexico',
-			'Michoacan',
-			'Morelos',
-			'Nayarit',
-			'Nuevo Leon',
-			'Oaxaca',
-			'Puebla',
-			'Queretaro',
-			'Quintana Roo',
-			'San Luis Potosi',
-			'Sinaloa',
-			'Sonora',
-			'Tabasco',
-			'Tamaulipas',
-			'Tlaxcala',
-			'Veracruz',
-			'Yucatan',
-			'Zacatecas',
-  ]
+  
 
 }
 
