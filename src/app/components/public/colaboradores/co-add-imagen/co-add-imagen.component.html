@@ -1,46 +1,134 @@
 <div class="">
-    <div class="row title">
-        <div class="col s12">
-            <p class="titleLabel center ltxt">
-                IMAGEN DE PERFIL
-            </p>
-        </div>
+  <div class="row title">
+    <div class="col s12">
+      <p class="titleLabel center ltxt">
+        Documentos
+      </p>
     </div>
+  </div>
 
-    <div class="container">
+  <div class="container">
+    <div class="row">
+        <!-- Inicia Imagen de perfil -->
+      <div class="col s12 m6">
+        <div class="row">
+          <div class="col s12 center">
+            <p class="grey-text lighten-1">
+              Agrega una imagen de perfil presentable de caracter profesional,
+              donde se pueda ver bien tu rostro y donde tu gesto y peinados sean
+              formales
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 center">
+            <div class="perfil">
+              <img
+                #coPerfil
+                id="perfil"
+                src="/assets/img/co_blank_purple.png"
+                alt=""
+                crossorigin
+              />
+              <app-loading-inset style="display: none;"></app-loading-inset>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 center input-field file-field">
+            <div class="btn-large">
+              <span>Subir</span>
+              <input
+                type="file"
+                name="imgPerfil"
+                id="imgPerfil"
+                (change)="addDocumentImg($event, 'perfil')"
+              />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="hidden" />
+            </div>
+          </div>
+        </div>
+
+    </div>
+    <!-- Termina Imagen de perfil -->
+
+    <!-- Inicia identificación -->
+      <div class="col s12 m6">
         <div class="row">
             <div class="col s12 center">
                 <p class="grey-text lighten-1">
-                    Agrega una imagen de perfil presentable de caracter profesional, donde se pueda ver bien tu rostro y donde tu gesto y peinados sean formales <br>
-                    <span class="resaltado">Sube una imagen de proporción 1:1 (cuadrada)</span>
+                    Deberás agregar una identificaión oficial. (INE, Lic. de manejo, escolar, etc.)
                 </p>
             </div>
         </div>
+            <!-- Inicia FRONT -->
         <div class="row">
-            <div class="col s12 center">
-                <div class="imgColaborador">
-                    <img id="imgColaborador" src="/assets/img/co_blank_purple.png" alt="">
-                </div>
+          <div class="col s9 right">
+            <div class="identImg">
+              <img
+                #coIdentFront
+                id="identFrontImg"
+                src=""
+                alt=""
+              />
             </div>
+          </div>
+        
+          <div class="col s3 center input-field file-field">
+            <div class="btn-large">
+              <span>Subir</span>
+              <input
+                type="file"
+                name="identFront"
+                id="identFront"
+                (change)="addDocumentImg($event, 'identFront')"
+              />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="hidden" />
+            </div>
+          </div>
         </div>
-        <div class="row">
-            <div class="col s12" *ngIf="isNOTEqual">
-                <p class="center red" width="300">La imagen no es cuadrada. Debes subir una imagen que tenga lo mismo de ancho que de alto</p>
-            </div>
-            <div class="col s12 center input-field file-field">
-                <div class="btn-large">
-                    <span>Subir</span>
-                    <input type="file" name="imgPerfil" id="imgPerfil" (change)="imagen($event)">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="hidden">
-                </div>
-            </div>
 
+        <!-- Termina Front -->
+
+            <!-- Inicia Back -->
+        <div class="row">
+          <div class="col s9 right">
+            <div class="identImg">
+              <img
+                #coIdentBack
+                id="identBackImg"
+                src=""
+                alt=""
+              />
+            </div>
+          </div>
+        
+          <div class="col s3 center input-field file-field">
+            <div class="btn-large">
+              <span>Subir</span>
+              <input
+                type="file"
+                name="identBack"
+                id="identBack"
+                (change)="addDocumentImg($event, 'identBack')"
+              />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="hidden" />
+            </div>
+          </div>
         </div>
+
+        <!-- Termina Back -->
+
     </div>
-
-
+    <!-- Termina Iidentificación -->
+    </div>
+  </div>
 </div>
 
-<app-loading class="overlay" style="display: none"></app-loading>
+<app-loading class="overlay" style="display: none;"></app-loading>

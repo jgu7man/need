@@ -20,6 +20,7 @@ import { CompareValidatorDirective } from './directives/validator.directive';
 import { PwdToggleDirective } from './directives/pwd-toggle.directive';
 import { LocalStorageModule } from 'angular-2-local-storage-encrypt';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppComponent } from './app.component';
 
@@ -31,6 +32,7 @@ import { MainMenuComponent } from './components/public/navbar/main-menu/main-men
 import { CotizacionComponent } from './components/public/inicio/cotizacion/cotizacion.component';
 import { LoginUserComponent } from './components/public/inicio/login-user/login-user.component';
 import { LoadingComponent } from './components/public/inicio/loading/loading.component';
+import { LoadingInsetComponent } from './components/public/inicio/loading-inset/loading-inset.component';
 import { CrearEventoComponent } from './components/public/inicio/crear-evento/crear-evento.component';
 import { NuevoEventoComponent } from './components/public/user/nuevo-evento/nuevo-evento.component';
 
@@ -139,6 +141,7 @@ import { PublicComponent } from './components/public/public.component';
     CotizacionComponent,
     LoginUserComponent,
     LoadingComponent,
+    LoadingInsetComponent,
     CrearEventoComponent,
     EventoCreadoComponent,
     UsuarioComponent,
@@ -256,7 +259,6 @@ import { PublicComponent } from './components/public/public.component';
     }),
     PagoModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

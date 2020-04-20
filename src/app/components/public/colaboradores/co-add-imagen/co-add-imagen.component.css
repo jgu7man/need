@@ -5,13 +5,21 @@
     transform: translateX(-50%);
 }
 
-.imgColaborador {
+.perfil {
     width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 0 auto;
+    /* overflow: hidden; */
+    /* border-radius: 50%; */
+}
+
+.identImg{
+    width: 260px;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
-    height: 200px;
-    border-radius: 50%;
+    height: 144px;
 }
 
 img {
