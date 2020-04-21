@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/usuarios/auth.service';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaboradores/colaborador.service';
 import { ColaboradorModel } from '../../../../models/colaboradores/colaborador.model';
+import { CoauthService } from '../../../../services/colaboradores/coauth.service';
 
 @Component({
   selector: 'app-co-perfil',
@@ -17,34 +18,30 @@ export class CoPerfilComponent implements OnInit {
   public user
   coPerfil: ColaboradorModel
   constructor(
-    public auth: AuthService,
+    public auth: CoauthService,
     private router: Router,
     private _colaborador: ColaboradorService
   ) {
     this.coPerfil = new ColaboradorModel( '', '', '', '', '','/assets/img/co_blank_purple.png','solicitud')
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('needlog'))
-    this.auth.user$.pipe().subscribe( user => {
-      console.log(user)
-      if ( !user ) {
+    this.auth.colab$.pipe().subscribe( async colab => {
+      if ( !colab ) {
         this.router.navigate( [ '/colaborador/login' ] )
       } else {
-        this.getPerfil(user)
-        this.getRating(user)
-        this.getEventosCompletados(user)
+        this.getRating(colab)
+        this.getEventosCompletados(colab)
+        await this._colaborador.getCoPerfil()
+        this._colaborador.coPerfil
+          .subscribe( colab => this.coPerfil = colab );
       }
     })
 
   }
 
-  async getPerfil(user) {
-    this.coPerfil = await this._colaborador.getCoPerfil( user.uid )
-    console.log(this.coPerfil)
-    // if ( this.coPerfil.estado = 'solicitud' ) 
-    //   this.router
-  }
+  
 
   getRating(user) {
     this._colaborador.getCoRating(user.uid).then(res => {

@@ -4,14 +4,26 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import { UsuarioInterface } from 'src/app/models/usuario.interface';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class CoauthService {
+    
+    colab$: Observable<any>
     constructor(
         private fs: AngularFirestore,
         private auth: AngularFireAuth,
         private router: Router,
+        private afAuth: AngularFireAuth
     ) {
+        
+        this.colab$ = this.afAuth.authState.pipe(
+            switchMap( colab => {
+                return colab ?
+                    this.fs.doc<UsuarioInterface>( `colaboradores/${ colab.uid }` ).valueChanges()
+                    : of( null );
+            } ) )
         
     }
 
@@ -32,8 +44,11 @@ export class CoauthService {
     async googleSingUp() {
         $("app-loading").fadeIn()
         const provider = new auth.GoogleAuthProvider();
-        const credential = await this.auth.auth.signInWithPopup(provider);
-        
+        const credential = await this.auth.auth.signInWithPopup( provider );
+        var user = credential.user
+        this.fs.collection( 'colaboradores' ).ref.doc( user.uid ).set( {
+            uid: user.uid, email: user.email
+        } )
         return credential.user
     }
 
@@ -42,10 +57,10 @@ export class CoauthService {
         var coData = await coRef.get()
         if (!coData.exists) {
             this.fs.collection('colaboradores').ref.doc(uid).set({uid, email})
-            this.auth.auth.signOut()
+            // this.auth.auth.signOut()
             this.router.navigate(['/colaborador/registro']);
         } else {
-            const userDoc = await this.fs.collection('usuarios').ref.doc(uid).get()
+            const userDoc = await this.fs.collection('colaboradores').ref.doc(uid).get()
             localStorage.setItem('needlog', JSON.stringify(userDoc.data()))
             this.router.navigate(['/colaborador/perfil']);
         }

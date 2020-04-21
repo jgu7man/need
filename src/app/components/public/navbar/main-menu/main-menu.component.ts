@@ -30,7 +30,7 @@ export class MainMenuComponent implements OnInit {
     private location: Location
   ) {
     var user = JSON.parse(localStorage.getItem('needlog'))
-    if (user) { user.admin ? this.isAdmin = true : this.isAdmin = false }
+    if (user || user != undefined ) { user.admin ? this.isAdmin = true : this.isAdmin = false }
    }
 
   ngOnInit() {

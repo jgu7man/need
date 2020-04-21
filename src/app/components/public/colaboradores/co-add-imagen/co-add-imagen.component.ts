@@ -45,7 +45,16 @@ export class CoAddImagenComponent implements OnInit {
    }
 
   async ngOnInit() {
-    this.colab = await this._colab.getCoPerfil( this.idColab ) as ColaboradorModel
+    await this._colab.getCoPerfil()
+    this._colab.coPerfil.subscribe( colab => {
+      this.colab = colab
+
+      this.colab.imgPerfil ? this.fileUploaded( 'imgPerfil' ) :
+        this.colab.imgPerfil = '/assets/img/co_blank_purple.png'
+      if ( this.colab.identFront ) this.fileUploaded( 'identFront' )
+      if ( this.colab.identBack ) this.fileUploaded( 'identBack' )
+
+    })
   }
 
   fileUploaded( file: string ) {
@@ -102,7 +111,7 @@ export class CoAddImagenComponent implements OnInit {
   }
   
   saveImgPerfil() {
-    this._reg.saveImgPerfil( this.idColab, this.imgLoaded, 'perfil' );
+    this._reg.saveImgPerfil( this.idColab, this.imgLoaded, 'imgPerfil' );
     this.fileUploaded('imgPerfil')
   }
 

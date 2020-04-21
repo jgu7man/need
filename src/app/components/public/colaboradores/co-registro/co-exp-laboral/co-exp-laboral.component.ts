@@ -3,6 +3,7 @@ import { ExpLaboralModel } from 'src/app/models/colaboradores/expLaboral.model';
 import { TiempoExp } from 'src/app/models/colaboradores/tiempoExp.model';
 import { ActivatedRoute } from '@angular/router';
 import { RegistrarService } from 'src/app/services/colaboradores/registrar.service';
+import { ColaboradorService } from '../../../../../services/colaboradores/colaborador.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class CoExpLaboralComponent implements OnInit {
   
   constructor(
     private _reg: RegistrarService,
-    private _ruta: ActivatedRoute
+    private _ruta: ActivatedRoute,
+    private _colab: ColaboradorService
   ) {
     this.mesero = new TiempoExp(0, 0)
     this.barman = new TiempoExp(0, 0)
@@ -32,10 +34,12 @@ export class CoExpLaboralComponent implements OnInit {
     this.exp = new ExpLaboralModel([], '', this.mesero, this.barman, this.bartender, this.hostess, this.vigilante)
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     this._ruta.params.subscribe(params => {
       this.colabId = params['id']
-    })
+    } )
+    
+    await this._colab.getCoPerfil()
   }
 
   addLugar(lugar) {

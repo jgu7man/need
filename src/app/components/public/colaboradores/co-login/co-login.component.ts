@@ -17,15 +17,16 @@ export class CoLoginComponent implements OnInit {
   constructor(
     public _coauth: CoauthService,
     public location: Location,
-    public auth: AuthService,
+    public auth: CoauthService,
     private router: Router
   ) {
     this.colab = new ColaboradorModel('','','','','','','activo')
    }
 
   ngOnInit() {
-    this.auth.user$.pipe().subscribe(user => {
-      if (user) {
+    this.auth.colab$.pipe().subscribe(colab => {
+      console.log(colab)
+      if ( colab ) {
         this.router.navigate(['/colaborador/perfil'])
       }
     })

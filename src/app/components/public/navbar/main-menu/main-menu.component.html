@@ -37,7 +37,7 @@
                 <p class="Link sub" [routerLink]="['docs/costos_y_tarifas']" (click)="toggleMenu()">
                     Cargos y tarifas
                 </p>
-                <ng-template #usuario>
+                <ng-template #usuario *ngIf="authService.user$">
                     <p class="Link logout" (click)="authService.singOut()" (click)="toggleMenu()">
                         Cerrar Sesión
                     </p>

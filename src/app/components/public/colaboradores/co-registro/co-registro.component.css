@@ -1,3 +1,7 @@
 .contenido {
     width: 100vw !important;
 }
+
+.container {
+    padding-bottom: 6em;
+}

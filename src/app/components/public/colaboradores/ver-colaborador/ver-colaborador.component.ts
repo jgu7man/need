@@ -42,7 +42,9 @@ export class VerColaboradorComponent implements OnInit {
   }
 
   async getCoPerfil() {
-    this.colaborador = await this._colaborador.getCoPerfil(this.idCo) as ColaboradorModel
+   await this._colaborador.coPerfil.subscribe( res => {
+     this.colaborador = res
+    }) 
   }
 
   getRating() {

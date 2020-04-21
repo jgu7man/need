@@ -1,10 +1,12 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { LocalStorageServiceEncrypt } from 'angular-2-local-storage-encrypt';
 import { ColaboradorModel } from '../../models/colaboradores/colaborador.model';
+import { AuthService } from '../usuarios/auth.service';
+import { CoauthService } from './coauth.service';
 
 @Injectable({ providedIn: 'root' })
 export class ColaboradorService {
@@ -14,6 +16,7 @@ export class ColaboradorService {
     public colaborador: any
     constructor(
         private auth: AngularFireAuth,
+        private _auth: CoauthService,
         private fs: AngularFirestore,
         private router: Router,
         private _localStorage: LocalStorageServiceEncrypt
@@ -31,11 +34,61 @@ export class ColaboradorService {
         // )
     }
 
-    async getCoPerfil(idCo) {
-        const coRef = this.fs.collection('colaboradores').ref.doc(idCo)
-        var perfilData = await coRef.get()
-        var perfil = perfilData.data() as ColaboradorModel
-        return perfil
+
+    public coPerfil: Subject<any> = new Subject<ColaboradorModel>()
+    async getCoPerfil() {
+
+        // Activate Load animation
+        $( 'app-loading' ).toggle()
+
+
+        // Check if is authenticated
+        this._auth.colab$.pipe().subscribe( async colab => {
+            
+        
+
+        if ( colab ) {
+
+            // If get Authenticated check if is registreded
+
+            const coRef = this.fs.collection( 'colaboradores' ).ref.doc( colab.uid )
+            var perfilData = await coRef.get()
+            if ( perfilData.exists ) {
+
+                // If is registred get the data
+
+                var perfil = perfilData.data() as ColaboradorModel;
+                this.coPerfil.next( perfil )
+
+                
+                if ( !perfil.nombre || !perfil.apellido_materno || !perfil.apellido_paterno )
+                    return this.router.navigate( [ '/colaborador/registro' ] ),
+                        $( 'app-loading' ).fadeOut();
+            
+                var datosDoc = await coRef.collection( 'info' ).doc( 'datos' ).get()
+                if ( !datosDoc.exists ) return this.router.navigate( [ '/colaborador/reg-datos', colab.uid ] ),
+                    $( 'app-loading' ).fadeOut();
+            
+                var expLaboralDoc = await coRef.collection( 'info' ).doc( 'exp_laboral' ).get()
+                if ( !expLaboralDoc.exists ) return this.router.navigate( [ '/colaborador/exp_laboral', colab.uid ] ),
+                    $( 'app-loading' ).fadeOut();
+            
+                if ( !perfil.imgPerfil || !perfil.identFront || !perfil.identBack )
+                    return this.router.navigate( [ '/colaborador/add_imagen', colab.uid ] ),
+                        $( 'app-loading' ).fadeOut();
+                
+                return this.router.navigate( [ '/colaborador']) , $( 'app-loading' ).fadeOut()
+            }
+        } else {
+            $( 'app-loading' ).fadeOut()
+            alert('Necesitas registrarte de nuevo')
+            this.router.navigate( [ '/colaborador/registro' ] )
+            }
+        } )
+    
+
+
+
     }
 
     async switchMenu(menu) {

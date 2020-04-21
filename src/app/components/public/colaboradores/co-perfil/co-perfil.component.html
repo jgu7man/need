@@ -1,4 +1,4 @@
-<div class="contenido" *ngIf="(auth.user$ | async) as usuario">
+<div class="contenido" *ngIf="(auth.colab$ | async) as colaborador">
 
     <div class="row" id="datosUsuario">
         <div class="col s12 m6">
@@ -7,14 +7,14 @@
                         <div id="fotoPerfil">
                             <img src="{{coPerfil.imgPerfil}}" alt="">
                         </div>
-                        <div id="editMask" [routerLink]="['/colaborador/add_imagen/', usuario.uid]">
+                        <div id="editMask" [routerLink]="['/colaborador/add_imagen/', colaborador.uid]">
                             <i class="fas fa-pen-square grey-text"></i>
                         </div>
                 </div>
                 <div class="col s12 m9" id="datos">
                     <ul>
                         <li id="nombre">{{coPerfil.nombre}} {{coPerfil.apellido_paterno}} {{coPerfil.apellido_materno}} </li>
-                        <li id="email">{{usuario.email}}</li>
+                        <li id="email">{{colaborador.email}}</li>
                         <li> Estado: {{coPerfil.estado}}</li>
                     </ul>
                 </div>

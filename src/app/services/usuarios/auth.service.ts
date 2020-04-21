@@ -20,13 +20,9 @@ export class AuthService {
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap( user => {
-        if (user) {
-          return this.afs.doc<UsuarioInterface>(`usuarios/${user.uid}`).valueChanges()
-        } else {
-          return of(null);
-        }
-      })
-    )
+        return user ? this.afs.doc<UsuarioInterface>( `usuarios/${ user.uid }` ).valueChanges()
+        : of(null);
+      }))
   }
   
   async googleSingIn(link){
