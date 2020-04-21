@@ -341,6 +341,12 @@ label {
     width: 100%
 }
 
+@media screen and (min-width: 500px) {
+    .megaIcono img {
+        width: 30%;
+    }
+}
+
 .needbtn {
     background: #6C009C !important;
     color: #e3e3e3;

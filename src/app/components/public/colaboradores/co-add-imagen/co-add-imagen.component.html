@@ -32,14 +32,16 @@
               />
               <app-loading-inset style="display: none;"></app-loading-inset>
             </div>
+            <span class="grey-text" id="instrucciones" *ngIf="perfilLoaded">*Puedes hacer zoom para recortar la imagen donde quede tu cara centrada correctamente</span>
           </div>
         </div>
         <div class="row">
-          <div class="col s12 center input-field file-field">
+          <div class="col s6 center input-field file-field">
             <div class="btn-large">
               <span>Subir</span>
               <input
                 type="file"
+                accept="image/*"
                 name="imgPerfil"
                 id="imgPerfil"
                 (change)="addDocumentImg($event, 'perfil')"
@@ -48,6 +50,9 @@
             <div class="file-path-wrapper">
               <input class="file-path validate" type="hidden" />
             </div>
+          </div>
+          <div class="col s6">
+            <button class="btn needbtn" (click)="saveImgPerfil()">Guardar</button>
           </div>
         </div>
 
@@ -59,7 +64,7 @@
         <div class="row">
             <div class="col s12 center">
                 <p class="grey-text lighten-1">
-                    Deberás agregar una identificaión oficial. (INE, Lic. de manejo, escolar, etc.)
+                    Deberás agregar una identificaión oficial. (INE, Lic. de manejo, escolar, etc.) y que la imagen sea muy legible.
                 </p>
             </div>
         </div>
@@ -69,7 +74,7 @@
             <div class="identImg">
               <img
                 #coIdentFront
-                id="identFrontImg"
+                id="identFront"
                 src=""
                 alt=""
               />
@@ -78,10 +83,11 @@
         
           <div class="col s3 center input-field file-field">
             <div class="btn-large">
-              <span>Subir</span>
+              <span>Subir Frente</span>
               <input
                 type="file"
-                name="identFront"
+                accept="image/*"
+                name="identFrontImg"
                 id="identFront"
                 (change)="addDocumentImg($event, 'identFront')"
               />
@@ -100,7 +106,7 @@
             <div class="identImg">
               <img
                 #coIdentBack
-                id="identBackImg"
+                id="identBack"
                 src=""
                 alt=""
               />
@@ -109,11 +115,12 @@
         
           <div class="col s3 center input-field file-field">
             <div class="btn-large">
-              <span>Subir</span>
+              <span>Subir Atrás</span>
               <input
                 type="file"
+                accept="image/*"
                 name="identBack"
-                id="identBack"
+                id="identBackImg"
                 (change)="addDocumentImg($event, 'identBack')"
               />
             </div>
@@ -127,6 +134,15 @@
 
     </div>
     <!-- Termina Iidentificación -->
+
+    
+    </div>
+    <div class="row">
+      <div class="col s12 center">
+        <button class="btn needbtn" [disabled]="uploadedFiles.length != 3" (click)="next()">
+          CONTINUAR
+        </button>
+      </div>
     </div>
   </div>
 </div>

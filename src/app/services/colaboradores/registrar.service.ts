@@ -74,12 +74,17 @@ export class RegistrarService {
             })
     }
 
-    saveImgPerfil(idColab, file) {
+    saveImgPerfil(idColab, file, document: string) {
         const id = new Date().getTime()
-            const name = id + file.name
-            const path = `colaboradores/${idColab}/imgPerfilCo/${name}`
+            const path = `colaboradores/${idColab}/${idColab}-${document}`
             const ref = this.storage.ref(path)
-            const task = this.storage.upload(path, file)
+            
+        if ( typeof file == 'string' ) {
+           var task = ref.putString(file, 'data_url')
+        } else {
+            var task = this.storage.upload(path, file)
+        }
+        
             
             $("app-loading").fadeIn()
             // $("app-uploading").fadeToggle()
@@ -92,9 +97,9 @@ export class RegistrarService {
                 finalize(() => {
                     ref.getDownloadURL().subscribe(res => {
                         this.fs.collection('colaboradores').ref.doc(idColab).update({
-                          imgPerfil: res
-                        }).then(res => {
-                            this.router.navigate(['/colaborador-registrado', idColab])
+                          [document]: res
+                        }).then(() => {
+                            
                             $("app-loading").fadeOut()
                       })
                     })
