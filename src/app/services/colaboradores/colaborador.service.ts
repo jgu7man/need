@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { LocalStorageServiceEncrypt } from 'angular-2-local-storage-encrypt';
+import { ColaboradorModel } from '../../models/colaboradores/colaborador.model';
 
 @Injectable({ providedIn: 'root' })
 export class ColaboradorService {
@@ -33,7 +34,7 @@ export class ColaboradorService {
     async getCoPerfil(idCo) {
         const coRef = this.fs.collection('colaboradores').ref.doc(idCo)
         var perfilData = await coRef.get()
-        var perfil = perfilData.data()
+        var perfil = perfilData.data() as ColaboradorModel
         return perfil
     }
 

@@ -7,6 +7,8 @@ export class ColaboradorModel{
         public apellido_materno: string,
         public imgPerfil: string,
         // public registrado: Date,
-        public estado: 'solicitud' | 'activo' | 'inactivo'
+        public estado: 'solicitud' | 'activo' | 'inactivo',
+        public identFront?: string,
+        public identBack?: string
     ){}
 }

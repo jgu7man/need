@@ -18,6 +18,30 @@
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+
+
+
+#editMask {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+    transform: translate(19%, -100%);
+    border-radius: 50%;
+        align-items: center;
+    display: flex;
+    font-size: x-large;
+}
+
+#editMask:hover {
+    opacity: 1;
+}
+
 #fotoPerfil img {
     height: 100%;
     position: relative;
@@ -35,6 +59,8 @@
     margin-top: .5em;
 }
 
+
+
 #nombre {
     color: gold;
     font-size: 1.5em;
@@ -43,7 +69,12 @@
 
 #rating {
     color: #ccc;
-    /* height: 60px; */
+    display: flex;
+    flex-flow: wrap row;
+}
+
+#rating .rateItem {
+    width: 33.3333%;
 }
 
 #rating .s6 {
@@ -108,9 +139,7 @@
 }
 
 @media screen and (min-width: 500px) {
-    #rating {
-        width: 30%;
-    }
+    
     #finanzas {
         width: 45%;
         margin: 5%;
@@ -123,5 +152,11 @@
     }
     .seccion {
         margin-top: 0;
+    }
+    #datos {
+        text-align: left;
+    }
+    .left-section {
+        top: 8em !important;
     }
 }

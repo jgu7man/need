@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegistrarService } from 'src/app/services/colaboradores/registrar.service';
 import Cropper from 'cropperjs';
+import { ColaboradorService } from '../../../../services/colaboradores/colaborador.service';
+import { ColaboradorModel } from '../../../../models/colaboradores/colaborador.model';
 
 @Component({
   selector: 'app-co-add-imagen',
@@ -11,6 +13,7 @@ import Cropper from 'cropperjs';
 export class CoAddImagenComponent implements OnInit {
 
   idColab: string
+  colab: ColaboradorModel
   @ViewChild( 'coPerfil', { static: false } ) coPerfil: ElementRef;
   
   imgLoaded
@@ -28,23 +31,26 @@ export class CoAddImagenComponent implements OnInit {
   constructor(
     private _ruta: ActivatedRoute,
     private _reg: RegistrarService,
-    private router: Router
+    private router: Router,
+    private _colab: ColaboradorService
   ) {
 
     // Id del colaborador
     this._ruta.params.subscribe(ruta => {
-      this.idColab = ruta['id']
+      this.idColab = ruta[ 'id' ];
     } )
+
+    this.colab = new ColaboradorModel( '', '', '', '', '','/assets/img/co_blank_purple.png','solicitud','','')
 
    }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.colab = await this._colab.getCoPerfil( this.idColab ) as ColaboradorModel
   }
 
   fileUploaded( file: string ) {
     var fileToLoad = this.uploadedFiles.find( string => string === file )
     if ( !fileToLoad ) this.uploadedFiles.push( file );
-    console.log( this.uploadedFiles.length)
   }
 
   async addDocumentImg(fileInput: any, doc: string){
@@ -66,7 +72,7 @@ export class CoAddImagenComponent implements OnInit {
       await waitFor( 1000 )
 
     
-      if ( doc == 'perfil' ) {
+      if ( doc == 'imgPerfil' ) {
         this.perfilLoaded = true
         this.crop()
       } else {
@@ -97,7 +103,7 @@ export class CoAddImagenComponent implements OnInit {
   
   saveImgPerfil() {
     this._reg.saveImgPerfil( this.idColab, this.imgLoaded, 'perfil' );
-    this.fileUploaded('perfil')
+    this.fileUploaded('imgPerfil')
   }
 
 

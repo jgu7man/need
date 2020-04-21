@@ -25,10 +25,9 @@
             <div class="perfil">
               <img
                 #coPerfil
-                id="perfil"
-                src="/assets/img/co_blank_purple.png"
+                id="imgPerfil"
+                [src]="colab.imgPerfil"
                 alt=""
-                crossorigin
               />
               <app-loading-inset style="display: none;"></app-loading-inset>
             </div>
@@ -44,7 +43,7 @@
                 accept="image/*"
                 name="imgPerfil"
                 id="imgPerfil"
-                (change)="addDocumentImg($event, 'perfil')"
+                (change)="addDocumentImg($event, 'imgPerfil')"
               />
             </div>
             <div class="file-path-wrapper">
@@ -75,7 +74,7 @@
               <img
                 #coIdentFront
                 id="identFront"
-                src=""
+                [src]="colab.identFront"
                 alt=""
               />
             </div>
@@ -107,7 +106,7 @@
               <img
                 #coIdentBack
                 id="identBack"
-                src=""
+                [src]="colab.identBack"
                 alt=""
               />
             </div>
