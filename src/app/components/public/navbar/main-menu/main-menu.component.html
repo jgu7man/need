@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="authService.user$ | async as usuario; then usuario"></div>
+        <div *ngIf="(authService.user$ | async) || (coAuth.colab$ | async) as usuario; then usuario"></div>
         <div id="areaLinks">
             <div class="col s12 right">
 
@@ -37,7 +37,7 @@
                 <p class="Link sub" [routerLink]="['docs/costos_y_tarifas']" (click)="toggleMenu()">
                     Cargos y tarifas
                 </p>
-                <ng-template #usuario *ngIf="authService.user$">
+                <ng-template #usuario>
                     <p class="Link logout" (click)="authService.singOut()" (click)="toggleMenu()">
                         Cerrar Sesión
                     </p>

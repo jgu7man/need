@@ -30,14 +30,14 @@ export class CoRegistroComponent implements OnInit {
   async ngOnInit() {
     
     $('app-loading').toggle()
-    this.auth.user$.pipe().subscribe( async user => {
-      if ( user ) {
-        const coRef = this.fs.collection( 'colaboradores' ).ref.doc( user.uid )
+    this.coAuth.colab$.pipe().subscribe( async colab => {
+      if ( colab ) {
+        const coRef = this.fs.collection( 'colaboradores' ).ref.doc( colab.uid )
         var perfilData = await coRef.get()
         if ( perfilData.exists ) {
           this.colab = perfilData.data() as ColaboradorModel;
-          this.colab.uid = user.uid
-          this.colab.email = user.email
+          this.colab.uid = colab.uid
+          this.colab.email = colab.email
           this.loged = true
           $( 'app-loading' ).fadeOut()
         }
@@ -48,9 +48,9 @@ export class CoRegistroComponent implements OnInit {
   }
 
   getEmail() {
-    this.coAuth.googleSingUp().then(user => {
-      this.colab.uid = user.uid
-      this.colab.email = user.email
+    this.coAuth.googleSingUp().then(colab => {
+      this.colab.uid = colab.uid
+      this.colab.email = colab.email
       this.loged = true
       $('app-loading').fadeOut()
     })

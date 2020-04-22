@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { ColaboradorService } from 'src/app/services/colaboradores/colaborador.service';
 import { Location } from '@angular/common';
+import { CoauthService } from '../../../../services/colaboradores/coauth.service';
 
 declare var $: any
 
@@ -26,6 +27,7 @@ export class MainMenuComponent implements OnInit {
   constructor(
     private _ruta: ActivatedRoute,
     public authService: AuthService,
+    public coAuth: CoauthService,
     public _colab: ColaboradorService,
     private location: Location
   ) {
