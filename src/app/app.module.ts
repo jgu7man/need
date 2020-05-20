@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './material.module';
 import { PagoModule } from "./pagos/pago.module";
 
 
@@ -30,7 +31,7 @@ import { NavbarComponent } from './components/public/navbar/navbar.component';
 import { FooterComponent } from './components/public/footer/footer.component';
 import { MainMenuComponent } from './components/public/navbar/main-menu/main-menu.component';
 import { CotizacionComponent } from './components/public/inicio/cotizacion/cotizacion.component';
-import { LoginUserComponent } from './components/public/inicio/login-user/login-user.component';
+import { LoginUserComponent, AlertLoginComponent } from './components/public/inicio/login-user/login-user.component';
 import { LoadingComponent } from './components/public/inicio/loading/loading.component';
 import { LoadingInsetComponent } from './components/public/inicio/loading-inset/loading-inset.component';
 import { CrearEventoComponent } from './components/public/inicio/crear-evento/crear-evento.component';
@@ -69,7 +70,7 @@ import { WhatsappFormComponent } from './components/public/docs/ayuda/whatsapp-f
 
 import { ColaboradoresComponent } from './components/public/colaboradores/colaboradores.component';
 import { CoLoginComponent } from './components/public/colaboradores/co-login/co-login.component';
-import { CoRegistroComponent } from './components/public/colaboradores/co-registro/co-registro.component';
+import { CoRegistroComponent, CotycDialogComponent } from './components/public/colaboradores/co-registro/co-registro.component';
 import { CoDatosComponent } from './components/public/colaboradores/co-registro/co-datos/co-datos.component';
 import { CoExpLaboralComponent } from './components/public/colaboradores/co-registro/co-exp-laboral/co-exp-laboral.component';
 import { CoExpLugaresComponent } from './components/public/colaboradores/co-registro/co-exp-lugares/co-exp-lugares.component';
@@ -127,6 +128,8 @@ import { CalculosFacturacionComponent } from './components/pasarela/calculos-fac
 import { PagoTransferenciaPagosComponent } from './pagos/components/pago-transferencia/pago-transferencia.component';
 import { FacturaAdminComponent } from './components/admin/admin-facturas/factura-admin/factura-admin.component';
 import { PublicComponent } from './components/public/public.component';
+import { CoTycComponent } from './components/public/docs/co-tyc/co-tyc.component';
+import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-content/cotyc-content.component';
 
 @NgModule({
   declarations: [
@@ -228,7 +231,10 @@ import { PublicComponent } from './components/public/public.component';
     CalculosFacturacionPagosComponent,
     PagarPlanPagosComponent,
     PublicComponent,
-    
+    CoTycComponent,
+    CotycContentComponent,
+    CotycDialogComponent,
+    AlertLoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -242,6 +248,7 @@ import { PublicComponent } from './components/public/public.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MaterialModule,
     FullCalendarModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyD5qs1RP5Hm53w19CXYG_5VGm7zi0O4Vns"
@@ -258,6 +265,11 @@ import { PublicComponent } from './components/public/public.component';
       }
     }),
     PagoModule
+  ],
+  entryComponents: [
+    CotycContentComponent,
+    CotycDialogComponent,
+    AlertLoginComponent
   ],
   bootstrap: [AppComponent]
 })
