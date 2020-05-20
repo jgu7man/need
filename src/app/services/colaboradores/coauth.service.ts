@@ -47,7 +47,7 @@ export class CoauthService {
         const credential = await this.auth.auth.signInWithPopup( provider );
         var user = credential.user
         this.fs.collection( 'colaboradores' ).ref.doc( user.uid ).set( {
-            uid: user.uid, email: user.email
+            uid: user.uid, email: user.email, acepta_tyc: true
         } )
         return credential.user
     }

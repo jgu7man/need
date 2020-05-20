@@ -5,3 +5,7 @@
 .container {
     padding-bottom: 6em;
 }
+
+mat-checkbox{
+    margin-right: 1em !important;
+}

@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/usuarios/auth.service';
 import { CoauthService } from 'src/app/services/colaboradores/coauth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ColaboradorService } from '../../../../services/colaboradores/colaborador.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { CoTycComponent } from '../../docs/co-tyc/co-tyc.component';
 
 @Component({
   selector: 'app-co-registro',
@@ -22,7 +24,8 @@ export class CoRegistroComponent implements OnInit {
     public auth: AuthService,
     public coAuth: CoauthService,
     private fs: AngularFirestore,
-    private _colaborador: ColaboradorService
+    private _colaborador: ColaboradorService,
+    private _matDialog: MatDialog
   ) {
     this.colab = new ColaboradorModel('','','','','','', 'solicitud')
    }
@@ -47,6 +50,14 @@ export class CoRegistroComponent implements OnInit {
     } )
   }
 
+  openTyc() {
+    const dialogRef = this._matDialog.open( CotycDialogComponent );
+
+    dialogRef.afterClosed().subscribe( result => {
+      this.getEmail()
+    } );
+  }
+
   getEmail() {
     this.coAuth.googleSingUp().then(colab => {
       this.colab.uid = colab.uid
@@ -62,3 +73,26 @@ export class CoRegistroComponent implements OnInit {
   }
 
 }
+
+
+@Component({
+  templateUrl: './co-tyc-dialog.html',
+  styleUrls: ['./co-registro.component.css']
+})
+export class CotycDialogComponent implements OnInit {
+
+  acept:boolean = false
+  constructor (
+    public dialogRef: MatDialogRef<CotycDialogComponent>
+  ) { }
+
+  ngOnInit(): void { }
+
+  acept_tyc() {
+    this.acept = true
+  }
+}
+
+
+
+

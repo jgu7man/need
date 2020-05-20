@@ -1,0 +1,19 @@
+<h4 mat-dialog-title>Términos y condiciones</h4>
+<mat-dialog-content>
+    <app-cotyc-content></app-cotyc-content>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <mat-checkbox 
+        [(ngModel)]="acept"
+        (ngModelChange)="acept_tyc()"
+        [labelPosition]="'before'"
+        >Acepto los Términos y condiciones
+    </mat-checkbox>
+    <button mat-raised-button 
+    [color]="'accent'" 
+    [disabled]="!acept"
+    (click)="dialogRef.close()"
+    >
+        Registrar
+    </button>
+</mat-dialog-actions>

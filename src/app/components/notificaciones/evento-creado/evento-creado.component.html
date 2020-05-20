@@ -1,4 +1,5 @@
-<div class="contenido container">
+<div class="contenido container"
+    *ngIf="usuario && evento && personal && finanzas && datos">
     <!-- <div class="row megaIcono">
         <div class="col 12">
         </div>
@@ -7,25 +8,81 @@
         <div class="col s12 bg-3">
 
             <p class="titleLabel center">
-                <img class="center" width="40px" src="../../../../assets/img/icons/Right.png" alt=""> ¡EXCELENTE!
+                CONTRATO DE SERVICIO
             </p>
             <p class="center ltxt">
-                Ya has creado TU EVENTO:
-            </p><br>
+                Ya has creado TU EVENTO, revisa los términos del contrato y si estás de acuerdo, acepta para continuar con la confirmación.
+            </p>
+            <h5>Información del cliente</h5>
             <ul class="ltxt">
-                <li>De tipo: {{evento.tipoEvento}}</li>
-                <li>Para {{evento.personas}} personas </li>
-                <li> Por un costo de $<span class="resaltado">{{evento.costo}}</span>, que deberás liquidar o dar anticipo para confirmarlo. </li>
-            </ul><br>
+                <li> <b>Nombre: </b> <span class="resaltado">{{usuario.displayName}}</span> </li>
+                <li> <b>Correo: </b> <span class="resaltado">{{usuario.email}}</span> </li>
+            </ul>
+            <h5>Información del servicio</h5>
+            <ul class="ltxt">
+                <li><b>De tipo: </b><span class="resaltado">{{evento.tipoEvento}}</span></li>
+                <li>Para <span class="resaltado">{{evento.personas}} personas</span> </li>
+                <li>Con una calidad de atención <span class="resaltado">{{evento.calidad}}</span></li>
+                <li>Para el día <span class="resaltado">{{evento.fecha.toLocaleDateString()}}</span> a las <span class="resaltado">{{evento.fecha.toLocaleTimeString()}}</span></li>
+                <li>En <span class="resaltado">{{evento.lugar}}</span></li>
+                <li><b>Costo: </b>$<span class="resaltado">{{evento.costo}}</span></li>
+            </ul>
+            <h5>Cláusulas</h5>
+            <h6><b>Primera</b></h6><p>
+                Cada sección en la estructura del contrato será respetada por la empresa que presta el servicio y por el cliente que lo solicita, manteniendo en <b>privado datos personales</b>.
+            </p>
+            <h6><b>Segunda</b></h6><p>
+                El contrato se realizará días previos al evento no menos de 48 horas de anticipación, para así tener como vigencia el día del evento puesto en el contrato.
+            </p>
+            <h6><b>Tercera</b></h6><p>
+                Se entregará en efectivo un <b>anticipo</b> que consta del 50% del total del costo por los servicios solicitados a la empresa al momento de confirmar este evento.
+            </p>
+            <h6><b>Cuarta</b></h6><p>
+                Cubrir el monto total del servicio solicitado a NEED 48 horas antes del evento.
+            </p>
+            <h6><b>Quinta</b></h6><p>
+                En caso de <b>cancelar el servicio</b> a NEED, no se le hará entrega al cliente del anticipo entregado.
+            </p>
+            <h6><b>Sexta</b></h6><p>
+                Las horas de servicio de cada área contratada a NEED son:
+            </p>
+            <ul>
+                <li *ngIf="personal['capitanMeseros']">
+                    Capitán de meseros: {{horas_servicio}} hrs, </li>
+                <li *ngIf="personal['meseros']">
+                    Meseros: {{horas_servicio}} hrs ({{invitados}} invitados por elemento),</li>
+                <li *ngIf="personal['barman']">Barman: {{horas_servicio}} hrs,</li>
+                <li *ngIf="personal['barra']">Barra: {{horas_servicio}} hrs,</li>
+                <li *ngIf="personal['escamoche']">Escamoche: {{horas_servicio}} hrs,</li>
+                <li *ngIf="personal['bartender']">Bartender: {{horas_servicio}} hrs,</li>
+                <li *ngIf="personal['hostess']">Hostess: 2 hrs,</li>
+                <li *ngIf="personal['vigilante']">Vigilante: {{horas_servicio}} hrs,</li>
+                <li *ngIf="personal['valet']">Valet parking: {{horas_servicio}} hrs.</li>
+            </ul>
+            <h6><b>Séptima</b></h6><p>
+                La contratación de horas extras en el evento (de manera imprevista) corre por cuenta de los elementos contratados, y NEED no establecerá costo ni elementos, dejando de hacerse responsable de estos, en el momento de la finalización de este contrato que es el <span class="resaltado">{{datos.termina.toLocaleDateString()}}</span> a las <span class="resaltado">{{datos.termina.toLocaleTimeString()}}</span>.
+            </p>
+            <h6><b>Octava</b></h6><p>
+                El servicio de NEED <b>se compromete</b> a tener la herramienta de trabajo necesaria, uniformidad, administración del bar y/o barra del evento; y estar 2hrs antes de comenzar el evento.
+            </p>
+            <h6><b>Novena</b></h6><p>
+                El personal de NEED sólo hará las <b>actividades que les corresponden</b> a su área de trabajo.
+            </p>
+            <h6><b>Primera</b></h6><p>
+                En caso de <b>aumentar el número de invitados de manera imprevista</b>, El elemento encargado de este evento, tendrá derecho a cobrar una cuota razonable y que usted deberá pagar conforme la adecuación que se realice.
+            </p>
+            <p>
+                <b>ESTABLECIDO POR:</b><br>
+                NEED - José Armando García Ramos <br>
+                GARA950908I39
+            </p>
 
         </div>
         <div class="col s12 bg-3">
-            <p class="ltxt">Ahora vamos buscar el mejor equipo para cubrir tu evento. Nosotros te notificaremos cuando esté listo.
-            </p><br>
-            <p class="center resaltado">
-                Por favor, activa las notificaciones para este sitio. Si no lo has hecho, Da click aquí. Te prometemos que no mandamos SPAM.
-            </p>
-            <button class="needbtn" (click)="solicitarPermiso()">Activar</button>
+            <mat-checkbox 
+                class="white-text"
+                >Yo {{usuario.displayName}}, acepto los términos del contrato
+            </mat-checkbox>
         </div>
     </div>
 
