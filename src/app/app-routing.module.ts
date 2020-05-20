@@ -82,117 +82,119 @@ import { TransferenciaComponent } from './components/admin/admin-trasnferencias/
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
 
+const titlePrefix = 'Need - '
 
 const routes: Routes = [
   {
     path: '', component: PublicComponent, children: [
-      { path: '', component: InicioComponent },
-      { path: 'cotizacion', component: CotizacionComponent },
-      { path: 'cotizacion/:idEvento', component: CotizacionComponent },
-      { path: 'login', component: LoginUserComponent },
-      { path: 'login/:idEvento', component: LoginUserComponent },
-      { path: 'login/:plan', component: LoginUserComponent },
-      { path: 'crear-evento/:idEvento', component: CrearEventoComponent },
+      { path: '', component: InicioComponent, data: {title: titlePrefix+'Inicio'} },
+      { path: 'cotizacion', component: CotizacionComponent, data: { title: titlePrefix + 'Cotizar' } },
+      { path: 'cotizacion/:idEvento', component: CotizacionComponent, data: { title: titlePrefix + 'Cotizar' } },
+      { path: 'login', component: LoginUserComponent, data: { title: titlePrefix + 'Login' } },
+      { path: 'login/:idEvento', component: LoginUserComponent, data: { title: titlePrefix + 'Login' } },
+      { path: 'login/:plan', component: LoginUserComponent, data: { title: titlePrefix + 'Login' } },
+      { path: 'crear-evento/:idEvento', component: CrearEventoComponent, data: { title: titlePrefix + 'Crear evento' } },
     
       // Notificaciones
-      { path: 'evento-creado/:idEvento', component: EventoCreadoComponent },
-      { path: 'colaborador-registrado/:id', component: ColaboradorGuardadoComponent},
+      { path: 'evento-creado/:idEvento', component: EventoCreadoComponent, data: { title: titlePrefix + 'Evento creado' } },
+      { path: 'colaborador-registrado/:id', component: ColaboradorGuardadoComponent, data: { title: titlePrefix + 'Registrado' }},
       
       // Usuario
-      { path: 'usuario', component: UsuarioComponent, data: {nav: 'usuario'}, children: [
-        { path: '', component: NuevoEventoComponent },
-        { path: 'mis-eventos', component: TusEventosComponent, data: { nav: 'eventos' } },
-        { path: 'evento/:id', component: EventoComponent, children:[
+      { path: 'usuario', component: UsuarioComponent, data: {nav: 'usuario', title: titlePrefix+'Usuario'}, children: [
+        { path: '', component: NuevoEventoComponent, data: { title: titlePrefix + 'Evento nuevo' } },
+        { path: 'mis-eventos', component: TusEventosComponent, data: { nav: 'eventos', title: titlePrefix + 'Eventos' } },
+        { path: 'evento/:id', component: EventoComponent, data: { title: titlePrefix + 'Información de evento' }, children:[
           { path: '', redirectTo: 'detalles', pathMatch: 'full' },
-          { path: 'detalles', component: DetallesComponent },
-          { path: 'datos', component: DatosComponent },
-          { path: 'personal', component: PersonalComponent },
-          { path: 'ver-equipo', component: VerEquipoComponent },
+          { path: 'detalles', component: DetallesComponent, data: { title: titlePrefix + 'Información de evento' } },
+          { path: 'datos', component: DatosComponent, data: { title: titlePrefix + 'Información de evento' }},
+          { path: 'personal', component: PersonalComponent, data: { title: titlePrefix + 'Información de evento' } },
+          { path: 'ver-equipo', component: VerEquipoComponent, data: { title: titlePrefix + 'Información de evento' } },
         ]},
-        { path: 'perfil', component: PerfilComponent, data: { nav: 'perfil' } },
-        { path: 'nuevo-evento', component: NuevoEventoComponent, data: {nav: 'nuevo'} },
-        { path: 'ver_colaborador/:id', component: VerColaboradorComponent },
-        { path: 'resumen-pago/:id', component: PagarEventoComponent}
+        { path: 'perfil', component: PerfilComponent, data: { nav: 'perfil', title: titlePrefix + 'Perfil de usuario' },  },
+        { path: 'nuevo-evento', component: NuevoEventoComponent, data: { nav: 'nuevo', title: titlePrefix + 'Nuevo Evento' }, },
+        { path: 'ver_colaborador/:id', component: VerColaboradorComponent, data: { title: titlePrefix + 'Información de colaborador' } },
+        { path: 'resumen-pago/:id', component: PagarEventoComponent, data: {title: titlePrefix + 'Resumen de pago'}}
       ] },
       
       // Directorio
       { path: 'directorio', component: DirectorioComponent, data: {nav: 'directorio'}, children: [
-        { path: '', component: CategoriasComponent},
-        { path: 'planes', component: NegBienvenidaComponent},
-        { path: 'categorias', component: CategoriasComponent},
+        { path: '', component: CategoriasComponent, data: { title: titlePrefix + 'Categorías' } },
+        { path: 'planes', component: NegBienvenidaComponent, data: { title: titlePrefix + 'Planes' } },
+        { path: 'categorias', component: CategoriasComponent, data: { title: titlePrefix + 'Categorías' } },
         { path: 'categoria/:name', component: CategoriaComponent},
-        { path: 'suscripcion', component: SuscribirComponent, children: [
-          { path: 'add/:id', component: FormNegocioComponent, data: { nav: 1 } },
-          { path: 'datos/:id', component: FormDatosNegocioComponent, data: { nav: 2 } },
-          { path: 'extras', component: FormExtrasNegocioComponent, data: { nav: 3 } },
+        { path: 'suscripcion', component: SuscribirComponent, data: { title: titlePrefix + 'Suscripción' },  children: [
+          { path: 'add/:id', component: FormNegocioComponent, data: { nav: 1, title: titlePrefix + 'Suscripción' } },
+          { path: 'datos/:id', component: FormDatosNegocioComponent, data: { nav: 2, title: titlePrefix + 'Suscripción' } },
+          { path: 'extras', component: FormExtrasNegocioComponent, data: { nav: 3, title: titlePrefix + 'Suscripción' } },
           
         ]},
-        { path: 'pagarPlan/:plan', component: PagarPlanComponent },
+        { path: 'pagarPlan/:plan', component: PagarPlanComponent, data: { title: titlePrefix + 'Planes' }  },
         { path: 'pagarPlan/', redirectTo: 'planes', pathMatch: 'full'},
       ] },
       
       // Colaborador
-      { path: 'colaborador', component: ColaboradoresComponent, children: [
+      { path: 'colaborador', component: ColaboradoresComponent, data: { title: titlePrefix + 'Colaborador' }, children: [
         { path: '', component: CoPerfilComponent },
-        { path: 'login', component: CoLoginComponent },
-        { path: 'registro', component: CoRegistroComponent },
-        { path: 'reg-datos/:id', component: CoDatosComponent },
-        { path: 'exp_laboral/:id', component: CoExpLaboralComponent },
-        { path: 'add_imagen/:id', component: CoAddImagenComponent },
-        { path: 'perfil', component: CoPerfilComponent },
-        { path: 'eventos', component: CoEventosComponent },
-        { path: 'evento/:id', component: CoEventoComponent, children:[
+        { path: 'login', component: CoLoginComponent, data: { title: titlePrefix + 'Login Colaborador' }  },
+        { path: 'registro', component: CoRegistroComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },
+        { path: 'reg-datos/:id', component: CoDatosComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },
+        { path: 'exp_laboral/:id', component: CoExpLaboralComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },
+        { path: 'add_imagen/:id', component: CoAddImagenComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },
+        { path: 'perfil', component: CoPerfilComponent, data: { title: titlePrefix + 'Perfil Colaborador' }  },
+        { path: 'eventos', component: CoEventosComponent, data: { title: titlePrefix + 'Eventos Colaborador' }  },
+        {
+          path: 'evento/:id', component: CoEventoComponent, data: { title: titlePrefix + 'Información de evento' }, children:[
           { path: '', redirectTo: 'detalles', pathMatch: 'full' },
-          { path: 'detalles', component: DetallesComponent },
-          { path: 'datos', component: DatosComponent },
-          { path: 'personal', component: PersonalComponent },
-          { path: 'ver-equipo', component: VerEquipoComponent },
+          { path: 'detalles', component: DetallesComponent, data: { title: titlePrefix + 'Información de evento' } },
+          { path: 'datos', component: DatosComponent, data: { title: titlePrefix + 'Información de evento' } },
+          { path: 'personal', component: PersonalComponent, data: { title: titlePrefix + 'Información de evento' } },
+          { path: 'ver-equipo', component: VerEquipoComponent, data: { title: titlePrefix + 'Información de evento' } },
         ]},
-        { path: 'postulacion_exitosa/:id', component: PostulacionExitosaComponent },
-        { path: 'tus_eventos', component: CoTusEventosComponent },
-        { path: 'ver_usuario/:id', component: VerUsuarioComponent}
+        { path: 'postulacion_exitosa/:id', component: PostulacionExitosaComponent, data: { title: titlePrefix + 'Postulación Exitosa' }  },
+        { path: 'tus_eventos', component: CoTusEventosComponent, data: { title: titlePrefix + 'Eventos Colaborador' }  },
+        { path: 'ver_usuario/:id', component: VerUsuarioComponent, data: { title: titlePrefix + 'Ver usuario' } }
       ]
       },
       
       // documentos
-      { path: 'docs', component: DocPanelComponent, children:[
-        { path: 'costos_y_tarifas', component: PreciosComponent },
-        { path: 'terminos_y_condiciones', component: TycComponent },
-        { path: 'politica_de_privacidad', component: PdpComponent },
+      { path: 'docs', component: DocPanelComponent, data: { title: titlePrefix + 'Documentos' }, children:[
+        { path: 'costos_y_tarifas', component: PreciosComponent, data: { title: titlePrefix + 'Costos y tarifas' }  },
+        { path: 'terminos_y_condiciones', component: TycComponent, data: { title: titlePrefix + 'Términos y condiciones' }  },
+        { path: 'politica_de_privacidad', component: PdpComponent, data: { title: titlePrefix + 'Políticas de privacidad' }  },
       ]},
-      { path: 'ayuda', component: AyudaComponent },
+      { path: 'ayuda', component: AyudaComponent, data: { title: titlePrefix + 'Ayuda' }  },
       { path: 'negocio/:neg', component: NegocioComponent },
     ]},
   
   // Admin
-  { path: 'admin', component: AdminComponent, children: [
-    { path: '', component: AdminDashboardComponent },
-    { path: 'administradores', component: AdminAdministradoresComponent },
-    { path: 'colaboradores', component: AdminColaboradoresComponent },
-    { path: 'capitanes', component: AdminCapitanesComponent },
-    { path: 'bartenders', component: AdminBartendersComponent },
-    { path: 'co_info/:id', component: CoInfoComponent },
-    { path: 'usuarios', component: AdminUsuariosComponent },
+  { path: 'admin', component: AdminComponent, data: { title: titlePrefix + 'Administración' } , children: [
+    { path: '', component: AdminDashboardComponent, data: { title: titlePrefix + 'Administración' }  },
+    { path: 'administradores', component: AdminAdministradoresComponent, data: { title: 'Admin - Administradores' }  },
+    { path: 'colaboradores', component: AdminColaboradoresComponent, data: { title: 'Admin - Colaboradores' }  },
+    { path: 'capitanes', component: AdminCapitanesComponent, data: { title: 'Admin - Capitanes' }   },
+    { path: 'bartenders', component: AdminBartendersComponent, data: { title: 'Admin - Bartenders' }   },
+    { path: 'co_info/:id', component: CoInfoComponent, data: { title: 'Admin - Información de colaborador' }   },
+    { path: 'usuarios', component: AdminUsuariosComponent, data: { title: 'Admin - Usuarios' }   },
     { path: 'ver_usuario/:id', component: VerUsuarioComponent },
-    { path: 'eventos', component: AdminEventosComponent },
-    { path: 'negocios', component: AdminNegociosComponent },
-    { path: 'negocio_info/:id', component: NegocioInfoComponent },
-    { path: 'categorias', component: AdminCategoriasComponent, children: [
-      { path: '', component: TablaCategoriasComponent},
-      { path: 'agregar', component: AddCategoriaComponent },
-      { path: 'editar/:id', component: EditCategoriaComponent},
+    { path: 'eventos', component: AdminEventosComponent, data: { title: 'Admin - Eventos' } },
+    { path: 'negocios', component: AdminNegociosComponent, data: { title: 'Admin - Negocios' } },
+    { path: 'negocio_info/:id', component: NegocioInfoComponent, data: { title: 'Admin - Negociones' }  },
+    { path: 'categorias', component: AdminCategoriasComponent, data: { title: 'Admin - Categorías' },  children: [
+      { path: '', component: TablaCategoriasComponent, data: { title: 'Admin - Categorías' } },
+      { path: 'agregar', component: AddCategoriaComponent, data: { title: 'Admin - Categorías' }  },
+      { path: 'editar/:id', component: EditCategoriaComponent, data: { title: 'Admin - Categorías' } },
     ] },
-    { path: 'configuracion', component: AdminConfiguracionComponent },
-    { path: 'evento/:id', component: AdminEventoComponent, children:[
+    { path: 'configuracion', component: AdminConfiguracionComponent, data: { title: 'Admin - Configuración' }  },
+    { path: 'evento/:id', component: AdminEventoComponent, data: { title: 'Admin - Evento' } , children:[
       { path: '', redirectTo: 'detalles', pathMatch: 'full' },
-      { path: 'detalles', component: DetallesComponent },
-      { path: 'datos', component: DatosComponent },
-      { path: 'personal', component: PersonalComponent },
-      { path: 'ver-equipo', component: VerEquipoComponent },
+      { path: 'detalles', component: DetallesComponent, data: { title: 'Admin - Evento' } },
+      { path: 'datos', component: DatosComponent, data: { title: 'Admin - Evento' } },
+      { path: 'personal', component: PersonalComponent, data: { title: 'Admin - Evento' } },
+      { path: 'ver-equipo', component: VerEquipoComponent, data: { title: 'Admin - Evento' } },
     ]},
-    { path: 'facturas', component: AdminFacturasComponent },
-    { path: 'transferencias', component: AdminTrasnferenciasComponent },
-    { path: 'transferencia/:id', component: TransferenciaComponent },
+    { path: 'facturas', component: AdminFacturasComponent, data: { title: 'Admin - Facturas' } },
+    { path: 'transferencias', component: AdminTrasnferenciasComponent, data: { title: 'Admin - Transferencias' } },
+    { path: 'transferencia/:id', component: TransferenciaComponent, data: { title: 'Admin - Transferencias' } },
   ] },
   
   
