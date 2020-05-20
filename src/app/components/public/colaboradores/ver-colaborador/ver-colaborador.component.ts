@@ -41,8 +41,9 @@ export class VerColaboradorComponent implements OnInit {
     this.getComentarios()
   }
 
-  async getCoPerfil() {
-   await this._colaborador.coPerfil.subscribe( res => {
+  getCoPerfil() {
+    //  FIXME Esto podría fallar
+   this._colaborador.coPerfil.subscribe( res => {
      this.colaborador = res
     }) 
   }

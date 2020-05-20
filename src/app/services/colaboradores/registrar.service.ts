@@ -39,7 +39,6 @@ export class RegistrarService {
         })
         // REDIRECCIÓN A DATOS
         this.router.navigate(['/colaborador/reg-datos', colab.uid])
-        console.log('usuario registrado');
 
     }
 
