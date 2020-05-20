@@ -133,6 +133,7 @@ export class EventoService{
     async saveVacantes(idEvento, personal) {
         var eventRef = this.fs.collection('eventos').ref.doc(idEvento).collection('personal')
 
+        console.log(personal);
         var personalObj = {}
         Object.defineProperty(personalObj, 'mesero', {
             value: personal.meseros, enumerable: true, writable: true, configurable: true
@@ -206,7 +207,7 @@ export class EventoService{
         var eventRef = this.fs.collection('eventos').ref.doc(id)
         var eventoRes = await eventRef.get()
         var evento = eventoRes.data() as EventoModel
-        evento.fecha = new Date(eventoRes.data().fecha)
+        evento.fecha = eventoRes.data().fecha.toDate() 
         return evento
     }
 
@@ -257,10 +258,7 @@ export class EventoService{
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         var personal = await eventoRef.collection('personal').doc('personal').get()
         var extras = await eventoRef.collection('personal').doc('extras').get()
-        var infoPersonal = {
-            personal: personal.data() as PersonalModel,
-            extras: extras.data().extras
-        }
+        var infoPersonal = personal.data()
         return infoPersonal
     }
     async getDatos(idEvento) {
@@ -329,5 +327,11 @@ export class EventoService{
                     .then(() => this.router.navigate(['usuario/tus-eventos']))
             } else if (res == 'cancelar') { $('app-alertas').fadeToggle() }
         })
+    }
+
+
+    async aceptarContrato(idEvento) {
+        const eventoRef = this.fs.collection( 'eventos' ).ref.doc( idEvento )
+        return eventoRef.update({contrato_aceptado: true})
     }
 }

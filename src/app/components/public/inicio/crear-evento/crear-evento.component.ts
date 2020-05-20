@@ -39,6 +39,7 @@ export class CrearEventoComponent implements OnInit {
   public eventoEnds: HorarioModel
   public dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
   public timeOptions = { hour: 'numeric', minute: 'numeric' }
+  public horasExtras: number
   public queDia: string
   public ends = false
   public editEnds = false
@@ -70,8 +71,10 @@ export class CrearEventoComponent implements OnInit {
       console.log(params.idEvento)
       this.evento = JSON.parse(sessionStorage.getItem(params.idEvento + 'evento'));
       console.log(this.evento)
-      this.personal = JSON.parse(sessionStorage.getItem(params.idEvento+'personal'));
-      this.costos = JSON.parse(sessionStorage.getItem(params.idEvento+'costos'));
+      this.personal = JSON.parse( sessionStorage.getItem( params.idEvento + 'personal' ) );
+      console.log(this.personal);
+      this.costos = JSON.parse( sessionStorage.getItem( params.idEvento + 'costos' ) );
+      console.log(this.costos);
     });
     this.initPickers()
     this.currentLocation()
@@ -220,6 +223,24 @@ export class CrearEventoComponent implements OnInit {
     }
   }
 
+  get costo_horas_extras() {
+    return this.setHorasExtras() * 100
+  }
+
+  get TOTAL() {
+    function sum( obj ) {
+      var sum = 0;
+      for ( var el in obj ) {
+        if ( obj.hasOwnProperty( el ) ) {
+          sum += parseFloat( obj[ el ] );
+        }
+      }
+      return sum;
+    }
+    var equipoSize = sum(this.personal)
+    return this.costos.costo_servicio + (equipoSize * this.costo_horas_extras)
+  }
+
   async onSubmit() {
 
     // this.getTerminaDate()
@@ -235,7 +256,8 @@ export class CrearEventoComponent implements OnInit {
     this.costos.horas_extras = this.setHorasExtras()
     this.costos.resto = this.costos.costo_servicio
     
-    await sessionStorage.setItem(this.idEvento + 'datos', JSON.stringify(this.datos))
+    await sessionStorage.setItem( this.idEvento + 'datos', JSON.stringify( this.datos ) )
+    this.costos.costo_servicio = this.TOTAL
     console.log(this.evento, this.datos, this.personal, this.costos)
     this.idEvento = await this._Evento.postEvento(this.idEvento, this.evento, this.datos, this.personal, this.costos)
       .then(res => {

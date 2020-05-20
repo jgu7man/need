@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "src/app/services/usuarios/auth.service";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UsuarioModel } from "src/app/models/usuario.model";
+import { MatDialog, MatDialogRef, MatCheckboxChange } from '@angular/material';
 
 @Component({
   selector: 'app-login-user',
@@ -14,11 +15,13 @@ export class LoginUserComponent implements OnInit {
   public idEvento: any;
   public plan: any;
   public link: string
+  public acept: boolean = false
 
   constructor(
     public authService: AuthService,
     private _Route: ActivatedRoute,
     private _Router: Router,
+    private dialog: MatDialog
   ) { 
    }
 
@@ -44,14 +47,39 @@ export class LoginUserComponent implements OnInit {
      })
   }
 
+  onAcept( e: MatCheckboxChange ) {
+    this.acept = e.checked
+  }
+
   google() {
-    $("app-loading").fadeIn()
-    this.authService.googleSingIn(this.link)
+    if (this.acept){
+      $("app-loading").fadeIn()
+      this.authService.googleSingIn( this.link )
+    } else {
+      this.dialog.open( AlertLoginComponent)
+    }
   }
 
   facebook() {
-    $("app-loading").fadeIn()
-    this.authService.facebookSingIn(this.link)
+    if ( this.acept ) {
+      $( "app-loading" ).fadeIn()
+      this.authService.facebookSingIn( this.link )
+    } else {
+      this.dialog.open( AlertLoginComponent )
+    }
   }
 
 }
+
+
+
+@Component({
+  templateUrl: './alert-login.dialog.html',
+  styleUrls: ['./login-user.component.css']
+})
+export class AlertLoginComponent implements OnInit {
+  constructor ( public dialog: MatDialogRef<AlertLoginComponent>) { }
+
+  ngOnInit(): void { }
+}
+

@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit {
     }
     // if (user) {
     // }
-    console.log(this.colabMenu)
   }
 
   changeUserCo(menu) {

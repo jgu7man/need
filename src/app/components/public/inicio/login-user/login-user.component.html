@@ -17,6 +17,14 @@
                     <li>
                         <button class="goLogin loginbtn" (click)="google()">Google</button>
                     </li>
+                    <li class="center">
+                        <mat-checkbox
+                            #acept
+                            class="purple-text"
+                            (change)="onAcept(acept)"
+                            >Acepto los <a target="_blank" [routerLink]="['/docs/terminos_y_condiciones']">términos y condiciones</a>
+                        </mat-checkbox>
+                    </li>
                 </ul>
             </div>
         </div>

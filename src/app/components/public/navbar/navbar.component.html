@@ -17,6 +17,10 @@
                         <p class="itemIcon"><i class="fas fa-user"></i><br><span class="name">Mi cuenta</span></p>
                         <p class="itemLink">MI CUENTA</p>
                     </li>
+                    <li class="navitem" id="dirIcon" [routerLink]="['/directorio/categorias']" routerLinkActive="navActive">
+                        <p class="itemIcon"><i class="fas fa-address-book"></i><br><span class="name">Directorio</span></p>
+                        <p class="itemLink">DIRECTORIO</p>
+                    </li>
                 </ng-container>
             
             
@@ -47,12 +51,12 @@
                     <p class="itemIcon"><i class="fas fa-sign-in-alt"></i><br><span class="name">Ingresar</span></p>
                     <p class="itemLink">INGRESAR</p>
                 </li>
+                <li class="navitem" id="dirIcon" [routerLink]="['/directorio/categorias']" routerLinkActive="navActive">
+                    <p class="itemIcon"><i class="fas fa-address-book"></i><br><span class="name">Directorio</span></p>
+                    <p class="itemLink">DIRECTORIO</p>
+                </li>
             </ng-template>
 
-            <li class="navitem" id="dirIcon" [routerLink]="['/directorio/categorias']" routerLinkActive="navActive">
-                <p class="itemIcon"><i class="fas fa-address-book"></i><br><span class="name">Directorio</span></p>
-                <p class="itemLink">DIRECTORIO</p>
-            </li>
             <li class="navitem" id="menuIcon" (click)="toggleMenu()">
                 <p class="itemIcon"><i class="fas fa-bars"></i><br><span class="name">Menu</span></p>
                 <p class="itemLink">MENÚ</p>

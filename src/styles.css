@@ -1,5 +1,6 @@
 /* @import "~ng-pick-datetime/assets/style/picker.min.css"; */
 
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
@@ -193,6 +194,12 @@ textarea {
     outline: none !important;
 }
 
+
+
+.mat-dialog-container {
+    background: #2a062a !important;
+}
+
 .input-field.col label {
     left: 1.75rem !important;
 }
@@ -320,7 +327,10 @@ label {
 
 @media screen and (min-width: 500px){
     .title{
-        padding-top: 5em;
+        padding-top: 1em;
+    }
+    .title .s10, .title .s12 {
+        height: 5em;
     }
 }
 
@@ -817,3 +827,5 @@ td.fc-today {
     top: 60%;
     left: 50%;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

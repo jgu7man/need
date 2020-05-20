@@ -26,15 +26,23 @@ export class AuthService {
   }
   
   async googleSingIn(link){
+    try {
       const provider = new auth.GoogleAuthProvider();
-       const credential = await this.afAuth.auth.signInWithPopup(provider);
-     return this.updateUserData(link, credential.user)
+      const credential = await this.afAuth.auth.signInWithPopup( provider );
+      return this.updateUserData( link, credential.user )
+    } catch (error) {
+      $( "app-loading" ).fadeOut()
+    }
   }
 
   async facebookSingIn(link){
-        const provider = new auth.FacebookAuthProvider();
-       const credential = await this.afAuth.auth.signInWithPopup(provider);
-        return this.updateUserData(link, credential.user)
+    try {
+      const provider = new auth.FacebookAuthProvider();
+      const credential = await this.afAuth.auth.signInWithPopup( provider );
+      return this.updateUserData( link, credential.user )
+    } catch ( error ) {
+      $( "app-loading" ).fadeOut()
+    }
   }
   
   async singOut(){

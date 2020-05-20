@@ -31,7 +31,6 @@ export class UsuarioComponent implements OnInit {
   }
 
   getPage(outlet) {
-    console.groupCollapsed(outlet.activatedRouteData['nav'])
     return outlet.activatedRouteData['nav'];
   }
 
