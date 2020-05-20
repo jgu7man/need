@@ -10,7 +10,7 @@
             <p class="grey-text lighten-1">{{co.email}}</p>
             <div class="col s6">
                 <p class="grey-text lighten-1">Estado: <i class="fas fa-circle" [ngClass]="{'yellow-text': co.estado == 'solicitud', 'red-text': co.estado == 'inactivo', 'green-text': co.estado == 'activo'}"></i> <span>
-                    <select name="estado" id="estado" [(ngModel)]="co.estado" (change)="onChangeEstado(co.id, co.estado)">
+                    <select name="estado" id="estado" [(ngModel)]="co.estado" (change)="onChangeEstado(co.uid, co.estado)">
                     <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option> 
                     </select>
                 </span> </p>

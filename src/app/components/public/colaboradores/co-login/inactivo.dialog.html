@@ -1,0 +1,7 @@
+<mat-dialog-content>
+    <p>Tu cuenta aún está en modo inactivo. Quizá por infringir alguna de nuestras <a [routerLink]="['/docs/terminos_y_condiciones']" routerLinkActive="router-link-active" ><span class="resaltado">condiciones</span></a>.</p>
+    <p>Si crees que esto es un error o quieres apelar a esta decisión, manda un mail a <a href="mailto:app.need.mx@gmail.com"><span class="resaltado">nuestro correo</span></a></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button (click)="MatDialog.close()" >Ok, Gracias</button>
+</mat-dialog-actions>

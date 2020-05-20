@@ -70,8 +70,7 @@ export class CoInfoComponent implements OnInit {
     
   }
 
-  onChangeEstado(id: string, estado) {
-    console.log(estado);
+  onChangeEstado( id: string, estado ) {
     this.fs.collection('colaboradores').ref.doc(id)
       .update({ estado: estado})
   }
@@ -99,7 +98,7 @@ export class CoInfoComponent implements OnInit {
   }
 
   public estados = [
-    'pendiente',
+    'solicitud',
     'activo',
     'inactivo'
   ]

@@ -135,7 +135,8 @@ const routes: Routes = [
       // Colaborador
       { path: 'colaborador', component: ColaboradoresComponent, data: { title: titlePrefix + 'Colaborador' }, children: [
         { path: '', component: CoPerfilComponent },
-        { path: 'login', component: CoLoginComponent, data: { title: titlePrefix + 'Login Colaborador' }  },
+        { path: 'login', component: CoLoginComponent, data: { title: titlePrefix + 'Login Colaborador' } },
+        { path: 'login/estado/:estado', component: CoLoginComponent, data: { title: titlePrefix + 'Login Colaborador' } },
         { path: 'registro', component: CoRegistroComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },
         { path: 'reg-datos/:id', component: CoDatosComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },
         { path: 'exp_laboral/:id', component: CoExpLaboralComponent, data: { title: titlePrefix + 'Registro Colaborador' }  },

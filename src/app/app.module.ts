@@ -69,7 +69,7 @@ import { AyudaComponent } from './components/public/docs/ayuda/ayuda.component';
 import { WhatsappFormComponent } from './components/public/docs/ayuda/whatsapp-form/whatsapp-form.component';
 
 import { ColaboradoresComponent } from './components/public/colaboradores/colaboradores.component';
-import { CoLoginComponent } from './components/public/colaboradores/co-login/co-login.component';
+import { CoLoginComponent, SolicitudDialog, InactivoDialog } from './components/public/colaboradores/co-login/co-login.component';
 import { CoRegistroComponent, CotycDialogComponent } from './components/public/colaboradores/co-registro/co-registro.component';
 import { CoDatosComponent } from './components/public/colaboradores/co-registro/co-datos/co-datos.component';
 import { CoExpLaboralComponent } from './components/public/colaboradores/co-registro/co-exp-laboral/co-exp-laboral.component';
@@ -234,7 +234,9 @@ import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-con
     CoTycComponent,
     CotycContentComponent,
     CotycDialogComponent,
-    AlertLoginComponent
+    AlertLoginComponent,
+    SolicitudDialog,
+    InactivoDialog
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -269,7 +271,9 @@ import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-con
   entryComponents: [
     CotycContentComponent,
     CotycDialogComponent,
-    AlertLoginComponent
+    AlertLoginComponent,
+    SolicitudDialog,
+    InactivoDialog
   ],
   bootstrap: [AppComponent]
 })
