@@ -10,6 +10,10 @@ import { VacantesModel } from 'src/app/models/colaboradores/vacantes.model';
 export class VerVacantesComponent implements OnInit {
 
   public vacantes: VacantesModel
+  @Input() set refresh( refresh: boolean ) {
+    console.log(refresh);
+    if(refresh == true) this.getVacantes().then(()=> this.refresh = false)
+  }
   @Input() idEvento
   public postulado: boolean
   constructor(
@@ -21,10 +25,17 @@ export class VerVacantesComponent implements OnInit {
   async ngOnInit() {
     var user = JSON.parse(localStorage.getItem('needlog'))
     this.postulado = await this._coEventos.checkPostulado(this.idEvento, user.uid)
-    console.log(this.postulado);
+    console.log( this.postulado );
+    await this.getVacantes()
+  }
+  
+  async getVacantes() {
+    console.log('getVacantes');
     if (!this.postulado) {
-      this.vacantes = await this._coEventos.getVacantes(this.idEvento) as VacantesModel
+      this.vacantes = await this._coEventos.getVacantes( this.idEvento ) as VacantesModel
+      console.log(this.vacantes);
     } 
+    
   }
 
 }

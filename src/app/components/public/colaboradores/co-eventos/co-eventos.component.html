@@ -1,10 +1,17 @@
 <div class="contenido">
 
     <div class="row title">
-        <div class="col s12">
+        <div class="col s11">
             <p class="titleLabel ltxt center">
                 EVENTOS
             </p>
+        </div>
+        <div class="col s1">
+            <button
+                (click)="onRefresh()"
+                mat-button>
+                <i class="fas fa-sync-alt"></i>
+            </button>
         </div>
     </div>
 
@@ -50,7 +57,12 @@
                     </div>
                 </div>
                 <div class="col s12 bg-3 vacantes bg-1 vacantes-{{evento.id}}" style="display: none;">
-                    <app-ver-vacantes id="{{evento.id}}" *ngIf="idEvento == evento.id" [idEvento]="evento.id"></app-ver-vacantes>
+                    <app-ver-vacantes 
+                        [refresh]="refresh"
+                        id="{{evento.id}}" 
+                        *ngIf="idEvento == evento.id" 
+                        [idEvento]="evento.id">
+                    </app-ver-vacantes>
                 </div>
             </div>
         </div>

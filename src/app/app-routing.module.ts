@@ -81,6 +81,7 @@ import { TransferenciaComponent } from './components/admin/admin-trasnferencias/
 
 import { AdminFacturasComponent } from './components/admin/admin-facturas/admin-facturas.component';
 import { AdminTrasnferenciasComponent } from './components/admin/admin-trasnferencias/admin-trasnferencias.component';
+import { CoContratoEventoComponent } from './components/public/docs/co-contrato-evento/co-contrato-evento.component';
 
 const titlePrefix = 'Need - '
 
@@ -144,16 +145,21 @@ const routes: Routes = [
         { path: 'perfil', component: CoPerfilComponent, data: { title: titlePrefix + 'Perfil Colaborador' }  },
         { path: 'eventos', component: CoEventosComponent, data: { title: titlePrefix + 'Eventos Colaborador' }  },
         {
-          path: 'evento/:id', component: CoEventoComponent, data: { title: titlePrefix + 'Información de evento' }, children:[
+          path: 'evento/:id', component: CoEventoComponent, data: { title: titlePrefix + 'Información de evento', userType: 'colaborador' }, children:[
           { path: '', redirectTo: 'detalles', pathMatch: 'full' },
           { path: 'detalles', component: DetallesComponent, data: { title: titlePrefix + 'Información de evento' } },
           { path: 'datos', component: DatosComponent, data: { title: titlePrefix + 'Información de evento' } },
           { path: 'personal', component: PersonalComponent, data: { title: titlePrefix + 'Información de evento' } },
           { path: 'ver-equipo', component: VerEquipoComponent, data: { title: titlePrefix + 'Información de evento' } },
         ]},
+        {
+          path: 'contrato_evento', component: CoContratoEventoComponent, data: {
+            title: titlePrefix + 'Contrato del evento'}
+        },
         { path: 'postulacion_exitosa/:id', component: PostulacionExitosaComponent, data: { title: titlePrefix + 'Postulación Exitosa' }  },
         { path: 'tus_eventos', component: CoTusEventosComponent, data: { title: titlePrefix + 'Eventos Colaborador' }  },
-        { path: 'ver_usuario/:id', component: VerUsuarioComponent, data: { title: titlePrefix + 'Ver usuario' } }
+        { path: 'ver_usuario/:id', component: VerUsuarioComponent, data: { title: titlePrefix + 'Ver usuario' } },
+        { path: 'ver_colaborador/:id', component: VerColaboradorComponent, data: { title: titlePrefix + 'Información de colaborador' } },
       ]
       },
       

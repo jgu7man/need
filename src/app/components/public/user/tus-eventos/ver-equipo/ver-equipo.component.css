@@ -46,6 +46,10 @@
     padding: 5px 0 !important;
 }
 
+.collection .collection-item.avatar{
+    min-height: 50px !important;
+}
+
 .collection-item p {
     font-size: smaller !important;
 }
@@ -63,3 +67,33 @@ a.secondary-content i {
     width: 50%;
     margin: 5px 0;
 }
+
+
+mat-expansion-panel {
+    border-radius: 0 !important;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+}
+
+mat-panel-title {
+    text-transform: capitalize;
+}
+
+mat-panel-title, 
+mat-panel-description,
+::ng-deep .mat-expansion-indicator::after{
+    color: #ccc !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+    background: #110011 !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 !important;
+    background: #110011 !important;
+}
+

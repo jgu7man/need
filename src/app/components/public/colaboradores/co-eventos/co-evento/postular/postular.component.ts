@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { CoEventoService } from 'src/app/services/colaboradores/coeventos.service';
 import { Router } from '@angular/router';
 import { AlertaService } from 'src/app/services/alerta.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { CoauthService } from '../../../../../../services/colaboradores/coauth.service';
+import { ColaboradorModel } from '../../../../../../models/colaboradores/colaborador.model';
 
 @Component({
   selector: 'app-postular',
@@ -10,19 +13,29 @@ import { AlertaService } from 'src/app/services/alerta.service';
 })
 export class PostularComponent implements OnInit {
 
-  @Input() idEvento
+  idEvento
   public vacantes = []
   public puesto
+  colaborador: ColaboradorModel
   constructor(
     private _coEventos: CoEventoService,
     private router: Router,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private _coAuth: CoauthService,
+    public dialogRef: MatDialogRef<PostularComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) { 
+    this.idEvento = data
     this.puesto = ''
   }
 
   ngOnInit() {
-    this._coEventos.getVacantes(this.idEvento).then(res => {
+    this._coAuth.colab$.pipe().subscribe( coo => {
+      if (coo) this.colaborador = coo
+    })
+    this._coEventos.getVacantes( this.idEvento ).then( res => {
+      delete res['vacantes_total']
+      if (!this.colaborador.capitan) delete res['capitanMeseros']
       Object.keys(res).forEach(vacante => {
         if (res[vacante] > 0) {
           this.vacantes.push(vacante)
@@ -32,17 +45,21 @@ export class PostularComponent implements OnInit {
   }
   
   onClose() {
-    $('app-postular').fadeToggle()
+    this.dialogRef.close()
   }
 
   onPostular() {
-    var user = JSON.parse(localStorage.getItem('needlog'))
-    this._coEventos.postular(this.idEvento, user.uid, this.puesto).then(res => {
+    this._coEventos.postular(this.idEvento, this.colaborador.uid, this.puesto).then(res => {
       if (res == false) {
         $('app-postular').fadeToggle()
         this._alerta.sendAlertaCont('No te puedes postular por que el horario choca con otro evento que ya tienes programado')
       } else {
-        this.router.navigate(['/colaborador/postulacion_exitosa', this.idEvento])
+        this.dialogRef.close()
+        this.router.navigate( [ '/colaborador/contrato_evento', {
+          idEvento: this.idEvento,
+          idUsuario: this.colaborador.uid,
+          puesto: this.puesto
+        } ] )
       }
     })
   }

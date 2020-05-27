@@ -25,7 +25,7 @@
 
     </ul>
 
-    <ul class="listadetalles">
+    <ul class="listadetalles" *ngIf="owner">
         <li class="detalle" *ngIf="evento.promocionado" class="resaltado">Promocionado</li>
         <li class="detalle" *ngIf="owner">Costo: ${{evento.costo}}
             <span *ngIf="costos.resto > 0" class="needbtn" style="left: 7em;" [routerLink]="['../../resumen-pago', evento.id]">

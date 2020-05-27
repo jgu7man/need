@@ -11,8 +11,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class DatosComponent implements OnInit {
 
-  @Input() id: any;
-  @Input() datos: DatosModel;
+  id: any;
+  datos: DatosModel;
 
   constructor(
     private _evento: EventoService,
@@ -23,7 +23,8 @@ export class DatosComponent implements OnInit {
   }
 
   async ngOnInit() {
-    
+    this.id = this.ruta.snapshot.params.id
+    this.datos = await this._evento.getDatos(this.id)
   }
 
   

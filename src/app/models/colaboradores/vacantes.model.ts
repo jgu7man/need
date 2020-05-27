@@ -1,6 +1,6 @@
 export class VacantesModel {
     constructor(
-        public mesero: number,
+        public meseros: number,
         public capitanMeseros: number,
         public barman: number,
         public bartender: number,

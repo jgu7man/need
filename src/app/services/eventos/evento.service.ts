@@ -131,23 +131,23 @@ export class EventoService{
 
 
     async saveVacantes(idEvento, personal) {
-        var eventRef = this.fs.collection('eventos').ref.doc(idEvento).collection('personal')
+        try {
+            var eventRef = this.fs.collection( 'eventos' ).ref.doc( idEvento ).collection( 'personal' )
 
-        console.log(personal);
-        var personalObj = {}
-        Object.defineProperty(personalObj, 'mesero', {
-            value: personal.meseros, enumerable: true, writable: true, configurable: true
-        })
-        Object.defineProperty(personalObj, 'capitanMeseros', {
-            value: personal.capitanMeseros, enumerable: true, writable: true, configurable: true
-        })
-        Object.keys(personal.extras).forEach(extra => {
-            Object.defineProperty(personalObj, extra, {
-                value: personal.extras[extra],enumerable: true, writable: true, configurable: true
-            })
-        })
+            console.log( personal );
+            var personalObj = {}
+            personalObj[ 'meseros' ] = personal.meseros
+            personalObj[ 'capitanMeseros' ] = personal.capitanMeseros
 
-        await eventRef.doc('vacantes').set(personalObj)
+            Object.keys( personal.extras ).forEach( extra => {
+                personalObj[ extra ] = personal.extras[ extra ]
+
+            } )
+
+            await eventRef.doc( 'vacantes' ).set( personalObj )
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async getEventos() {
@@ -165,37 +165,53 @@ export class EventoService{
         return eventos
     }
 
+
+    
+
     
 
     async getEventosByCity() {
+        $('app-loading').fadeIn()
         const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
         var eventos = []
         var evento: EventoModel
         var today = new Date()
         var lat: number, lng: number
         // console.log('ejecutado')
-        navigator.geolocation.getCurrentPosition(geo => {
+        
+        navigator.geolocation.getCurrentPosition( setCords, noGeocords, {
+            enableHighAccuracy: true,
+            maximumAge: 10000,
+            timeout: 10000
+        } )
+        function setCords(geo) {
             lat = geo.coords.latitude
             lng = geo.coords.longitude
-        })
-        await waitFor(500)
+        }
+        function noGeocords() {
+            console.error('No se encontraron cordenadas');
+        }
+        await waitFor( 500 )
         console.log(lat, lng)
         var ubi = await this.geoCoder(lat, lng).toPromise()
         console.log(ubi)
-
+        
         var splitUbi = ubi.results[0].formatted_address.split(',')
         var area = splitUbi[0]
         console.log(area)
-    
+        
         var eventRef = await this.fs.collection('eventos').ref
-            .where('area','==', area)
-            .orderBy('fecha').startAfter(today).get()
-
+        .where('area','==', area)
+        .orderBy('fecha').startAfter(today).get()
+        
         eventRef.forEach( event => {
             evento = event.data() as EventoModel
             evento.fecha = event.data().fecha.toDate()
             eventos.push(evento)
-        })
+        } )
+        
+        $( 'app-loading' ).fadeOut()
+
         return eventos
     }
 
@@ -257,15 +273,47 @@ export class EventoService{
     async getPersonal(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         var personal = await eventoRef.collection('personal').doc('personal').get()
-        var extras = await eventoRef.collection('personal').doc('extras').get()
+        var equipo = await eventoRef.collection('personal').doc('equipo').get()
         var infoPersonal = personal.data()
         return infoPersonal
+    }
+    async getEquipo( idEvento ) {
+        var eventoRef = this.fs.collection( 'eventos' ).ref.doc( idEvento )
+        var personal = await eventoRef.collection( 'personal' ).doc( 'personal' ).get()
+        var equipoDoc = await eventoRef.collection( 'personal' ).doc( 'equipo' ).get()
+        if(equipoDoc.exists) {
+            var puestos: any[] = Object.keys( equipoDoc.data() )
+            var equipo: any[] = []
+            
+            // Arma un arregle de puestos
+            await puestos.forEach(async  (puesto: string) => {
+                let Puesto: string[] = equipoDoc.data()[ puesto ]
+                let miembros: any[] = []
+                
+                // Arma un arreglo de miembros
+                await Puesto.forEach( async miembroId => {
+                    var miembroDoc = await this.fs.collection( 'colaboradores' ).ref.doc( miembroId ).get()
+                    miembros.push(miembroDoc.data())
+                })
+                equipo.push( {
+                    name: puesto,
+                    cantidad: personal.data()[ puesto ],
+                    miembros: miembros
+                } )
+                return 
+    
+            } )
+            console.log(equipo);
+            return equipo
+        } else {
+            return false
+        }
     }
     async getDatos(idEvento) {
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         var infoDatos = await eventoRef.collection('info').doc('datos').get()
-        
-        const datos = infoDatos.data()
+        const datos = infoDatos.data() as DatosModel
+        console.log(datos);
         datos.inicia = new Date(infoDatos.data().inicia)
         datos.termina = new Date(infoDatos.data().termina)
         return datos

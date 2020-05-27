@@ -1,0 +1,85 @@
+<div class="contenido container"
+    *ngIf="colaborador && evento && infoPuesto && infoEvento && cliente">
+    <div class="row grey-text">
+        <div class="col s12 bg-3">
+
+            <p class="titleLabel center">
+                CONTRATO DE SERVICIO
+            </p>
+            <p class="center ltxt">
+               Te has postulado al EVENTO con éxito, ahora debes leer el siguiente contrato y aceptarlo para confirmar que deseas trabajar en este evento, de lo contrario no podrás participar él.
+            </p>
+            <h5>Información del colaborador</h5>
+            <ul class="ltxt">
+                <li> <b>Nombre: </b> <span class="resaltado">{{FullName}}</span> </li>
+                <li> <b>Correo: </b> <span class="resaltado">{{colaborador.email}}</span> </li>
+            </ul>
+            <h5>Información del servicio</h5>
+            <ul class="ltxt">
+                <li><b>De tipo: </b><span class="resaltado">{{evento.tipoEvento}}</span></li>
+                <li>Para <span class="resaltado">{{evento.personas}} personas</span> </li>
+                <li>Con una calidad de atención <span class="resaltado">{{evento.calidad}}</span></li>
+                <li>Para el día <span class="resaltado">{{evento.fecha.toLocaleDateString()}}</span> a las <span class="resaltado">{{evento.fecha.toLocaleTimeString()}}</span></li>
+                <li>En <span class="resaltado">{{evento.lugar}}</span></li>
+            </ul>
+            <h5>Cláusulas</h5>
+            <h6><b>Primera</b></h6><p>
+                El presente contrato lo celebran las partes por tiempo determinado de {{infoPuesto.jornada + infoPuesto.horas_previas}} horas, de conformidad con lo que establece la Ley y los <a target="_blank" [routerLink]="[ '/docs/terminos_y_condiciones' ]">Términos y condiciones</a> de esta aplicación.
+
+            </p>
+            <h6><b>Segunda</b></h6><p>
+                El trabajador prestará sus servicios a {{cliente.displayName}} con el puesto de {{puesto}} en el domicilio {{infoEvento.direccion}}, col. {{infoEvento.colonia}}, {{infoEvento.ciudad}}, {{infoEvento.ciudad}}, y percibirá como cuota del evento la cantidad de ${{infoPuesto.precio}}. 
+            </p>
+            <h6><b>Tercera</b></h6><p>
+                Las partes convienen que el o la colaborador/a Sr/a. <b>{{FullName}} </b>prestará sus servicios a {{cliente.displayName}} el  día {{iniciaContratoFecha}} a las {{iniciaContratoHora}} hasta {{terminaContratoFecha}} a las {{terminaContratoHora}}. 
+            </p>
+            <h6><b>Cuarta</b></h6><p>
+                Las partes, convienen en que el salario que percibirá el colaborador, será pagado en moneda de curso legal el día {{nextMartes}}. 
+            </p>
+            <h6><b>Quinta</b></h6><p>
+                La contratación de horas extras en el evento (de manera imprevista) corre por cuenta de los elementos contratados, y NEED no establecerá costo ni elementos, dejando de hacerse responsable de estos, en el momento de la finalización de este contrato que es {{terminaContratoFecha}} a las {{terminaContratoHora}}.
+            </p>
+            <h6><b>Sexta</b></h6><p>
+                El colaborador de NEED se compromete a tener la herramienta de trabajo necesaria, uniformidad <!--<LINK: ver uniforme>-->, administración del bar y/o barra del evento; y estar {{infoPuesto.horas_previas}}hrs. ({{iniciaContratoHora}}) antes de comenzar el evento, reportandose con el colaborador encargado: <!--<Link: encargado>-->. 
+            </p>
+            
+            <h6><b>Séptima</b></h6><p>
+                El colaborador de NEED sólo hará las actividades que les corresponden a su área de trabajo.
+            </p>
+            <h6><b>Octava</b></h6><p>
+                El presente contrato obliga a las partes a lo expresamente pactado, conforme a lo que señala al diverso 31 de la Ley.
+            </p>
+            <h6><b>Novena</b></h6><p>
+                El trabajador se obliga a observar y respetar las disposiciones del <a [routerLink]="[ '/docs/terminos_y_condiciones']">reglamento interno</a> de trabajo que existe en la Empresa, sin pena de incurrir en alguna de las causales establecidas por la Ley.
+            </p>
+            <h6><b>Décima</b></h6><p>
+                El trabajador se obliga a acatar las disposiciones de seguridad e higiene, que se llevan a efecto en la Empresa, en los términos de la Ley.
+            </p>
+            <p>
+                <b>ESTABLECIDO POR:</b><br>
+                NEED - José Armando García Ramos <br>
+                GARA950908I39
+            </p>
+
+        </div>
+        <div class="col s12 bg-3" id="acept">
+            <mat-checkbox 
+                #acept
+                class="white-text"
+                (change)="onAcept(acept)"
+                >Yo {{FullName}}, acepto los términos del contrato
+            </mat-checkbox>
+        </div>
+    </div>
+
+    <div class="row boton">
+        <div class="col s12">
+            <button 
+                (click)="onConfirm()" 
+                [disabled]="!acept"
+                class="needbtn">
+                CONFIRMAR POSTULACIÓN</button>
+        </div>
+    </div>
+
+</div>

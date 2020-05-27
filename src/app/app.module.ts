@@ -130,6 +130,8 @@ import { FacturaAdminComponent } from './components/admin/admin-facturas/factura
 import { PublicComponent } from './components/public/public.component';
 import { CoTycComponent } from './components/public/docs/co-tyc/co-tyc.component';
 import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-content/cotyc-content.component';
+import { CoContratoEventoComponent } from './components/public/docs/co-contrato-evento/co-contrato-evento.component';
+import { DesPostularComponent } from './components/public/colaboradores/co-eventos/co-evento/des-postular/des-postular.component';
 
 @NgModule({
   declarations: [
@@ -236,7 +238,9 @@ import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-con
     CotycDialogComponent,
     AlertLoginComponent,
     SolicitudDialog,
-    InactivoDialog
+    InactivoDialog,
+    CoContratoEventoComponent,
+    DesPostularComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -273,7 +277,9 @@ import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-con
     CotycDialogComponent,
     AlertLoginComponent,
     SolicitudDialog,
-    InactivoDialog
+    InactivoDialog,
+    PostularComponent,
+    DesPostularComponent
   ],
   bootstrap: [AppComponent]
 })

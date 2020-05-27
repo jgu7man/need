@@ -1,0 +1,9 @@
+::ng-deep .mat-checkbox-label {
+    font-size: 1.3em !important;
+    color: gold !important;
+}
+
+#acept {
+    padding: 2em;
+}
+

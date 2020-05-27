@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Abandonar postulación</h1>
+<mat-dialog-content>
+  <p class="grey-text">
+    ¿Seguro que deseas abandonar esta postulación? <br />
+    Hacerlo podría tener repercusiones en tu disponibilidad para trabajar
+  </p>
+  <mat-form-field style="width: 100%;">
+    <mat-label>Explicación</mat-label>
+    <textarea
+      [(ngModel)]="explicacion"
+      class="bg-3 white-text"
+      matInput
+      name="explicación"
+      cols="30"
+      rows="10"
+    ></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions style="justify-content: space-around;">
+  <button mat-raised-button class="bg-3 white-text" (click)="_dialog.close()">Cancelar</button>
+  <button mat-raised-button class="bg-3 white-text" (click)="desPostular()">Seguro</button>
+</mat-dialog-actions>

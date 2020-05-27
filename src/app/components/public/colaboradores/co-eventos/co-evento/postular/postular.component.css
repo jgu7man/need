@@ -18,3 +18,8 @@ select {
 option {
     text-transform: capitalize;
 }
+
+
+.mat-dialog-actions {
+    justify-content: center;
+}

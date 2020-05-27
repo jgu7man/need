@@ -5,6 +5,7 @@ import { EventoService } from 'src/app/services/eventos/evento.service';
 import { ExtrasModel } from 'src/app/models/evento/extras.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CoEventoService } from 'src/app/services/colaboradores/coeventos.service';
+import { VacantesModel } from '../../../../../models/colaboradores/vacantes.model';
 
 @Component({
   selector: 'app-personal',
@@ -14,7 +15,7 @@ import { CoEventoService } from 'src/app/services/colaboradores/coeventos.servic
 export class PersonalComponent implements OnInit {
 
   @Input() id: any;
-  public personal: PersonalModel;
+  public personal: VacantesModel;
   public extras: ExtrasModel;
   public keys:any;
   public values: any;
@@ -27,7 +28,7 @@ export class PersonalComponent implements OnInit {
     private fs: AngularFirestore,
     private _coEvento: CoEventoService
   ) { 
-    this.personal = new PersonalModel('','');
+    this.personal = new VacantesModel(0,0,0,0,0,0,0,0);
     this.extras = new ExtrasModel(0,0,0,0,0,0)
     
   }
@@ -38,7 +39,7 @@ export class PersonalComponent implements OnInit {
     var infoPeronal = await eventoRef.collection('personal').doc('personal').get()
     const personal = infoPeronal.data()
 
-    this.personal = personal as PersonalModel
+    this.personal = personal as VacantesModel
     // this.extras = this.personal as ExtrasModel
 
     this.checkOwner()
@@ -52,12 +53,10 @@ export class PersonalComponent implements OnInit {
   }
 
   async checkOwner() {
-    this.ruta.parent.parent.url.subscribe(res => {
-      var user = res[res.length -1].path
-      if (user != 'colaborador') {
+    var userType = this.ruta.snapshot.paramMap.get('userType')
+      if (userType != 'colaborador') {
         this.isOwner.emit( false)
       }
-    });
   }
 
   // getServicio(){

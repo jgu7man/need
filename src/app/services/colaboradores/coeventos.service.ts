@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore, docChanges } from '@angular/fire/firestore';
 import { EquipoModel } from 'src/app/models/colaboradores/equipo.model';
 import { PersonalModel } from 'src/app/models/evento/personal.model';
+import * as firebase from 'firebase/app';
 
 @Injectable({ providedIn: 'root' })
 export class CoEventoService {
@@ -13,65 +14,110 @@ export class CoEventoService {
      }
 
     async getVacantes(id: string) {
-        var eventRef = this.fs.collection('eventos').ref.doc(id)
-        var vacantes = await eventRef.collection('personal').doc('vacantes').get()
-        return vacantes.data()
+        var eventRef = this.fs.collection( 'eventos' ).ref.doc( id )
+        var personalRef = eventRef.collection( 'personal' )
+        var vacantes = await personalRef.doc( 'vacantes' ).get()
+        if(vacantes.exists){
+            return vacantes.data()
+        } else {
+            var personal = await personalRef.doc( 'personal' ).get()
+            personalRef.doc( 'vacantes' ).set( personal.data() )
+            return personal.data()
+        }
     }
     
     async postular(idEvento: string, idColaborador: string, puesto: string) {
 
-        // Referencia a la información del evento
-        const eventoRef = this.fs.collection('eventos').ref.doc(idEvento).collection('info')
-        
-        const datosEvento = await eventoRef.doc('datos').get()
-        // Conseguir la fecha del evento
-        var inicia: Date = datosEvento.get('inicia').toDate()
-        inicia.setHours(inicia.getHours() - 2)
-        var termina = datosEvento.get('termina').toDate()
-        termina.setHours(termina.getHours() + 1)
+        try {
+            // Referencia a la información del evento
+            const eventoInfoRef = this.fs.collection( 'eventos' ).ref.doc( idEvento ).collection( 'info' )
+            const eventoPersonalRef = this.fs.collection( 'eventos' ).ref.doc( idEvento ).collection( 'personal' )
+            const eventoData = await this.fs.collection( 'eventos' ).ref.doc( idEvento ).get()
 
-        // Revisar la disponibilidad del colaborador
-        var disponible = await this.checkDisponibilidadColaborador(idColaborador, inicia, termina)
-        
-        if (!disponible) { return false }
-        else {
-        
-            // Preparar el usuario para agregar a la lista
-            var nuevoElemento = {}
-            Object.defineProperty(nuevoElemento, puesto, {
-                value: [idColaborador], enumerable: true, writable: true, configurable: true
-            })
-    
-            // Registrar el usuario en el equipo
-            await eventoRef.doc('equipo').set(nuevoElemento, { merge: true })
-    
-            // Preparar para ocupar la vacante
-            var vacantes = await eventoRef.doc('vacantes').get()
-            var vacantesPuesto = vacantes.get(puesto)
-            var vacantesEvento = vacantes.get('vacantes_total')
-            var newVacantes = {}
-            // Actualiza las vacantes del puesto
-            Object.defineProperty(newVacantes, puesto, {
-                value: vacantesPuesto -1, enumerable: true, writable: true, configurable: true
-            })
-            // Actualiza las vacantes totales del evento
-            Object.defineProperty(newVacantes, 'vacantes_total', {
-                value: vacantesEvento -1, enumerable: true, writable: true, configurable: true
-            })
-            
-            // Ocupar la vacante
-            await eventoRef.doc('vacantes').update(newVacantes)
-    
-            // Registrar el evento en la información del colaborador
-            const coRef = this.fs.collection('colaboradores').ref.doc(idColaborador)
-                
-            await coRef.collection('eventos').doc(idEvento).set({
-                puesto: puesto,
-                inicia: inicia,
-                termina: termina
-            })
+            const datosEvento = await eventoInfoRef.doc( 'datos' ).get()
+            // Conseguir la fecha del evento
+            var inicia: Date = datosEvento.get( 'inicia' ).toDate()
+            inicia.setHours( inicia.getHours() - 2 )
+            var termina = datosEvento.get( 'termina' ).toDate()
+            termina.setHours( termina.getHours() + 1 )
 
+            // Revisar la disponibilidad del colaborador
+            var disponible = await this.checkDisponibilidadColaborador( idColaborador, inicia, termina )
+
+            if ( !disponible ) { return false }
+            else {
+
+
+                // Preparar para ocupar la vacante
+                await eventoPersonalRef.doc( 'vacantes' ).set( {
+                    [ puesto ]: firebase.firestore.FieldValue.increment( -1 ),
+                    vacantes_total: firebase.firestore.FieldValue.increment(-1)
+                }, {merge: true})
+
+                // Ocupar la vacante
+                var miembros: any[] = []
+                miembros.push(idColaborador)
+                await eventoPersonalRef.doc( 'equipo' ).set( {
+                    [puesto]: miembros
+                }, {merge: true})
+
+                // Registrar el evento en la información del colaborador
+                const coRef = this.fs.collection( 'colaboradores' ).ref.doc( idColaborador )
+
+                await coRef.collection( 'eventos' ).doc( idEvento ).set( {
+                    puesto: puesto,
+                    inicia: inicia,
+                    termina: termina,
+                    contrato: false
+                } )
+
+                // Enviar la información de la postulación
+
+                var postulacion = {}
+                postulacion = { ...postulacion, ...datosEvento.data(), ...eventoData.data() }
+                postulacion = { ...postulacion }
+                postulacion[ 'puesto' ] = puesto
+
+                return postulacion
+
+            }
+        } catch (error) {
+            console.error(error);
         }
+    }
+
+
+    async desPostular(data: DataPuesto, explicacion) {
+        const eventoRef = this.fs.collection( 'eventos' ).ref.doc( data.idEvento )
+        const personalRef = eventoRef.collection( 'personal' )
+        const vacantesRef = personalRef.doc( 'vacantes' )
+        const equipoRef = personalRef.doc( 'equipo' )
+        const colaboradorRef = this.fs.collection( 'colaboradores' ).ref.doc( data.idColaborador )
+        const coEventosRef = colaboradorRef.collection( 'eventos' )
+        
+        try {
+            await vacantesRef.update( {
+                [ data.puesto ]: firebase.firestore.FieldValue.increment( 1 ),
+                vacantes_total: firebase.firestore.FieldValue.increment( 1 )
+            } )
+
+            await equipoRef.update( {
+                [ data.puesto ]: firebase.firestore.FieldValue.arrayRemove( data.idColaborador )
+            } )
+
+            await coEventosRef.doc( data.idEvento ).delete()
+            await colaboradorRef.collection( 'eventos cancelados' )
+                .doc( data.idEvento ).set( {
+                    explicacion: explicacion,
+                    fechaCancelacion: new Date(),
+                    puesto: data.puesto
+                } )
+            return true
+        } catch ( error ) {
+            console.error(error);
+            return false
+        }
+
     }
 
     async checkDisponibilidadColaborador(idCo, inicia, termina) {
@@ -92,34 +138,38 @@ export class CoEventoService {
         
     }
 
-    async checkPostulado(idEvento: string, idColaborador: string) {
-        const coRef = this.fs.collection('colaboradores').ref.doc(idColaborador)
-        const evento = await coRef.collection('eventos').doc(idEvento).get()
-        
-        return evento.exists ? true : false
+    async checkPostulado( idEvento: string, idColaborador: string ) {
+        const coRef = this.fs.collection( 'colaboradores' ).ref.doc( idColaborador )
+        const evento = await coRef.collection( 'eventos' ).doc( idEvento ).get()
+        var postData
+        if ( evento.exists ) {
+            var encargado = evento.data()['encargado'] ? true : false
+            postData = { postulado: true, puesto: evento.data().puesto, encargado }
+        } else {
+            postData = { puesto: false }
+        }
+        return postData    
     }
+
 
     async getEquipo(idEvento, idUser) {
         // Referencia a la información del evento
         const eventoRef = this.fs.collection('eventos').ref.doc(idEvento).collection('personal')
 
         // Tomar la data del equipo
-        var personalData = await eventoRef.doc('personal').get()
-        var personalObj = personalData.data()
         var equipoData = await eventoRef.doc('equipo').get()
         var equipoObj = equipoData.data()
-
 
         
             // Definir objeto de equipo
             var equipo = []
 
             // Por cada puesto del equipo obtener un arreglo
-            Object.keys(personalObj).forEach(puesto => {
+        if ( equipoObj ) {
+            Object.keys(equipoObj).forEach(puesto => {
                 var puestoArray = []
 
                 // Por cada puesto, invocar los perfiles de cada miembro y asignarlo a un array nuevo
-                if (equipoObj) {
                     equipoObj[puesto].forEach(async id => {
                     var miembro = await this.getPerfilColaborador(id)
                     if (idUser) {
@@ -129,11 +179,13 @@ export class CoEventoService {
                         return puestoArray.push({ perfil: miembro })
                     }
                 })
-                }
-
-                equipo.push({ name: puesto, miembros: puestoArray, cantidad: personalObj[puesto] })
+                
+                equipo.push({ name: puesto, miembros: puestoArray })
             })
-
+            } else {
+                return false
+        }
+            
         return equipo
     }
 
@@ -159,7 +211,7 @@ export class CoEventoService {
         const coRef = this.fs.collection('colaboradores').ref.doc(idCo)
         var coRate = await coRef.collection('ratings').doc(idUser).get()
         if (coRate.exists) {
-            var userRate = coRate.data().rate
+            var userRate: string = coRate.data().rate
             return userRate
         } else {
             return false
@@ -212,4 +264,12 @@ export class CoEventoService {
 
         return eventos
     }
+}
+
+
+
+export interface DataPuesto {
+    idEvento: string,
+    puesto: string,
+    idColaborador: string
 }

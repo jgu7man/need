@@ -49,10 +49,10 @@
             </div>
             <div class="tabs-content carousel">
                 <div id="detalles" class="col s12">
-                    <app-detalles [evento]="evento" [costos]="costos" [owner]="owner" [pagos]="pagos"></app-detalles>
+                    <app-detalles></app-detalles>
                 </div>
                 <div id="datos" class="col s12">
-                    <app-datos [datos]="datos"></app-datos>
+                    <app-datos></app-datos>
                 </div>
                 <div id="personal" class="col s12">
                     <app-ver-equipo [equipo]="equipo"></app-ver-equipo>
@@ -66,10 +66,10 @@
     <div class="container desktop">
         <div class="row">
             <div class="col s4 box-content">
-                <app-detalles [evento]="evento" [costos]="costos" [owner]="owner" [pagos]="pagos"></app-detalles>
+                <app-detalles></app-detalles>
             </div>
             <div class="col s4 box-content">
-                <app-datos [datos]="datos"></app-datos>
+                <app-datos ></app-datos>
             </div>
             <div class="col s12 box-content">
                 <app-ver-equipo *ngIf="evento" [equipo]="equipo" [estado]="evento.estado_equipo"></app-ver-equipo>

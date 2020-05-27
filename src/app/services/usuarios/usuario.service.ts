@@ -10,10 +10,14 @@ export class UsuarioService {
     constructor(private fs: AngularFirestore) { }
     
     async getUserPerfil(uid) {
-        const userRef = this.fs.collection('usuarios').ref.doc(uid)
-        var userDoc = await userRef.get()
-        var usuario = userDoc.data() as UsuarioModel
-        return usuario
+        try {
+            const userRef = this.fs.collection( 'usuarios' ).ref.doc( uid )
+            var userDoc = await userRef.get()
+            var usuario = userDoc.data() as UsuarioModel
+            return usuario
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async getUserRating(uid) {

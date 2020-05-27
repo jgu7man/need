@@ -8,6 +8,8 @@ export class ColaboradorModel{
         public imgPerfil: string,
         // public registrado: Date,
         public estado: 'solicitud' | 'activo' | 'inactivo',
+        public capitan?: boolean,
+        public bartender?: boolean,
         public identFront?: string,
         public identBack?: string
     ){}

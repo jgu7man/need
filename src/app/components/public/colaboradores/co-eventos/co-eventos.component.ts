@@ -11,10 +11,12 @@ import { ExtrasModel } from 'src/app/models/evento/extras.model';
   styleUrls: ['./co-eventos.component.css']
 })
 export class CoEventosComponent implements OnInit {
-
+  
+  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
   public eventos
   public opened: boolean = false
   public idEvento: string
+  refresh
   constructor(
     private _eventos: EventoService,
   ) {
@@ -25,12 +27,18 @@ export class CoEventosComponent implements OnInit {
     this.eventos = await this._eventos.getEventosByCity()
   }
 
+  async onRefresh() {
+    this.refresh = true
+    console.log(this.refresh);
+    this.waitFor( 1000 )
+    this.refresh = false
+  }
+
   trackByFn(index, evento) {
     return evento.id;
   }
 
   async toggleVacantes(id) {
-    const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
     this.idEvento = null
     $('.vacantes').slideUp()
     
@@ -38,7 +46,7 @@ export class CoEventosComponent implements OnInit {
       $('.vacantes-' + id).removeAttr('opened')
     } else {
       this.idEvento = id
-        await waitFor(200)
+        await this.waitFor(200)
         $('.vacantes-' + id).slideToggle()
         $('.vacantes-' + id).attr('opened', 'open')
     }

@@ -5,9 +5,29 @@
     <div class="row title">
         <div class="col s12 center">
             <p class="titleLabel ltxt">EVENTO</p>
-            <button [disabled]="postulado" class="needbtn" (click)="onPostular()">POSTULARSE</button>
         </div>
         <div class="col s12">
+            <button 
+                mat-raised-button
+                [matMenuTriggerFor]="actions"
+            >Acciones</button>
+            <mat-menu #actions>
+                <ng-container *ngIf="!postulado; else despostular">
+                    <button mat-menu-item (click)="onPostular()">Postularse</button>
+                </ng-container>
+                <ng-template #despostular>
+                    <button mat-menu-item (click)="desPostular()">Abandonar postulación</button>
+                    <ng-container *ngIf="onWork; else noWork">
+                        <button mat-menu-item>Dejar de trabajar</button>
+                    </ng-container>
+                    <ng-template #noWork>
+                        <button mat-menu-item>Iniciar a trabajar</button>
+                    </ng-template>
+                        <button *ngIf="encargado" mat-menu-item>Panel de encargado</button>
+                </ng-template>
+                
+                
+            </mat-menu>
         </div>
     </div>
 
@@ -41,9 +61,10 @@
             </div>
             <div class="col s4 box-content bg-2">
                 <app-personal [id]="idEvento"></app-personal>
+                <app-ver-equipo></app-ver-equipo>
             </div>
         </div>
     </div>
 
 </div>
-<app-postular class="overlay" *ngIf="idEvento" [idEvento]="idEvento" style="display: none;"></app-postular>
+<!-- <app-postular class="overlay" *ngIf="idEvento" style="display: none;"></app-postular> -->

@@ -1,33 +1,19 @@
-<div class="container">
+<div class="container event-container">
     <ul class="listadetalles ltxt">
         <li class="detalle">
-            <div class="col s3">{{ personal.meseros }}</div>
-            <div class="col s9">MESEROS</div>
-        </li>
+            {{ personal.meseros }} MESEROS</li>
         <li class="detalle" *ngIf="personal.capitanMeseros > 0">
-            <div class="col s3">{{ personal.capitanMeseros }}</div>
-            <div class="col s9">CAPITÁN DE MESEROS</div>
-        </li>
-        <li class="detalle" *ngIf="extras.barman > 0">
-            <div class="col s3">{{ extras.barman }}</div>
-            <div class="col s9">BARMAN's</div>
-        </li>
-        <li class="detalle" *ngIf="extras.escamoche > 0">
-            <div class="col s3">{{ extras.escamoche }}</div>
-            <div class="col s9">ESCAMOCHE</div>
-        </li>
-        <li class="detalle" *ngIf="extras.valet > 0">
-            <div class="col s3">{{ extras.valet }}</div>
-            <div class="col s9">VALET PARKING</div>
-        </li>
-        <li class="detalle" *ngIf="extras.hostess > 0">
-            <div class="col s3">{{ extras.hostess }}</div>
-            <div class="col s9">HOSTESS</div>
-        </li>
-        <li class="detalle" *ngIf="extras.vigilante > 0">
-            <div class="col s3">{{ extras.vigilante }}</div>
-            <div class="col s9">VIGILANTE</div>
-        </li>
+            {{ personal.capitanMeseros }} CAPITÁN DE MESEROS</li>
+        <li class="detalle" *ngIf="personal.barman > 0">
+            {{ personal.barman }} BARMAN's</li>
+        <li class="detalle" *ngIf="personal.escamoche > 0">
+            {{ personal.escamoche }} ESCAMOCHE</li>
+        <li class="detalle" *ngIf="personal.valet > 0">
+            {{ personal.valet }} VALET PARKING</li>
+        <li class="detalle" *ngIf="personal.hostess > 0">
+            {{ personal.hostess }} HOSTESS</li>
+        <li class="detalle" *ngIf="personal.vigilante > 0">
+            {{ personal.vigilante }} VIGILANTE</li>
     </ul>
 
 </div>
