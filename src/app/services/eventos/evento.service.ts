@@ -92,7 +92,10 @@ export class EventoService{
         colRef.doc(idEvento).update({
             estado: 'creado',
             ciudad: datos.ciudad
-        })
+        } )
+        datos.inicia = new Date( datos.inicia )
+        datos.termina = new Date( datos.termina)
+        console.log(datos);
 
         var eventRef = this.fs.collection('eventos').ref.doc(idEvento)
         await eventRef.collection('info').doc('datos').set(datos)
@@ -121,10 +124,8 @@ export class EventoService{
         await userEvents.forEach(async event => {
             var eventDate = event.get('fecha').toDate() as Date
             eventDate.setHours(0, 0, 0, 0)
-            console.log(eventDate)
-            return fechaSolicitada == eventDate ? disponible = true : disponible = false
+            return fechaSolicitada == eventDate ? disponible = false : disponible = true
         })
-        console.log(disponible)
         return disponible
 
     }
@@ -134,17 +135,20 @@ export class EventoService{
         try {
             var eventRef = this.fs.collection( 'eventos' ).ref.doc( idEvento ).collection( 'personal' )
 
-            console.log( personal );
-            var personalObj = {}
-            personalObj[ 'meseros' ] = personal.meseros
-            personalObj[ 'capitanMeseros' ] = personal.capitanMeseros
+            function sum( obj ) {
+                var sum = 0;
+                for ( var el in obj ) {
+                    if ( obj.hasOwnProperty( el ) ) {
+                        sum += parseFloat( obj[ el ] );
+                    }
+                }
+                return sum;
+            }
 
-            Object.keys( personal.extras ).forEach( extra => {
-                personalObj[ extra ] = personal.extras[ extra ]
+            var vacantes_total = sum(personal)
 
-            } )
-
-            await eventRef.doc( 'vacantes' ).set( personalObj )
+            await eventRef.doc( 'vacantes' ).set( personal )
+            await eventRef.doc( 'vacantes' ).update({vacantes_total: vacantes_total})
         } catch (error) {
             console.error(error);
         }
@@ -313,7 +317,6 @@ export class EventoService{
         var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
         var infoDatos = await eventoRef.collection('info').doc('datos').get()
         const datos = infoDatos.data() as DatosModel
-        console.log(datos);
         datos.inicia = new Date(infoDatos.data().inicia)
         datos.termina = new Date(infoDatos.data().termina)
         return datos
@@ -345,14 +348,14 @@ export class EventoService{
                 .subscribe(respuesta => {
                     respuesta == 'aceptar' ? (
                         doc.update({ estado: 'cancelado' }),
-                        this._historial.setActividad('eventos', this.idEvento, 'usuarios', 'Evento cancelado', 'evento'),
+                        this._historial.setActividad('eventos', idEvento, 'usuarios', 'Evento cancelado', 'evento'),
                         this.router.navigateByUrl('/usuario', { skipLocationChange: true })
                         .then(() => this.router.navigate(['usuario/tus-eventos'])) 
                         ) : $('app-alertas').fadeToggle()
                 })
         } else {
             await doc.update({ estado: 'cancelado' })
-            this._historial.setActividad('eventos', this.idEvento, 'usuarios', 'Evento cancelado', 'evento'),
+            this._historial.setActividad('eventos', idEvento, 'usuarios', 'Evento cancelado', 'evento'),
             this._alerta.sendAlertaCont('Evento cancelado').subscribe(res => {
                 this.router.navigateByUrl('/usuario', { skipLocationChange: true })
                 .then(() => this.router.navigate(['usuario/tus-eventos'])) 
@@ -361,20 +364,20 @@ export class EventoService{
     }
 
     async deleteEvento(idEvento) {
-        var eventoRef = this.fs.collection('eventos').ref.doc(idEvento)
-        this._alerta.alertAsk('¿Deseas eliminar el evento?').subscribe(res => {
-            console.log('Respuesta: ', res)
-            if (res == 'aceptar') {
-                eventoRef.collection('finanzas').get().then(docs => { docs.forEach(doc => { eventoRef.collection('finanzas').doc(doc.id).delete() }) })
-                eventoRef.collection('info').get().then(docs => { docs.forEach(doc => { eventoRef.collection('info').doc(doc.id).delete() }) })
-                eventoRef.collection('personal').get().then(docs => { docs.forEach(doc => { eventoRef.collection('personal').doc(doc.id).delete() }) })
-                eventoRef.collection('historial').get().then(docs => { docs.forEach(doc => { eventoRef.collection('historial').doc(doc.id).delete() }) })
-                eventoRef.delete(),
-                this._historial.setActividad('eventos', this.idEvento, 'usuarios', 'Evento eliminado', 'personal'),
-                this.router.navigateByUrl('/usuario', { skipLocationChange: true })
-                    .then(() => this.router.navigate(['usuario/tus-eventos']))
-            } else if (res == 'cancelar') { $('app-alertas').fadeToggle() }
-        })
+        try {
+            var eventoRef = this.fs.collection( 'eventos' ).ref.doc( idEvento )
+            eventoRef.collection( 'finanzas' ).get().then( docs => { docs.forEach( doc => { eventoRef.collection( 'finanzas' ).doc( doc.id ).delete() } ) } )
+            eventoRef.collection( 'info' ).get().then( docs => { docs.forEach( doc => { eventoRef.collection( 'info' ).doc( doc.id ).delete() } ) } )
+            eventoRef.collection( 'personal' ).get().then( docs => { docs.forEach( doc => { eventoRef.collection( 'personal' ).doc( doc.id ).delete() } ) } )
+            eventoRef.collection( 'historial' ).get().then( docs => { docs.forEach( doc => { eventoRef.collection( 'historial' ).doc( doc.id ).delete() } ) } )
+            eventoRef.delete(),
+                this._historial.setActividad( 'eventos', idEvento, 'usuarios', 'Evento eliminado', 'personal' ),
+                this.router.navigateByUrl( '/usuario', { skipLocationChange: true } )
+                    .then( () => this.router.navigate( [ 'usuario/tus-eventos' ] ) )
+            return true
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 

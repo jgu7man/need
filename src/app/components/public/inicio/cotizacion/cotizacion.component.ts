@@ -144,7 +144,7 @@ export class CotizacionComponent implements OnInit {
   }
 
   async defineTotal() {
-    return !this.total ?
+    return !this.costos.factura ?
       this.costos.costo_servicio = this.subtotal :
       this.costos.costo_servicio = this.total
   }

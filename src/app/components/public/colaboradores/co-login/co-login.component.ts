@@ -37,7 +37,7 @@ export class CoLoginComponent implements OnInit {
       default:
 
         this.auth.colab$.pipe().subscribe(colab => {
-          console.log(colab)
+          // console.log(colab)
           if ( colab ) {
             this.router.navigate(['/colaborador/perfil'])
           }

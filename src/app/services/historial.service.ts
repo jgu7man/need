@@ -21,6 +21,8 @@ export class HistorialService {
 
         var user = JSON.parse(localStorage.getItem('needlog'))
         
+console.log(doc);
+
         this.fs.collection(coll).ref.doc(doc)
             .collection('historial').add(actividad).then(sucsses => {
                 this.fs.collection(userColl).ref.doc(user.uid)

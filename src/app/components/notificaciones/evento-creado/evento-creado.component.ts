@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
 import { EventoService } from 'src/app/services/eventos/evento.service';
 import { EventoModel } from 'src/app/models/evento/evento.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -11,7 +11,7 @@ declare var $;
   templateUrl: './evento-creado.component.html',
   styleUrls: ['./evento-creado.component.css']
 })
-export class EventoCreadoComponent implements OnInit {
+export class EventoCreadoComponent implements OnInit, AfterViewChecked {
 
   public evento: any;
   public usuario: any
@@ -42,15 +42,20 @@ export class EventoCreadoComponent implements OnInit {
     this.getEvento(this.idEvento);
   }
 
+  ngAfterViewChecked() {
+    // this._Route.params.subscribe( ( params: Params ) => {
+    //   this.idEvento = params.idEvento;
+    // } )
+    // this.getEvento( this.idEvento );
+  }
+
+
+
   getEvento(id){
-    this._evento.getOneEvento( id ).then( res => { this.evento = res
-    console.log(res); });
-    this._evento.getPersonal( id ).then( res => { this.personal = res
-    console.log(res); } )
-    this._evento.getCostos( id ).then( res => { this.finanzas = res.costos
-    console.log(res); } )
-    this._evento.getDatos( id ).then( res => { this.datos = res
-    console.log(res); } )
+    this._evento.getOneEvento( id ).then( res => { this.evento = res});
+    this._evento.getPersonal( id ).then( res => { this.personal = res} )
+    this._evento.getCostos( id ).then( res => { this.finanzas = res.costos } )
+    this._evento.getDatos( id ).then( res => { this.datos = res } )
   }
 
   solicitarPermiso() {

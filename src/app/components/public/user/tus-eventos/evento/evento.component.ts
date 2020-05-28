@@ -8,6 +8,8 @@ import { EventoService } from 'src/app/services/eventos/evento.service';
 import { CostosModel } from 'src/app/models/evento/costos.model';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 import { PagoModel } from 'src/app/models/evento/pago.model';
+import { MatDialog } from '@angular/material';
+import { DeleteEventoComponent } from './delete-evento/delete-evento.component';
 declare var $;
 
 @Component({
@@ -31,7 +33,8 @@ export class EventoComponent implements OnInit {
     private _ruta: ActivatedRoute,
     private _evento: EventoService,
     private _coEvento: CoEventoService,
-    private _usuario: UsuarioService
+    private _usuario: UsuarioService,
+    private _dialog: MatDialog
    ) { 
     this._ruta.params.subscribe(params => {
       this.idEvento = params['id']
@@ -75,7 +78,6 @@ export class EventoComponent implements OnInit {
     this.pagos = await (await this._evento.getCostos(this.idEvento)).pagos
     var datos = await this._evento.getDatos(this.idEvento)
     this.datos = datos as DatosModel
-    console.log(this.datos);
     var resEquipo = await this._coEvento.getEquipo(this.idEvento, this.usuario.uid)
     this.equipo = resEquipo
     return 
@@ -86,7 +88,10 @@ export class EventoComponent implements OnInit {
   }
 
   onDelete() {
-    this._evento.deleteEvento(this.idEvento)
+    this._dialog.open( DeleteEventoComponent, {
+      minWidth: '400px',
+      data: this.idEvento
+    })
   }
 
 }

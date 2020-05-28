@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>Danos unos segundos para tomar tus datos</h1>
+<mat-dialog-content>
+    <p>Es necesario contar con tus datos reales para continuar con el contrato</p>
+    <form (ngSubmit)="onSubmit()" #datosCliente="ngForm">
+        <mat-form-field>
+        <mat-label>Nombre o nombres</mat-label>
+        <input 
+            matInput
+            [(ngModel)]="Cliente.nombre"
+            [formControl]="clienteDato"
+            type="text">
+        <mat-error *ngIf="clienteDato.invalid">{{getErrorMsg()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Apellido Paterno</mat-label>
+        <input 
+            matInput
+            [(ngModel)]="Cliente.ap_paterno"
+            [formControl]="clienteDato"
+            type="text">
+        <mat-error *ngIf="clienteDato.invalid">{{getErrorMsg()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Apellido Materno</mat-label>
+        <input 
+            matInput
+            [(ngModel)]="Cliente.ap_materno"
+            [formControl]="clienteDato"
+            type="text">
+        <mat-error *ngIf="clienteDato.invalid">{{getErrorMsg()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input 
+            matInput
+            [(ngModel)]="Cliente.telefono"
+            [formControl]="clienteDato"
+            type="text">
+        <mat-error *ngIf="clienteDato.invalid">{{getErrorMsg()}}</mat-error>
+    </mat-form-field>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button type="submit" [disabled]="!datosCliente.form.valid">
+        Guardar
+    </button>
+</mat-dialog-actions>

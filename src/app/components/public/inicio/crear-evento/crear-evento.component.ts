@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatosModel } from 'src/app/models/evento/datosevento.model';
@@ -9,6 +10,9 @@ import { DateModel } from 'src/app/models/evento/date.model';
 import { AlertaService } from 'src/app/services/alerta.service';
 import { CostosModel } from 'src/app/models/evento/costos.model';
 import { AdminDataService } from 'src/app/services/admin/admin.data.service';
+import { UsuarioModel } from '../../../../models/usuario.model';
+import { AuthService } from '../../../../services/usuarios/auth.service';
+import { GetDatosClienteComponent } from './get-datos-cliente/get-datos-cliente.component';
 
 declare var jQuery:any;
 declare var $:any;
@@ -33,6 +37,7 @@ export class CrearEventoComponent implements OnInit {
   public evento: EventoModel
   public costos: CostosModel
 
+  public usuario: UsuarioModel
   public Evento: string;
   public idEvento: any;
   public eventoStarts: HorarioModel
@@ -53,13 +58,15 @@ export class CrearEventoComponent implements OnInit {
     private _Router: Router,
     private _Evento: EventoService,
     private _alerta: AlertaService,
-    private _adminData: AdminDataService
+    private _adminData: AdminDataService,
+    private _auth: AuthService,
+    private _dialog: MatDialog
     ) {
     this.datos = new DatosModel(new Date,new Date,'', '', '', '', '', 0, 0);
     this.personal = new PersonalModel( '', '');
     this.evento = new EventoModel('', '', '', 0, 0, false, 'normal', 'pendiente', 'espera', 'espera', new Date, '', '',0);
     this.costos = new CostosModel(0,0,0,0,0,false,[])
-    this.inDate = new DateModel(0,0,0,0,0)
+    this.inDate = new DateModel(0,0,0,-1,0)
     this.eventoStarts = new HorarioModel(new Date, '', '')
     this.eventoEnds = new HorarioModel(new Date, '', '')
     this.duracion = 5
@@ -110,13 +117,18 @@ export class CrearEventoComponent implements OnInit {
       splitDate = date.split(' '),
       year = splitDate[0],
       month = splitDate[1] -1,
-      day = splitDate[2]
+      day = splitDate[ 2 ]
+    this.inDate.year = +year
+    this.inDate.month = +month
+    this.inDate.day = +day
     this.eventoStarts.date = new Date(year, month, day)
     
-    var fechaDuplicada = await this._Evento.checkUserDisp(new Date(this.eventoStarts.date))
-    if (fechaDuplicada) {
+    var fechaDiponible = await this._Evento.checkUserDisp(new Date(this.eventoStarts.date))
+    if (!fechaDiponible) {
       this._alerta.sendAlertaCont('Ya cuentas con un evento creado para esa fecha, elige otra fecha o edita el que ya tienes creado')
     } else {
+      console.log(this.inDate.hour);
+      if ( this.inDate.hour > -1 ) this.setDates();
       $("#hora").fadeIn()
       if (this.eventoStarts.date <= oneweek) {
         this._alerta.sendUserOptions('El evento que eliges es muy pronto y no garantizamos que el equipo se junte pronto. Te recomendamos promocionarlo para que tener tu equipo a tiempo. ¿Deseas promocionarlo?', 'Promocionar', 'No promocionar')
@@ -132,9 +144,6 @@ export class CrearEventoComponent implements OnInit {
 
     this.inDate.hour = +hour
     this.inDate.min = +min
-    this.inDate.year = this.eventoStarts.date.getFullYear(),
-    this.inDate.month = this.eventoStarts.date.getMonth(),
-    this.inDate.day = this.eventoStarts.date.getDate()
 
     this.setDates()
     
@@ -168,6 +177,7 @@ export class CrearEventoComponent implements OnInit {
     this.eventoEnds.date = this.datos.termina
     this.stringDates()
     this.setHorasExtras()
+    console.log(this.datos);
   }
 
   setHorasExtras() {
@@ -243,9 +253,26 @@ export class CrearEventoComponent implements OnInit {
 
   async onSubmit() {
 
-    // this.getTerminaDate()
-    var log = JSON.parse(localStorage.getItem('needlog'))
-    this.evento.usuario = log.uid
+    this._auth.user$.pipe().subscribe( user => {
+      if ( user ) {
+        this.evento.usuario = user.uid
+        if ( user.nombre ) {
+          this.postEvent()
+        } else {
+          var dialogRef = this._dialog.open( GetDatosClienteComponent, {
+            minWidth:'400px'
+          } )
+          dialogRef.afterClosed().subscribe( () => {
+            this.postEvent()
+          })
+        }
+      }
+    })
+    
+    
+  }
+  
+  async postEvent() {
     this.evento.fecha = this.datos.inicia
     this.evento.lugar = `${this.datos.lugar}, ${this.datos.ciudad}, ${this.datos.estado}`
     this.evento.area = this.datos.estado
@@ -265,7 +292,6 @@ export class CrearEventoComponent implements OnInit {
         this._Router.navigate(['evento-creado/'+this.idEvento])
       })
     
-
   }
 
 

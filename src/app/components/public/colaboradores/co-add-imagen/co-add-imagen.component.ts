@@ -40,7 +40,7 @@ export class CoAddImagenComponent implements OnInit {
       this.idColab = ruta[ 'id' ];
     } )
 
-    this.colab = new ColaboradorModel( '', '', '', '', '','/assets/img/co_blank_purple.png','solicitud','','')
+    this.colab = new ColaboradorModel( '', '', '', '', '','/assets/img/co_blank_purple.png','solicitud',false,false)
 
    }
 

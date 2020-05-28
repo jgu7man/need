@@ -132,6 +132,8 @@ import { CoTycComponent } from './components/public/docs/co-tyc/co-tyc.component
 import { CotycContentComponent } from './components/public/docs/co-tyc/cotyc-content/cotyc-content.component';
 import { CoContratoEventoComponent } from './components/public/docs/co-contrato-evento/co-contrato-evento.component';
 import { DesPostularComponent } from './components/public/colaboradores/co-eventos/co-evento/des-postular/des-postular.component';
+import { GetDatosClienteComponent } from './components/public/inicio/crear-evento/get-datos-cliente/get-datos-cliente.component';
+import { DeleteEventoComponent } from './components/public/user/tus-eventos/evento/delete-evento/delete-evento.component';
 
 @NgModule({
   declarations: [
@@ -240,7 +242,9 @@ import { DesPostularComponent } from './components/public/colaboradores/co-event
     SolicitudDialog,
     InactivoDialog,
     CoContratoEventoComponent,
-    DesPostularComponent
+    DesPostularComponent,
+    GetDatosClienteComponent,
+    DeleteEventoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'need' }),
@@ -279,7 +283,9 @@ import { DesPostularComponent } from './components/public/colaboradores/co-event
     SolicitudDialog,
     InactivoDialog,
     PostularComponent,
-    DesPostularComponent
+    DesPostularComponent,
+    GetDatosClienteComponent,
+    DeleteEventoComponent
   ],
   bootstrap: [AppComponent]
 })
