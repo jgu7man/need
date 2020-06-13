@@ -3,7 +3,7 @@
 const functions = require('firebase-functions');
 const cors = require('cors')({ origin: true });
 const notificaciones = require('./notificaciones/notificaciones');
-const pagos_stripe = require('./pagos/pago_stripe');
+const pagos_stripe = require('./src/pagos/pago_stripe');
 
 
 
@@ -20,8 +20,11 @@ exports.need = angularUniversal.trigger({
 });
 
 
+
+
+
 // NOTIFICACIONES
-exports.notificaciones = functions.firestore
+exports.notificacion_usuario = functions.firestore
     .document('usuarios/{uid}/notificaciones/{notification}').onCreate(async(snap, context) => { notificaciones.notificacion_usuario(snap); });
 exports.evento_cubierto = functions.firestore
     .document('eventos/{eid}/personal/vacantes').onUpdate(async(change, context) => { notificaciones.evento_cubierto(change); });
