@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaboradores/colaborador.service';
 import { ColaboradorModel } from '../../../../models/colaboradores/colaborador.model';
 import { CoauthService } from '../../../../services/colaboradores/coauth.service';
+import { NavbarService } from '../../navbar/navbar.service';
 
 @Component({
   selector: 'app-co-perfil',
@@ -20,7 +21,8 @@ export class CoPerfilComponent implements OnInit {
   constructor(
     public auth: CoauthService,
     private router: Router,
-    private _colaborador: ColaboradorService
+    private _colaborador: ColaboradorService,
+    private _navbar: NavbarService
   ) {
     this.coPerfil = new ColaboradorModel( '', '', '', '', '','/assets/img/co_blank_purple.png','solicitud')
    }
@@ -31,11 +33,12 @@ export class CoPerfilComponent implements OnInit {
       if ( !colab ) {
         this.router.navigate( [ '/colaborador/login' ] )
       } else {
+        await this._colaborador.getCoPerfil()
         this.getRating(colab)
         this.getEventosCompletados(colab)
-        await this._colaborador.getCoPerfil()
         this._colaborador.coPerfil
           .subscribe( colab => this.coPerfil = colab );
+        this._navbar.routeType = 'colaborador'
       }
     })
 

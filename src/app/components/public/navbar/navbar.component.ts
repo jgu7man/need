@@ -3,6 +3,7 @@ import { AuthService } from "src/app/services/usuarios/auth.service";
 import { ColaboradorService } from 'src/app/services/colaboradores/colaborador.service';
 import { Router } from '@angular/router';
 import { CoauthService } from '../../../services/colaboradores/coauth.service';
+import { NavbarService } from './navbar.service';
 declare var $;
 
 @Component({
@@ -20,33 +21,21 @@ export class NavbarComponent implements OnInit {
     public auth: AuthService,
     public coAuth: CoauthService,
     public _co: ColaboradorService,
-    public router: Router
+    public router: Router,
+    public _navbar: NavbarService
   ) { }
 
   ngOnInit() {
-    // var user = JSON.parse(localStorage.getItem('needlog'))
     var url = window.location.href
 
-    this._co.changeMenu.subscribe(menu => { this.changeUserCo(menu) })
 
-    if (url.includes('colaborador')) {
-      this.colabMenu = true
-      // this.router.navigate(['/colaborador'])
-    } else {
-      this.colabMenu = false
-      // this.router.navigate(['/usuario/perfil'])
-    }
-    // if (user) {
-    // }
+    this._navbar._routeType.subscribe( res => {
+      this.colabMenu = res == 'colaborador' ? true : false  
+    })
+    
   }
 
-  changeUserCo(menu) {
-      if (menu.perfil == 'colaborador') {
-        this.colabMenu = true
-      } else {
-        this.colabMenu = false
-      }
-  }
+  
 
   menuResponsive() {
     window.innerWidth;

@@ -58,9 +58,9 @@ export class MainMenuComponent implements OnInit {
   }
 
   switchMenu(perfil) {
-    this._colab.switchMenu(perfil).then(menu => {
-      this.perfilMenu = menu
-    })
+    // this._colab.switchMenu(perfil).then(menu => {
+    //   this.perfilMenu = menu
+    // })
   }
 
   // cerrarSesion(){

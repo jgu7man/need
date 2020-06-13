@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavbarService } from '../navbar/navbar.service';
 
 @Component({
   selector: 'app-colaboradores',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 }) 
 export class ColaboradoresComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navbar: NavbarService) { }
 
   ngOnInit() {
+    this.navbar.setRouteType('colaborador')
   }
 
 }

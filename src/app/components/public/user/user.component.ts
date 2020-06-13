@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/usuarios/auth.service';
 // import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { swipeUsuarioAnimation } from "../../../../assets/animations/usuario.animation";
+import { NavbarService } from '../navbar/navbar.service';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +17,8 @@ export class UsuarioComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private _ruta: ActivatedRoute
+    private _ruta: ActivatedRoute,
+    private navbar: NavbarService
   ) { }
 
   ngOnInit() {
@@ -27,7 +29,7 @@ export class UsuarioComponent implements OnInit {
         this.router.navigate(['/login'])
       }
     })
-    
+    this.navbar.setRouteType('usuario')
   }
 
   getPage(outlet) {

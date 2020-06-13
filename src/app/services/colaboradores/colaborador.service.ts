@@ -43,60 +43,62 @@ export class ColaboradorService {
 
 
         // Check if is authenticated
-        this._auth.colab$.pipe().subscribe( async colab => {
+        this._auth.colab$.pipe().subscribe( async (colab: ColaboradorModel) => {
             
         
 
         if ( colab ) {
 
             // If get Authenticated check if is registreded
-
             const coRef = this.fs.collection( 'colaboradores' ).ref.doc( colab.uid )
-            var perfilData = await coRef.get()
-            if ( perfilData.exists ) {
 
-                // If is registred get the data
+            // If is registred get the data
+            this.coPerfil.next( colab )
 
-                var perfil = perfilData.data() as ColaboradorModel;
-                this.coPerfil.next( perfil )
-
-                console.log(perfil);
-                if (perfil.estado == 'solicitud') {
-                    if ( !perfil.nombre || !perfil.apellido_materno || !perfil.apellido_paterno )
-                        return this.router.navigate( [ '/colaborador/registro' ] ),
-                            $( 'app-loading' ).fadeOut();
-
-                    var datosDoc = await coRef.collection( 'info' ).doc( 'datos' ).get()
-                    if ( !datosDoc.exists ) return this.router.navigate( [ '/colaborador/reg-datos', colab.uid ] ),
+            console.log(colab);
+            if (colab.estado == 'solicitud') {
+                if ( !colab.nombre || !colab.apellido_materno || !colab.apellido_paterno ) {
+                    return this.router.navigate( [ '/colaborador/registro' ] ),
                         $( 'app-loading' ).fadeOut();
-
-                    var expLaboralDoc = await coRef.collection( 'info' ).doc( 'exp_laboral' ).get()
-                    if ( !expLaboralDoc.exists ) return this.router.navigate( [ '/colaborador/exp_laboral', colab.uid ] ),
+                }
+                var datosDoc = await coRef.collection( 'info' ).doc( 'datos' ).get()
+                if ( !datosDoc.exists ) {
+                    return this.router.navigate( [ '/colaborador/reg-datos', colab.uid ] ),
                         $( 'app-loading' ).fadeOut();
+                }
 
-                    if ( !perfil.imgPerfil || !perfil.identFront || !perfil.identBack )
-                        return this.router.navigate( [ '/colaborador/add_imagen', colab.uid ] ),
-                            $( 'app-loading' ).fadeOut();
+                var expLaboralDoc = await coRef.collection( 'info' ).doc( 'exp_laboral' ).get()
+                if ( !expLaboralDoc.exists ) {
+                    return this.router.navigate( [ '/colaborador/exp_laboral', colab.uid ] ),
+                        $( 'app-loading' ).fadeOut();
+                }
+
+                if ( !colab.imgPerfil || !colab.identFront || !colab.identBack ) {
+                    return this.router.navigate( [ '/colaborador/add_imagen', colab.uid ] ),
+                        $( 'app-loading' ).fadeOut();
+                } else {
 
                     return this.router.navigate( [ '/colaborador/login/estado/solicitud' ] ), $( 'app-loading' ).fadeOut(), this._auth.logout()
-                
-                } else if ( perfil.estado == 'inactivo' ) {
-                
-                    this.router.navigate( [ '/colaborador/login/estado/inactivo' ] )
-                    $( 'app-loading' ).fadeOut()
-                    this._auth.logout()
-
-                } else {
-                    this.router.navigate( [ '/colaborador' ] )
-                    $( 'app-loading' ).fadeOut()
                 }
-            } else {
-
+                
+            } else if ( colab.estado == 'inactivo' ) {
+            
+                this.router.navigate( [ '/colaborador/login/estado/inactivo' ] )
                 $( 'app-loading' ).fadeOut()
-                alert('Necesitas registrarte de nuevo')
-                this.router.navigate( [ '/colaborador/registro' ] )
+                this._auth.logout()
+
+            } else {
+                this.router.navigate( [ '/colaborador' ] )
+                $( 'app-loading' ).fadeOut()
             }
-        } 
+            
+        } else {
+
+            $( 'app-loading' ).fadeOut()
+            alert('Necesitas registrarte de nuevo')
+            this.router.navigate( [ '/colaborador/registro' ] )
+        }
+        
     } )
     
 
